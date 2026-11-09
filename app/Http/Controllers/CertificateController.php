@@ -20,7 +20,7 @@ class CertificateController extends Controller
 
     public function revoke(Certificate $certificate)
     {
-        $this->authorize('update', $certificate);
+        $this->authorize('revoke', $certificate);
         $certificate->update(['revoked_at' => now()]);
 
         return back()->with('success', "Sertifikat {$certificate->number} dicabut.");
@@ -28,7 +28,7 @@ class CertificateController extends Controller
 
     public function reissue(Certificate $certificate)
     {
-        $this->authorize('update', $certificate);
+        $this->authorize('revoke', $certificate);
         GenerateCertificatePdf::dispatch($certificate); // nomor & kode verifikasi tetap; revoked_at dikosongkan
 
         return back()->with('success', "Sertifikat {$certificate->number} sedang diterbitkan ulang.");

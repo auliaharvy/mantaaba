@@ -15,7 +15,7 @@
                 <div class="{{ $welcome->cover ? 'lg:col-span-3' : 'lg:col-span-5 max-w-3xl' }}">
                     <x-site.section-heading eyebrow="Sambutan" :title="$welcome->title" />
                     <div class="prose-cms">{!! $welcome->excerpt ? e($welcome->excerpt) : Str::limit(strip_tags($welcome->body), 600) !!}</div>
-                    <div class="mt-6"><x-site.button :href="route('site.profile')" variant="outline">Profil Organisasi</x-site.button></div>
+                    <div class="mt-6"><x-site.button :href="route('site.profile')" variant="outline">Profil Lengkap</x-site.button></div>
                 </div>
             </div>
         </section>
@@ -38,11 +38,11 @@
     <section class="py-16">
         <div class="container-site">
             <div class="flex flex-wrap items-end justify-between gap-4">
-                <x-site.section-heading eyebrow="Pusat Pelatihan" title="Event Mendatang" description="PPL, Brevet Pajak, seminar, dan webinar." class="mb-0" />
-                <a href="{{ route('site.training') }}" class="inline-flex items-center gap-1 font-semibold text-brand-secondary">Semua event <x-site.icon name="arrow-right" class="h-4 w-4" /></a>
+                <x-site.section-heading eyebrow="Agenda" title="Kegiatan Mendatang" description="Kajian, open house, dan kegiatan Rumah Mantaaba Sigaling." class="mb-0" />
+                <a href="{{ route('site.training') }}" class="inline-flex items-center gap-1 font-semibold text-brand-secondary">Semua agenda <x-site.icon name="arrow-right" class="h-4 w-4" /></a>
             </div>
             @if ($events->isEmpty())
-                <x-site.empty-state title="Belum ada jadwal pelatihan" icon="calendar" class="mt-8" />
+                <x-site.empty-state title="Belum ada agenda" icon="calendar" class="mt-8" />
             @else
                 <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">@foreach ($events as $event)<x-site.card-event :event="$event" />@endforeach</div>
             @endif
@@ -72,11 +72,11 @@
     <section class="py-16">
         <div class="container-site">
             <div class="rounded-2xl bg-brand-secondary px-6 py-12 text-center text-white sm:px-12">
-                <h2 class="text-2xl text-white sm:text-3xl">Bergabung Menjadi Anggota AKP2I</h2>
-                <p class="mx-auto mt-3 max-w-2xl text-white/90">Pendaftaran anggota baru diproses oleh Pengurus Pusat. Setelah terdaftar, data Anda tercatat di PD Jawa Barat dan PC sesuai domisili.</p>
+                <h2 class="text-2xl text-white sm:text-3xl">Program Pendidikan Gratis untuk Pemuda</h2>
+                <p class="mx-auto mt-3 max-w-2xl text-white/90">Inkubasi karakter & vokasi bisnis 6 bulan, berasrama, seluruh biaya ditanggung. Penerimaan dibuka per angkatan.</p>
                 <div class="mt-8 flex flex-wrap justify-center gap-3">
-                    <x-site.button :href="$site->url_registration" variant="light" target="_blank" rel="noopener">Daftar Sekarang</x-site.button>
-                    <x-site.button :href="route('site.membership')" variant="ghost-light">Tentang Keanggotaan</x-site.button>
+                    <x-site.button :href="route('site.contact')" variant="light">Tanya Pendaftaran</x-site.button>
+                    <x-site.button :href="route('site.profile')" variant="ghost-light">Tentang Program</x-site.button>
                 </div>
             </div>
         </div>

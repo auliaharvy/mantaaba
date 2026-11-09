@@ -1,4 +1,4 @@
-<x-site.layout title="Peraturan Organisasi" description="AD/ART, Peraturan Organisasi, dan SK AKP2I.">
+<x-site.layout title="Dokumen" description="Profil lembaga, laporan transparansi, pedoman, dan formulir Rumah Mantaaba Sigaling.">
     <x-site.breadcrumb-header title="Peraturan Organisasi" :crumbs="['Profil' => route('site.profile'), 'Peraturan Organisasi']" />
     <div class="container-site py-12">
         @forelse ($documents as $category => $items)

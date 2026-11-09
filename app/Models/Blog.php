@@ -14,7 +14,7 @@ class Blog extends Model
 
     public const STATUSES = ['draft' => 'Draf', 'review' => 'Menunggu review', 'published' => 'Terbit'];
 
-    protected $fillable = ['title', 'slug', 'excerpt', 'body', 'thumbnail', 'status', 'published_at', 'category_id', 'organization_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'excerpt', 'body', 'thumbnail', 'status', 'published_at', 'category_id', 'user_id'];
 
     protected $casts = ['published_at' => 'datetime'];
 
@@ -31,11 +31,6 @@ class Blog extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
-    }
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
     }
 
     public function scopePublished($query)

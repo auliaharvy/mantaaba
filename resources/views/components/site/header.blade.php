@@ -1,24 +1,15 @@
-{{-- Menu tetap di kode (PRD 7); isi halaman dari CMS. --}}
+{{-- Menu sementara di kode; mulai M1 dari Menu Manager (PRD 9.1.2). --}}
 @props(['site'])
 @php
     $menu = [
         ['label' => 'Beranda', 'route' => 'site.home'],
-        ['label' => 'Profil', 'children' => [
+        ['label' => 'Tentang', 'children' => [
             ['label' => 'Profil', 'route' => 'site.profile'],
-            ['label' => 'Pengurus', 'route' => 'site.board'],
-            ['label' => 'Pengurus Cabang', 'route' => 'site.branches', 'active' => 'site.branch*'],
             ['label' => 'Galeri', 'route' => 'site.gallery', 'active' => 'site.gallery*'],
-            ['label' => 'Peraturan Organisasi', 'route' => 'site.documents'],
+            ['label' => 'Dokumen', 'route' => 'site.documents'],
         ]],
-        ['label' => 'Keanggotaan', 'children' => [
-            ['label' => 'Tentang Keanggotaan', 'route' => 'site.membership'],
-            ['label' => 'Layanan Keanggotaan', 'route' => 'site.membership.services'],
-            ['label' => 'Cek Anggota', 'route' => 'site.membership.check'],
-        ]],
-        ['label' => 'Pusat Pelatihan', 'route' => 'site.training', 'active' => 'site.training*'],
+        ['label' => 'Agenda', 'route' => 'site.training', 'active' => 'site.training*'],
         ['label' => 'Berita', 'route' => 'site.news', 'active' => 'site.news*'],
-        ['label' => 'Jurnal', 'route' => 'site.journal', 'active' => 'site.journal*'],
-        ['label' => 'Forum', 'route' => 'site.forum', 'active' => 'site.forum*'],
         ['label' => 'Kontak', 'route' => 'site.contact'],
     ];
     $isActive = fn ($item) => isset($item['children'])
@@ -80,7 +71,7 @@
                 </li>
             @endforeach
             <li class="flex flex-col gap-2 pt-4">
-                <x-site.button :href="$site->url_registration" target="_blank" rel="noopener">Pendaftaran Anggota</x-site.button>
+                <x-site.button :href="route('site.contact')">Info Pendaftaran</x-site.button>
                 @auth
                     <x-site.button :href="route('home')" variant="outline">Dashboard</x-site.button>
                 @else

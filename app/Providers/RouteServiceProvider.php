@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -38,16 +37,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        // B4: halaman Umum hanya bisa membuka akun umum, halaman Anggota hanya akun non-umum
-        Route::bind('general', fn ($id) => User::role('umum')->findOrFail($id));
-        Route::bind('member', fn ($id) => User::role(['super_administrator', 'admin_pd', 'editor', 'admin_pc', 'anggota'])->findOrFail($id));
-
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
@@ -61,14 +51,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
-
-        // PRD 8.5 & 7: form kontak 5/menit/IP, cek anggota 10/menit/IP
+        // PRD 10: form kontak 5/menit/IP
         RateLimiter::for('contact', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
-        RateLimiter::for('member-check', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
-        // PRD 8.7: 10 komentar/menit/user
-        RateLimiter::for('comments', fn (Request $request) => Limit::perMinute(10)->by($request->user()?->id ?: $request->ip()));
     }
 }

@@ -1,4 +1,4 @@
-<x-dashboard.page :title="$event->title" :crumbs="['Pelatihan Saya', 'Rincian']">
+<x-dashboard.page :title="$event->title" :crumbs="['Agenda Saya', 'Rincian']">
     <div class="row g-5">
         <div class="col-lg-7">
             <div class="card mb-5">
@@ -25,7 +25,7 @@
                     <div class="card-header"><div class="card-title fs-4 fw-bolder">Pembayaran</div></div>
                     <div class="card-body">
                         <p>Transfer <strong>Rp{{ number_format($participant->amount, 0, ',', '.') }}</strong> ke rekening berikut, lalu unggah bukti transfer.</p>
-                        <div class="bg-light rounded p-4 mb-5" style="white-space: pre-line">{{ $bank ?: 'Info rekening belum diisi panitia. Hubungi sekretariat.' }}</div>
+                        <div class="bg-light rounded p-4 mb-5" style="white-space: pre-line">{{ $bank ?: 'Info rekening belum diisi panitia. Hubungi pengurus.' }}</div>
                         @if ($participant->payment_proof)
                             <div class="alert alert-light-success py-2">Bukti sudah diunggah (<a href="{{ route('participant.proof', $participant) }}" target="_blank">lihat</a>). Menunggu verifikasi panitia; Anda bisa menggantinya bila perlu.</div>
                         @endif
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             @elseif ($participant->certificate)
-                <a class="btn btn-sm btn-success" href="{{ Storage::disk('public')->url($participant->certificate) }}" target="_blank"><i class="fa fa-download"></i> Unduh sertifikat</a>
+                <a class="btn btn-sm btn-success" href="{{ route('participant.manual-certificate.download', $participant) }}"><i class="fa fa-download"></i> Unduh sertifikat</a>
             @endif
         </div>
         <div class="col-lg-5">

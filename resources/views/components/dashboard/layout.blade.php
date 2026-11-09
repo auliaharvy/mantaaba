@@ -33,8 +33,8 @@
                             </span>
                         </div>
                         <a href="{{ route('home') }}">
-                            <img alt="Logo" src="{{ asset('media/logos/akp2i.png') }}" class="d-none d-lg-inline h-60px" />
-                            <img alt="Logo" src="{{ asset('media/logos/akp2i.png') }}" class="d-lg-none h-25px" />
+                            <img alt="Logo" src="{{ App\Models\Setting::current()->imageUrl('logo', 'media/logos/logo-mantaaba-512.jpg') }}" class="d-none d-lg-inline h-60px" />
+                            <img alt="Logo" src="{{ App\Models\Setting::current()->imageUrl('logo', 'media/logos/logo-mantaaba-512.jpg') }}" class="d-lg-none h-40px" />
                         </a>
                     </div>
 

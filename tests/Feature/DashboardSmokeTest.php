@@ -38,11 +38,8 @@ class DashboardSmokeTest extends TestCase
     {
         return [
             'super admin' => ['superadmin@mail.com'],
-            'admin pd' => ['admin@mail.com'],
-            'editor' => ['editor@mail.com'],
-            'admin pc' => ['adminpc@mail.com'],
-            'anggota' => ['member@mail.com'],
-            'umum' => ['general@mail.com'],
+            'pengurus' => ['pengurus@mail.com'],
+            'anggota' => ['anggota@mail.com'],
         ];
     }
 
@@ -64,18 +61,10 @@ class DashboardSmokeTest extends TestCase
     public function test_dashboard_model_pages_do_not_error(string $email)
     {
         $models = [
-            'blog' => \App\Models\Blog::first(), 'thread' => \App\Models\Thread::first(),
-            'comment' => \App\Models\Comment::first(), 'research' => \App\Models\Research::first(),
+            'blog' => \App\Models\Blog::first(),
             'event' => \App\Models\Event::first(), 'participant' => \App\Models\Participant::first(),
-            'division' => \App\Models\Division::first(), 'position' => \App\Models\Position::first(),
-            'setting' => \App\Models\Setting::first(),
-            'member' => User::where('email', 'member@mail.com')->first(),
-            'general' => User::where('email', 'general@mail.com')->first(),
-            'administrator' => User::where('email', 'admin@mail.com')->first(),
-            'organization' => \App\Models\Organization::pc()->first(),
-            'membership' => \App\Models\Member::first(),
-            'board' => \App\Models\BoardPeriod::first(),
-            'due' => \App\Models\MemberDue::first(),
+            'page' => \App\Models\Page::first(),
+            'user' => User::where('email', 'anggota@mail.com')->first(),
         ];
         $user = User::where('email', $email)->firstOrFail();
 
@@ -85,7 +74,7 @@ class DashboardSmokeTest extends TestCase
                 || count($m[1]) !== 1 || ! isset($models[$m[1][0]])) {
                 continue;
             }
-            $uri = '/' . str_replace('{' . $m[1][0] . '}', $models[$m[1][0]]->getKey(), $route->uri());
+            $uri = '/' . str_replace('{' . $m[1][0] . '}', $models[$m[1][0]]->getRouteKey(), $route->uri());
             $status = $this->actingAs($user)->get($uri)->getStatusCode();
             $this->assertLessThan(500, $status, "GET {$uri} sebagai {$email} -> {$status}");
         }

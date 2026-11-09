@@ -26,6 +26,7 @@ trait LogsActivity
 
     protected function loggableAttributes(array $attributes): array
     {
-        return array_diff_key($attributes, array_flip(['created_at', 'updated_at', 'deleted_at']));
+        // $logExcept di model: kolom rahasia yang tidak boleh masuk log (mis. password)
+        return array_diff_key($attributes, array_flip(['created_at', 'updated_at', 'deleted_at', ...($this->logExcept ?? [])]));
     }
 }

@@ -33,10 +33,10 @@ class IssueEventCertificates implements ShouldQueue
             if ($certificate?->isValid()) {
                 continue; // sudah terbit; terbitkan ulang lewat tombol per sertifikat
             }
-            // Q3 default: {urut 3 digit}/SERT/{code}/AKP2I-JABAR/{tahun}
+            // {urut 3 digit}/SERT/{kode agenda}/RMS/{tahun}; diganti format per skema di M3 (PRD 9.7)
             $certificate ??= Certificate::create([
                 'participant_id' => $participant->id,
-                'number' => sprintf('%03d/SERT/%s/AKP2I-JABAR/%d', $i + 1, $this->event->code, $year),
+                'number' => sprintf('%03d/SERT/%s/RMS/%d', $i + 1, $this->event->code, $year),
                 'verification_code' => $this->uniqueCode(),
             ]);
             GenerateCertificatePdf::dispatch($certificate);

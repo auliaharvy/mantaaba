@@ -1,10 +1,10 @@
 @props(['stats'])
 @php
     $items = [
-        ['value' => $stats['members'], 'label' => 'Total Anggota', 'icon' => 'users'],
-        ['value' => $stats['licensed'], 'label' => 'Anggota Berizin (Utama)', 'icon' => 'shield'],
-        ['value' => $stats['branches'], 'label' => 'Pengurus Cabang', 'icon' => 'building'],
-        ['value' => $stats['events'], 'label' => 'Event Terselenggara', 'icon' => 'calendar'],
+        ['value' => 6, 'label' => 'Bulan Inkubasi', 'icon' => 'shield'],
+        ['value' => 5, 'label' => 'Skema Kompetensi', 'icon' => 'document'],
+        ['value' => $stats['events'], 'label' => 'Agenda Terselenggara', 'icon' => 'calendar'],
+        ['value' => $stats['news'], 'label' => 'Berita & Kabar', 'icon' => 'users'],
     ];
 @endphp
 <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">

@@ -1,4 +1,4 @@
-<x-site.layout title="Galeri" description="Dokumentasi kegiatan PD AKP2I Jawa Barat.">
+<x-site.layout title="Galeri" description="Dokumentasi kegiatan Rumah Mantaaba Sigaling.">
     <x-site.breadcrumb-header title="Galeri" :crumbs="['Profil' => route('site.profile'), 'Galeri']" />
     <div class="container-site py-12">
         @if ($galleries->isEmpty())

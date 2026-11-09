@@ -5,12 +5,12 @@
 <head>
     <title>Reset Password | {{ config('app.name') }}</title>
     <meta charset="utf-8" />
-    <meta name="description" content="Website dan aplikasi Pengurus Daerah Asosiasi Konsultan Pajak Publik Indonesia (AKP2I) Jawa Barat" />
-    <meta name="keywords" content="AKP2I, AKP2I Jawa Barat, konsultan pajak, PPL, brevet pajak, Jawa Barat" />
+    <meta name="description" content="Rumah Mantaaba Sigaling: pembinaan karakter &amp; vokasi bisnis pemuda menuju masyarakat Indonesia yang transparan pajak." />
+    <meta name="keywords" content="Rumah Mantaaba Sigaling, Yayasan Mantaaba, pendidikan gratis, vokasi bisnis, asrama, transparansi pajak" />
     <meta name="viewport" content="width= device-width, initial-scale=1, shrink-to-fit=no" />
     <meta property="og:locale" content="id, in" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
-    <link rel="shortcut icon" href="{{ asset('media/logos/akp2i-icon.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('media/logos/favicon-32.png') }}" />
     <!--begin::Fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -32,7 +32,7 @@
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <!--begin::Logo-->
                 <a href="#" class="mb-12">
-                    <img alt="Logo" src="{{ asset('media/logos/akp2i.png') }}" class="h-100px" />
+                    <img alt="Logo" src="{{ App\Models\Setting::current()->imageUrl('logo', 'media/logos/logo-mantaaba-512.jpg') }}" class="h-100px" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Wrapper-->

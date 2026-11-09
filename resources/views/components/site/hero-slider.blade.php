@@ -1,14 +1,14 @@
-{{-- Hero slider (PRD 6.2): gambar + overlay hijau gelap 60%, judul, subjudul, CTA. Isi dari tabel sliders. --}}
+{{-- Hero slider: gambar + overlay gelap 60%, judul, subjudul, CTA. Isi dari tabel sliders. --}}
 @props(['sliders', 'site'])
 @if ($sliders->isEmpty())
     <section class="relative bg-brand-heading text-white">
         <div class="container-site py-20 sm:py-28">
-            <p class="mb-3 text-xs font-bold uppercase tracking-widest text-white/80">Pengurus Daerah Jawa Barat</p>
-            <h1 class="max-w-3xl text-3xl text-white sm:text-5xl">Asosiasi Konsultan Pajak Publik Indonesia</h1>
-            <p class="mt-4 max-w-2xl text-lg text-white/90">{{ $site->tagline ?? 'Wadah konsultan pajak di Jawa Barat untuk berkembang, berjejaring, dan melayani wajib pajak secara profesional.' }}</p>
+            <p class="mb-3 text-xs font-bold uppercase tracking-widest text-white/80">Yayasan Mantaaba</p>
+            <h1 class="max-w-3xl text-3xl text-white sm:text-5xl">{{ $site->site_name }}</h1>
+            <p class="mt-4 max-w-2xl text-lg text-white/90">{{ $site->tagline ?? 'Wadah pembinaan karakter & vokasi bisnis pemuda menuju masyarakat Indonesia yang transparan pajak.' }}</p>
             <div class="mt-8 flex flex-wrap gap-3">
-                <x-site.button :href="$site->url_registration" variant="light" target="_blank" rel="noopener">Bergabung Menjadi Anggota</x-site.button>
-                <x-site.button :href="route('site.training')" variant="ghost-light">Pusat Pelatihan</x-site.button>
+                <x-site.button :href="route('site.profile')" variant="light">Kenali Kami</x-site.button>
+                <x-site.button :href="route('site.training')" variant="ghost-light">Agenda</x-site.button>
             </div>
         </div>
     </section>

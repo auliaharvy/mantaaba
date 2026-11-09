@@ -4,29 +4,23 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+/**
+ * PRD 13: data inti selalu dijalankan; akun & konten contoh (password "password") hanya di luar produksi.
+ */
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         $this->call([
-            OrganizationSeeder::class,
-            DivisionSeeder::class,
-            PositionSeeder::class,
-            UserSeeder::class,
-            MemberSeeder::class,
+            RolePermissionSeeder::class,
+            SettingSeeder::class,
+            PageSeeder::class,
             ContentTaxonomySeeder::class,
-            BlogSeeder::class,
-            ResearchSeeder::class,
-            ThreadSeeder::class,
-            CommentSeeder::class,
-            EventSeeder::class,
-            ParticipantSeeder::class,
-            SettingSeeder::class
+            SuperAdminSeeder::class,
         ]);
+
+        if (! app()->isProduction()) {
+            $this->call([UserSeeder::class, BlogSeeder::class, EventSeeder::class, ParticipantSeeder::class]);
+        }
     }
 }

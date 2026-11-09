@@ -1,7 +1,7 @@
 @php($open = $event->registrationOpen())
 <x-site.layout :title="$event->title" :description="Str::limit(trim(strip_tags($event->body)), 160)" type="article"
     :image="$event->thumbnail ? Storage::disk('public')->url($event->thumbnail) : null">
-    <x-site.breadcrumb-header :title="$event->title" :crumbs="['Pusat Pelatihan' => route('site.training'), Str::limit($event->title, 40)]" />
+    <x-site.breadcrumb-header :title="$event->title" :crumbs="['Agenda' => route('site.training'), Str::limit($event->title, 40)]" />
     <div class="container-site grid gap-10 py-12 lg:grid-cols-3">
         <article class="lg:col-span-2">
             @if ($event->thumbnail)<img src="{{ Storage::disk('public')->url($event->thumbnail) }}" alt="Poster {{ $event->title }}" class="mb-8 w-full rounded-lg">@endif
@@ -30,9 +30,9 @@
                         <p class="text-sm font-bold text-red-700">Kuota penuh.</p>
                     @elseif (! auth()->check())
                         <x-site.button :href="route('login')" class="w-full">Masuk untuk mendaftar</x-site.button>
-                        <p class="mt-3 text-center text-sm">Belum punya akun? <a href="{{ route('register') }}" class="font-semibold text-brand-secondary underline">Buat akun</a></p>
+                        <p class="mt-3 text-center text-sm">Belum punya akun? <a href="{{ route('site.contact') }}" class="font-semibold text-brand-secondary underline">Hubungi pengurus</a></p>
                     @elseif ($event->audience === 'anggota' && ! auth()->user()->hasRole('anggota'))
-                        <p class="text-sm font-semibold text-gray-700">Event ini khusus anggota AKP2I.</p>
+                        <p class="text-sm font-semibold text-gray-700">Agenda ini khusus anggota Rumah Mantaaba Sigaling.</p>
                     @else
                         <form method="POST" action="{{ route('site.training.register', $event->slug) }}">
                             @csrf

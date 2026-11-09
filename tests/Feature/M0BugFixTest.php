@@ -2,17 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Models\Division;
 use App\Models\Event;
 use App\Models\Participant;
-use App\Models\Position;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-/** Test regresi bug PRD 3.3 yang tidak bergantung pada role baru. */
+/** Test regresi bug lama + perbaikan teknis PRD 3.4 (T4). */
 class M0BugFixTest extends TestCase
 {
     use RefreshDatabase;
@@ -43,7 +41,7 @@ class M0BugFixTest extends TestCase
 
     public function test_b1_profile_update_only_changes_logged_in_user()
     {
-        $member = $this->user('member@mail.com');
+        $member = $this->user('anggota@mail.com');
         $victim = $this->user('superadmin@mail.com');
 
         $this->actingAs($member)->patch('/dashboard/profil', $this->profilePayload())->assertRedirect(route('profile.index'));
@@ -54,19 +52,20 @@ class M0BugFixTest extends TestCase
 
     public function test_b1_old_profile_urls_with_user_id_are_gone()
     {
-        $member = $this->user('member@mail.com');
+        $member = $this->user('anggota@mail.com');
         $victim = $this->user('superadmin@mail.com');
 
         $this->actingAs($member)->patch("/dashboard/profile/{$victim->id}", $this->profilePayload())->assertNotFound();
-        $this->actingAs($member)->patch("/dashboard/profile/password/{$victim->id}", ['password' => 'hacked123', 'password_confirm' => 'hacked123'])->assertNotFound();
-        $this->actingAs($member)->patch('/dashboard/profil/password', ['password' => 'rahasia123', 'password_confirm' => 'rahasia123']);
+        $this->actingAs($member)->patch("/dashboard/profile/password/{$victim->id}", ['password' => 'hacked123', 'password_confirmation' => 'hacked123'])->assertNotFound();
+        $this->actingAs($member)->patch('/dashboard/profil/password', ['password' => 'rahasia123', 'password_confirmation' => 'rahasia123'])->assertSessionHasNoErrors();
 
         $this->assertTrue(password_verify('password', $victim->fresh()->password));
         $this->assertTrue(password_verify('rahasia123', $member->fresh()->password));
     }
 
-    public function test_b6_b11_manual_certificate_file_is_replaced_with_random_name()
+    public function test_t4_manual_certificate_is_private_and_replaced()
     {
+        Storage::fake('local');
         Storage::fake('public');
         $participant = Participant::first();
         $admin = $this->user('superadmin@mail.com');
@@ -79,8 +78,9 @@ class M0BugFixTest extends TestCase
 
         $this->assertNotSame($old, $new);
         $this->assertStringNotContainsString('sertifikat.pdf', $new);
-        Storage::disk('public')->assertExists($new);
-        Storage::disk('public')->assertMissing($old);
+        Storage::disk('local')->assertExists($new);
+        Storage::disk('local')->assertMissing($old);
+        $this->assertSame([], Storage::disk('public')->allFiles());
     }
 
     public function test_b11_participant_cannot_register_twice_for_same_event()
@@ -93,37 +93,30 @@ class M0BugFixTest extends TestCase
         $this->assertSame(1, Participant::where('event_id', $participant->event_id)->where('user_id', $participant->user_id)->count());
     }
 
-    public function test_b7_certificate_link_points_to_stored_file()
+    public function test_t4_manual_certificate_download_only_for_owner_and_agenda_managers()
     {
-        $member = $this->user('member@mail.com');
-        $participant = Participant::factory()->create(['event_id' => Event::factory()->create()->id, 'user_id' => $member->id, 'certificate' => 'participant/certificate/abc.png']);
+        Storage::fake('local');
+        $member = $this->user('anggota@mail.com');
+        $other = User::factory()->create()->assignRole('anggota');
+        Storage::disk('local')->put('participant/certificate/abc.pdf', 'PDF');
+        $participant = Participant::factory()->create(['event_id' => Event::factory()->create()->id, 'user_id' => $member->id, 'certificate' => 'participant/certificate/abc.pdf']);
 
-        $this->actingAs($member)->get(route('my-training.show', $participant))->assertOk()->assertSee('/storage/participant/certificate/abc.png', false);
+        $this->actingAs($member)->get(route('my-training.show', $participant))->assertOk()->assertSee(route('participant.manual-certificate.download', $participant), false);
+        $this->actingAs($member)->get(route('participant.manual-certificate.download', $participant))->assertOk();
+        $this->actingAs($other)->get(route('participant.manual-certificate.download', $participant))->assertForbidden();
+        $this->actingAs($this->user('pengurus@mail.com'))->get(route('participant.manual-certificate.download', $participant))->assertOk();
     }
 
     public function test_b8_dashboard_home_works_without_events()
     {
         Event::query()->delete();
 
-        $this->actingAs($this->user('superadmin@mail.com'))->get('/dashboard')->assertOk()->assertSee('Belum ada acara');
+        $this->actingAs($this->user('superadmin@mail.com'))->get('/dashboard')->assertOk()->assertSee('Belum ada agenda mendatang');
     }
 
     public function test_b9_root_and_logout_do_not_404()
     {
         $this->get('/')->assertOk(); // M2: beranda publik menggantikan redirect sementara
-        $this->actingAs($this->user('member@mail.com'))->post('/logout')->assertRedirect('/');
-    }
-
-    public function test_b10_position_name_unique_per_division()
-    {
-        $admin = $this->user('superadmin@mail.com');
-        $a = Division::create(['name' => 'Bidang A']);
-        $b = Division::create(['name' => 'Bidang B']);
-        Position::create(['division_id' => $a->id, 'name' => 'Koordinator']);
-
-        $this->actingAs($admin)->post(route('position.store'), ['division_id' => $b->id, 'name' => 'Koordinator'])->assertSessionHasNoErrors();
-        $this->actingAs($admin)->post(route('position.store'), ['division_id' => $a->id, 'name' => 'Koordinator'])->assertSessionHasErrors('name');
-
-        $this->assertSame(['Koordinator'], $b->positions()->pluck('name')->all());
+        $this->actingAs($this->user('anggota@mail.com'))->post('/logout')->assertRedirect('/');
     }
 }

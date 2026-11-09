@@ -10,7 +10,7 @@
                 <div><dt class="text-sm text-gray-600">Nama peserta</dt><dd class="text-xl font-bold text-brand-heading">{{ $participant->user->name }}</dd></div>
                 <div><dt class="text-sm text-gray-600">Event</dt><dd class="font-semibold">{{ $participant->event->title }}</dd></div>
                 <div><dt class="text-sm text-gray-600">Tanggal</dt><dd>{{ $participant->event->starts_at?->translatedFormat('j F Y') }}</dd></div>
-                <div><dt class="text-sm text-gray-600">Penyelenggara</dt><dd>{{ $participant->event->organization?->name }}</dd></div>
+                <div><dt class="text-sm text-gray-600">Penyelenggara</dt><dd>{{ config('app.name') }}</dd></div>
                 @if ($participant->event->skp_hours)<div><dt class="text-sm text-gray-600">Jam SKP</dt><dd>{{ rtrim(rtrim(number_format($participant->event->skp_hours, 2, ',', '.'), '0'), ',') }}</dd></div>@endif
             </dl>
         </div>

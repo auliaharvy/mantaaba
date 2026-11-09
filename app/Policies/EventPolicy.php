@@ -2,12 +2,7 @@
 
 namespace App\Policies;
 
-class EventPolicy extends ScopedModulePolicy
+class EventPolicy extends ModulePolicy
 {
-    protected string $module = 'event';
-
-    protected function organizationId($event): ?int
-    {
-        return $event->organization_id;
-    }
+    protected string $module = 'agenda';
 }

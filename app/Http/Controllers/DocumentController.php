@@ -12,7 +12,7 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:document-view')->only(['index', 'datatable']);
+        $this->middleware('permission:cms-view')->only(['index', 'datatable']);
         $this->authorizeResource(Document::class, 'document');
     }
 

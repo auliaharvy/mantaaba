@@ -24,7 +24,7 @@
             <span><strong>Jenis:</strong> {{ App\Models\Event::TYPES[$event->type] }} ({{ $event->code }})</span>
             <span><strong>Jadwal:</strong> {{ $event->starts_at?->translatedFormat('j M Y H:i') }} – {{ $event->ends_at?->translatedFormat('j M Y H:i') }}</span>
             <span><strong>Biaya:</strong> anggota Rp{{ number_format($event->fee_member, 0, ',', '.') }} · umum Rp{{ number_format($event->fee_public, 0, ',', '.') }}</span>
-            <span><strong>Penyelenggara:</strong> {{ $event->organization?->name }}</span>
+
         </div>
     </div>
 

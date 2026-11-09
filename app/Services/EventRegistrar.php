@@ -26,7 +26,7 @@ class EventRegistrar
                 $fail('Pendaftaran event ini sedang tidak dibuka.');
             }
             if ($event->audience === 'anggota' && ! $user->hasRole('anggota')) {
-                $fail('Event ini khusus anggota AKP2I.');
+                $fail('Agenda ini khusus anggota Rumah Mantaaba Sigaling.');
             }
             $existing = Participant::where('event_id', $event->id)->where('user_id', $user->id)->first();
             if ($existing && in_array($existing->status, ['pending', 'verified'], true)) {

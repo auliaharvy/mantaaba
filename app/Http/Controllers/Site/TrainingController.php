@@ -10,7 +10,7 @@ use App\Services\EventRegistrar;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-/** Pusat Pelatihan publik (PRD 7, 8.9). */
+/** Agenda publik (PRD 8, 9.8). */
 class TrainingController extends Controller
 {
     public function index(Request $request)
@@ -23,7 +23,7 @@ class TrainingController extends Controller
         ]);
         $tab = $data['tab'] ?? 'mendatang';
 
-        $events = Event::public()->with('organization')
+        $events = Event::public()
             ->when($tab === 'selesai', fn ($q) => $q->where(fn ($w) => $w->where('status', 'done')->orWhere('ends_at', '<', now()))->latest('starts_at'),
                 fn ($q) => $q->where('status', '!=', 'done')->where('ends_at', '>=', now())->oldest('starts_at'))
             ->when($data['jenis'] ?? null, fn ($q, $v) => $q->where('type', $v))
@@ -36,7 +36,7 @@ class TrainingController extends Controller
 
     public function show(Request $request, string $slug)
     {
-        $event = Event::public()->where('slug', $slug)->with('organization')->firstOrFail();
+        $event = Event::public()->where('slug', $slug)->firstOrFail();
         $user = $request->user();
 
         return view('site.training.show', [
@@ -62,7 +62,7 @@ class TrainingController extends Controller
     public function certificate(string $code)
     {
         $certificate = Certificate::where('verification_code', strtoupper($code))->whereNotNull('issued_at')
-            ->with('participant.user', 'participant.event.organization')->firstOrFail();
+            ->with('participant.user', 'participant.event')->firstOrFail();
 
         return view('site.training.certificate', compact('certificate'));
     }

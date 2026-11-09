@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'AKP2I Jawa Barat'),
+    'name' => env('APP_NAME', 'Rumah Mantaaba Sigaling'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,7 +177,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\ViewServiceProvider\AsideProvider::class,
 
     ],
 

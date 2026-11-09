@@ -58,7 +58,7 @@ class LoginRequest extends FormRequest
             Auth::guard('web')->logout();
 
             throw ValidationException::withMessages([
-                'email' => 'Akun Anda dinonaktifkan. Hubungi sekretariat PD AKP2I Jawa Barat.',
+                'email' => 'Akun Anda dinonaktifkan. Hubungi pengurus Rumah Mantaaba Sigaling.',
             ]);
         }
 

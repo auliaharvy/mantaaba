@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:page-view')->only(['index', 'datatable']);
+        $this->middleware('permission:cms-view')->only(['index', 'datatable']);
         $this->authorizeResource(Page::class, 'page');
     }
 

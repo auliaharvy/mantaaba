@@ -3,42 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Thread;
-use App\Models\Research;
+use App\Models\ContactMessage;
 use App\Models\Event;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 
+/** Beranda dashboard. Kartu tampil sesuai permission; dashboard lengkap per peran di M8 (PRD 9.19). */
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $counter = [
-            'blog' => Blog::published()->count(),
-            'thread' => Thread::published()->count(),
-            'research' =>  Research::select('id')->count(),
-            'event' => Event::select('id')->count(),
-            'user' => User::select('id')->count()
-        ];
+        $user = $request->user();
+        $cards = array_filter([
+            $user->can('news-view') ? ['Berita terbit', Blog::published()->count(), 'fa-newspaper', route('blog.index')] : null,
+            $user->can('agenda-view') ? ['Agenda mendatang', Event::public()->where('starts_at', '>=', now())->count(), 'fa-calendar-alt', route('event.index')] : null,
+            $user->can('contact-message-view') ? ['Pesan belum dibaca', ContactMessage::whereNull('read_at')->count(), 'fa-envelope', route('contact-message.index')] : null,
+            $user->can('user-view') ? ['Pengguna aktif', User::where('is_active', true)->count(), 'fa-users', route('user.index')] : null,
+        ]);
 
-        $members = User::select('id')->role(['super_administrator','admin_pd','anggota'])->get();
-        $generals = User::select('id')->role('umum')->get();
-        $userRoles = [
-            'member' => $members->count(),
-            'general' => $generals->count()
-        ];
+        $event = Event::public()->where('starts_at', '>=', now())->oldest('starts_at')->first();
 
-        $event = Event::public()->latest('starts_at')->first();
-        // B8: dashboard tetap jalan sebelum ada event
-        $date_event = $event
-            ? $event->starts_at?->translatedFormat('j M Y') . ' - ' . $event->ends_at?->translatedFormat('j M Y')
-            : null;
-
-        return view('dashboard.home.index', compact(
-            'counter',
-            'userRoles',
-            'event',
-            'date_event'
-        ));
+        return view('dashboard.home.index', compact('user', 'cards', 'event'));
     }
 }

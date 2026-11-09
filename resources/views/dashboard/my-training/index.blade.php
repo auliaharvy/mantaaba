@@ -1,4 +1,4 @@
-<x-dashboard.page title="Pelatihan Saya" :crumbs="['Pelatihan Saya']">
+<x-dashboard.page title="Agenda Saya" :crumbs="['Agenda Saya']">
     <div class="card">
         <div class="card-header">
             <div class="card-title fs-3 fw-bolder">Event yang Saya Ikuti</div>

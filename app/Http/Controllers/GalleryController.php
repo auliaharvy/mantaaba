@@ -13,7 +13,7 @@ class GalleryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:gallery-view')->only(['index', 'datatable']);
+        $this->middleware('permission:cms-view')->only(['index', 'datatable']);
         $this->authorizeResource(Gallery::class, 'gallery');
     }
 

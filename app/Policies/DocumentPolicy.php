@@ -4,5 +4,5 @@ namespace App\Policies;
 
 class DocumentPolicy extends ModulePolicy
 {
-    protected string $module = 'document';
+    protected string $module = 'cms';
 }

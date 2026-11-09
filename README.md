@@ -1,64 +1,58 @@
-<p align="center"><img width="300px" src="public/media/logos/akp2i.png" alt="AKP2I"></p>
+<p align="center"><img width="200px" src="public/media/logos/logo-mantaaba-512.jpg" alt="Rumah Mantaaba Sigaling"></p>
 
-# Website PD AKP2I Jawa Barat
+# Sistem Informasi & Website Rumah Mantaaba Sigaling
 
-Website resmi dan sistem informasi Pengurus Daerah Asosiasi Konsultan Pajak Publik Indonesia (AKP2I) Provinsi Jawa Barat: situs publik, keanggotaan, iuran, pelatihan/event bersertifikat, serta konten organisasi, dikelola oleh PD dan Pengurus Cabang (PC).
+Website publik (CMS) dan sistem informasi Rumah Mantaaba Sigaling (Yayasan Mantaaba): penerimaan siswa per angkatan, data anggota, pembelajaran & sertifikat per skema (Fundamental, SIM, SIA, SIP, IT), asrama & piket, kebun, kolam, dapur, stok, aset & kendaraan, serta akuntansi nirlaba (ISAK 35) dan donasi.
 
-## Fitur
+- Kebutuhan lengkap: [docs/PRD.md](docs/PRD.md)
+- Progres per milestone: [docs/milestones/](docs/milestones/)
+- Acuan: [Grand Design](docs/Grand%20Design%20%26%20Konsep%20Pendidikan%20Rumah%20Mantaaba%20Sigaling%20-%20Master%20Document.md), [Whitepaper Framework 4 Pilar](docs/WHITEPAPER%20—%20FRAMEWORK%20TATA%20KELOLA%20MANAJEMEN%20PERUSAHAAN%20MAZHAB%20MANTAABA.md)
 
-- **Situs publik**: beranda (slider, berita, agenda, galeri), profil & sambutan, pengurus PD dan halaman tiap PC, berita, galeri, jurnal, forum, dokumen, cek anggota, verifikasi sertifikat, kontak.
-- **Keanggotaan**: data anggota per cabang (Utama/Madya/Pratama/Kehormatan; aktif/skors/berhenti), impor Excel, iuran tahunan dengan bukti bayar, usulan skors otomatis untuk anggota menunggak.
-- **Kepengurusan**: periode, bidang, jabatan, dan pengurus PD maupun PC.
-- **Pelatihan & event** (PPL, Brevet, seminar, webinar): pendaftaran online, biaya anggota/umum, verifikasi bukti transfer, tiket & kehadiran, sertifikat PDF otomatis dengan jam SKP.
-- **Konten**: berita (review editor sebelum tayang), forum dengan laporan, jurnal PDF, galeri, slider, halaman CMS.
-- **Hak akses**: Super Admin, Admin PD, Editor, Admin PC (hanya cabangnya), Anggota, Umum; log aktivitas admin.
+## Peran
 
-Kebutuhan lengkap ada di [docs/PRD.md](docs/PRD.md), progres per milestone di [docs/milestones/](docs/milestones/).
+Tiga role: **Super Admin**, **Pengurus**, **Anggota**. Akses modul diberikan per pengguna lewat layar *Pengguna & Hak Akses* (centang per modul atau paket: Pengurus Inti, Bendahara, Mentor, Koordinator Operasional, Redaksi, Siswa Petugas). Definisi role, modul, paket, dan menu ada di `config/mantaaba.php`.
 
 ## Teknologi
 
-Laravel 12, PHP ≥ 8.2 (ekstensi GD), MySQL 5.7+, Node.js (Vite + Tailwind), spatie/laravel-permission, yajra/laravel-datatables, barryvdh/laravel-dompdf, simplesoftwareio/simple-qrcode.
+Laravel 12 (struktur folder Laravel 8), PHP ≥ 8.2 (ekstensi GD), MySQL 5.7+/8, Vite + Tailwind + Alpine (situs publik), Metronic 8 (dashboard), spatie/laravel-permission, yajra/laravel-datatables, barryvdh/laravel-dompdf, simplesoftwareio/simple-qrcode.
 
-## Instalasi lokal
+## Instalasi lokal (MAMP)
+
+PHP MAMP: `PHP=/Applications/MAMP/bin/php/php8.2.0/bin/php`; MySQL MAMP di `127.0.0.1:8889` (root/root).
 
 ```bash
 composer install
 npm install && npm run build
-cp .env.example .env && php artisan key:generate   # isi DB_* dan MAIL_*
-php artisan migrate --seed       # data uji sederhana (dipakai test otomatis)
-php artisan storage:link
-php artisan serve
+cp .env.example .env && $PHP artisan key:generate   # DB_DATABASE=mantaaba, MANTAABA_ADMIN_EMAIL=...
+$PHP artisan migrate --seed      # role, setting, halaman awal, super admin + akun & data contoh (non-produksi)
+$PHP artisan storage:link
+$PHP artisan serve
 ```
 
-Untuk presentasi dengan data contoh yang realistis (gambar, 150 anggota, event, sertifikat) lihat [docs/DEMO.md](docs/DEMO.md). Semua akun seeder memakai password `password`.
+Akun contoh (hanya di luar produksi, password `password`): `superadmin@mail.com`, `pengurus@mail.com`, `anggota@mail.com`.
 
-Menjalankan test: `php artisan test`.
+Test memakai database `mantaaba_test` (lihat `phpunit.xml`): `$PHP artisan test`.
 
 ## Deploy produksi
 
-> **Jangan** menjalankan `db:seed` tanpa `--class` atau `DemoSeeder` di produksi: keduanya membuat akun dengan password `password` dan data fiktif.
+> `UserSeeder` dan data contoh hanya berjalan bila `APP_ENV` bukan `production`.
 
-1. `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL` (https), `DB_*`, `QUEUE_CONNECTION=database`, `MAIL_MAILER=smtp` + kredensial SMTP. File `.env` tidak pernah di-commit.
+1. `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL` (https), `DB_*`, `QUEUE_CONNECTION=database`, `MAIL_*`, `MANTAABA_ADMIN_EMAIL`.
 2. Pasang aplikasi:
    ```bash
    composer install --no-dev --optimize-autoloader
    npm ci && npm run build
    php artisan key:generate          # hanya pada instalasi pertama
    php artisan migrate --force
-   php artisan db:seed --class=RolePermissionSeeder --force
-   php artisan db:seed --class=ContentTaxonomySeeder --force
+   php artisan db:seed --force       # mencetak password acak Super Admin sekali: simpan, lalu ganti setelah login
    php artisan storage:link
    php artisan config:cache && php artisan route:cache && php artisan view:cache
    ```
-3. Buat akun super admin (ganti nama, email, password):
-   ```bash
-   php artisan tinker --execute='$u = App\Models\User::create(["name" => "Nama Admin", "email" => "admin@domain.id", "password" => Hash::make("password-kuat")]); $u->markEmailAsVerified(); $u->assignRole("super_administrator");'
-   ```
-4. Jalankan antrean (email, sertifikat PDF) dengan Supervisor/systemd: `php artisan queue:work --tries=3`.
-5. Cron untuk scheduler (usulan skors harian 07.00):
-   `* * * * * cd /path/ke/aplikasi && php artisan schedule:run >> /dev/null 2>&1`
-6. Login sebagai super admin, lalu isi **Pengaturan** (kontak, rekening, iuran), **Organisasi** (PC), kepengurusan, dan halaman profil/sambutan dengan konten resmi.
+3. Cron: `* * * * * cd /path/aplikasi && php artisan schedule:run >> /dev/null 2>&1`, dan antrean `php artisan queue:work --tries=3` (Supervisor) atau `queue:work --stop-when-empty` lewat cron di shared hosting.
+4. Masuk sebagai Super Admin → isi **Setting Situs**, buat akun pengurus, atur **Hak Akses**.
+
+Panduan lengkap (cPanel, backup & restore) disusun di M8: `docs/DEPLOY.md`.
 
 ## Lisensi
 
-Dikembangkan dari [Bara Asa Project](https://github.com/ahdiatahsan/baraasaproject) (MIT). Font poster demo: Plus Jakarta Sans (SIL OFL); foto demo: Wikimedia Commons, lihat `database/seeders/demo-assets/photos/CREDITS.md`.
+Dikembangkan dari [Bara Asa Project](https://github.com/ahdiatahsan/baraasaproject) (MIT).

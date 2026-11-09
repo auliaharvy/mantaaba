@@ -12,7 +12,7 @@ class SliderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:slider-view')->only(['index', 'datatable']);
+        $this->middleware('permission:cms-view')->only(['index', 'datatable']);
         $this->authorizeResource(Slider::class, 'slider');
     }
 

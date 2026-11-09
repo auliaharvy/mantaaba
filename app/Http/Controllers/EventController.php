@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Jobs\IssueEventCertificates;
 use App\Models\Event;
-use App\Models\Organization;
 use App\Support\Html;
 use App\Support\Upload;
 use Illuminate\Http\Request;
@@ -17,7 +16,7 @@ class EventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:event-view')->only(['index', 'show', 'datatable']);
+        $this->middleware('permission:agenda-view')->only(['index', 'show', 'datatable']);
         $this->authorizeResource(Event::class, 'event');
     }
 
@@ -28,9 +27,8 @@ class EventController extends Controller
 
     public function datatable(Request $request)
     {
-        $events = Event::select('events.*')->with('organization')
+        $events = Event::select('events.*')
             ->withCount(['participants as registrants_count' => fn ($q) => $q->whereIn('status', ['pending', 'verified'])])
-            ->visibleTo($request->user())
             ->when($request->filled('status'), fn ($q) => $q->where('events.status', $request->input('status')));
 
         return DataTables::eloquent($events)
@@ -49,11 +47,10 @@ class EventController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('dashboard.event.form', [
-            'event' => new Event(['status' => 'draft', 'type' => 'ppl', 'mode' => 'offline', 'audience' => 'publik', 'fee_member' => 0, 'fee_public' => 0]),
-            'organizations' => $this->organizationOptions($request),
+            'event' => new Event(['status' => 'draft', 'type' => 'lainnya', 'mode' => 'offline', 'audience' => 'publik', 'fee_member' => 0, 'fee_public' => 0]),
         ]);
     }
 
@@ -66,7 +63,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        $event->load('organization')->loadCount([
+        $event->loadCount([
             'participants as pending_count' => fn ($q) => $q->where('status', 'pending'),
             'participants as verified_count' => fn ($q) => $q->where('status', 'verified'),
             'participants as attended_count' => fn ($q) => $q->where('status', 'verified')->whereNotNull('attended_at'),
@@ -77,9 +74,9 @@ class EventController extends Controller
         return view('dashboard.event.show', compact('event', 'certificates'));
     }
 
-    public function edit(Request $request, Event $event)
+    public function edit(Event $event)
     {
-        return view('dashboard.event.form', ['event' => $event, 'organizations' => $this->organizationOptions($request)]);
+        return view('dashboard.event.form', compact('event'));
     }
 
     public function update(Request $request, Event $event)
@@ -114,7 +111,7 @@ class EventController extends Controller
     /** Terbitkan sertifikat untuk semua peserta hadir (PRD 8.9 alur 7) — lewat queue. */
     public function issueCertificates(Event $event)
     {
-        $this->authorize('update', $event);
+        $this->authorize('issue', \App\Models\Certificate::class);
         abort_unless($event->status === 'done', 422, 'Sertifikat hanya bisa diterbitkan setelah event berstatus Selesai.');
         IssueEventCertificates::dispatch($event);
 
@@ -123,9 +120,7 @@ class EventController extends Controller
 
     private function validated(Request $request, ?Event $event = null): array
     {
-        $allowed = array_keys($this->organizationOptions($request)->all());
         $data = $request->validate([
-            'organization_id' => ['required', Rule::in($allowed)],
             'title' => 'required|string|max:300',
             'body' => 'required|string',
             'type' => ['required', Rule::in(array_keys(Event::TYPES))],
@@ -184,13 +179,5 @@ class EventController extends Controller
         } while (Event::withTrashed()->where('code', $code)->exists());
 
         return $code;
-    }
-
-    private function organizationOptions(Request $request)
-    {
-        $ids = $request->user()->scopedOrganizationIds();
-
-        return Organization::inActiveRegion()->when($ids !== null, fn ($q) => $q->whereIn('id', $ids))
-            ->orderByRaw("type = 'pc'")->orderBy('name')->pluck('name', 'id');
     }
 }

@@ -17,19 +17,16 @@ class Setting extends Model
     protected $fillable = [
         'site_name', 'tagline', 'email', 'phone', 'whatsapp', 'address', 'maps_embed',
         'facebook', 'instagram', 'youtube', 'linkedin',
-        'url_registration', 'url_member_service', 'url_ejournal', 'bank_account_info',
-        'logo', 'logo_footer', 'favicon', 'dues_amounts',
+        'bank_account_info', 'logo', 'logo_footer', 'favicon',
     ];
-
-    protected $casts = ['dues_amounts' => 'array'];
 
     /** Satu baris pengaturan, di-cache sampai diubah. */
     public static function current(): self
     {
-        return Cache::rememberForever('site.settings', fn () => static::firstOrCreate([], ['email' => 'sekretariat@akp2i-jabar.id']));
+        return Cache::rememberForever('site.settings', fn () => static::firstOrCreate([]));
     }
 
-    public function imageUrl(string $field, string $fallback = 'media/logos/akp2i.png'): string
+    public function imageUrl(string $field, string $fallback = 'media/logos/logo-mantaaba-512.jpg'): string
     {
         return $this->{$field} ? Storage::disk('public')->url($this->{$field}) : asset($fallback);
     }

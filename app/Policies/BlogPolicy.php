@@ -7,9 +7,9 @@ use App\Models\User;
 /** PRD 8.6: penulis menulis -> review; editor/admin PD menerbitkan; penulis hanya mengedit saat draft/review. */
 class BlogPolicy extends OwnedPolicy
 {
-    protected string $module = 'blog';
+    protected string $module = 'news';
 
-    protected string $moderatorPermission = 'blog-publish';
+    protected string $moderatorPermission = 'news-publish';
 
     public function view(User $user, $blog): bool
     {

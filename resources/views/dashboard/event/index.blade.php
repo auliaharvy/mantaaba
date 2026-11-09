@@ -20,7 +20,6 @@
                 ['data' => 'title', 'name' => 'events.title', 'title' => 'Judul'],
                 ['data' => 'type', 'name' => 'events.type', 'title' => 'Jenis', 'searchable' => false],
                 ['data' => 'starts_at', 'name' => 'events.starts_at', 'title' => 'Mulai', 'searchable' => false],
-                ['data' => 'organization.name', 'title' => 'Penyelenggara'],
                 ['data' => 'seats', 'title' => 'Pendaftar', 'orderable' => false, 'searchable' => false],
                 ['data' => 'status', 'name' => 'events.status', 'title' => 'Status', 'searchable' => false],
                 ['data' => 'action', 'title' => ''],

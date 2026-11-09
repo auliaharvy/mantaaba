@@ -4,5 +4,5 @@ namespace App\Policies;
 
 class GalleryPolicy extends ModulePolicy
 {
-    protected string $module = 'gallery';
+    protected string $module = 'cms';
 }

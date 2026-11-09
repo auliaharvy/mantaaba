@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\User;
-use App\Notifications\BlogAwaitingReview;
 use App\Support\Html;
 use App\Support\Upload;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,7 +17,7 @@ class BlogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:blog-view')->only(['index', 'show', 'datatable']);
+        $this->middleware('permission:news-view')->only(['index', 'show', 'datatable']);
         $this->authorizeResource(Blog::class, 'blog');
     }
 
@@ -59,13 +56,8 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $data = $this->validated($request);
-        $blog = Blog::create($data + [
-            'user_id' => $request->user()->id,
-            // PRD 8.6: tulisan atas nama PD/PC penulis (admin PC = PC-nya, anggota = PC keanggotaan)
-            'organization_id' => $request->user()->organization_id ?? $request->user()->member?->organization_id,
-        ]);
+        $blog = Blog::create($data + ['user_id' => $request->user()->id]);
         $this->syncTags($blog, $request->input('tags'));
-        $this->notifyReviewers($blog, null);
 
         return redirect()->route('blog.edit', $blog)->with('success', $this->statusMessage($blog));
     }
@@ -82,10 +74,8 @@ class BlogController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
-        $before = $blog->status;
         $blog->update($this->validated($request, $blog)); // slug tidak berubah (dibuat sekali)
         $this->syncTags($blog, $request->input('tags'));
-        $this->notifyReviewers($blog, $before);
 
         return redirect()->route($request->user()->can('update', $blog) ? 'blog.edit' : 'blog.show', $blog)->with('success', $this->statusMessage($blog));
     }
@@ -133,14 +123,6 @@ class BlogController extends Controller
         $ids = collect(explode(',', (string) $tags))->map(fn ($t) => trim($t))->filter()->unique(fn ($t) => Str::slug($t))
             ->map(fn ($name) => Tag::firstOrCreate(['slug' => Str::slug($name)], ['name' => $name])->id);
         $blog->tags()->sync($ids);
-    }
-
-    /** 8.13: email "blog menunggu review" ke editor saat tulisan masuk antrean. */
-    private function notifyReviewers(Blog $blog, ?string $before): void
-    {
-        if ($blog->status === 'review' && $before !== 'review') {
-            Notification::send(User::permission('blog-publish')->where('is_active', true)->get(), new BlogAwaitingReview($blog));
-        }
     }
 
     private function statusMessage(Blog $blog): string

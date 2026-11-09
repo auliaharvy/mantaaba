@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-/** Pelatihan milik user (PRD 8.9 alur 3 & 5, 8.11): tiket QR, meeting_url, bukti bayar, sertifikat. */
+/** Agenda milik user: tiket QR, meeting_url, bukti bayar, sertifikat. */
 class MyTrainingController extends Controller
 {
     public function index(Request $request)
@@ -21,7 +21,7 @@ class MyTrainingController extends Controller
     public function show(Participant $participant)
     {
         $this->authorize('view', $participant);
-        $participant->load('event.organization', 'certificateRecord');
+        $participant->load('event', 'certificateRecord');
 
         return view('dashboard.my-training.show', [
             'participant' => $participant,

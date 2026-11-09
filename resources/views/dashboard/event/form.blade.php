@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="fw-bolder mb-3">Penandatangan {{ $i + 1 }}</div>
                                 <x-dashboard.field name="signatories[{{ $i }}][name]" label="Nama" :value="$s['name'] ?? null" />
-                                <x-dashboard.field name="signatories[{{ $i }}][title]" label="Jabatan" :value="$s['title'] ?? null" placeholder="Ketua PD AKP2I Jawa Barat" />
+                                <x-dashboard.field name="signatories[{{ $i }}][title]" label="Jabatan" :value="$s['title'] ?? null" placeholder="Ketua Yayasan Mantaaba" />
                                 <x-dashboard.field name="signatures[{{ $i }}]" label="Tanda tangan (PNG transparan)" type="file" accept="image/png,image/webp" />
                                 @if (! empty($s['signature']))<img src="{{ Storage::disk('public')->url($s['signature']) }}" alt="" class="h-50px mb-6">@endif
                             </div>
@@ -48,7 +48,6 @@
                 <div class="card mb-5">
                     <div class="card-header"><div class="card-title fs-4 fw-bolder">Pendaftaran</div></div>
                     <div class="card-body">
-                        <x-dashboard.field name="organization_id" label="Penyelenggara" type="select" :options="$organizations" :value="$event->organization_id ?? $organizations->keys()->first()" required />
                         <x-dashboard.field name="status" label="Status" type="select" :options="App\Models\Event::STATUSES" :value="$event->status" required help="Draf tidak tampil di situs. Sertifikat bisa diterbitkan saat Selesai." />
                         <x-dashboard.field name="audience" label="Peserta" type="select" :options="App\Models\Event::AUDIENCES" :value="$event->audience" required />
                         <x-dashboard.field name="registration_opens_at" label="Pendaftaran dibuka" type="datetime-local" :value="$dt($event->registration_opens_at)" />

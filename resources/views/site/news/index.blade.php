@@ -1,5 +1,5 @@
 @php($heading = $category?->name ?? ($tag ? '#' . $tag->name : 'Berita & Artikel'))
-<x-site.layout :title="$heading" description="Berita, artikel perpajakan, dan kabar kegiatan PD AKP2I Jawa Barat.">
+<x-site.layout :title="$heading" description="Berita dan kabar kegiatan Rumah Mantaaba Sigaling.">
     <x-site.breadcrumb-header :title="$heading" :crumbs="$category || $tag ? ['Berita' => route('site.news'), $heading] : ['Berita']" />
     <div class="container-site grid gap-10 py-12 lg:grid-cols-4">
         <div class="lg:col-span-3">

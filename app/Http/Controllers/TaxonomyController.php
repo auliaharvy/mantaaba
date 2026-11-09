@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\ForumCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-/** Kategori berita, tag, dan kategori forum (PRD 8.6, 8.7): daftar sederhana, slug tetap. */
+/** Kategori & tag berita (PRD 9.1.4): daftar sederhana, slug tetap. */
 class TaxonomyController extends Controller
 {
     private const TYPES = [
-        'kategori' => ['model' => Category::class, 'label' => 'Kategori Berita', 'permission' => 'blog-publish', 'usage' => 'blogs'],
-        'tag' => ['model' => Tag::class, 'label' => 'Tag Berita', 'permission' => 'blog-publish', 'usage' => 'blogs'],
-        'kategori-forum' => ['model' => ForumCategory::class, 'label' => 'Kategori Forum', 'permission' => 'thread-moderate', 'usage' => 'threads'],
+        'kategori' => ['model' => Category::class, 'label' => 'Kategori Berita', 'permission' => 'news-publish', 'usage' => 'blogs'],
+        'tag' => ['model' => Tag::class, 'label' => 'Tag Berita', 'permission' => 'news-publish', 'usage' => 'blogs'],
     ];
 
     private function type(Request $request, string $type): array
@@ -27,7 +25,7 @@ class TaxonomyController extends Controller
     public function index(Request $request, string $type)
     {
         $config = $this->type($request, $type);
-        $items = $config['model']::withCount($config['usage'])->orderBy($type === 'kategori-forum' ? 'sort_order' : 'name')->get();
+        $items = $config['model']::withCount($config['usage'])->orderBy('name')->get();
 
         return view('dashboard.taxonomy.index', compact('config', 'items'));
     }

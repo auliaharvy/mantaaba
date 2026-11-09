@@ -8,12 +8,12 @@
     body { margin: 0; font-family: 'Helvetica', sans-serif; color: #002d14; }
     .page { position: relative; width: 297mm; height: 210mm; }
     .bg { position: absolute; top: 0; left: 0; width: 297mm; height: 210mm; }
-    .frame { position: absolute; top: 10mm; left: 10mm; right: 10mm; bottom: 10mm; border: 3px solid #00923f; }
+    .frame { position: absolute; top: 10mm; left: 10mm; right: 10mm; bottom: 10mm; border: 3px solid #5B3A1F; }
     .content { position: absolute; top: 28mm; left: 25mm; right: 25mm; text-align: center; }
     .title { font-size: 40px; font-weight: bold; letter-spacing: 6px; color: #00662c; margin: 0; }
     .number { font-size: 13px; margin-top: 4px; }
     .given { font-size: 15px; margin-top: 14mm; }
-    .name { font-size: 32px; font-weight: bold; margin: 4mm 0 2mm; border-bottom: 1px solid #00923f; display: inline-block; padding: 0 10mm 2mm; }
+    .name { font-size: 32px; font-weight: bold; margin: 4mm 0 2mm; border-bottom: 1px solid #5B3A1F; display: inline-block; padding: 0 10mm 2mm; }
     .as { font-size: 15px; }
     .event { font-size: 20px; font-weight: bold; margin-top: 3mm; }
     .meta { font-size: 13px; margin-top: 3mm; }
@@ -40,7 +40,7 @@
             · {{ App\Models\Event::TYPES[$event->type] }}
             @if ($event->skp_hours) · {{ rtrim(rtrim(number_format($event->skp_hours, 2, ',', '.'), '0'), ',') }} jam SKP @endif
         </div>
-        <div class="meta">Diselenggarakan oleh {{ $event->organization?->name ?? config('app.name') }}</div>
+        <div class="meta">Diselenggarakan oleh {{ config('app.name') }}</div>
     </div>
     <div class="signs">
         @foreach ($signatories as $s)

@@ -1,14 +1,14 @@
-<x-site.layout title="Hubungi Kami" description="Kontak sekretariat PD AKP2I Jawa Barat.">
+<x-site.layout title="Hubungi Kami" description="Hubungi Rumah Mantaaba Sigaling.">
     <x-site.breadcrumb-header title="Hubungi Kami" :crumbs="['Kontak']" />
     <div class="container-site grid gap-10 py-12 lg:grid-cols-5">
         <div class="space-y-4 lg:col-span-2">
-            <h2 class="text-xl">Sekretariat PD</h2>
+            <h2 class="text-xl">Rumah Mantaaba Sigaling</h2>
             @if ($site->address)<p class="flex gap-3"><x-site.icon name="map-pin" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->address }}</p>@endif
             @if ($site->phone)<p class="flex gap-3"><x-site.icon name="phone" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->phone }}</p>@endif
             @if ($site->whatsappUrl())<p class="flex gap-3"><x-site.icon name="chat" class="h-6 w-6 flex-none text-brand-primary" /><a href="{{ $site->whatsappUrl() }}" target="_blank" rel="noopener" class="text-brand-secondary underline">WhatsApp {{ $site->whatsapp }}</a></p>@endif
             <p class="flex gap-3"><x-site.icon name="mail" class="h-6 w-6 flex-none text-brand-primary" /><a href="mailto:{{ $site->email }}" class="break-all text-brand-secondary underline">{{ $site->email }}</a></p>
             @if ($site->maps_embed)
-                <iframe src="{{ $site->maps_embed }}" title="Peta lokasi sekretariat" class="mt-4 h-64 w-full rounded-lg border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="{{ $site->maps_embed }}" title="Peta lokasi Rumah Mantaaba Sigaling" class="mt-4 h-64 w-full rounded-lg border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             @endif
         </div>
         <div class="lg:col-span-3">

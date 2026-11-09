@@ -22,7 +22,7 @@ class Event extends Model
     public const AUDIENCES = ['publik' => 'Umum & anggota', 'anggota' => 'Khusus anggota'];
 
     protected $fillable = [
-        'organization_id', 'title', 'slug', 'body', 'thumbnail', 'type', 'code', 'mode', 'location', 'meeting_url',
+        'title', 'slug', 'body', 'thumbnail', 'type', 'code', 'mode', 'location', 'meeting_url',
         'starts_at', 'ends_at', 'registration_opens_at', 'registration_closes_at', 'quota', 'audience',
         'fee_member', 'fee_public', 'skp_hours', 'status', 'certificate_template', 'certificate_signatory',
     ];
@@ -34,11 +34,6 @@ class Event extends Model
         'certificate_signatory' => 'array',
     ];
 
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
     public function participants()
     {
         return $this->hasMany(Participant::class);
@@ -48,14 +43,6 @@ class Event extends Model
     public function scopePublic(Builder $query): Builder
     {
         return $query->where('events.status', '!=', 'draft');
-    }
-
-    /** Scope PC (PRD 4.3): admin PC hanya event PC-nya. */
-    public function scopeVisibleTo(Builder $query, User $user): Builder
-    {
-        $ids = $user->scopedOrganizationIds();
-
-        return $ids === null ? $query : $query->whereIn('events.organization_id', $ids);
     }
 
     /** Peserta yang memakan kuota. */
@@ -76,10 +63,10 @@ class Event extends Model
             && (! $this->registration_closes_at || now()->lte($this->registration_closes_at));
     }
 
-    /** Biaya untuk user ini (PRD 8.9): anggota aktif -> fee_member; selain itu (termasuk skors, Q7) -> fee_public. */
+    /** Biaya untuk user ini: anggota -> fee_member, selain itu fee_public (biaya dihapus di M4, PRD 9.8). */
     public function feeFor(User $user): string
     {
-        return $user->member?->status === 'aktif' && $user->hasRole('anggota') ? $this->fee_member : $this->fee_public;
+        return $user->hasRole('anggota') ? $this->fee_member : $this->fee_public;
     }
 
     public function isFree(): bool

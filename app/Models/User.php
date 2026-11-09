@@ -2,104 +2,59 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsActivity;
+use App\Support\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVerifyEmail
+class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, HasRoles, LogsActivity, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
-        'name',
-        'gender',
-        'birthplace',
-        'date_of_birth',
-
-        'phone_number',
-        'email',
-        'email_verified_at',
-        'password',
-        'address',
-        'photo',
-
-        'organization_id',
-        'is_active',
-        'notify_forum_replies',
+        'name', 'gender', 'birthplace', 'date_of_birth', 'phone_number',
+        'email', 'email_verified_at', 'password', 'address', 'photo', 'is_active',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
+    // samakan dengan default kolom DB agar model yang baru dibuat langsung terbaca aktif
+    protected $attributes = ['is_active' => true];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'date_of_birth' => 'date',
         'is_active' => 'boolean',
-        'notify_forum_replies' => 'boolean',
     ];
 
-    /** Email verifikasi lewat antrean (PRD 8.10). */
-    public function sendEmailVerificationNotification(): void
+    /** Kolom yang tidak dicatat di log aktivitas. */
+    protected array $logExcept = ['password', 'remember_token'];
+
+    public function isSuperAdmin(): bool
     {
-        $this->notify(new \App\Notifications\VerifyEmailQueued);
+        return $this->hasRole('super_admin');
     }
 
-    /** Role yang boleh ditetapkan user ini ke orang lain (B4: hanya SA yang memegang SA & admin PD). */
+    /** PRD 5.2: hanya super admin yang menetapkan role super_admin. */
     public function assignableRoles(): array
     {
-        $roles = array_keys(config('akp2i.roles'));
+        $roles = array_keys(config('mantaaba.roles'));
 
-        return $this->hasRole('super_administrator')
-            ? $roles
-            : array_values(array_diff($roles, ['super_administrator', 'admin_pd']));
+        return $this->isSuperAdmin() ? $roles : array_values(array_diff($roles, ['super_admin']));
     }
 
-    /** B4: admin non-SA tidak boleh menyentuh akun SA atau admin PD. */
+    /** Non-SA tidak boleh menyentuh akun super admin. */
     public function canManage(User $target): bool
     {
-        return $this->hasRole('super_administrator')
-            || ! $target->hasAnyRole(['super_administrator', 'admin_pd']);
+        return $this->isSuperAdmin() || ! $target->isSuperAdmin();
     }
 
-    /**
-     * Organisasi yang boleh dilihat user (PRD 4.3 "scope PC").
-     * null = semua (SA/admin PD); admin PC = PC-nya; lainnya = tidak ada.
-     */
-    public function scopedOrganizationIds(): ?array
+    /** Berikan paket hak akses (PRD 5.4) sebagai permission langsung. */
+    public function givePackage(string $package): static
     {
-        if ($this->hasAnyRole(['super_administrator', 'admin_pd'])) {
-            return null;
-        }
-
-        return $this->hasRole('admin_pc') && $this->organization_id ? [$this->organization_id] : [];
-    }
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
-    public function member()
-    {
-        return $this->hasOne(Member::class);
+        return $this->givePermissionTo(Permissions::package($package));
     }
 
     public function blogs()
@@ -107,41 +62,8 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->hasMany(Blog::class);
     }
 
-    public function threads()
-    {
-        return $this->hasMany(Thread::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function participants()
     {
         return $this->hasMany(Participant::class);
-    }
-    /** Rekap jam PPL/SKP (PRD 8.9): jumlah `skp_hours` event yang dihadiri, per tahun event. */
-    public function pplHoursByYear(): \Illuminate\Support\Collection
-    {
-        return $this->participants()->where('participants.status', 'verified')->whereNotNull('attended_at')
-            ->join('events', 'events.id', '=', 'participants.event_id')->whereNull('events.deleted_at')
-            ->selectRaw('YEAR(events.starts_at) as year, SUM(COALESCE(events.skp_hours, 0)) as hours')
-            ->groupBy('year')->orderByDesc('year')->pluck('hours', 'year')->map(fn ($h) => (float) $h);
-    }
-
-    public function boardMembers()
-    {
-        return $this->hasMany(BoardMember::class);
-    }
-
-    /** Jabatan pada periode aktif, dikelompokkan per jenis organisasi (pd/pc). */
-    public function activePositions()
-    {
-        return $this->boardMembers()
-            ->whereHas('period', fn ($q) => $q->where('is_active', true))
-            ->with('period.organization', 'position', 'division')
-            ->get()
-            ->groupBy(fn ($b) => $b->period->organization->type);
     }
 }

@@ -4,5 +4,5 @@ namespace App\Policies;
 
 class SettingPolicy extends ModulePolicy
 {
-    protected string $module = 'setting';
+    protected string $module = 'cms';
 }

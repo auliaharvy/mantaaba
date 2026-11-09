@@ -92,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS') ?: 'noreply@akp2i-jabar.id',
-        'name' => env('MAIL_FROM_NAME', 'PD AKP2I Jawa Barat'),
+        'address' => env('MAIL_FROM_ADDRESS') ?: 'noreply@yayasan-mantaaba.com',
+        'name' => env('MAIL_FROM_NAME', 'Rumah Mantaaba Sigaling'),
     ],
 
     /*

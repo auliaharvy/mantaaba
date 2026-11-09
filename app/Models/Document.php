@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Document extends Model
 {
-    public const CATEGORIES = ['AD/ART', 'Peraturan Organisasi', 'SK', 'Lainnya'];
+    public const CATEGORIES = ['Profil Lembaga', 'Laporan Transparansi', 'Pedoman & Tata Tertib', 'Formulir', 'Lainnya'];
 
     protected $fillable = ['title', 'slug', 'category', 'file', 'description', 'published_at', 'sort_order'];
 

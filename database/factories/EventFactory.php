@@ -23,7 +23,6 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'organization_id' => fn () => \App\Models\Organization::active()->id,
             'title' => $this->faker->randomElement(['PPL', 'Seminar', 'Webinar']) . ' ' . rtrim($this->faker->sentence(4), '.'),
             'body' => '<p>' . $this->faker->paragraph(4) . '</p>',
             'thumbnail' => null,

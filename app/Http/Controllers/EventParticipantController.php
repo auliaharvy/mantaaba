@@ -7,7 +7,6 @@ use App\Models\Participant;
 use App\Models\User;
 use App\Notifications\EventAnnouncement;
 use App\Notifications\RegistrationStatusChanged;
-use App\Support\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -119,14 +118,26 @@ class EventParticipantController extends Controller
         return Storage::disk('local')->response($participant->payment_proof);
     }
 
-    /** Upload sertifikat manual (cadangan, fitur lama baraasa). */
+    /** Upload sertifikat manual (cadangan). Disimpan privat (PRD 3.4 T4). */
     public function manualCertificate(Request $request, Participant $participant)
     {
         $this->authorize('update', $participant);
         $request->validate(['certificate' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120']);
-        $participant->update(['certificate' => Upload::store($request->file('certificate'), 'participant/certificate', $participant->certificate)]);
+        $old = $participant->certificate;
+        $participant->update(['certificate' => $request->file('certificate')->store('participant/certificate', 'local')]);
+        if ($old) {
+            Storage::disk('local')->delete($old);
+        }
 
         return back()->with('success', 'Sertifikat manual diunggah.');
+    }
+
+    public function manualCertificateDownload(Participant $participant)
+    {
+        $this->authorize('view', $participant);
+        abort_unless($participant->certificate && Storage::disk('local')->exists($participant->certificate), 404);
+
+        return Storage::disk('local')->download($participant->certificate);
     }
 
     public function export(Event $event)

@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\ActivityLog;
 use App\Models\Blog;
-use App\Models\Comment;
-use App\Models\Thread;
 use App\Models\User;
+use App\Notifications\AccountActivation;
+use App\Support\Permissions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use PHPUnit\Framework\Attributes\DataProvider;
+use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
-/** Role & policy PRD 4.2–4.3, bug B2–B5 dan B13. */
+/** Role, hak akses per pengguna, dan layar Pengguna (PRD 5.2–5.4, 9.18; AC M0). */
 class AuthorizationTest extends TestCase
 {
     use RefreshDatabase;
@@ -21,7 +21,6 @@ class AuthorizationTest extends TestCase
     {
         parent::setUp();
         $this->seed();
-        Storage::fake();
     }
 
     private function user(string $email): User
@@ -29,195 +28,147 @@ class AuthorizationTest extends TestCase
         return User::where('email', $email)->firstOrFail();
     }
 
-    private function anotherAnggota(): User
+    private function pengurusWith(array $permissions): User
     {
-        return User::factory()->create()->assignRole('anggota');
+        return User::factory()->create()->assignRole('pengurus')->givePermissionTo($permissions);
     }
 
-    private function blogPayload(array $override = []): array
+    private function userPayload(array $override = []): array
     {
-        return array_merge([
-            'title' => 'Judul',
-            'body' => 'Isi',
-            'status' => 'published',
-            'thumbnail' => UploadedFile::fake()->image('a.jpg'),
-        ], $override);
+        return array_merge(['name' => 'Baru', 'email' => 'baru@mail.com', 'phone_number' => '081234', 'role' => 'pengurus', 'is_active' => '1'], $override);
     }
 
-    public function test_roles_are_renamed_and_new_roles_exist()
+    public function test_only_three_roles_exist_and_seeded_accounts_log_in()
     {
-        $this->assertTrue($this->user('admin@mail.com')->hasRole('admin_pd'));
-        $this->assertTrue($this->user('member@mail.com')->hasRole('anggota'));
-        $this->assertTrue($this->user('general@mail.com')->hasRole('umum'));
-        $this->assertTrue($this->user('editor@mail.com')->hasRole('editor'));
-        $this->assertTrue($this->user('adminpc@mail.com')->hasRole('admin_pc'));
-    }
+        $this->assertEqualsCanonicalizing(['super_admin', 'pengurus', 'anggota'], Role::pluck('name')->all());
 
-    public function test_new_roles_can_log_in()
-    {
-        foreach (['editor@mail.com', 'adminpc@mail.com'] as $email) {
-            $this->post('/login', ['email' => $email, 'password' => 'password'])->assertRedirect(route('home'));
+        foreach (['superadmin@mail.com', 'pengurus@mail.com', 'anggota@mail.com'] as $email) {
+            $this->post('/login', ['email' => $email, 'password' => 'password'])->assertRedirect('/dashboard');
             $this->post('/logout');
         }
     }
 
-    public static function matrixSamples(): array
+    public function test_roles_carry_no_permissions_and_pengurus_gets_default_package()
     {
-        return [
-            'editor tidak lihat data pengguna' => ['editor@mail.com', 'user-view', false],
-            'editor kelola halaman' => ['editor@mail.com', 'page-create', true],
-            'admin pc lihat anggota' => ['adminpc@mail.com', 'member-view', true],
-            'admin pc tidak ubah anggota' => ['adminpc@mail.com', 'member-update', false],
-            'admin pc kelola event' => ['adminpc@mail.com', 'event-create', true],
-            'anggota tidak kelola event' => ['member@mail.com', 'event-create', false],
-            'umum tidak menulis forum' => ['general@mail.com', 'thread-create', false],
-            'umum baca jurnal' => ['general@mail.com', 'research-view', true],
-            'admin pd pengaturan' => ['admin@mail.com', 'setting-update', true],
-        ];
+        $this->assertTrue(Role::all()->every(fn ($role) => $role->permissions->isEmpty()));
+        $pengurus = $this->user('pengurus@mail.com');
+
+        $this->assertEqualsCanonicalizing(Permissions::package('pengurus_inti'), $pengurus->getDirectPermissions()->pluck('name')->all());
+        $this->assertFalse($pengurus->can('journal-approve'));
+        $this->assertFalse($pengurus->can('user-view'));
     }
 
-    #[DataProvider('matrixSamples')]
-    public function test_permission_matrix(string $email, string $permission, bool $expected)
+    public function test_registration_and_api_are_gone()
     {
-        $this->assertSame($expected, $this->user($email)->can($permission));
+        $this->get('/register')->assertNotFound();
+        $this->get('/api/user')->assertNotFound();
     }
 
-    public function test_b13_anggota_cannot_see_other_users_pii()
+    public function test_pengurus_without_module_permission_gets_403()
     {
-        $member = $this->user('member@mail.com');
+        $pengurus = $this->user('pengurus@mail.com');
+        $this->actingAs($pengurus)->get(route('page.index'))->assertOk();
+        $this->actingAs($pengurus)->get(route('user.index'))->assertForbidden();
 
-        $this->actingAs($member)->get(route('member.index'))->assertForbidden();
-        $this->actingAs($member)->get(route('general.index'))->assertForbidden();
-        $this->actingAs($member)->getJson(route('member.datatable'), ['X-Requested-With' => 'XMLHttpRequest'])->assertForbidden();
-        $this->actingAs($member)->get(route('member.show', $this->user('admin@mail.com')))->assertForbidden();
+        $pengurus->revokePermissionTo('cms-view');
+        $this->actingAs($pengurus->fresh())->get(route('page.index'))->assertForbidden();
+        $this->actingAs($this->user('anggota@mail.com'))->get(route('blog.index'))->assertForbidden();
     }
 
-    public function test_b2_anggota_cannot_edit_or_delete_others_blog()
+    public function test_sidebar_only_shows_permitted_modules()
     {
-        $other = $this->anotherAnggota();
-        $blog = Blog::factory()->create(['user_id' => $other->id]);
-        $member = $this->user('member@mail.com');
-
-        $this->actingAs($member)->get(route('blog.edit', $blog))->assertForbidden();
-        $this->actingAs($member)->patch(route('blog.update', $blog), $this->blogPayload())->assertForbidden();
-        $this->actingAs($member)->delete(route('blog.destroy', $blog))->assertForbidden();
-        $this->assertModelExists($blog);
+        $this->actingAs($this->user('anggota@mail.com'))->get('/dashboard')->assertOk()
+            ->assertSee('Agenda Saya')->assertDontSee('Setting Situs')->assertDontSee('Pengguna &amp; Hak Akses', false);
+        $this->actingAs($this->user('pengurus@mail.com'))->get('/dashboard')->assertOk()
+            ->assertSee('Setting Situs')->assertDontSee('Pengguna &amp; Hak Akses', false);
+        $this->actingAs($this->user('superadmin@mail.com'))->get('/dashboard')->assertOk()
+            ->assertSee('Pengguna &amp; Hak Akses', false);
     }
 
-    public function test_b2_editor_moderates_blog_of_others()
+    public function test_non_super_admin_cannot_escalate_or_touch_super_admin()
     {
-        $blog = Blog::factory()->create(['user_id' => $this->anotherAnggota()->id]);
+        $manager = $this->pengurusWith(['user-view', 'user-create', 'user-update']);
+        $target = $this->user('anggota@mail.com');
 
-        $this->actingAs($this->user('editor@mail.com'))->delete(route('blog.destroy', $blog))->assertNoContent();
-        $this->assertSoftDeleted($blog); // M3: blog soft delete
+        $this->actingAs($manager)->patch(route('user.update', $target), $this->userPayload(['email' => $target->email, 'role' => 'super_admin']))
+            ->assertSessionHasErrors('role');
+        $this->assertFalse($target->fresh()->hasRole('super_admin'));
+
+        $this->actingAs($manager)->get(route('user.edit', $this->user('superadmin@mail.com')))->assertForbidden();
+        $this->actingAs($manager)->get(route('user.permissions', $target))->assertForbidden();
+        $this->actingAs($manager)->put(route('user.permissions.update', $target), ['permissions' => ['user-delete']])->assertForbidden();
     }
 
-    public function test_b2_thread_update_by_other_is_forbidden_and_owner_keeps_user_id()
+    public function test_super_admin_limits()
     {
-        $owner = $this->user('member@mail.com');
-        $thread = Thread::factory()->create(['user_id' => $owner->id]);
+        $admin = $this->user('superadmin@mail.com');
 
-        $this->actingAs($this->anotherAnggota())
-            ->patch(route('thread.update', $thread), ['title' => 'x', 'body' => 'y'])
-            ->assertForbidden();
+        // satu-satunya SA tidak bisa menurunkan / menonaktifkan dirinya
+        $this->actingAs($admin)->patch(route('user.update', $admin), $this->userPayload(['email' => $admin->email, 'role' => 'pengurus']))->assertSessionHasErrors('role');
+        $this->actingAs($admin)->patch(route('user.update', $admin), $this->userPayload(['email' => $admin->email, 'role' => 'super_admin', 'is_active' => '0']))->assertSessionHasErrors('role');
+        $this->assertTrue($admin->fresh()->isSuperAdmin() && $admin->fresh()->is_active);
 
-        // moderator mengedit: user_id tetap milik penulis
-        $this->actingAs($this->user('editor@mail.com'))
-            ->patch(route('thread.update', $thread), ['title' => 'Diedit', 'body' => 'y'])
-            ->assertSessionHasNoErrors();
-        $this->assertSame($owner->id, $thread->fresh()->user_id);
-        $this->assertSame('Diedit', $thread->fresh()->title);
+        // maksimal 3 SA
+        User::factory()->count(2)->create()->each->assignRole('super_admin');
+        $this->actingAs($admin)->post(route('user.store'), $this->userPayload(['role' => 'super_admin']))->assertSessionHasErrors('role');
+        $this->assertDatabaseMissing('users', ['email' => 'baru@mail.com']);
     }
 
-    public function test_b3_comment_of_other_cannot_be_edited_or_deleted()
+    public function test_super_admin_creates_pengurus_and_manages_permissions_with_audit_log()
     {
-        $thread = Thread::factory()->create(['user_id' => $this->user('member@mail.com')->id]);
-        $comment = Comment::factory()->create(['thread_id' => $thread->id, 'user_id' => $this->anotherAnggota()->id]);
-        $member = $this->user('member@mail.com');
+        $admin = $this->user('superadmin@mail.com');
+        $this->actingAs($admin)->post(route('user.store'), $this->userPayload())->assertSessionHasNoErrors();
+        $user = $this->user('baru@mail.com');
+        $this->assertTrue($user->hasRole('pengurus'));
+        $this->assertTrue($user->can('cms-view'));
 
-        $this->actingAs($member)->get(route('comment.edit', $comment))->assertForbidden();
-        $this->actingAs($member)->patch(route('comment.update', $comment), ['body' => 'hack'])->assertForbidden();
-        $this->actingAs($member)->delete(route('comment.destroy', $comment))->assertForbidden();
-        $this->actingAs($this->user('general@mail.com'))->delete(route('comment.destroy', $comment))->assertForbidden();
-        $this->assertModelExists($comment);
+        $this->actingAs($admin)->get(route('user.permissions', $user))->assertOk()->assertSee('Bendahara');
+        $this->actingAs($admin)->put(route('user.permissions.update', $user), ['permissions' => Permissions::package('bendahara')])->assertSessionHasNoErrors();
+
+        $user = $user->fresh();
+        $this->assertTrue($user->can('journal-approve'));
+        $this->assertFalse($user->can('cms-view'));
+        $this->assertTrue(ActivityLog::where('action', 'permissions_changed')->where('subject_id', $user->id)->exists());
+        $this->actingAs($admin)->put(route('user.permissions.update', $user), ['permissions' => ['bukan-permission']])->assertSessionHasErrors('permissions.0');
     }
 
-    public function test_b5_anggota_cannot_publish_blog_directly()
+    public function test_password_link_sends_email_and_whatsapp_link_with_same_token()
     {
-        $member = $this->user('member@mail.com');
+        Notification::fake();
+        $target = $this->user('anggota@mail.com');
+        $target->update(['phone_number' => '0812-3456']);
 
-        $this->actingAs($member)->post(route('blog.store'), $this->blogPayload())->assertSessionHasNoErrors();
-        $blog = Blog::where('user_id', $member->id)->latest('id')->firstOrFail();
-        $this->assertSame('review', $blog->status);
+        $response = $this->actingAs($this->user('superadmin@mail.com'))->post(route('user.password-link', $target));
 
-        $this->actingAs($member)->patch(route('blog.update', $blog), $this->blogPayload(['thumbnail' => null]))->assertSessionHasNoErrors();
-        $this->assertSame('review', $blog->fresh()->status);
+        $response->assertSessionHas('wa_link', fn ($link) => str_starts_with($link, 'https://wa.me/628123456?text='));
+        Notification::assertSentTo($target, AccountActivation::class, fn ($n) => str_contains(urldecode(session('wa_link')), $n->url));
     }
 
-    public function test_b5_editor_can_publish_blog()
+    public function test_inactive_account_cannot_log_in_and_active_session_is_ended()
     {
-        $this->actingAs($this->user('editor@mail.com'))->post(route('blog.store'), $this->blogPayload())->assertSessionHasNoErrors();
+        $member = $this->user('anggota@mail.com');
+        $member->update(['is_active' => false]);
 
-        $this->assertSame('published', Blog::latest('id')->first()->status);
+        $this->post('/login', ['email' => $member->email, 'password' => 'password'])->assertSessionHasErrors('email');
+        $this->assertGuest();
+        $this->assertStringNotContainsString('AKP2I', session('errors')->first('email'));
+
+        $this->actingAs($member)->get('/dashboard')->assertRedirect(route('login'));
+        $this->assertGuest();
     }
 
-    public function test_b5_anggota_cannot_hide_or_change_thread_status()
+    public function test_news_ownership_and_publish_permission()
     {
-        $member = $this->user('member@mail.com');
-        $this->actingAs($member)->post(route('thread.store'), ['title' => 'T', 'body' => 'B', 'status' => 'hidden']);
-        $thread = Thread::where('user_id', $member->id)->latest('id')->firstOrFail();
+        $writer = $this->pengurusWith(['news-view', 'news-create', 'news-update', 'news-delete']);
+        $other = Blog::factory()->create(['user_id' => $this->user('superadmin@mail.com')->id, 'status' => 'draft']);
 
-        $this->assertSame('published', $thread->status);
-    }
+        $this->actingAs($writer)->get(route('blog.edit', $other))->assertForbidden();
+        $this->actingAs($writer)->delete(route('blog.destroy', $other))->assertForbidden();
 
-    public function test_b4_admin_pd_cannot_escalate_to_super_admin_or_admin_pd()
-    {
-        $admin = $this->user('admin@mail.com');
-        $member = $this->user('member@mail.com');
-        $payload = [
-            'name' => $member->name, 'gender' => 'L', 'birthplace' => 'Bandung', 'date_of_birth' => '1990-01-01',
-            'address' => 'Bandung', 'email' => $member->email, 'phone_number' => '0812',
-            'division_id' => \App\Models\Division::first()->id, 'position_id' => \App\Models\Position::first()->id,
-        ];
+        $this->actingAs($writer)->post(route('blog.store'), ['title' => 'Tulisan Baru', 'body' => 'Isi', 'status' => 'published']);
+        $this->assertNotSame('published', Blog::where('title', 'Tulisan Baru')->value('status'));
 
-        foreach (['super_administrator', 'admin_pd'] as $role) {
-            $this->actingAs($admin)->patch(route('member.update', $member), $payload + ['role' => $role])->assertSessionHasErrors('role');
-            $this->assertFalse($member->fresh()->hasRole($role));
-        }
-
-        $this->actingAs($admin)->patch(route('member.update', $member), $payload + ['role' => 'editor'])->assertSessionHasNoErrors();
-        $this->assertTrue($member->fresh()->hasRole('editor'));
-    }
-
-    public function test_b4_admin_pd_cannot_touch_super_admin_or_other_admin_pd()
-    {
-        $admin = $this->user('admin@mail.com');
-        $super = $this->user('superadmin@mail.com');
-        $otherAdmin = User::factory()->create()->assignRole('admin_pd');
-
-        foreach ([$super, $otherAdmin] as $target) {
-            $this->actingAs($admin)->get(route('member.edit', $target))->assertForbidden();
-            $this->actingAs($admin)->patch(route('member.update', $target), ['role' => 'anggota'])->assertForbidden();
-            $this->actingAs($admin)->delete(route('member.destroy', $target))->assertForbidden();
-            // akun non-umum tidak bisa dibuka lewat halaman Umum
-            $this->actingAs($admin)->get(route('general.edit', $target))->assertNotFound();
-        }
-        $this->assertTrue($super->fresh()->hasRole('super_administrator'));
-        $this->actingAs($admin)->get(route('administrator.index'))->assertForbidden();
-    }
-
-    public function test_b4_general_assign_only_promotes_umum_accounts_to_allowed_roles()
-    {
-        $admin = $this->user('admin@mail.com');
-        $umum = $this->user('general@mail.com');
-        $division = \App\Models\Division::first();
-        $position = \App\Models\Position::first();
-        $base = ['division_id' => $division->id, 'position_id' => $position->id];
-
-        $this->actingAs($admin)->patch(route('member.general-assign'), $base + ['user_id' => $umum->id, 'role' => 'super_administrator'])->assertSessionHasErrors('role');
-        $this->actingAs($admin)->patch(route('member.general-assign'), $base + ['user_id' => $this->user('member@mail.com')->id, 'role' => 'anggota'])->assertNotFound();
-        $this->actingAs($admin)->patch(route('member.general-assign'), $base + ['user_id' => $umum->id, 'role' => 'anggota'])->assertSessionHasNoErrors();
-
-        $this->assertTrue($umum->fresh()->hasRole('anggota'));
+        $editor = $this->pengurusWith(['news-view', 'news-create', 'news-update', 'news-publish']);
+        $this->actingAs($editor)->get(route('blog.edit', $other))->assertOk();
     }
 }

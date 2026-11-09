@@ -3,7 +3,7 @@
 @php
     $site = App\Models\Setting::current();
     $fullTitle = $title ? "{$title} | {$site->site_name}" : $site->site_name . ($site->tagline ? " — {$site->tagline}" : '');
-    $description = Str::limit(strip_tags($description ?? $site->tagline ?? 'Website resmi Pengurus Daerah Asosiasi Konsultan Pajak Publik Indonesia (AKP2I) Jawa Barat.'), 160);
+    $description = Str::limit(strip_tags($description ?? $site->tagline ?? 'Website resmi Rumah Mantaaba Sigaling: pembinaan karakter & vokasi bisnis pemuda menuju masyarakat transparan pajak.'), 160);
     $canonical ??= url()->current();
     $image = url($image ?? $site->imageUrl('logo')); // OG butuh URL absolut (preview WhatsApp)
 @endphp
@@ -23,7 +23,7 @@
     <meta property="og:url" content="{{ $canonical }}">
     <meta property="og:image" content="{{ $image }}">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" href="{{ $site->imageUrl('favicon', 'media/logos/akp2i-icon.png') }}">
+    <link rel="icon" href="{{ $site->imageUrl('favicon', 'media/logos/favicon-32.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">

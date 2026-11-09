@@ -22,10 +22,10 @@ class SettingFactory extends Factory
     public function definition()
     {
         return [
-            'email' => 'baradanasa@gmail.com',
+            'site_name' => 'Rumah Mantaaba Sigaling',
+            'email' => $this->faker->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'instagram' => 'https://www.instagram.com/akp2i.jabar/',
         ];
     }
 }

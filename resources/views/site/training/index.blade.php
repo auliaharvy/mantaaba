@@ -1,5 +1,5 @@
-<x-site.layout title="Pusat Pelatihan" description="Jadwal PPL, Brevet Pajak, seminar, dan webinar PD AKP2I Jawa Barat.">
-    <x-site.breadcrumb-header title="Pusat Pelatihan" :crumbs="['Pusat Pelatihan']" />
+<x-site.layout title="Agenda" description="Agenda kegiatan Rumah Mantaaba Sigaling.">
+    <x-site.breadcrumb-header title="Agenda" :crumbs="['Agenda']" />
     <div class="container-site py-12">
         <nav class="mb-6 flex gap-2" aria-label="Waktu">
             @foreach (['mendatang' => 'Akan Datang', 'selesai' => 'Selesai'] as $key => $label)
@@ -20,7 +20,7 @@
             <x-site.button size="sm">Terapkan</x-site.button>
         </form>
         @if ($events->isEmpty())
-            <x-site.empty-state :title="$tab === 'selesai' ? 'Belum ada event selesai' : 'Belum ada jadwal pelatihan'" icon="calendar" />
+            <x-site.empty-state :title="$tab === 'selesai' ? 'Belum ada agenda selesai' : 'Belum ada agenda mendatang'" icon="calendar" />
         @else
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">@foreach ($events as $event)<x-site.card-event :event="$event" />@endforeach</div>
             <div class="mt-10">{{ $events->links() }}</div>
