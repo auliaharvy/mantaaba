@@ -142,6 +142,9 @@
                             <div class="text-muted fs-7 w-75px">{{ $record->date->translatedFormat('j M Y') }}</div>
                             <div class="flex-grow-1"><div class="fw-bold">{{ $record->complaint }}</div><div class="fs-7 text-muted">{{ App\Models\HealthRecord::ACTIONS[$record->action] }}{{ $record->facility ? ' · ' . $record->facility : '' }}{{ $record->note ? ' · ' . $record->note : '' }}</div></div>
                             <div class="fs-7">{{ $record->cost > 0 ? 'Rp ' . number_format($record->cost, 0, ',', '.') : '' }}</div>
+                            @if ($record->cost > 0 && auth()->user()->can('journal-create'))
+                                <form method="POST" action="{{ route('journal.from-health', $record) }}">@csrf<button class="btn btn-sm btn-light-primary" title="Catat biaya ke voucher pengeluaran"><i class="fa fa-file-invoice-dollar"></i> Buat voucher</button></form>
+                            @endif
                         </div>
                     @empty
                         <p class="text-muted">Belum ada catatan kesehatan.</p>

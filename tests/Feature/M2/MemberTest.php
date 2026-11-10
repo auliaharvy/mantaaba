@@ -220,6 +220,7 @@ class MemberTest extends TestCase
         $this->actingAs($viewer)->get($url)->assertForbidden();
 
         $admin = $this->user('superadmin@mail.com');
+        $admin->notifications()->delete(); // data demo (mis. voucher diajukan) tidak ikut dihitung
         $admin->notify(new SeriousViolation($member));
         $id = $admin->unreadNotifications()->value('id');
         $this->actingAs($admin)->get('/dashboard')->assertSee('Perhatian pembinaan');

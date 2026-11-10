@@ -28,7 +28,9 @@ class HealthRecordController extends Controller
             ->editColumn('date', fn ($r) => $r->date->translatedFormat('d M Y'))
             ->editColumn('action', fn ($r) => HealthRecord::ACTIONS[$r->action])
             ->editColumn('cost', fn ($r) => $r->cost > 0 ? 'Rp ' . number_format($r->cost, 0, ',', '.') : '-')
-            ->addColumn('actions', fn ($r) => view('components.dashboard.row-actions', ['show' => route('member.show', [$r->member_id, 'tab' => 'kesehatan']),
+            ->addColumn('actions', fn ($r) => ($r->cost > 0 && auth()->user()->can('journal-create')
+                ? '<form method="POST" action="' . route('journal.from-health', $r) . '" class="d-inline">' . csrf_field() . '<button class="btn btn-sm btn-icon btn-light-primary me-2" title="Buat voucher biaya"><i class="fa fa-file-invoice-dollar"></i></button></form>' : '')
+                . view('components.dashboard.row-actions', ['show' => route('member.show', [$r->member_id, 'tab' => 'kesehatan']),
                 'edit' => route('health.edit', $r), 'delete' => route('health.destroy', $r), 'confirm' => null])->render())
             ->rawColumns(['actions'])->addIndexColumn()->make(true);
     }

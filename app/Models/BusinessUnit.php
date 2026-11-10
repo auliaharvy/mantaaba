@@ -21,6 +21,21 @@ class BusinessUnit extends Model
 
     protected $attributes = ['is_public' => true, 'type' => 'unit_bisnis'];
 
+    protected static function booted(): void
+    {
+        // PRD 9.1.5/9.13.1: unit bisnis mendapat pusat biaya otomatis
+        static::saved(function (BusinessUnit $unit) {
+            if ($unit->type === 'unit_bisnis') {
+                CostCenter::forUnit($unit)->update(['name' => $unit->name]);
+            }
+        });
+    }
+
+    public function costCenter()
+    {
+        return $this->hasOne(CostCenter::class);
+    }
+
     public function scopePublic($query)
     {
         return $query->where('is_public', true)->orderBy('sort_order')->orderBy('name');

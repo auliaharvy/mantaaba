@@ -226,6 +226,24 @@ return [
         'site.contact' => 'Kontak',
     ],
 
+    /*
+    | PRD 9.13.2: template cepat voucher. lines: [kode akun (null = pilih sendiri), sisi, kode pusat biaya].
+    */
+    'voucher_templates' => [
+        'belanja_tunai' => ['label' => 'Belanja tunai', 'type' => 'CPV', 'description' => 'Belanja bahan', 'lines' => [['1-1401', 'debit', 'DPR'], ['1-1102', 'credit', null]]],
+        'bayar_tagihan' => ['label' => 'Bayar tagihan (listrik/air)', 'type' => 'BPV', 'description' => 'Bayar tagihan listrik/air asrama', 'lines' => [['5-1300', 'debit', 'ASR'], ['1-1201', 'credit', null]]],
+        'terima_donasi' => ['label' => 'Terima donasi', 'type' => 'BRV', 'description' => 'Penerimaan donasi', 'lines' => [['1-1202', 'debit', null], ['4-1100', 'credit', 'UMUM']]],
+        'setor_kas' => ['label' => 'Setor kas ke bank', 'type' => 'CPV', 'description' => 'Setor kas ke bank', 'lines' => [['1-1201', 'debit', null], ['1-1101', 'credit', null]]],
+        'kasbon' => ['label' => 'Kasbon', 'type' => 'CPV', 'description' => 'Kasbon', 'lines' => [['1-1302', 'debit', null], ['1-1101', 'credit', null]]],
+        'pelunasan_utang' => ['label' => 'Pelunasan utang', 'type' => 'BPV', 'description' => 'Pelunasan utang pemasok', 'lines' => [['2-1100', 'debit', null], ['1-1201', 'credit', null]]],
+        'penjualan_panen' => ['label' => 'Penjualan panen', 'type' => 'CRV', 'description' => 'Penjualan hasil panen', 'lines' => [['1-1101', 'debit', null], ['4-2100', 'credit', 'KBN']]],
+    ],
+
+    // PRD 9.16: pemetaan akun default jurnal dari modul operasional (kode akun & pusat biaya)
+    'posting_rules' => [
+        'health' => ['debit' => '5-1500', 'credit' => '1-1101', 'cost_center' => 'PND'],
+    ],
+
     // Paket yang otomatis diberikan saat akun pengurus dibuat (bisa diubah di layar Hak Akses)
     'default_package' => ['pengurus' => 'pengurus_inti'],
 
@@ -273,6 +291,14 @@ return [
             ['title' => 'Kamar', 'route' => 'room.index', 'can' => 'dorm-view', 'icon' => 'fa-bed'],
             ['title' => 'Jadwal Piket', 'route' => 'duty.index', 'active' => 'duty.*|duty-area.*', 'can' => 'dorm-view', 'icon' => 'fa-broom'],
             ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],
+        ]],
+        ['title' => 'Keuangan', 'items' => [
+            ['title' => 'Voucher', 'route' => 'journal.index', 'active' => 'journal.index|journal.show|journal.create|journal.edit', 'can' => 'journal-view', 'icon' => 'fa-file-invoice-dollar'],
+            ['title' => 'Antrean Persetujuan', 'route' => 'journal.queue', 'can' => 'journal-approve', 'icon' => 'fa-check-double'],
+            ['title' => 'Buku Kas & Bank', 'route' => 'ledger.cash-book', 'active' => 'ledger.cash-book|ledger.index', 'can' => 'finance-report-view', 'icon' => 'fa-book'],
+            ['title' => 'Neraca Saldo', 'route' => 'ledger.trial-balance', 'active' => 'ledger.trial-balance', 'can' => 'finance-report-view', 'icon' => 'fa-balance-scale'],
+            ['title' => 'COA & Master', 'route' => 'coa.index', 'active' => 'coa.*|party.*|cost-center.*', 'can' => 'coa-view', 'icon' => 'fa-sitemap'],
+            ['title' => 'Periode', 'route' => 'period.index', 'active' => 'period.*|opening.*', 'can' => 'journal-view', 'icon' => 'fa-calendar-check'],
         ]],
         ['title' => 'Sistem', 'items' => [
             ['title' => 'Pengguna & Hak Akses', 'route' => 'user.index', 'can' => 'user-view', 'icon' => 'fa-user-shield'],

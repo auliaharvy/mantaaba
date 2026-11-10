@@ -68,6 +68,7 @@ class DashboardSmokeTest extends TestCase
             'health' => \App\Models\HealthRecord::first(), 'announcement' => \App\Models\Announcement::first(),
             'skema' => \App\Models\Skema::first(), 'module' => \App\Models\Module::first(), 'lesson' => \App\Models\Lesson::first(),
             'progress' => \App\Models\LessonProgress::whereNotNull('submitted_at')->first(),
+            'coa' => \App\Models\CoaAccount::first(), 'party' => \App\Models\Party::first(), 'journal' => \App\Models\Journal::where('status', 'draft')->first(),
             'room' => \App\Models\Room::first(), 'duty' => \App\Models\Duty::first(), 'duty_area' => \App\Models\DutyArea::first(),
             'user' => User::where('email', 'anggota@mail.com')->first(),
         ];

@@ -1,6 +1,13 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\CoaController;
+use App\Http\Controllers\CostCenterController;
+use App\Http\Controllers\FiscalPeriodController;
+use App\Http\Controllers\JournalController;
+use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\OpeningBalanceController;
+use App\Http\Controllers\PartyController;
 use App\Http\Controllers\DutyAreaController;
 use App\Http\Controllers\DutyController;
 use App\Http\Controllers\MyDutyController;
@@ -157,6 +164,36 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::get('sertifikat', [CertificateController::class, 'index'])->name('certificate.index');
     Route::get('sertifikat-datatable', [CertificateController::class, 'datatable'])->name('certificate.datatable');
     Route::post('anggota/{member}/kukuhkan', [CertificateController::class, 'graduate'])->name('certificate.graduate');
+
+    /*
+    | Akuntansi (PRD 9.13)
+    */
+    Route::resource('coa', CoaController::class)->except('show');
+    Route::get('pihak-datatable', [PartyController::class, 'datatable'])->name('party.datatable');
+    Route::get('pihak-cari', [PartyController::class, 'search'])->name('party.search');
+    Route::resource('pihak', PartyController::class)->parameters(['pihak' => 'party'])->names('party')->except(['show', 'destroy']);
+    Route::get('pusat-biaya', [CostCenterController::class, 'index'])->name('cost-center.index');
+    Route::post('pusat-biaya', [CostCenterController::class, 'store'])->name('cost-center.store');
+    Route::patch('pusat-biaya/{costCenter}', [CostCenterController::class, 'update'])->name('cost-center.update');
+    Route::get('periode', [FiscalPeriodController::class, 'index'])->name('period.index');
+    Route::post('periode/{period}/tutup', [FiscalPeriodController::class, 'close'])->name('period.close');
+    Route::post('periode/{period}/buka', [FiscalPeriodController::class, 'reopen'])->name('period.reopen');
+    Route::get('saldo-awal', [OpeningBalanceController::class, 'show'])->name('opening.show');
+    Route::post('saldo-awal', [OpeningBalanceController::class, 'store'])->name('opening.store');
+    Route::get('voucher-datatable', [JournalController::class, 'datatable'])->name('journal.datatable');
+    Route::get('voucher-antrean', [JournalController::class, 'queue'])->name('journal.queue');
+    Route::post('voucher-posting', [JournalController::class, 'postMany'])->name('journal.post-many');
+    Route::post('voucher/{journal}/ajukan', [JournalController::class, 'submit'])->name('journal.submit');
+    Route::post('voucher/{journal}/posting', [JournalController::class, 'post'])->name('journal.post');
+    Route::post('voucher/{journal}/tolak', [JournalController::class, 'reject'])->name('journal.reject');
+    Route::post('voucher/{journal}/balik', [JournalController::class, 'reverse'])->name('journal.reverse');
+    Route::get('voucher/{journal}/lampiran/{index}', [JournalController::class, 'attachment'])->name('journal.attachment');
+    Route::get('voucher/{journal}/pdf', [JournalController::class, 'pdf'])->name('journal.pdf');
+    Route::post('kesehatan/{health}/voucher', [JournalController::class, 'fromHealth'])->name('journal.from-health');
+    Route::resource('voucher', JournalController::class)->parameters(['voucher' => 'journal'])->names('journal');
+    Route::get('buku-besar', [LedgerController::class, 'ledger'])->name('ledger.index');
+    Route::get('neraca-saldo', [LedgerController::class, 'trialBalance'])->name('ledger.trial-balance');
+    Route::get('buku-kas', [LedgerController::class, 'cashBook'])->name('ledger.cash-book');
 
     /*
     | Asrama & piket (PRD 9.9)
