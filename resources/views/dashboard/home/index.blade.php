@@ -37,11 +37,57 @@
                     <a href="{{ $url }}" class="card card-flush h-100 hoverable">
                         <div class="card-body d-flex align-items-center gap-4">
                             <i class="fa {{ $icon }} fs-1 text-primary"></i>
-                            <div><div class="fs-2hx fw-bolder text-dark">{{ is_numeric($value) ? number_format($value, 0, ',', '.') : $value }}</div><div class="text-muted">{{ $label }}</div></div>
+                            <div><div class="{{ is_numeric($value) ? 'fs-2hx' : 'fs-3' }} fw-bolder text-dark text-nowrap">{{ is_numeric($value) ? number_format($value, 0, ',', '.') : $value }}</div><div class="text-muted">{{ $label }}</div></div>
                         </div>
                     </a>
                 </div>
             @endforeach
+        </div>
+    @endif
+
+    @if ($learning)
+        <div class="row g-5 mb-5">
+            <div class="col-lg-7">
+                <div class="card h-100">
+                    <div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder"><i class="fa fa-book-open me-2"></i> Progres belajar</div>
+                        <div class="card-toolbar"><a href="{{ route('learn.index') }}" class="btn btn-sm btn-light-primary">Belajar</a></div></div>
+                    <div class="card-body py-3">
+                        @forelse ($learning['skemas'] as $s)
+                            <div class="d-flex align-items-center gap-3 py-2">
+                                <span class="w-150px fw-bold text-truncate">{{ $s['enrollment']->skema->name }}</span>
+                                <div class="progress h-8px flex-grow-1"><div class="progress-bar {{ $s['passed'] ? 'bg-success' : 'bg-primary' }}" style="width: {{ $s['percent'] }}%"></div></div>
+                                <span class="fs-8 w-90px text-end">{{ $s['passed'] ? '🏅 Lulus' : App\Models\SkemaEnrollment::STATUSES[$s['enrollment']->status] . ' · ' . $s['percent'] . '%' }}</span>
+                            </div>
+                        @empty
+                            <div class="text-muted">Belum terdaftar di skema.</div>
+                        @endforelse
+                        @if ($learning['next'])<a href="{{ route('learn.lesson', $learning['next']) }}" class="btn btn-sm btn-primary mt-3">Lanjut: {{ $learning['next']->title }}</a>@endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">Perlu perhatian</div></div>
+                    <div class="card-body py-3 fs-7">
+                        @foreach ($learning['due'] as $d)
+                            <div class="py-1"><i class="fa fa-clock {{ $d['date']->isPast() ? 'text-danger' : 'text-warning' }} me-1"></i> <a href="{{ route('learn.lesson', $d['lesson']) }}">{{ $d['lesson']->title }}</a> · tenggat {{ $d['date']->translatedFormat('j M') }}</div>
+                        @endforeach
+                        @foreach ($learning['rejected'] as $j)
+                            <div class="py-1"><i class="fa fa-times-circle text-danger me-1"></i> Voucher ditolak: <a href="{{ route('journal.show', $j) }}">{{ $j->description }}</a> — {{ $j->reject_reason }}</div>
+                        @endforeach
+                        <div class="py-1"><i class="fa fa-certificate text-primary me-1"></i> <a href="{{ route('certificate.index') }}">{{ $learning['certificates'] }} sertifikat</a></div>
+                        @if ($learning['due']->isEmpty() && $learning['rejected']->isEmpty())<div class="text-muted py-1">Tidak ada tugas yang mendekati tenggat.</div>@endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if ($charts)
+        <div class="row g-5 mb-5">
+            @isset($charts['finance'])<div class="col-xl-6"><div class="card h-100"><div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">Penerimaan vs beban 12 bulan</div></div><div class="card-body"><div id="chart-finance" style="height: 280px"></div></div></div></div>@endisset
+            @isset($charts['kitchen'])<div class="col-xl-6"><div class="card h-100"><div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">Biaya dapur 30 hari</div></div><div class="card-body"><div id="chart-kitchen" style="height: 280px"></div></div></div></div>@endisset
+            @isset($charts['budget'])<div class="col-xl-6"><div class="card h-100"><div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">Realisasi anggaran {{ now()->year }}</div></div><div class="card-body"><div id="chart-budget" style="height: 280px"></div></div></div></div>@endisset
         </div>
     @endif
 
@@ -57,4 +103,22 @@
             @endif
         </div>
     </div>
+    @if ($charts)
+        <x-slot name="javascript"><script>
+            (function () {
+                if (typeof ApexCharts === 'undefined') return;
+                const charts = @json($charts);
+                const rp = (v) => v === null ? '-' : 'Rp ' + new Intl.NumberFormat('id-ID').format(v);
+                const brand = getComputedStyle(document.documentElement).getPropertyValue('--bs-primary').trim() || '#5B3A1F';
+                const draw = (id, options) => { const el = document.getElementById(id); if (el) new ApexCharts(el, Object.assign({ chart: { height: 280, toolbar: { show: false }, fontFamily: 'inherit' } }, options)).render(); };
+                if (charts.finance) draw('chart-finance', { chart: { type: 'bar', height: 280, toolbar: { show: false } }, series: [{ name: 'Penerimaan', data: charts.finance.revenue }, { name: 'Beban', data: charts.finance.expense }],
+                    xaxis: { categories: charts.finance.labels }, colors: ['#C9A04A', '#8A2D1E'], dataLabels: { enabled: false }, yaxis: { labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }, tooltip: { y: { formatter: rp } } });
+                if (charts.kitchen) draw('chart-kitchen', { chart: { type: 'line', height: 280, toolbar: { show: false } }, series: [{ name: 'Biaya hari itu', type: 'column', data: charts.kitchen.cost }, { name: 'Per orang', type: 'line', data: charts.kitchen.per_person }],
+                    xaxis: { categories: charts.kitchen.labels, labels: { rotate: -45 } }, colors: [brand, '#C9A04A'], dataLabels: { enabled: false }, stroke: { width: [0, 3] }, tooltip: { y: { formatter: rp } },
+                    yaxis: [{ labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }, { opposite: true, labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }] });
+                if (charts.budget) draw('chart-budget', { chart: { type: 'bar', height: 280, toolbar: { show: false } }, series: [{ name: 'Serapan', data: charts.budget.percent }], plotOptions: { bar: { horizontal: true } },
+                    xaxis: { categories: charts.budget.labels, max: Math.max(100, ...charts.budget.percent) }, colors: [brand], dataLabels: { enabled: true, formatter: (v) => v + '%' }, tooltip: { y: { formatter: (v) => v + '%' } } });
+            })();
+        </script></x-slot>
+    @endif
 </x-dashboard.page>

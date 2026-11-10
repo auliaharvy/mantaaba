@@ -40,6 +40,8 @@ class NotificationRenderTest extends TestCase
             new Notifications\AssignmentReviewed($progress),
         ];
         $notifications[] = new Notifications\EventTicket($participant, 'https://contoh.test/tiket');
+        $notifications[] = new Notifications\AssetReminder(\App\Models\Asset::firstOrFail(), 'Pajak kendaraan jatuh tempo (30 hari lagi)');
+        $notifications[] = new Notifications\DonationThanks(\App\Models\Donation::firstOrFail(), 'https://contoh.test/bukti');
 
         foreach ($notifications as $notification) {
             $html = (string) $notification->toMail($user)->render();

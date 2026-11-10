@@ -205,9 +205,10 @@ class OperationsTest extends TestCase
         $date = today()->toDateString();
         $breakfast = \App\Models\KitchenLog::whereHas('plan', fn ($q) => $q->whereDate('date', $date))->sum('cost_total');
         $plan = MealPlan::where('meal', 'makan_siang')->whereDate('date', $date)->firstOrFail();
-        // beras 0,5 kg × 12.000 + tempe 4 × 2.500 = 16.000
+        // biaya = 0,5 kg beras × rata-rata beras + 4 potong tempe × rata-rata tempe (dihitung manual dari avg_cost sebelum masak)
+        $lunch = (int) round(0.5 * Money::cents($this->item('Beras')->avg_cost)) + (int) round(4 * Money::cents($this->item('Tempe')->avg_cost));
         $this->actingAs($this->staff)->post(route('kitchen.cook', $plan), ['ingredients' => [$this->item('Beras')->id => 0.5, $this->item('Tempe')->id => 4], 'actual_portions' => $residents])->assertSessionHasNoErrors();
-        $total = Money::cents($breakfast) + Money::cents(16000);
+        $total = Money::cents($breakfast) + $lunch;
         $day = KitchenService::daily($date, $date)->first();
         $this->assertSame($total, $day['cost']);
         $this->assertSame(intdiv($total, $residents), $day['per_person']);

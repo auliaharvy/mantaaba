@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\FlushesSiteCache;
+use App\Models\Concerns\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Setting extends Model
 {
-    use FlushesSiteCache, HasFactory;
+    use FlushesSiteCache, HasFactory, LogsActivity;
 
     /** Field gambar (disk public) => lebar maksimum. */
     public const IMAGES = ['logo' => 600, 'logo_footer' => 600, 'favicon' => 256, 'og_image' => 1200, 'qris_image' => 1000];
