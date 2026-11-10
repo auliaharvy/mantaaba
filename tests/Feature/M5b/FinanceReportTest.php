@@ -161,6 +161,9 @@ class FinanceReportTest extends TestCase
         $this->assertSame(0, $closer->generate($period, $this->approver), 'dijalankan ulang tidak membuat jurnal ganda');
 
         $admin = User::where('email', 'superadmin@mail.com')->first();
+        // jurnal otomatis wajib diposting dulu (dibuat oleh $this->approver → disetujui Super Admin)
+        $this->actingAs($admin)->post(route('period.close', $period), ['confirm_pending' => 1])->assertSessionHasErrors('generators');
+        app(JournalPoster::class)->post(Journal::where('source_type', 'monthly:uji')->first(), $admin);
         $this->actingAs($admin)->post(route('period.close', $period))->assertSessionHasErrors('recon');
         $this->actingAs($admin)->get(route('period.show', $period))->assertOk()->assertSee('Rekonsiliasi kas');
         $cash = CoaAccount::where('is_header', false)->where(fn ($q) => $q->where('is_cash', true)->orWhere('is_bank', true))->get();
@@ -170,8 +173,6 @@ class FinanceReportTest extends TestCase
         foreach ($cash as $account) {
             $this->actingAs($admin)->post(route('period.reconcile', $period), ['coa_account_id' => $account->id, 'actual' => Money::decimal(Ledger::balanceCents($account->id, $end))])->assertSessionHasNoErrors();
         }
-        // jurnal otomatis masih diajukan → perlu konfirmasi
-        $this->actingAs($admin)->post(route('period.close', $period))->assertSessionHasErrors('pending');
         $this->actingAs($admin)->post(route('period.close', $period), ['confirm_pending' => 1])->assertSessionHas('success');
         $this->assertTrue($period->fresh()->isClosed());
         $this->assertSame(1, Journal::where('source_type', 'monthly:uji')->where('source_id', $period->id)->count());

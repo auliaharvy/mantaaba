@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\Operations\FarmController;
+use App\Http\Controllers\Operations\ItemController;
+use App\Http\Controllers\Operations\KitchenController;
+use App\Http\Controllers\Operations\PostingRuleController;
+use App\Http\Controllers\Operations\StockController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CoaController;
 use App\Http\Controllers\DonationController;
@@ -261,6 +266,45 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::get('pengguna-datatable', [UserController::class, 'datatable'])->name('user.datatable');
     Route::get('pengguna/{user}/hak-akses', [UserController::class, 'permissions'])->name('user.permissions');
     Route::put('pengguna/{user}/hak-akses', [UserController::class, 'updatePermissions'])->name('user.permissions.update');
+    // M6: stok, kebun & kolam, dapur (PRD 9.10–9.12)
+    Route::resource('barang', ItemController::class)->parameters(['barang' => 'item'])->names('item')->except(['destroy']);
+    Route::get('stok/mutasi', [StockController::class, 'moveForm'])->name('stock.move-form');
+    Route::post('stok/mutasi', [StockController::class, 'move'])->name('stock.move');
+    Route::get('stok/pembelian', [StockController::class, 'purchases'])->name('stock.purchases');
+    Route::get('stok/pembelian/baru', [StockController::class, 'purchaseForm'])->name('stock.purchase-form');
+    Route::post('stok/pembelian', [StockController::class, 'purchase'])->name('stock.purchase');
+    Route::post('stok/pembelian/{journal}/batal', [StockController::class, 'cancelPurchase'])->name('stock.purchase-cancel');
+    Route::get('stok/opname', [StockController::class, 'opnames'])->name('stock.opnames');
+    Route::post('stok/opname', [StockController::class, 'startOpname'])->name('stock.opname-start');
+    Route::get('stok/opname/{opname}', [StockController::class, 'opname'])->name('stock.opname');
+    Route::post('stok/opname/{opname}', [StockController::class, 'saveOpname'])->name('stock.opname-save');
+    Route::get('kebun', [FarmController::class, 'index'])->name('farm.index');
+    Route::get('kebun/petak/baru', [FarmController::class, 'createPlot'])->name('farm.plot-create');
+    Route::post('kebun/petak', [FarmController::class, 'storePlot'])->name('farm.plot-store');
+    Route::get('kebun/petak/{plot}/edit', [FarmController::class, 'editPlot'])->name('farm.plot-edit');
+    Route::put('kebun/petak/{plot}', [FarmController::class, 'updatePlot'])->name('farm.plot-update');
+    Route::get('kebun/petak/{plot}/siklus-baru', [FarmController::class, 'createCycle'])->name('farm.cycle-create');
+    Route::post('kebun/petak/{plot}/siklus', [FarmController::class, 'storeCycle'])->name('farm.cycle-store');
+    Route::get('kebun/siklus/{cycle}', [FarmController::class, 'cycle'])->name('farm.cycle');
+    Route::post('kebun/siklus/{cycle}/log', [FarmController::class, 'log'])->name('farm.log');
+    Route::post('kebun/siklus/{cycle}/panen', [FarmController::class, 'harvest'])->name('farm.harvest');
+    Route::post('kebun/siklus/{cycle}/tutup', [FarmController::class, 'close'])->name('farm.close');
+    Route::post('kebun/siklus/{cycle}/buka', [FarmController::class, 'reopen'])->name('farm.reopen');
+    Route::get('dapur', [KitchenController::class, 'index'])->name('kitchen.index');
+    Route::get('dapur/menu', [KitchenController::class, 'menus'])->name('kitchen.menus');
+    Route::get('dapur/menu/baru', [KitchenController::class, 'createMenu'])->name('kitchen.menu-create');
+    Route::post('dapur/menu', [KitchenController::class, 'storeMenu'])->name('kitchen.menu-store');
+    Route::get('dapur/menu/{menu}/edit', [KitchenController::class, 'editMenu'])->name('kitchen.menu-edit');
+    Route::put('dapur/menu/{menu}', [KitchenController::class, 'updateMenu'])->name('kitchen.menu-update');
+    Route::get('dapur/rencana', [KitchenController::class, 'plans'])->name('kitchen.plans');
+    Route::post('dapur/rencana', [KitchenController::class, 'savePlans'])->name('kitchen.plans-save');
+    Route::get('dapur/kebutuhan', [KitchenController::class, 'needs'])->name('kitchen.needs');
+    Route::get('dapur/masak/{plan}', [KitchenController::class, 'cookForm'])->name('kitchen.cook-form');
+    Route::post('dapur/masak/{plan}', [KitchenController::class, 'cook'])->name('kitchen.cook');
+    Route::get('dapur/laporan', [KitchenController::class, 'report'])->name('kitchen.report');
+    Route::get('setting-akuntansi', [PostingRuleController::class, 'edit'])->name('posting-rule.edit');
+    Route::put('setting-akuntansi', [PostingRuleController::class, 'update'])->name('posting-rule.update');
+
     Route::post('pengguna/{user}/tautan-password', [UserController::class, 'passwordLink'])->name('user.password-link');
     Route::resource('pengguna', UserController::class)->parameters(['pengguna' => 'user'])->names('user')->except(['show', 'destroy']);
     Route::get('log-aktivitas', [ActivityLogController::class, 'index'])->name('activity-log.index');

@@ -65,6 +65,7 @@ return new class extends Migration
             // Akuntansi
             $table->date('accounting_start_date')->nullable();
             $table->json('report_signatories')->nullable();
+            $table->json('posting_accounts')->nullable(); // kunci posting_rule_labels => kode akun
             // Lainnya
             $table->text('footer_text')->nullable();
             $table->timestamps();

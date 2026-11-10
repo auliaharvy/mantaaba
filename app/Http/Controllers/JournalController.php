@@ -209,8 +209,8 @@ class JournalController extends Controller
             'description' => "Biaya kesehatan {$health->member->name}: {$health->complaint}", 'reference_no' => $health->facility,
             'source_type' => $health->getMorphClass(), 'source_id' => $health->id,
         ], [
-            ['coa_account_id' => CoaAccount::byCode($rule['debit'])->id, 'debit' => $health->cost, 'cost_center_id' => $center],
-            ['coa_account_id' => CoaAccount::byCode($rule['credit'])->id, 'credit' => $health->cost],
+            ['coa_account_id' => \App\Support\PostingRules::account('health.debit')->id, 'debit' => $health->cost, 'cost_center_id' => $center],
+            ['coa_account_id' => \App\Support\PostingRules::account('health.credit')->id, 'credit' => $health->cost],
         ], $request->user());
 
         return redirect()->route('journal.edit', $journal)->with('success', 'Draf voucher biaya kesehatan dibuat. Periksa akun kas/bank lalu lampirkan kuitansi.');

@@ -1,5 +1,4 @@
 <x-dashboard.page :title="'Donasi ' . ($donation->receipt_number ?? '#' . $donation->id)" :crumbs="['Keuangan', 'Donasi', 'Rincian']">
-    @if ($errors->any())<div class="alert alert-danger">@foreach ($errors->all() as $e)<div>{{ $e }}</div>@endforeach</div>@endif
     <div class="row g-5">
         <div class="col-lg-7">
             <div class="card">

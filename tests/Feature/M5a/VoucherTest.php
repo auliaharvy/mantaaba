@@ -299,6 +299,9 @@ class VoucherTest extends TestCase
         $period = FiscalPeriod::forDate(today());
         $this->actingAs($this->maker)->post(route('period.close', $period))->assertForbidden(); // Pengurus Inti tanpa period-close
         $admin = User::where('email', 'superadmin@mail.com')->first();
+        // M6: rekap persediaan dibuat Bendahara, diposting orang lain, sebelum periode ditutup
+        app(\App\Services\PeriodCloser::class)->generate($period, $this->approver);
+        Journal::where('source_type', 'like', 'monthly:%')->where('source_id', $period->id)->get()->each(fn ($j) => app(JournalPoster::class)->post($j, $admin));
         foreach (\App\Models\CoaAccount::where('is_header', false)->where(fn ($q) => $q->where('is_cash', true)->orWhere('is_bank', true))->get() as $cash) {
             $this->actingAs($admin)->post(route('period.reconcile', $period), ['coa_account_id' => $cash->id,
                 'actual' => \App\Support\Money::decimal(\App\Services\Ledger::balanceCents($cash->id, \Illuminate\Support\Carbon::create($period->year, $period->month)->endOfMonth()->toDateString()))])->assertSessionHasNoErrors();

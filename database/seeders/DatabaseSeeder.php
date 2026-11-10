@@ -21,12 +21,13 @@ class DatabaseSeeder extends Seeder
             DutyAreaSeeder::class,
             CoaSeeder::class,
             CostCenterSeeder::class,
+            WarehouseSeeder::class,
             ContentTaxonomySeeder::class,
             SuperAdminSeeder::class,
         ]);
 
         if (! app()->isProduction()) {
-            $this->call([UserSeeder::class, BlogSeeder::class, MembershipSeeder::class, EventSeeder::class, DormSeeder::class, AccountingDemoSeeder::class]);
+            $this->call([UserSeeder::class, BlogSeeder::class, MembershipSeeder::class, EventSeeder::class, DormSeeder::class, AccountingDemoSeeder::class, OperationsDemoSeeder::class]);
         }
     }
 }

@@ -72,6 +72,11 @@ class PeriodCloser
         abort_if($period->isClosed(), 422, 'Periode sudah ditutup.');
         $this->generate($period, $user);
         $check = $this->checklist($period);
+        // jurnal otomatis harus sudah disetujui Bendahara: periode tertutup tidak bisa menerima posting lagi
+        $unposted = $check['generators']->filter(fn ($g) => $g['journal'] && $g['journal']->status !== 'terposting');
+        if ($unposted->isNotEmpty()) {
+            throw ValidationException::withMessages(['generators' => 'Posting dulu jurnal otomatis: ' . $unposted->pluck('label')->implode(', ') . '.']);
+        }
         $missing = $check['cash']->filter(fn ($c) => ! $c['recon'] || ($c['recon']->differenceCents() !== 0 && blank($c['recon']->note)) || Money::cents($c['recon']->book_balance) !== $c['book']);
         if ($missing->isNotEmpty()) {
             throw ValidationException::withMessages(['recon' => 'Rekonsiliasi belum lengkap/terbaru: ' . $missing->map(fn ($c) => $c['account']->name)->implode(', ') . '.']);
@@ -102,7 +107,6 @@ class PeriodCloser
         }
         $date = "{$year}-12-31";
         $net = FinancialReports::movements("{$year}-01-01", $date);
-        $rules = config('mantaaba.posting_rules.year_close');
         $lines = [];
         $toNet = ['tanpa' => 0, 'dengan' => 0];
         foreach (CoaAccount::whereIn('type', ['pendapatan', 'beban'])->where('is_header', false)->get() as $account) {
@@ -114,7 +118,7 @@ class PeriodCloser
             $toNet[$account->restriction === 'dengan_pembatasan' ? 'dengan' : 'tanpa'] -= $balance;
         }
         abort_if(! $lines, 422, "Tidak ada saldo pendapatan/beban di {$year}.");
-        foreach (['tanpa' => $rules['unrestricted'], 'dengan' => $rules['restricted']] as $group => $code) {
+        foreach (['tanpa' => \App\Support\PostingRules::code('year_close.unrestricted'), 'dengan' => \App\Support\PostingRules::code('year_close.restricted')] as $group => $code) {
             if ($toNet[$group] !== 0) {
                 $lines[] = ['coa_account_id' => CoaAccount::byCode($code)->id, $toNet[$group] > 0 ? 'credit' : 'debit' => Money::decimal(abs($toNet[$group])), 'memo' => 'Surplus/defisit ' . $year];
             }

@@ -2,7 +2,6 @@
     @php
         $canClose = auth()->user()->can('period-close') && ! $period->isClosed();
     @endphp
-    @if ($errors->any())<div class="alert alert-danger">@foreach ($errors->all() as $e)<div>{{ $e }}</div>@endforeach</div>@endif
     <div class="row g-5">
         <div class="col-lg-6">
             <div class="card mb-5">

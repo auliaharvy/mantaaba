@@ -29,6 +29,7 @@ class Setting extends Model
         'priority_districts' => 'array',
         'assessment_weights' => 'array',
         'report_signatories' => 'array',
+        'posting_accounts' => 'array',
         'accounting_start_date' => 'date',
         'meal_budget_per_person_day' => 'decimal:2',
     ];

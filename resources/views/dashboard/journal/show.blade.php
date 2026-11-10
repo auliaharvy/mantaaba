@@ -3,7 +3,6 @@
     $user = auth()->user();
 @endphp
 <x-dashboard.page :title="$j->displayNumber()" :crumbs="['Keuangan', 'Voucher', $j->displayNumber()]">
-    @if ($errors->any())<div class="alert alert-danger"><ul class="mb-0">@foreach ($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
     <div class="card mb-5">
         <div class="card-header flex-wrap py-3">
             <div class="card-title flex-column align-items-start">

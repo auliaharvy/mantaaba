@@ -244,10 +244,38 @@ return [
         'health' => ['debit' => '5-1500', 'credit' => '1-1101', 'cost_center' => 'PND'],
         // tutup buku: pendapatan/beban tanpa pembatasan → surplus; dengan pembatasan → dana terikat (Q10: rinci per peruntukan di v2)
         'year_close' => ['unrestricted' => '3-1200', 'restricted' => '3-2100'],
+        'purchase' => ['cash' => '1-1102', 'bank' => '1-1201', 'payable' => '2-1100'],
+        'harvest_sale' => ['revenue' => '4-2100', 'cash' => '1-1101', 'bank' => '1-1201', 'receivable' => '1-1301'],
+        'stock_loss' => ['debit' => '5-3900'], // barang rusak / opname kurang (pusat biaya UMUM)
+        'stock_gain' => ['credit' => '4-3100'], // opname lebih
     ],
 
-    // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas); diisi modul stok (M6) & aset (M7)
-    'monthly_journals' => [],
+    // Label aturan yang bisa diubah di Setting Akuntansi (kunci = posting_rules.{kunci})
+    'posting_rule_labels' => [
+        'purchase.cash' => 'Pembelian stok tunai: akun kas', 'purchase.bank' => 'Pembelian stok transfer: akun bank', 'purchase.payable' => 'Pembelian stok kredit: akun utang',
+        'harvest_sale.revenue' => 'Penjualan panen: akun pendapatan', 'harvest_sale.cash' => 'Penjualan panen tunai: akun kas',
+        'harvest_sale.bank' => 'Penjualan panen transfer: akun bank', 'harvest_sale.receivable' => 'Penjualan panen kredit: akun piutang',
+        'stock_loss.debit' => 'Barang rusak / selisih opname kurang: akun beban', 'stock_gain.credit' => 'Selisih opname lebih: akun pendapatan',
+        'health.debit' => 'Biaya kesehatan: akun beban', 'health.credit' => 'Biaya kesehatan: akun kas',
+        'year_close.unrestricted' => 'Tutup buku: aset neto tanpa pembatasan', 'year_close.restricted' => 'Tutup buku: aset neto dengan pembatasan',
+    ],
+
+    // PRD 9.10: kategori barang → [label, akun persediaan, akun beban pemakaian]
+    'item_categories' => [
+        'bahan_pangan' => ['Bahan pangan', '1-1401', '5-1200'],
+        'bibit_benih' => ['Bibit & benih', '1-1402', '5-1400'],
+        'pupuk' => ['Pupuk', '1-1402', '5-1400'],
+        'pakan' => ['Pakan', '1-1402', '5-1400'],
+        'obat_pertanian' => ['Obat pertanian', '1-1402', '5-1400'],
+        'habis_pakai' => ['Barang habis pakai', '1-1404', '5-1300'],
+        'hasil_panen' => ['Hasil panen', '1-1403', '5-1200'],
+        'lainnya' => ['Lainnya', '1-1404', '5-3900'],
+    ],
+
+    // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas); aset (M7) menyusul
+    'monthly_journals' => [
+        'stock' => App\Services\StockMonthlyJournal::class,
+    ],
 
     // Paket yang otomatis diberikan saat akun pengurus dibuat (bisa diubah di layar Hak Akses)
     'default_package' => ['pengurus' => 'pengurus_inti'],
@@ -297,6 +325,14 @@ return [
             ['title' => 'Jadwal Piket', 'route' => 'duty.index', 'active' => 'duty.*|duty-area.*', 'can' => 'dorm-view', 'icon' => 'fa-broom'],
             ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],
         ]],
+        ['title' => 'Operasional', 'items' => [
+            ['title' => 'Dapur', 'route' => 'kitchen.index', 'active' => 'kitchen.index|kitchen.cook-form', 'can' => 'kitchen-view', 'icon' => 'fa-utensils'],
+            ['title' => 'Rencana Menu', 'route' => 'kitchen.plans', 'active' => 'kitchen.plans|kitchen.needs|kitchen.menus|kitchen.menu-*|kitchen.report', 'can' => 'kitchen-view', 'icon' => 'fa-calendar-week'],
+            ['title' => 'Kebun & Kolam', 'route' => 'farm.index', 'active' => 'farm.*', 'can' => 'farm-view', 'icon' => 'fa-seedling'],
+            ['title' => 'Stok & Barang', 'route' => 'item.index', 'active' => 'item.*|stock.move-form', 'can' => 'stock-view', 'icon' => 'fa-boxes'],
+            ['title' => 'Pembelian', 'route' => 'stock.purchases', 'active' => 'stock.purchase*', 'can' => 'stock-view', 'icon' => 'fa-shopping-basket'],
+            ['title' => 'Stock Opname', 'route' => 'stock.opnames', 'active' => 'stock.opname*', 'can' => 'stock-view', 'icon' => 'fa-clipboard-check'],
+        ]],
         ['title' => 'Keuangan', 'items' => [
             ['title' => 'Voucher', 'route' => 'journal.index', 'active' => 'journal.index|journal.show|journal.create|journal.edit', 'can' => 'journal-view', 'icon' => 'fa-file-invoice-dollar'],
             ['title' => 'Antrean Persetujuan', 'route' => 'journal.queue', 'can' => 'journal-approve', 'icon' => 'fa-check-double'],
@@ -307,6 +343,7 @@ return [
             ['title' => 'Anggaran', 'route' => 'budget.index', 'can' => 'coa-view', 'icon' => 'fa-coins'],
             ['title' => 'COA & Master', 'route' => 'coa.index', 'active' => 'coa.*|party.*|cost-center.*', 'can' => 'coa-view', 'icon' => 'fa-sitemap'],
             ['title' => 'Periode', 'route' => 'period.index', 'active' => 'period.*|opening.*', 'can' => 'journal-view', 'icon' => 'fa-calendar-check'],
+            ['title' => 'Setting Akuntansi', 'route' => 'posting-rule.edit', 'role' => 'super_admin', 'icon' => 'fa-cogs'],
         ]],
         ['title' => 'Sistem', 'items' => [
             ['title' => 'Pengguna & Hak Akses', 'route' => 'user.index', 'can' => 'user-view', 'icon' => 'fa-user-shield'],

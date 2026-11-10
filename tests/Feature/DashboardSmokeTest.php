@@ -71,6 +71,8 @@ class DashboardSmokeTest extends TestCase
             'coa' => \App\Models\CoaAccount::first(), 'party' => \App\Models\Party::first(), 'journal' => \App\Models\Journal::where('status', 'draft')->first(),
             'room' => \App\Models\Room::first(), 'duty' => \App\Models\Duty::first(), 'duty_area' => \App\Models\DutyArea::first(),
             'donation' => \App\Models\Donation::first(), 'period' => \App\Models\FiscalPeriod::first(),
+            'item' => \App\Models\Item::first(), 'plot' => \App\Models\FarmPlot::where('code', 'L-02')->first(), 'cycle' => \App\Models\FarmCycle::first(),
+            'menu' => \App\Models\KitchenMenu::first(), 'plan' => \App\Models\MealPlan::where('status', 'rencana')->first(), 'opname' => \App\Models\StockOpname::first(),
             'user' => User::where('email', 'anggota@mail.com')->first(),
         ];
         $user = User::where('email', $email)->firstOrFail();

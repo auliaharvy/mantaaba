@@ -37,7 +37,7 @@
                     <a href="{{ $url }}" class="card card-flush h-100 hoverable">
                         <div class="card-body d-flex align-items-center gap-4">
                             <i class="fa {{ $icon }} fs-1 text-primary"></i>
-                            <div><div class="fs-2hx fw-bolder text-dark">{{ number_format($value, 0, ',', '.') }}</div><div class="text-muted">{{ $label }}</div></div>
+                            <div><div class="fs-2hx fw-bolder text-dark">{{ is_numeric($value) ? number_format($value, 0, ',', '.') : $value }}</div><div class="text-muted">{{ $label }}</div></div>
                         </div>
                     </a>
                 </div>
