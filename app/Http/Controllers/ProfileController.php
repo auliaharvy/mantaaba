@@ -14,13 +14,28 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $participations = $user->participants()->with('event', 'certificateRecord')->latest()->get();
+        // PRD 9.4: anggota melihat data sendiri, catatan pembinaan ber-visibilitas anggota, dan riwayat kesehatan sendiri
+        $member = $user->member?->load('batch', 'journeys.businessUnit');
+        $notes = $member ? $member->coachingNotes()->where('visibility', 'anggota')->with('author')->get() : collect();
+        $health = $member ? $member->healthRecords()->get() : collect();
 
-        return view('dashboard.profile.index', compact('user', 'participations'));
+        return view('dashboard.profile.index', compact('user', 'participations', 'member', 'notes', 'health'));
     }
 
     public function update(Request $request)
     {
         $user = $request->user();
+        if ($member = $user->member) {
+            // anggota hanya mengubah foto, telepon, dan alamat; data lain dikelola pengurus
+            $data = $request->validate(['phone_number' => 'nullable|string|max:30', 'address' => 'nullable|string|max:255', 'photo' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048']);
+            if ($request->hasFile('photo')) {
+                $member->photo = Upload::store($request->file('photo'), 'members', $member->photo, 800);
+            }
+            $member->fill(['phone' => $data['phone_number'] ?? null, 'address' => $data['address'] ?? null])->save();
+            $user->update(['phone_number' => $data['phone_number'] ?? null, 'address' => $data['address'] ?? null]);
+
+            return redirect()->route('profile.index')->with('success', 'Profil diperbarui.');
+        }
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'gender' => 'nullable|in:L,P',

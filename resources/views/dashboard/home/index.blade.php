@@ -9,6 +9,14 @@
         </div>
     </div>
 
+    @foreach ($announcements as $announcement)
+        <div class="alert {{ $announcement->is_pinned ? 'alert-primary' : 'alert-light-primary' }} d-flex gap-4 mb-5">
+            <i class="fa fa-bullhorn fs-2 mt-1"></i>
+            <div><div class="fw-bolder">{{ $announcement->title }}</div><div style="white-space: pre-line">{{ $announcement->body }}</div>
+                <div class="fs-8 text-muted mt-1">{{ $announcement->published_at->translatedFormat('j M Y') }}</div></div>
+        </div>
+    @endforeach
+
     @if ($cards)
         <div class="row g-5 mb-5">
             @foreach ($cards as [$label, $value, $icon, $url])

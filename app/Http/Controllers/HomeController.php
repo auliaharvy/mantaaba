@@ -14,7 +14,10 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $open = $user->can('admission-view') ? \App\Models\Batch::whereIn('status', ['open', 'selection'])->latest('id')->first() : null;
         $cards = array_filter([
+            $user->can('member-view') ? ['Siswa aktif', \App\Models\Member::where('category', 'siswa')->where('status', 'aktif')->count(), 'fa-user-graduate', route('member.index')] : null,
+            $open ? ["Pendaftar {$open->code} (baru)", $open->applicants()->where('status', 'baru')->count(), 'fa-user-plus', route('applicant.index', ['batch' => $open->id])] : null,
             $user->can('news-view') ? ['Berita terbit', Blog::published()->count(), 'fa-newspaper', route('blog.index')] : null,
             $user->can('agenda-view') ? ['Agenda mendatang', Event::public()->where('starts_at', '>=', now())->count(), 'fa-calendar-alt', route('event.index')] : null,
             $user->can('contact-message-view') ? ['Pesan belum dibaca', ContactMessage::whereNull('read_at')->count(), 'fa-envelope', route('contact-message.index')] : null,
@@ -23,6 +26,8 @@ class HomeController extends Controller
 
         $event = Event::public()->where('starts_at', '>=', now())->oldest('starts_at')->first();
 
-        return view('dashboard.home.index', compact('user', 'cards', 'event'));
+        $announcements = \App\Models\Announcement::for($user)->take(5)->get();
+
+        return view('dashboard.home.index', compact('user', 'cards', 'event', 'announcements'));
     }
 }

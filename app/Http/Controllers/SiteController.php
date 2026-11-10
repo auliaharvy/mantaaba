@@ -73,12 +73,6 @@ class SiteController extends Controller
         return Storage::disk('local')->response($document->file, Str::slug($document->title) . '.pdf');
     }
 
-    public function admission()
-    {
-        // formulir & angkatan dibuat di M2
-        return view('site.admission', ['site' => Setting::current()]);
-    }
-
     public function donation()
     {
         // konfirmasi donasi & ringkasan transparansi di M5b

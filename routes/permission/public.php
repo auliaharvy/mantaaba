@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\AdmissionController;
 use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\TrainingController;
@@ -11,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [PageController::class, 'home'])->name('site.home');
 
+Route::controller(AdmissionController::class)->name('site.admission')->prefix('pendaftaran')->group(function () {
+    Route::get('/', 'show')->name('');
+    Route::post('/', 'store')->middleware('throttle:admission')->name('.store');
+    Route::get('selesai/{number}', 'done')->middleware('signed')->name('.done');
+    Route::get('bukti/{number}', 'receipt')->middleware('signed')->name('.receipt');
+    Route::match(['get', 'post'], 'status', 'status')->middleware('throttle:10,1')->name('.status');
+});
+
 Route::controller(SiteController::class)->name('site.')->group(function () {
     Route::get('kurikulum', 'curriculum')->name('curriculum');
     Route::get('ekosistem', 'units')->name('units');
@@ -19,7 +28,6 @@ Route::controller(SiteController::class)->name('site.')->group(function () {
     Route::get('galeri/{slug}', 'gallery')->name('gallery.show');
     Route::get('dokumen', 'documents')->name('documents');
     Route::get('dokumen/{document:slug}/unduh', 'downloadDocument')->name('documents.download');
-    Route::get('pendaftaran', 'admission')->name('admission');
     Route::get('donasi', 'donation')->name('donation');
     Route::get('kontak', 'contact')->name('contact');
     Route::post('kontak', 'sendContact')->middleware('throttle:contact')->name('contact.send');

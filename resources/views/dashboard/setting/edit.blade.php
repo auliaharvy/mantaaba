@@ -111,6 +111,7 @@
                             @if ($image($field))<a href="{{ $image($field) }}" target="_blank" class="fs-7 d-block mb-6">Lihat file saat ini</a>@endif
                         </div>
                     @endforeach
+                    <div class="col-12"><x-dashboard.field name="integrity_pact_text" label="Teks pakta integritas (ditampilkan saat siswa baru login pertama)" type="textarea" rows="8" :value="$setting->integrity_pact_text" /></div>
                     <div class="col-12"><x-dashboard.field name="priority_districts" label="Kecamatan prioritas (satu per baris)" type="textarea" :value="implode(PHP_EOL, $setting->priority_districts ?? [])" help="Dipakai menandai pendaftar prioritas lokal (M2)." /></div>
                 </div>
             </div>

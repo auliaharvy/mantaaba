@@ -53,6 +53,7 @@ return new class extends Migration
             $table->longText('admission_requirements')->nullable();
             $table->string('parent_consent_template')->nullable();
             $table->string('integrity_pact_template')->nullable();
+            $table->longText('integrity_pact_text')->nullable(); // tampil saat siswa login pertama (PRD 9.4)
             $table->json('priority_districts')->nullable();
             // Akademik
             $table->json('assessment_weights')->nullable();

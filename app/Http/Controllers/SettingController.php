@@ -57,6 +57,7 @@ class SettingController extends Controller
             'donation_note' => 'nullable|string|max:2000',
             'admission_requirements' => 'nullable|string|max:20000',
             'priority_districts' => 'nullable|string|max:2000',
+            'integrity_pact_text' => 'nullable|string|max:10000',
             'assessment_weights' => 'required|array',
             'assessment_weights.*' => 'required|integer|min:0|max:100',
             'default_pass_score' => 'required|integer|min:0|max:100',

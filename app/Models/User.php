@@ -57,6 +57,20 @@ class User extends Authenticatable
         return $this->givePermissionTo(Permissions::package($package));
     }
 
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
+
+    /** Pengguna aktif yang memegang permission (termasuk Super Admin) — penerima notifikasi (PRD 9.20). */
+    public static function withPermission(string $permission)
+    {
+        return static::where('is_active', true)
+            ->where(fn ($q) => $q->whereHas('roles', fn ($r) => $r->where('name', 'super_admin'))
+                ->orWhereHas('permissions', fn ($p) => $p->where('name', $permission)))
+            ->get();
+    }
+
     public function blogs()
     {
         return $this->hasMany(Blog::class);

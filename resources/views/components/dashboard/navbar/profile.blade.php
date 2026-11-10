@@ -1,4 +1,31 @@
 <div class="d-flex align-items-stretch flex-shrink-0">
+    {{-- Lonceng notifikasi (PRD 9.20) --}}
+    @php($unread = Auth::user()->unreadNotifications()->latest()->take(8)->get())
+    <div class="d-flex align-items-center ms-1 ms-lg-3">
+        <div class="btn btn-icon btn-active-light-primary position-relative w-35px h-35px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" title="Notifikasi" aria-label="Notifikasi">
+            <i class="fa fa-bell fs-3"></i>
+            @if ($unread->isNotEmpty())<span class="badge badge-circle badge-danger position-absolute top-0 start-100 translate-middle w-20px h-20px fs-9">{{ min(99, Auth::user()->unreadNotifications()->count()) }}</span>@endif
+        </div>
+        <div class="menu menu-sub menu-sub-dropdown menu-column w-300px w-lg-375px" data-kt-menu="true">
+            <div class="d-flex justify-content-between align-items-center px-6 py-4 border-bottom">
+                <span class="fw-bolder">Notifikasi</span>
+                @if ($unread->isNotEmpty())
+                    <form method="POST" action="{{ route('notification.read-all') }}">@csrf<button class="btn btn-sm btn-link p-0">Tandai dibaca</button></form>
+                @endif
+            </div>
+            <div class="scroll-y mh-325px">
+                @forelse ($unread as $notification)
+                    <a href="{{ route('notification.read', $notification->id) }}" class="d-block px-6 py-3 border-bottom text-gray-800 bg-hover-light">
+                        <div class="fw-bold">{{ $notification->data['title'] ?? 'Notifikasi' }}</div>
+                        <div class="fs-7 text-muted">{{ $notification->data['body'] ?? '' }}</div>
+                        <div class="fs-8 text-muted">{{ $notification->created_at->diffForHumans() }}</div>
+                    </a>
+                @empty
+                    <div class="px-6 py-6 text-muted fs-7">Tidak ada notifikasi baru.</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
     <div class="d-flex align-items-stretch flex-shrink-0">
         <div class="d-flex align-items-center ms-lg-5" id="kt_header_user_menu_toggle">
             <div class="btn btn-active-light d-flex align-items-center bg-hover-light py-2 px-2 px-md-3"

@@ -102,7 +102,9 @@ return [
         /*
          * List of columns are are forbidden from being searched/sorted.
          */
-        'blacklist' => ['password', 'remember_token', 'DT_RowIndex'], // DT_RowIndex bukan kolom DB: jangan dicari/diurutkan
+        // DT_RowIndex bukan kolom DB: jangan dicari/diurutkan. Key string wajib: addColumn() yajra menambah blacklist berindeks angka
+        // yang lewat array_replace_recursive akan menimpa entri config berindeks sama bila tabel punya >= 3 kolom tambahan.
+        'blacklist' => ['password' => 'password', 'remember_token' => 'remember_token', 'DT_RowIndex' => 'DT_RowIndex'],
 
         /*
          * List of columns that are only allowed fo search/sort.

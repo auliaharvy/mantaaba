@@ -163,6 +163,11 @@ return [
             'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
             'unit_ids' => ['type' => 'units', 'label' => 'Unit yang ditampilkan', 'help' => 'Kosong = semua unit publik'],
         ]],
+        'members' => ['label' => 'Siswa & alumni (yang mengizinkan tampil)', 'fields' => [
+            'title' => $title,
+            'category' => ['type' => 'select', 'label' => 'Kategori', 'options' => ['semua' => 'Siswa & alumni', 'siswa' => 'Siswa', 'alumni' => 'Alumni'], 'default' => 'semua'],
+            'limit' => ['type' => 'number', 'label' => 'Jumlah', 'min' => 3, 'max' => 24, 'default' => 8],
+        ]],
         'skemas' => ['label' => '5 skema pembelajaran', 'fields' => [
             'title' => $title,
             'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
@@ -245,6 +250,16 @@ return [
             ['title' => 'Unit Bisnis', 'route' => 'business-unit.index', 'can' => 'cms-view', 'icon' => 'fa-store'],
             ['title' => 'Pesan Masuk', 'route' => 'contact-message.index', 'can' => 'contact-message-view', 'icon' => 'fa-envelope'],
             ['title' => 'Setting Situs', 'route' => 'setting.edit', 'can' => 'cms-update', 'icon' => 'fa-sliders-h'],
+        ]],
+        ['title' => 'Penerimaan', 'items' => [
+            ['title' => 'Angkatan', 'route' => 'batch.index', 'can' => 'batch-view', 'icon' => 'fa-layer-group'],
+            ['title' => 'Pendaftar', 'route' => 'applicant.index', 'can' => 'admission-view', 'icon' => 'fa-user-plus'],
+        ]],
+        ['title' => 'Anggota', 'items' => [
+            ['title' => 'Data Anggota', 'route' => 'member.index', 'can' => 'member-view', 'icon' => 'fa-users'],
+            ['title' => 'Catatan Pembinaan', 'route' => 'coaching.index', 'can' => 'coaching-view', 'icon' => 'fa-clipboard-list'],
+            ['title' => 'Kesehatan', 'route' => 'health.index', 'can' => 'health-view', 'icon' => 'fa-notes-medical'],
+            ['title' => 'Pengumuman', 'route' => 'announcement.index', 'can' => 'announcement-view', 'icon' => 'fa-bullhorn'],
         ]],
         ['title' => 'Kegiatan', 'items' => [
             ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],

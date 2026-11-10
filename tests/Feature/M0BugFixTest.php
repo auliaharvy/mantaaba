@@ -41,7 +41,7 @@ class M0BugFixTest extends TestCase
 
     public function test_b1_profile_update_only_changes_logged_in_user()
     {
-        $member = $this->user('anggota@mail.com');
+        $member = $this->user('pengurus@mail.com'); // akun tanpa data anggota: semua field profil bisa diubah
         $victim = $this->user('superadmin@mail.com');
 
         $this->actingAs($member)->patch('/dashboard/profil', $this->profilePayload())->assertRedirect(route('profile.index'));

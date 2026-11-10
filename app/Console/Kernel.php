@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('members:suspension-candidates')->dailyAt('07:00');
+        $schedule->command('applicants:purge')->dailyAt('02:00');
     }
 
     /**

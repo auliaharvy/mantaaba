@@ -1,6 +1,14 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\CoachingNoteController;
+use App\Http\Controllers\HealthRecordController;
+use App\Http\Controllers\IntegrityPactController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BusinessUnitController;
 use App\Http\Controllers\CertificateController;
@@ -23,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 /*
 | Dashboard (PRD 6.2): URL /dashboard/{slug}, nama route {modul}.*, DataTables {modul}-datatable.
 */
-Route::middleware(['auth', 'active'])->prefix('dashboard')->group(function () {
+Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(function () {
     # Beranda & profil
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('profil', [ProfileController::class, 'index'])->name('profile.index');
@@ -61,6 +69,51 @@ Route::middleware(['auth', 'active'])->prefix('dashboard')->group(function () {
     Route::post('taksonomi/{type}', [TaxonomyController::class, 'store'])->name('taxonomy.store');
     Route::patch('taksonomi/{type}/{id}', [TaxonomyController::class, 'update'])->name('taxonomy.update');
     Route::delete('taksonomi/{type}/{id}', [TaxonomyController::class, 'destroy'])->name('taxonomy.destroy');
+
+    # Notifikasi & pakta integritas
+    Route::get('notifikasi/{id}', [NotificationController::class, 'read'])->name('notification.read');
+    Route::post('notifikasi/baca-semua', [NotificationController::class, 'readAll'])->name('notification.read-all');
+    Route::get('pakta-integritas', [IntegrityPactController::class, 'show'])->name('pact.show');
+    Route::post('pakta-integritas', [IntegrityPactController::class, 'sign'])->name('pact.sign');
+
+    /*
+    | Penerimaan (PRD 9.2–9.3)
+    */
+    Route::get('angkatan-datatable', [BatchController::class, 'datatable'])->name('batch.datatable');
+    Route::resource('angkatan', BatchController::class)->parameters(['angkatan' => 'batch'])->names('batch');
+    Route::get('pendaftar', [ApplicantController::class, 'index'])->name('applicant.index');
+    Route::get('pendaftar-datatable', [ApplicantController::class, 'datatable'])->name('applicant.datatable');
+    Route::get('pendaftar-export', [ApplicantController::class, 'export'])->name('applicant.export');
+    Route::get('pendaftar/{applicant}', [ApplicantController::class, 'show'])->name('applicant.show');
+    Route::get('pendaftar/{applicant}/berkas/{key}', [ApplicantController::class, 'document'])->name('applicant.document');
+    Route::patch('pendaftar/{applicant}/nilai', [ApplicantController::class, 'scores'])->name('applicant.scores');
+    Route::post('pendaftar/{applicant}/tahap', [ApplicantController::class, 'move'])->name('applicant.move');
+    Route::post('pendaftar/{applicant}/terima', [ApplicantController::class, 'accept'])->name('applicant.accept');
+    Route::post('pendaftar/{applicant}/tolak', [ApplicantController::class, 'reject'])->name('applicant.reject');
+
+    /*
+    | Anggota (PRD 9.4, 9.5, 9.19)
+    */
+    Route::get('anggota-datatable', [MemberController::class, 'datatable'])->name('member.datatable');
+    Route::get('anggota-export', [MemberController::class, 'export'])->name('member.export');
+    Route::post('anggota-import', [MemberController::class, 'import'])->name('member.import');
+    Route::get('anggota/verifikasi/{number}', [MemberController::class, 'verify'])->name('member.verify');
+    Route::patch('anggota/{member}/status', [MemberController::class, 'status'])->name('member.status');
+    Route::get('anggota/{member}/kartu', [MemberController::class, 'card'])->name('member.card');
+    Route::get('anggota/{member}/berkas/{key}', [MemberController::class, 'document'])->name('member.document');
+    Route::post('anggota/{member}/berkas', [MemberController::class, 'uploadDocument'])->name('member.documents.store');
+    Route::post('anggota/{member}/perjalanan', [MemberController::class, 'storeJourney'])->name('member.journeys.store');
+    Route::patch('anggota/{member}/perjalanan/{journey}', [MemberController::class, 'endJourney'])->name('member.journeys.end');
+    Route::delete('anggota/{member}/perjalanan/{journey}', [MemberController::class, 'destroyJourney'])->name('member.journeys.destroy');
+    Route::resource('anggota', MemberController::class)->parameters(['anggota' => 'member'])->names('member')->except('destroy');
+    Route::get('pembinaan', [CoachingNoteController::class, 'index'])->name('coaching.index');
+    Route::get('pembinaan-datatable', [CoachingNoteController::class, 'datatable'])->name('coaching.datatable');
+    Route::post('pembinaan', [CoachingNoteController::class, 'store'])->name('coaching.store');
+    Route::delete('pembinaan/{coaching}', [CoachingNoteController::class, 'destroy'])->name('coaching.destroy');
+    Route::get('kesehatan-datatable', [HealthRecordController::class, 'datatable'])->name('health.datatable');
+    Route::resource('kesehatan', HealthRecordController::class)->parameters(['kesehatan' => 'health'])->names('health')->except('show');
+    Route::get('pengumuman-datatable', [AnnouncementController::class, 'datatable'])->name('announcement.datatable');
+    Route::resource('pengumuman', AnnouncementController::class)->parameters(['pengumuman' => 'announcement'])->names('announcement')->except('show');
 
     /*
     | Agenda (PRD 9.8; disederhanakan di M4)

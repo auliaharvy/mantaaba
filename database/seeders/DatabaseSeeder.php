@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         if (! app()->isProduction()) {
-            $this->call([UserSeeder::class, BlogSeeder::class, EventSeeder::class, ParticipantSeeder::class]);
+            $this->call([UserSeeder::class, BlogSeeder::class, EventSeeder::class, ParticipantSeeder::class, MembershipSeeder::class]);
         }
     }
 }
