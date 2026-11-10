@@ -30,7 +30,8 @@ class GoLiveTest extends TestCase
         $member = User::where('email', 'anggota@mail.com')->first();
         $this->assertSame([], $labels($member), 'anggota tanpa permission pengurus tidak melihat kartu');
         $this->assertSame([], DashboardData::charts($member));
-        $this->actingAs($member)->get('/dashboard')->assertOk()->assertSee('Progres belajar')->assertDontSee('Voucher menunggu persetujuan')->assertDontSee('chart-finance');
+        $this->actingAs($member)->get(route('overview.show', 'saya'))->assertOk()->assertSee('Progres belajar')->assertDontSee('Voucher menunggu persetujuan')->assertDontSee('chart-finance');
+        $this->actingAs($member)->get(route('overview.show', 'keuangan'))->assertForbidden();
 
         $cook = User::factory()->create()->assignRole('pengurus')->givePackage('siswa_dapur');
         $this->assertContains('Biaya makan/orang hari ini', $labels($cook));
@@ -45,10 +46,31 @@ class GoLiveTest extends TestCase
         $charts = DashboardData::charts($treasurer);
         $this->assertCount(12, $charts['finance']['labels']);
         $this->assertArrayHasKey('budget', $charts);
-        $this->actingAs($treasurer)->get('/dashboard')->assertOk()->assertSee('chart-finance')->assertSee('Penerimaan vs beban 12 bulan');
+        $this->actingAs($treasurer)->get(route('overview.show', 'keuangan'))->assertOk()->assertSee('chart-finance')->assertSee('Penerimaan vs beban 12 bulan')->assertSee('Antrean Persetujuan');
+        $this->assertSame([], DashboardData::cards($treasurer, 'dapur'), 'kartu modul lain tidak ikut');
 
         $admin = User::where('email', 'superadmin@mail.com')->first();
         $this->assertGreaterThanOrEqual(12, count($labels($admin)), 'Super Admin melihat semua kartu');
+    }
+
+    /** Beranda = ikon modul sesuai hak akses; sidebar accordion; ringkasan tiap modul tanpa error. */
+    public function test_home_is_module_launcher_and_every_overview_renders()
+    {
+        $member = User::where('email', 'anggota@mail.com')->first();
+        $this->actingAs($member)->get('/dashboard')->assertOk()->assertSee(route('overview.show', 'saya'))
+            ->assertDontSee(route('overview.show', 'keuangan'))->assertDontSee('Voucher menunggu persetujuan');
+        $this->actingAs($member)->get(route('overview.show', 'tidak-ada'))->assertNotFound();
+
+        foreach (['superadmin@mail.com', 'pengurus@mail.com', 'anggota@mail.com'] as $email) {
+            $user = User::where('email', $email)->first();
+            $home = $this->actingAs($user)->get('/dashboard')->assertOk()->assertSee('menu-accordion', false);
+            foreach (\App\Support\Menu::modules($user) as $key => $module) {
+                $home->assertSee(route('overview.show', $key));
+                $this->actingAs($user)->get(route('overview.show', $key))->assertOk()->assertSee($module['title']);
+            }
+        }
+        $admin = User::where('email', 'superadmin@mail.com')->first();
+        $this->assertCount(count(config('mantaaba.menu.modules')), \App\Support\Menu::modules($admin), 'Super Admin melihat semua modul');
     }
 
     /** Semua route GET publik (tanpa parameter) merespons < 500 untuk tamu & tiap role. */

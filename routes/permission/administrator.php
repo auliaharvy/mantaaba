@@ -60,6 +60,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(function () {
     # Beranda & profil
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('ringkasan/{key}', [HomeController::class, 'overview'])->name('overview.show');
     Route::get('profil', [ProfileController::class, 'index'])->name('profile.index');
     Route::patch('profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profil/password', [ProfileController::class, 'password'])->name('profile.password');

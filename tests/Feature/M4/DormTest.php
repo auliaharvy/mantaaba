@@ -101,7 +101,7 @@ class DormTest extends TestCase
         Duty::where('member_id', $member->id)->whereDate('date', today())->delete();
         $duty = Duty::create(['duty_area_id' => $area->id, 'date' => today(), 'shift' => 'siang', 'member_id' => $member->id]);
 
-        $this->actingAs($member->user)->get('/dashboard')->assertSee('Piket hari ini')->assertSee('Dapur');
+        $this->actingAs($member->user)->get(route('overview.show', 'saya'))->assertSee('Piket hari ini')->assertSee('Dapur');
         $this->actingAs($member->user)->post(route('my-duty.complete', $duty), ['checklist' => [$area->checklist[0]]])->assertSessionHasErrors('checklist');
         $this->actingAs($member->user)->post(route('my-duty.complete', $duty), ['checklist' => $area->checklist, 'photo' => UploadedFile::fake()->image('dapur.jpg')])->assertSessionHas('success');
         $this->assertSame('selesai', $duty->fresh()->status);

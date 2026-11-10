@@ -75,7 +75,9 @@ class M0BugFixTest extends TestCase
     {
         Event::query()->delete();
 
-        $this->actingAs($this->user('superadmin@mail.com'))->get('/dashboard')->assertOk()->assertSee('Belum ada agenda mendatang');
+        $this->actingAs($this->user('superadmin@mail.com'))->get('/dashboard')->assertOk();
+        // agenda terdekat kini di ringkasan modul "Saya" dan disembunyikan bila kosong
+        $this->actingAs($this->user('anggota@mail.com'))->get(route('overview.show', 'saya'))->assertOk()->assertDontSee('Agenda terdekat');
     }
 
     public function test_b9_root_and_logout_do_not_404()

@@ -306,71 +306,87 @@ return [
     | PRD 6.3: sidebar. can = permission (null = semua pengguna login), role = batasi ke role,
     | active = pola routeIs (default "{route prefix}.*"), params = parameter route.
     */
+    /*
+    | Navigasi dashboard: `top` = tautan utama; `modules` = modul (accordion di sidebar, ikon di Beranda, halaman ringkasan
+    | /dashboard/ringkasan/{key}). Item tampil bila diizinkan (`can`, `role`, `member`); modul tampil bila punya item yang tampil.
+    */
     'menu' => [
-        ['items' => [
+        'top' => [
             ['title' => 'Beranda', 'route' => 'home', 'active' => 'home', 'icon' => 'fa-home'],
             ['title' => 'Lihat Situs', 'route' => 'site.home', 'active' => 'site.*', 'icon' => 'fa-globe'],
-            ['title' => 'Belajar', 'route' => 'learn.index', 'member' => true, 'icon' => 'fa-book-reader'],
-            ['title' => 'Sertifikat', 'route' => 'certificate.index', 'active' => 'certificate.index', 'icon' => 'fa-certificate'],
-            ['title' => 'Piket Saya', 'route' => 'my-duty.index', 'member' => true, 'icon' => 'fa-broom'],
-            ['title' => 'Agenda Saya', 'route' => 'my-training.index', 'icon' => 'fa-ticket-alt'],
-        ]],
-        ['title' => 'Website', 'items' => [
-            ['title' => 'Halaman', 'route' => 'page.index', 'can' => 'cms-view', 'icon' => 'fa-file-alt'],
-            ['title' => 'Menu', 'route' => 'menu.index', 'can' => 'cms-view', 'icon' => 'fa-bars'],
-            ['title' => 'Slider', 'route' => 'slider.index', 'can' => 'cms-view', 'icon' => 'fa-images'],
-            ['title' => 'Berita', 'route' => 'blog.index', 'can' => 'news-view', 'icon' => 'fa-newspaper'],
-            ['title' => 'Kategori Berita', 'route' => 'taxonomy.index', 'params' => ['kategori'], 'active' => 'taxonomy.*', 'can' => 'news-publish', 'icon' => 'fa-tags'],
-            ['title' => 'Galeri', 'route' => 'gallery.index', 'can' => 'cms-view', 'icon' => 'fa-camera'],
-            ['title' => 'Dokumen', 'route' => 'document.index', 'can' => 'cms-view', 'icon' => 'fa-file-pdf'],
-            ['title' => 'Unit Bisnis', 'route' => 'business-unit.index', 'can' => 'cms-view', 'icon' => 'fa-store'],
-            ['title' => 'Pesan Masuk', 'route' => 'contact-message.index', 'can' => 'contact-message-view', 'icon' => 'fa-envelope'],
-            ['title' => 'Setting Situs', 'route' => 'setting.edit', 'can' => 'cms-update', 'icon' => 'fa-sliders-h'],
-        ]],
-        ['title' => 'Penerimaan', 'items' => [
-            ['title' => 'Angkatan', 'route' => 'batch.index', 'can' => 'batch-view', 'icon' => 'fa-layer-group'],
-            ['title' => 'Pendaftar', 'route' => 'applicant.index', 'can' => 'admission-view', 'icon' => 'fa-user-plus'],
-        ]],
-        ['title' => 'Anggota', 'items' => [
-            ['title' => 'Data Anggota', 'route' => 'member.index', 'can' => 'member-view', 'icon' => 'fa-users'],
-            ['title' => 'Catatan Pembinaan', 'route' => 'coaching.index', 'can' => 'coaching-view', 'icon' => 'fa-clipboard-list'],
-            ['title' => 'Kesehatan', 'route' => 'health.index', 'can' => 'health-view', 'icon' => 'fa-notes-medical'],
-            ['title' => 'Pengumuman', 'route' => 'announcement.index', 'can' => 'announcement-view', 'icon' => 'fa-bullhorn'],
-        ]],
-        ['title' => 'Pembelajaran', 'items' => [
-            ['title' => 'Skema & Materi', 'route' => 'skema.index', 'active' => 'skema.*|lesson.*', 'can' => 'learning-view', 'icon' => 'fa-layer-group'],
-            ['title' => 'Tugas Masuk', 'route' => 'submission.index', 'can' => 'learning-view', 'icon' => 'fa-inbox'],
-            ['title' => 'Penilaian', 'route' => 'assessment.index', 'can' => 'assessment-view', 'icon' => 'fa-star-half-alt'],
-        ]],
-        ['title' => 'Asrama', 'items' => [
-            ['title' => 'Kamar', 'route' => 'room.index', 'can' => 'dorm-view', 'icon' => 'fa-bed'],
-            ['title' => 'Jadwal Piket', 'route' => 'duty.index', 'active' => 'duty.*|duty-area.*', 'can' => 'dorm-view', 'icon' => 'fa-broom'],
-            ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],
-        ]],
-        ['title' => 'Operasional', 'items' => [
-            ['title' => 'Dapur', 'route' => 'kitchen.index', 'active' => 'kitchen.index|kitchen.cook-form', 'can' => 'kitchen-view', 'icon' => 'fa-utensils'],
-            ['title' => 'Rencana Menu', 'route' => 'kitchen.plans', 'active' => 'kitchen.plans|kitchen.needs|kitchen.menus|kitchen.menu-*|kitchen.report', 'can' => 'kitchen-view', 'icon' => 'fa-calendar-week'],
-            ['title' => 'Kebun & Kolam', 'route' => 'farm.index', 'active' => 'farm.*', 'can' => 'farm-view', 'icon' => 'fa-seedling'],
-            ['title' => 'Stok & Barang', 'route' => 'item.index', 'active' => 'item.*|stock.move-form', 'can' => 'stock-view', 'icon' => 'fa-boxes'],
-            ['title' => 'Pembelian', 'route' => 'stock.purchases', 'active' => 'stock.purchase*', 'can' => 'stock-view', 'icon' => 'fa-shopping-basket'],
-            ['title' => 'Stock Opname', 'route' => 'stock.opnames', 'active' => 'stock.opname*', 'can' => 'stock-view', 'icon' => 'fa-clipboard-check'],
-            ['title' => 'Aset & Kendaraan', 'route' => 'asset.index', 'active' => 'asset.*', 'can' => 'asset-view', 'icon' => 'fa-car'],
-        ]],
-        ['title' => 'Keuangan', 'items' => [
-            ['title' => 'Voucher', 'route' => 'journal.index', 'active' => 'journal.index|journal.show|journal.create|journal.edit', 'can' => 'journal-view', 'icon' => 'fa-file-invoice-dollar'],
-            ['title' => 'Antrean Persetujuan', 'route' => 'journal.queue', 'can' => 'journal-approve', 'icon' => 'fa-check-double'],
-            ['title' => 'Buku Kas & Bank', 'route' => 'ledger.cash-book', 'active' => 'ledger.cash-book|ledger.index', 'can' => 'finance-report-view', 'icon' => 'fa-book'],
-            ['title' => 'Neraca Saldo', 'route' => 'ledger.trial-balance', 'active' => 'ledger.trial-balance', 'can' => 'finance-report-view', 'icon' => 'fa-balance-scale'],
-            ['title' => 'Laporan Keuangan', 'route' => 'report.index', 'active' => 'report.*', 'can' => 'finance-report-view', 'icon' => 'fa-chart-pie'],
-            ['title' => 'Donasi', 'route' => 'donation.index', 'can' => 'donation-view', 'icon' => 'fa-hand-holding-heart'],
-            ['title' => 'Anggaran', 'route' => 'budget.index', 'can' => 'coa-view', 'icon' => 'fa-coins'],
-            ['title' => 'COA & Master', 'route' => 'coa.index', 'active' => 'coa.*|party.*|cost-center.*', 'can' => 'coa-view', 'icon' => 'fa-sitemap'],
-            ['title' => 'Periode', 'route' => 'period.index', 'active' => 'period.*|opening.*', 'can' => 'journal-view', 'icon' => 'fa-calendar-check'],
-            ['title' => 'Setting Akuntansi', 'route' => 'posting-rule.edit', 'role' => 'super_admin', 'icon' => 'fa-cogs'],
-        ]],
-        ['title' => 'Sistem', 'items' => [
-            ['title' => 'Pengguna & Hak Akses', 'route' => 'user.index', 'can' => 'user-view', 'icon' => 'fa-user-shield'],
-            ['title' => 'Log Aktivitas', 'route' => 'activity-log.index', 'can' => 'activity-log-view', 'icon' => 'fa-history'],
-        ]],
+        ],
+        'modules' => [
+            'saya' => ['title' => 'Saya', 'icon' => 'fa-user-graduate', 'description' => 'Belajar, piket, sertifikat, agenda', 'items' => [
+                ['title' => 'Belajar', 'route' => 'learn.index', 'active' => 'learn.*', 'member' => true, 'icon' => 'fa-book-reader'],
+                ['title' => 'Piket Saya', 'route' => 'my-duty.index', 'member' => true, 'icon' => 'fa-broom'],
+                ['title' => 'Sertifikat', 'route' => 'certificate.index', 'active' => 'certificate.index', 'icon' => 'fa-certificate'],
+                ['title' => 'Agenda Saya', 'route' => 'my-training.index', 'icon' => 'fa-ticket-alt'],
+            ]],
+            'website' => ['title' => 'Website', 'icon' => 'fa-globe-asia', 'description' => 'Halaman, berita, galeri, setting situs', 'items' => [
+                ['title' => 'Halaman', 'route' => 'page.index', 'can' => 'cms-view', 'icon' => 'fa-file-alt'],
+                ['title' => 'Menu', 'route' => 'menu.index', 'can' => 'cms-view', 'icon' => 'fa-bars'],
+                ['title' => 'Slider', 'route' => 'slider.index', 'can' => 'cms-view', 'icon' => 'fa-images'],
+                ['title' => 'Berita', 'route' => 'blog.index', 'can' => 'news-view', 'icon' => 'fa-newspaper'],
+                ['title' => 'Kategori Berita', 'route' => 'taxonomy.index', 'params' => ['kategori'], 'active' => 'taxonomy.*', 'can' => 'news-publish', 'icon' => 'fa-tags'],
+                ['title' => 'Galeri', 'route' => 'gallery.index', 'can' => 'cms-view', 'icon' => 'fa-camera'],
+                ['title' => 'Dokumen', 'route' => 'document.index', 'can' => 'cms-view', 'icon' => 'fa-file-pdf'],
+                ['title' => 'Unit Bisnis', 'route' => 'business-unit.index', 'can' => 'cms-view', 'icon' => 'fa-store'],
+                ['title' => 'Pesan Masuk', 'route' => 'contact-message.index', 'can' => 'contact-message-view', 'icon' => 'fa-envelope'],
+                ['title' => 'Setting Situs', 'route' => 'setting.edit', 'can' => 'cms-update', 'icon' => 'fa-sliders-h'],
+            ]],
+            'penerimaan' => ['title' => 'Penerimaan', 'icon' => 'fa-user-plus', 'description' => 'Angkatan & pendaftar', 'items' => [
+                ['title' => 'Angkatan', 'route' => 'batch.index', 'can' => 'batch-view', 'icon' => 'fa-layer-group'],
+                ['title' => 'Pendaftar', 'route' => 'applicant.index', 'can' => 'admission-view', 'icon' => 'fa-user-plus'],
+            ]],
+            'anggota' => ['title' => 'Anggota', 'icon' => 'fa-users', 'description' => 'Data anggota, pembinaan, kesehatan', 'items' => [
+                ['title' => 'Data Anggota', 'route' => 'member.index', 'can' => 'member-view', 'icon' => 'fa-users'],
+                ['title' => 'Catatan Pembinaan', 'route' => 'coaching.index', 'can' => 'coaching-view', 'icon' => 'fa-clipboard-list'],
+                ['title' => 'Kesehatan', 'route' => 'health.index', 'can' => 'health-view', 'icon' => 'fa-notes-medical'],
+                ['title' => 'Pengumuman', 'route' => 'announcement.index', 'can' => 'announcement-view', 'icon' => 'fa-bullhorn'],
+            ]],
+            'pembelajaran' => ['title' => 'Pembelajaran', 'icon' => 'fa-chalkboard-teacher', 'description' => 'Skema, tugas, penilaian', 'items' => [
+                ['title' => 'Skema & Materi', 'route' => 'skema.index', 'active' => 'skema.*|lesson.*', 'can' => 'learning-view', 'icon' => 'fa-layer-group'],
+                ['title' => 'Tugas Masuk', 'route' => 'submission.index', 'can' => 'learning-view', 'icon' => 'fa-inbox'],
+                ['title' => 'Penilaian', 'route' => 'assessment.index', 'can' => 'assessment-view', 'icon' => 'fa-star-half-alt'],
+            ]],
+            'asrama' => ['title' => 'Asrama & Agenda', 'icon' => 'fa-bed', 'description' => 'Kamar, piket, agenda', 'items' => [
+                ['title' => 'Kamar', 'route' => 'room.index', 'can' => 'dorm-view', 'icon' => 'fa-bed'],
+                ['title' => 'Jadwal Piket', 'route' => 'duty.index', 'active' => 'duty.*|duty-area.*', 'can' => 'dorm-view', 'icon' => 'fa-broom'],
+                ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],
+            ]],
+            'dapur' => ['title' => 'Dapur', 'icon' => 'fa-utensils', 'description' => 'Menu, masak, biaya makan', 'items' => [
+                ['title' => 'Dapur Hari Ini', 'route' => 'kitchen.index', 'active' => 'kitchen.index|kitchen.cook-form', 'can' => 'kitchen-view', 'icon' => 'fa-utensils'],
+                ['title' => 'Rencana Menu', 'route' => 'kitchen.plans', 'active' => 'kitchen.plans|kitchen.needs', 'can' => 'kitchen-view', 'icon' => 'fa-calendar-week'],
+                ['title' => 'Resep & Menu', 'route' => 'kitchen.menus', 'active' => 'kitchen.menus|kitchen.menu-*', 'can' => 'kitchen-view', 'icon' => 'fa-book-open'],
+                ['title' => 'Laporan Dapur', 'route' => 'kitchen.report', 'active' => 'kitchen.report', 'can' => 'kitchen-view', 'icon' => 'fa-chart-line'],
+            ]],
+            'kebun' => ['title' => 'Kebun & Kolam', 'icon' => 'fa-seedling', 'description' => 'Petak, siklus, panen', 'items' => [
+                ['title' => 'Petak & Siklus', 'route' => 'farm.index', 'active' => 'farm.*', 'can' => 'farm-view', 'icon' => 'fa-seedling'],
+            ]],
+            'stok' => ['title' => 'Stok & Gudang', 'icon' => 'fa-boxes', 'description' => 'Barang, pembelian, opname', 'items' => [
+                ['title' => 'Stok & Barang', 'route' => 'item.index', 'active' => 'item.*|stock.move-form', 'can' => 'stock-view', 'icon' => 'fa-boxes'],
+                ['title' => 'Pembelian', 'route' => 'stock.purchases', 'active' => 'stock.purchase*', 'can' => 'stock-view', 'icon' => 'fa-shopping-basket'],
+                ['title' => 'Stock Opname', 'route' => 'stock.opnames', 'active' => 'stock.opname*', 'can' => 'stock-view', 'icon' => 'fa-clipboard-check'],
+            ]],
+            'aset' => ['title' => 'Aset & Kendaraan', 'icon' => 'fa-car', 'description' => 'Register aset, kendaraan, penyusutan', 'items' => [
+                ['title' => 'Daftar Aset', 'route' => 'asset.index', 'active' => 'asset.*', 'can' => 'asset-view', 'icon' => 'fa-car'],
+            ]],
+            'keuangan' => ['title' => 'Keuangan', 'icon' => 'fa-wallet', 'description' => 'Voucher, laporan, donasi, anggaran', 'items' => [
+                ['title' => 'Voucher', 'route' => 'journal.index', 'active' => 'journal.index|journal.show|journal.create|journal.edit', 'can' => 'journal-view', 'icon' => 'fa-file-invoice-dollar'],
+                ['title' => 'Antrean Persetujuan', 'route' => 'journal.queue', 'active' => 'journal.queue', 'can' => 'journal-approve', 'icon' => 'fa-check-double'],
+                ['title' => 'Buku Kas & Bank', 'route' => 'ledger.cash-book', 'active' => 'ledger.cash-book|ledger.index', 'can' => 'finance-report-view', 'icon' => 'fa-book'],
+                ['title' => 'Neraca Saldo', 'route' => 'ledger.trial-balance', 'active' => 'ledger.trial-balance', 'can' => 'finance-report-view', 'icon' => 'fa-balance-scale'],
+                ['title' => 'Laporan Keuangan', 'route' => 'report.index', 'active' => 'report.*', 'can' => 'finance-report-view', 'icon' => 'fa-chart-pie'],
+                ['title' => 'Donasi', 'route' => 'donation.index', 'can' => 'donation-view', 'icon' => 'fa-hand-holding-heart'],
+                ['title' => 'Anggaran', 'route' => 'budget.index', 'can' => 'coa-view', 'icon' => 'fa-coins'],
+                ['title' => 'COA & Master', 'route' => 'coa.index', 'active' => 'coa.*|party.*|cost-center.*', 'can' => 'coa-view', 'icon' => 'fa-sitemap'],
+                ['title' => 'Periode', 'route' => 'period.index', 'active' => 'period.*|opening.*', 'can' => 'journal-view', 'icon' => 'fa-calendar-check'],
+                ['title' => 'Setting Akuntansi', 'route' => 'posting-rule.edit', 'role' => 'super_admin', 'icon' => 'fa-cogs'],
+            ]],
+            'sistem' => ['title' => 'Sistem', 'icon' => 'fa-user-shield', 'description' => 'Pengguna, hak akses, log', 'items' => [
+                ['title' => 'Pengguna & Hak Akses', 'route' => 'user.index', 'can' => 'user-view', 'icon' => 'fa-user-shield'],
+                ['title' => 'Log Aktivitas', 'route' => 'activity-log.index', 'can' => 'activity-log-view', 'icon' => 'fa-history'],
+            ]],
+        ],
     ],
 ];
