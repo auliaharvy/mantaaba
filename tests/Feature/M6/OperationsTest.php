@@ -223,7 +223,7 @@ class OperationsTest extends TestCase
     {
         $period = FiscalPeriod::forDate(today());
         $closer = app(PeriodCloser::class);
-        $this->assertSame(1, $closer->generate($period, $this->treasurer));
+        $this->assertGreaterThanOrEqual(1, $closer->generate($period, $this->treasurer)); // persediaan (+ penyusutan aset M7)
         $this->assertSame(0, $closer->generate($period, $this->treasurer), 'dijalankan ulang tidak dobel');
         $journal = Journal::where('source_type', 'monthly:stock')->where('source_id', $period->id)->sole();
         $this->assertSame('AJV', $journal->voucher_type);
