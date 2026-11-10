@@ -72,9 +72,22 @@
                     </div>
                     <p class="text-muted fs-8 mb-0">✓ lulus · ● berjalan · ✕ belum lulus · ○ terkunci. Status angkatan "Berjalan" mendaftarkan siswa ke semua skema (skema pertama langsung dibuka).</p>
                     @break
+                @case('piket')
+                    <p class="text-muted fs-7">Persentase piket selesai bulan ini.</p>
+                    @forelse ($students as $student)
+                        <div class="d-flex gap-3 py-2 border-bottom"><span class="flex-grow-1">{{ $student->name }}</span><span class="fw-bold">{{ $dutyRates[$student->id] !== null ? $dutyRates[$student->id] . '%' : '-' }}</span></div>
+                    @empty
+                        <p class="text-muted mb-0">Belum ada siswa.</p>
+                    @endforelse
+                    @break
                 @default
-                    {{-- piket (M4), agenda (M4) --}}
-                    <p class="text-muted mb-0">Data {{ Str::lower($tabs[$tab] ?? '') }} tersedia setelah modul terkait aktif.</p>
+                    @forelse ($events as $event)
+                        <div class="d-flex flex-wrap gap-3 py-2 border-bottom"><span class="text-muted w-100px">{{ $event->starts_at->translatedFormat('j M Y') }}</span>
+                            <a href="{{ route('event.show', $event) }}" class="flex-grow-1">{{ $event->title }}</a><span class="badge badge-light">{{ App\Models\Event::TYPES[$event->type] }}</span>
+                            <span class="fs-7">{{ $event->present_count }} siswa hadir</span></div>
+                    @empty
+                        <p class="text-muted mb-0">Belum ada agenda untuk angkatan ini.</p>
+                    @endforelse
             @endswitch
         </div>
     </div>

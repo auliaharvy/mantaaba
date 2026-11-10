@@ -1,14 +1,12 @@
 <div class="d-flex justify-content-end flex-wrap gap-1">
-    @if ($participant->payment_proof)
-        <a href="{{ route('participant.proof', $participant) }}" target="_blank" class="btn btn-sm btn-light" title="Bukti bayar"><i class="fa fa-receipt"></i></a>
+    @if ($wa = App\Models\Setting::waLink($participant->phone()))
+        <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-sm btn-icon btn-light-success" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     @endif
-    @if ($participant->status !== 'verified')
-        <form method="POST" action="{{ route('participant.status', $participant) }}">@csrf @method('PATCH')
-            <button class="btn btn-sm btn-light-success" name="status" value="verified" title="Verifikasi"><i class="fa fa-check"></i></button></form>
-    @endif
-    @if (in_array($participant->status, ['pending', 'verified']))
-        <form method="POST" action="{{ route('participant.status', $participant) }}" onsubmit="const r = prompt('Alasan penolakan:'); if (!r) return false; this.notes.value = r;">
-            @csrf @method('PATCH') <input type="hidden" name="notes">
-            <button class="btn btn-sm btn-light-danger" name="status" value="rejected" title="Tolak"><i class="fa fa-times"></i></button></form>
-    @endif
+    @can('update', $participant)
+        @foreach (['hadir' => ['fa-check', 'success', 'Hadir'], 'terdaftar' => ['fa-undo', 'light', 'Terdaftar'], 'batal' => ['fa-times', 'danger', 'Batal']] as $status => [$icon, $color, $label])
+            @continue($participant->status === $status)
+            <form method="POST" action="{{ route('participant.status', $participant) }}">@csrf @method('PATCH')
+                <button class="btn btn-sm btn-icon btn-light-{{ $color }}" name="status" value="{{ $status }}" title="Tandai {{ $label }}"><i class="fa {{ $icon }}"></i></button></form>
+        @endforeach
+    @endcan
 </div>

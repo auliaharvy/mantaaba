@@ -27,7 +27,8 @@ class HomeController extends Controller
         $event = Event::public()->where('starts_at', '>=', now())->oldest('starts_at')->first();
 
         $announcements = \App\Models\Announcement::for($user)->take(5)->get();
+        $todayDuties = $user->member ? $user->member->duties()->with('area')->whereDate('date', today())->get() : collect();
 
-        return view('dashboard.home.index', compact('user', 'cards', 'event', 'announcements'));
+        return view('dashboard.home.index', compact('user', 'cards', 'event', 'announcements', 'todayDuties'));
     }
 }

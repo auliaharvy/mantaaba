@@ -239,6 +239,7 @@ return [
             ['title' => 'Lihat Situs', 'route' => 'site.home', 'active' => 'site.*', 'icon' => 'fa-globe'],
             ['title' => 'Belajar', 'route' => 'learn.index', 'member' => true, 'icon' => 'fa-book-reader'],
             ['title' => 'Sertifikat', 'route' => 'certificate.index', 'active' => 'certificate.index', 'icon' => 'fa-certificate'],
+            ['title' => 'Piket Saya', 'route' => 'my-duty.index', 'member' => true, 'icon' => 'fa-broom'],
             ['title' => 'Agenda Saya', 'route' => 'my-training.index', 'icon' => 'fa-ticket-alt'],
         ]],
         ['title' => 'Website', 'items' => [
@@ -268,7 +269,9 @@ return [
             ['title' => 'Tugas Masuk', 'route' => 'submission.index', 'can' => 'learning-view', 'icon' => 'fa-inbox'],
             ['title' => 'Penilaian', 'route' => 'assessment.index', 'can' => 'assessment-view', 'icon' => 'fa-star-half-alt'],
         ]],
-        ['title' => 'Kegiatan', 'items' => [
+        ['title' => 'Asrama', 'items' => [
+            ['title' => 'Kamar', 'route' => 'room.index', 'can' => 'dorm-view', 'icon' => 'fa-bed'],
+            ['title' => 'Jadwal Piket', 'route' => 'duty.index', 'active' => 'duty.*|duty-area.*', 'can' => 'dorm-view', 'icon' => 'fa-broom'],
             ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],
         ]],
         ['title' => 'Sistem', 'items' => [

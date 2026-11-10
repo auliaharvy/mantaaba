@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Member;
 use App\Models\Participant;
+use App\Models\Setting;
 use App\Models\User;
 use App\Notifications\EventAnnouncement;
-use App\Notifications\RegistrationStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
-/** Peserta satu event (PRD 8.9 alur 4 & 6 + fitur admin). Akses = pengelola event (scope PC). */
+/** Peserta satu agenda (PRD 9.8): kehadiran massal & check-in QR (tiket atau kartu anggota). */
 class EventParticipantController extends Controller
 {
     public function datatable(Request $request, Event $event)
@@ -23,60 +23,50 @@ class EventParticipantController extends Controller
             ->when($request->filled('status'), fn ($q) => $q->where('participants.status', $request->input('status')));
 
         return DataTables::eloquent($participants)
-            ->addColumn('check', fn ($p) => '<input type="checkbox" class="form-check-input" name="ids[]" value="' . $p->id . '" form="attendance-form" aria-label="Pilih ' . e($p->user->name) . '">')
+            ->addColumn('check', fn ($p) => '<input type="checkbox" class="form-check-input" name="ids[]" value="' . $p->id . '" form="attendance-form" aria-label="Pilih ' . e($p->name()) . '">')
+            ->addColumn('name', fn ($p) => e($p->name()) . ($p->user_id ? '' : ' <span class="badge badge-light fs-8">tamu</span>'))
+            ->addColumn('contact', fn ($p) => e(collect([$p->phone(), $p->email()])->filter()->implode(' · ')))
             ->editColumn('status', fn ($p) => Participant::STATUSES[$p->status])
-            ->editColumn('amount', fn ($p) => 'Rp' . number_format($p->amount, 0, ',', '.'))
             ->editColumn('attended_at', fn ($p) => $p->attended_at?->translatedFormat('d M H:i') ?? '-')
-            ->addColumn('action', fn ($p) => view('dashboard.event.participant-action', ['participant' => $p, 'event' => $event])->render())
-            ->rawColumns(['check', 'action'])
-            ->addIndexColumn()
-            ->make(true);
+            ->addColumn('action', fn ($p) => view('dashboard.event.participant-action', ['participant' => $p])->render())
+            ->filterColumn('name', fn ($q, $k) => $q->where(fn ($w) => $w->where('guest_name', 'like', "%{$k}%")->orWhereHas('user', fn ($u) => $u->where('name', 'like', "%{$k}%"))))
+            ->rawColumns(['check', 'name', 'action'])->addIndexColumn()->make(true);
     }
 
-    /** Tambah peserta manual (pendaftaran offline): langsung terverifikasi. */
+    /** Tambah peserta pengguna secara manual. */
     public function store(Request $request, Event $event)
     {
         $this->authorize('update', $event);
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users,id', Rule::unique('participants')->where('event_id', $event->id)],
-        ], ['user_id.unique' => 'Pengguna ini sudah terdaftar di event ini.']);
-        $user = User::findOrFail($data['user_id']);
-        $participant = $event->participants()->create([
-            'user_id' => $user->id, 'status' => 'verified', 'amount' => $event->feeFor($user),
-            'verified_by' => $request->user()->id, 'verified_at' => now(), 'notes' => 'Didaftarkan admin',
-        ]);
-        $user->notify(new RegistrationStatusChanged($participant));
+        $data = $request->validate(['user_id' => ['required', 'exists:users,id', Rule::unique('participants')->where('event_id', $event->id)]],
+            ['user_id.unique' => 'Pengguna ini sudah menjadi peserta agenda ini.']);
+        $participant = $event->participants()->create(['user_id' => $data['user_id'], 'notes' => 'Ditambahkan pengurus']);
 
-        return back()->with('success', "{$user->name} ditambahkan sebagai peserta.");
+        return back()->with('success', "{$participant->name()} ditambahkan sebagai peserta.");
     }
 
-    /** Verifikasi / tolak (dengan alasan) / batalkan. */
+    public function sync(Event $event)
+    {
+        $this->authorize('update', $event);
+
+        return back()->with('success', $event->syncParticipants() . ' peserta baru ditambahkan dari sasaran agenda.');
+    }
+
     public function status(Request $request, Participant $participant)
     {
         $this->authorize('update', $participant);
-        $data = $request->validate([
-            'status' => 'required|in:verified,rejected,cancelled,pending',
-            'notes' => 'required_if:status,rejected|nullable|string|max:500',
-        ], ['notes.required_if' => 'Alasan penolakan wajib diisi.']);
+        $data = $request->validate(['status' => ['required', Rule::in(array_keys(Participant::STATUSES))]]);
+        $participant->update(['status' => $data['status'], 'attended_at' => $data['status'] === 'hadir' ? ($participant->attended_at ?? now()) : null]);
 
-        $participant->update([
-            'status' => $data['status'],
-            'notes' => $data['notes'] ?? $participant->notes,
-            'verified_by' => $data['status'] === 'verified' ? $request->user()->id : $participant->verified_by,
-            'verified_at' => $data['status'] === 'verified' ? now() : $participant->verified_at,
-        ]);
-        $participant->user->notify(new RegistrationStatusChanged($participant));
-
-        return back()->with('success', "Status {$participant->user->name}: " . Participant::STATUSES[$data['status']] . '.');
+        return back()->with('success', "Status {$participant->name()}: " . Participant::STATUSES[$data['status']] . '.');
     }
 
-    /** Tandai hadir / batal hadir massal dari tabel (PRD 8.9 alur 6). */
+    /** Tandai hadir / batal hadir massal. */
     public function attendance(Request $request, Event $event)
     {
         $this->authorize('update', $event);
         $data = $request->validate(['ids' => 'required|array', 'ids.*' => 'integer', 'present' => 'required|boolean']);
-        $count = $event->participants()->whereIn('id', $data['ids'])->where('status', 'verified')
-            ->update(['attended_at' => $data['present'] ? now() : null]);
+        $count = $event->participants()->whereIn('id', $data['ids'])->where('status', '!=', 'batal')
+            ->update($data['present'] ? ['status' => 'hadir', 'attended_at' => now()] : ['status' => 'terdaftar', 'attended_at' => null]);
 
         return back()->with('success', "{$count} peserta " . ($data['present'] ? 'ditandai hadir.' : 'dibatalkan kehadirannya.'));
     }
@@ -88,55 +78,31 @@ class EventParticipantController extends Controller
         return view('dashboard.event.check-in', compact('event'));
     }
 
-    /** Check-in dengan kode tiket (hasil pindai QR atau ketik manual). */
+    /** Check-in dengan kode tiket atau QR kartu anggota (berisi nomor MTB-...). */
     public function checkIn(Request $request, Event $event)
     {
         $this->authorize('update', $event);
-        $code = strtoupper(trim((string) $request->validate(['code' => 'required|string|max:20'])['code']));
+        $raw = (string) $request->validate(['code' => 'required|string|max:255'])['code'];
+        $code = strtoupper(trim(basename(parse_url($raw, PHP_URL_PATH) ?: $raw)));
+
         $participant = $event->participants()->with('user')->where('ticket_code', $code)->first();
-
+        if (! $participant && str_starts_with($code, 'MTB-') && ($member = Member::where('member_number', $code)->first())) {
+            $participant = $member->user_id ? $event->participants()->with('user')->where('user_id', $member->user_id)->first() : null;
+            // agenda internal: anggota sasaran yang belum tercatat (mis. baru bergabung) langsung ditambahkan
+            if (! $participant && $member->user_id && $event->audience !== 'publik' && $event->targetUsers()->whereKey($member->user_id)->exists()) {
+                $participant = $event->participants()->create(['user_id' => $member->user_id]);
+            }
+        }
         if (! $participant) {
-            return response()->json(['ok' => false, 'message' => "Tiket {$code} tidak terdaftar di event ini."], 404);
+            return response()->json(['ok' => false, 'message' => "Kode {$code} tidak terdaftar di agenda ini."], 404);
         }
-        if ($participant->status !== 'verified') {
-            return response()->json(['ok' => false, 'message' => "{$participant->user->name}: pendaftaran belum terverifikasi."], 422);
+        if ($participant->status === 'batal') {
+            return response()->json(['ok' => false, 'message' => "{$participant->name()}: pendaftaran dibatalkan."], 422);
         }
-        $already = $participant->attended_at !== null;
-        if (! $already) {
-            $participant->update(['attended_at' => now()]);
-        }
+        $already = $participant->status === 'hadir';
+        $participant->markPresent();
 
-        return response()->json(['ok' => true, 'message' => $participant->user->name . ($already ? ' sudah check-in sebelumnya.' : ' berhasil check-in.')]);
-    }
-
-    public function proof(Participant $participant)
-    {
-        $this->authorize('viewProof', $participant);
-        abort_unless($participant->payment_proof && Storage::disk('local')->exists($participant->payment_proof), 404);
-
-        return Storage::disk('local')->response($participant->payment_proof);
-    }
-
-    /** Upload sertifikat manual (cadangan). Disimpan privat (PRD 3.4 T4). */
-    public function manualCertificate(Request $request, Participant $participant)
-    {
-        $this->authorize('update', $participant);
-        $request->validate(['certificate' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120']);
-        $old = $participant->certificate;
-        $participant->update(['certificate' => $request->file('certificate')->store('participant/certificate', 'local')]);
-        if ($old) {
-            Storage::disk('local')->delete($old);
-        }
-
-        return back()->with('success', 'Sertifikat manual diunggah.');
-    }
-
-    public function manualCertificateDownload(Participant $participant)
-    {
-        $this->authorize('view', $participant);
-        abort_unless($participant->certificate && Storage::disk('local')->exists($participant->certificate), 404);
-
-        return Storage::disk('local')->download($participant->certificate);
+        return response()->json(['ok' => true, 'message' => $participant->name() . ($already ? ' sudah check-in sebelumnya.' : ' berhasil check-in.')]);
     }
 
     public function export(Event $event)
@@ -145,26 +111,28 @@ class EventParticipantController extends Controller
 
         return response()->streamDownload(function () use ($event) {
             $out = fopen('php://output', 'w');
-            fputcsv($out, ['nama', 'email', 'telepon', 'status', 'biaya', 'terverifikasi', 'hadir', 'kode_tiket']);
-            $event->participants()->with('user')->orderBy('id')->chunk(500, function ($rows) use ($out) {
+            fputcsv($out, ['nama', 'jenis', 'telepon', 'email', 'status', 'hadir', 'kode_tiket']);
+            $event->participants()->with('user.member')->orderBy('id')->chunk(500, function ($rows) use ($out) {
                 foreach ($rows as $p) {
-                    fputcsv($out, [$p->user->name, $p->user->email, $p->user->phone_number, $p->status, $p->amount,
-                        $p->verified_at?->format('Y-m-d H:i'), $p->attended_at?->format('Y-m-d H:i'), $p->ticket_code]);
+                    fputcsv($out, [$p->name(), $p->user_id ? 'anggota/pengguna' : 'tamu', $p->phone(), $p->email(), $p->status, $p->attended_at?->format('Y-m-d H:i'), $p->ticket_code]);
                 }
             });
             fclose($out);
-        }, "peserta-{$event->code}.csv", ['Content-Type' => 'text/csv']);
+        }, 'peserta-' . $event->slug . '.csv', ['Content-Type' => 'text/csv']);
     }
 
-    /** Email pengumuman ke semua peserta terverifikasi (PRD 8.9 fitur admin). */
+    /** Email pengumuman ke semua peserta yang punya email. */
     public function announce(Request $request, Event $event)
     {
         $this->authorize('update', $event);
         $data = $request->validate(['subject' => 'required|string|max:150', 'message' => 'required|string|max:5000']);
-        $users = User::whereIn('id', $event->participants()->where('status', 'verified')->select('user_id'))->get();
+        $participants = $event->participants()->with('user')->where('status', '!=', 'batal')->get();
+        $users = $participants->pluck('user')->filter();
         Notification::send($users, new EventAnnouncement($event, $data['subject'], $data['message']));
+        $guests = $participants->whereNull('user_id')->pluck('guest_email')->filter()->unique();
+        $guests->each(fn ($email) => Notification::route('mail', $email)->notify(new EventAnnouncement($event, $data['subject'], $data['message'])));
 
-        return back()->with('success', "Pengumuman dikirim ke {$users->count()} peserta.");
+        return back()->with('success', 'Pengumuman dikirim ke ' . ($users->count() + $guests->count()) . ' email peserta.');
     }
 
     public function candidates(Request $request, Event $event)
@@ -173,8 +141,14 @@ class EventParticipantController extends Controller
 
         return User::where('is_active', true)
             ->where(fn ($q) => $q->where('name', 'like', '%' . $request->input('q') . '%')->orWhere('email', 'like', '%' . $request->input('q') . '%'))
-            ->whereNotIn('id', $event->participants()->select('user_id'))
+            ->whereNotIn('id', $event->participants()->whereNotNull('user_id')->select('user_id'))
             ->orderBy('name')->limit(20)->get(['id', 'name', 'email'])
             ->map(fn ($u) => ['id' => $u->id, 'text' => "{$u->name} ({$u->email})"]);
+    }
+
+    /** Tautan WA ke peserta (dipakai tombol di tabel). */
+    public static function whatsapp(Participant $participant, string $text): ?string
+    {
+        return Setting::waLink($participant->phone(), $text);
     }
 }

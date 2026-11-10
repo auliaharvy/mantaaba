@@ -67,6 +67,16 @@ class Member extends Model
         return $this->hasMany(CoachingNote::class)->latest('date')->latest('id');
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function duties()
+    {
+        return $this->hasMany(Duty::class);
+    }
+
     public function enrollments()
     {
         return $this->hasMany(SkemaEnrollment::class);
@@ -113,8 +123,8 @@ class Member extends Model
     {
         $data = ['status' => $status];
         if (in_array($status, self::LEAVING, true)) {
-            $data += ['left_at' => today(), 'left_reason' => $reason];
-            // shortcut: keluar kamar & jadwal piket mendatang ditambahkan saat modul asrama dibuat (M4)
+            // PRD 9.4: keluar kamar & dari jadwal piket mendatang
+            $data += ['left_at' => today(), 'left_reason' => $reason, 'room_id' => null];
         } elseif ($status === 'lulus') {
             $data += ['category' => 'alumni', 'phase' => 'alumni', 'left_at' => null, 'left_reason' => $reason];
         } else {
@@ -123,6 +133,9 @@ class Member extends Model
         DB::transaction(function () use ($data, $status) {
             $this->update($data);
             $this->user?->update(['is_active' => ! in_array($status, self::LEAVING, true)]);
+            if (in_array($status, self::LEAVING, true)) {
+                $this->duties()->where('status', 'terjadwal')->where('date', '>=', today())->delete();
+            }
         });
     }
 

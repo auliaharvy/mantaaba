@@ -18,7 +18,7 @@
             <div class="flex-grow-1" style="min-width: 0">
                 <div class="fs-2 fw-bolder">{{ $member->name }} @if ($alert)<span class="badge badge-danger ms-2">Batas pelanggaran 30 hari</span>@endif</div>
                 <div class="text-muted">{{ $member->member_number }} · {{ App\Models\Member::CATEGORIES[$member->category] }} · <strong>{{ App\Models\Member::STATUSES[$member->status] }}</strong>{{ $member->phase ? ' · Fase ' . App\Models\Member::PHASES[$member->phase] : '' }}</div>
-                <div class="text-muted fs-7 mt-1">{{ $member->batch ? 'Angkatan ' . $member->batch->code . ' · ' : '' }}Penempatan: {{ $member->activePlacement?->businessUnit?->name ?? $member->activePlacement?->title ?? '–' }}
+                <div class="text-muted fs-7 mt-1">{{ $member->batch ? 'Angkatan ' . $member->batch->code . ' · ' : '' }}Kamar: {{ $member->room?->code ?? '–' }} · Penempatan: {{ $member->activePlacement?->businessUnit?->name ?? $member->activePlacement?->title ?? '–' }}
                 </div>
                 @if ($member->enrollments->isNotEmpty())
                     <div class="mt-2">@include('dashboard.learn.badges', ['enrollments' => $member->enrollments->sortBy(fn ($e) => [$e->skema->sort_order, $e->skema->id])])</div>
@@ -220,8 +220,17 @@
                     @endforeach
                     @break
 
+                @case('piket')
+                    <p class="text-muted">Bulan ini: <strong>{{ $dutyRate !== null ? $dutyRate . '% selesai' : 'belum ada piket yang lewat' }}</strong>. @can('dorm-view')<a href="{{ route('duty.report') }}">Laporan piket</a>@endcan</p>
+                    @forelse ($duties as $duty)
+                        <div class="d-flex gap-3 py-2 border-bottom fs-7"><span class="text-muted w-100px">{{ $duty->date->translatedFormat('D, j M') }}</span><span class="flex-grow-1">{{ $duty->area->name }} · {{ App\Models\Duty::SHIFTS[$duty->shift] }}</span>
+                            <span class="badge badge-light{{ $duty->status === 'terlewat' ? '-danger' : (in_array($duty->status, App\Models\Duty::DONE) ? '-success' : '') }}">{{ App\Models\Duty::STATUSES[$duty->status] }}</span></div>
+                    @empty
+                        <p class="text-muted">Belum ada jadwal piket.</p>
+                    @endforelse
+                    @break
+
                 @default
-                    {{-- piket (M4) --}}
                     <p class="text-muted mb-0">Data {{ Str::lower($tabs[$tab] ?? '') }} tersedia setelah modul terkait aktif.</p>
             @endswitch
         </div>

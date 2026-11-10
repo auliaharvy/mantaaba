@@ -17,6 +17,19 @@
         </div>
     @endforeach
 
+    @if ($todayDuties->isNotEmpty())
+        <div class="card mb-5">
+            <div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder"><i class="fa fa-broom me-2"></i> Piket hari ini</div>
+                <div class="card-toolbar"><a href="{{ route('my-duty.index') }}" class="btn btn-sm btn-light-primary">Buka ceklis</a></div></div>
+            <div class="card-body py-3">
+                @foreach ($todayDuties as $duty)
+                    <div class="d-flex gap-3 py-2"><span class="fw-bold flex-grow-1">{{ $duty->area->name }} · {{ App\Models\Duty::SHIFTS[$duty->shift] }}</span>
+                        <span class="badge badge-light-{{ in_array($duty->status, App\Models\Duty::DONE) ? 'success' : ($duty->status === 'terlewat' ? 'danger' : 'primary') }}">{{ App\Models\Duty::STATUSES[$duty->status] }}</span></div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     @if ($cards)
         <div class="row g-5 mb-5">
             @foreach ($cards as [$label, $value, $icon, $url])

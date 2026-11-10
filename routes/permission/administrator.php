@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\DutyAreaController;
+use App\Http\Controllers\DutyController;
+use App\Http\Controllers\MyDutyController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\LearnController;
 use App\Http\Controllers\LessonController;
@@ -155,9 +159,30 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::post('anggota/{member}/kukuhkan', [CertificateController::class, 'graduate'])->name('certificate.graduate');
 
     /*
+    | Asrama & piket (PRD 9.9)
+    */
+    Route::resource('kamar', RoomController::class)->parameters(['kamar' => 'room'])->names('room')->except('show');
+    Route::post('kamar/{room}/penghuni', [RoomController::class, 'assign'])->name('room.assign');
+    Route::delete('penghuni/{member}', [RoomController::class, 'unassign'])->name('room.unassign');
+    Route::get('piket', [DutyController::class, 'index'])->name('duty.index');
+    Route::post('piket/buat', [DutyController::class, 'generate'])->name('duty.generate');
+    Route::post('piket/tukar', [DutyController::class, 'swap'])->name('duty.swap');
+    Route::get('piket/laporan', [DutyController::class, 'report'])->name('duty.report');
+    Route::patch('piket/{duty}', [DutyController::class, 'update'])->name('duty.update');
+    Route::delete('piket/{duty}', [DutyController::class, 'destroy'])->name('duty.destroy');
+    Route::post('piket/{duty}/verifikasi', [DutyController::class, 'verify'])->name('duty.verify');
+    Route::get('piket/{duty}/foto', [DutyController::class, 'photo'])->name('duty.photo');
+    Route::resource('area-piket', DutyAreaController::class)->parameters(['area-piket' => 'duty_area'])->names('duty-area')->only(['index', 'store', 'update', 'destroy']);
+    Route::get('piket-saya', [MyDutyController::class, 'index'])->name('my-duty.index');
+    Route::post('piket-saya/{duty}/selesai', [MyDutyController::class, 'complete'])->name('my-duty.complete');
+
+    /*
     | Agenda (PRD 9.8; disederhanakan di M4)
     */
     Route::get('event-datatable', [EventController::class, 'datatable'])->name('event.datatable');
+    Route::get('event-kalender', [EventController::class, 'calendar'])->name('event.calendar');
+    Route::get('sedulur-selawase', [EventController::class, 'selawase'])->name('event.selawase');
+    Route::post('event/{event}/sinkron-peserta', [EventParticipantController::class, 'sync'])->name('event.participants.sync');
     Route::post('event/{event}/salin', [EventController::class, 'duplicate'])->name('event.duplicate');
     Route::resource('event', EventController::class);
     Route::get('event/{event}/peserta-datatable', [EventParticipantController::class, 'datatable'])->name('event.participants.datatable');
@@ -169,15 +194,11 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::get('event/{event}/peserta-export', [EventParticipantController::class, 'export'])->name('event.participants.export');
     Route::post('event/{event}/pengumuman', [EventParticipantController::class, 'announce'])->name('event.announce');
     Route::patch('peserta/{participant}/status', [EventParticipantController::class, 'status'])->name('participant.status');
-    Route::get('peserta/{participant}/bukti', [EventParticipantController::class, 'proof'])->name('participant.proof');
-    Route::patch('peserta/{participant}/sertifikat-manual', [EventParticipantController::class, 'manualCertificate'])->name('participant.manual-certificate');
-    Route::get('peserta/{participant}/sertifikat-manual', [EventParticipantController::class, 'manualCertificateDownload'])->name('participant.manual-certificate.download');
     Route::get('sertifikat/{certificate}/unduh', [CertificateController::class, 'download'])->name('certificate.download');
     Route::patch('sertifikat/{certificate}/cabut', [CertificateController::class, 'revoke'])->name('certificate.revoke');
     Route::post('sertifikat/{certificate}/terbit-ulang', [CertificateController::class, 'reissue'])->name('certificate.reissue');
     Route::get('agenda-saya', [MyTrainingController::class, 'index'])->name('my-training.index');
     Route::get('agenda-saya/{participant}', [MyTrainingController::class, 'show'])->name('my-training.show');
-    Route::post('agenda-saya/{participant}/bukti', [MyTrainingController::class, 'uploadProof'])->name('my-training.proof');
 
     /*
     | Sistem (PRD 9.18, 9.20)

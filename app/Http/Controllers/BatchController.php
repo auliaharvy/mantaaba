@@ -56,8 +56,12 @@ class BatchController extends Controller
         $counts = $batch->applicants()->selectRaw('status, count(*) as total')->groupBy('status')->pluck('total', 'status');
         $students = $batch->members()->with('enrollments.result')->orderBy('name')->get();
         $skemas = Skema::ordered()->get();
+        $from = today()->startOfMonth()->toDateString();
+        $dutyRates = $students->mapWithKeys(fn ($m) => [$m->id => \App\Models\Duty::completionRate($m->id, $from, today()->toDateString())]);
+        $events = \App\Models\Event::where(fn ($q) => $q->where('batch_id', $batch->id)->orWhere('audience', 'anggota'))->latest('starts_at')->take(20)
+            ->withCount(['participants as present_count' => fn ($q) => $q->where('status', 'hadir')->whereIn('user_id', $batch->members()->whereNotNull('user_id')->select('user_id'))])->get();
 
-        return view('dashboard.batch.show', compact('batch', 'counts', 'students', 'skemas') + ['tab' => $request->query('tab', 'pendaftar')]);
+        return view('dashboard.batch.show', compact('batch', 'counts', 'students', 'skemas', 'dutyRates', 'events') + ['tab' => $request->query('tab', 'pendaftar')]);
     }
 
     public function edit(Batch $batch)

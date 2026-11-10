@@ -45,7 +45,8 @@ Route::name('site.')->group(function () {
     Route::controller(TrainingController::class)->group(function () {
         Route::get('agenda', 'index')->name('training');
         Route::get('agenda/{slug}', 'show')->name('training.show');
-        Route::post('agenda/{slug}/daftar', 'register')->middleware(['auth', 'throttle:10,1'])->name('training.register');
+        Route::post('agenda/{slug}/daftar', 'register')->middleware('throttle:10,1')->name('training.register');
+        Route::get('agenda/{slug}/tiket/{code}', 'ticket')->middleware('signed')->name('training.ticket');
         Route::get('sertifikat/{code}', 'certificate')->middleware('throttle:30,1')->name('certificate');
     });
 });

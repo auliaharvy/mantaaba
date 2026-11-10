@@ -25,7 +25,7 @@
                     <table class="table table-row-bordered align-middle gs-5 gy-3 mb-0">
                         <thead><tr class="fw-bold bg-light fs-7">
                             <th>Siswa</th><th title="Rata-rata nilai tugas">Tugas</th><th title="Catatan pembinaan sejak skema dibuka: positif / pelanggaran">Pembinaan +/!</th>
-                            <th title="Kehadiran agenda kelas (M4)">Hadir kelas</th><th title="Piket selesai (M4)">Piket</th>
+                            <th title="Kehadiran agenda Kelas skema ini (hadir/total)">Hadir kelas</th><th title="Piket selesai sejak skema dibuka">Piket</th>
                             <th>K</th><th>S</th><th>C</th><th>SC</th><th>Akhir</th><th>Hasil</th>
                         </tr></thead>
                         <tbody>
@@ -38,7 +38,7 @@
                                         <div class="fs-8 text-muted">{{ App\Models\SkemaEnrollment::STATUSES[$e->status] }}@if ($locked) · <i class="fa fa-lock"></i> {{ $r->activeCertificate?->number ?? 'terkunci' }}@endif</div></td>
                                     <td>{{ $row['assignment'] !== null ? number_format($row['assignment'], 0) : '-' }}</td>
                                     <td title="{{ $row['dimensions']->map(fn ($n, $d) => (App\Models\CoachingNote::DIMENSIONS[$d] ?? $d) . ': ' . $n)->implode(', ') }}">{{ $row['positive'] }} / {{ $row['violations'] }}</td>
-                                    <td class="text-muted">—</td><td class="text-muted">—</td>
+                                    <td>{{ $row['classes'] ?? '—' }}</td><td>{{ $row['duty'] !== null ? $row['duty'] . '%' : '—' }}</td>
                                     @foreach (array_keys(App\Models\SkemaResult::DIMENSIONS) as $dim)
                                         <td><input type="number" step="0.01" min="0" max="100" class="form-control form-control-sm w-75px" name="results[{{ $e->id }}][{{ $dim }}]" data-dim="{{ $dim }}"
                                             value="{{ old("results.{$e->id}.{$dim}", $r?->{$dim}) }}" @disabled($locked || ! $canUpdate || $e->isLocked()) aria-label="{{ App\Models\SkemaResult::DIMENSIONS[$dim] }} {{ $e->member->name }}"></td>

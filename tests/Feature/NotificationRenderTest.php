@@ -21,7 +21,7 @@ class NotificationRenderTest extends TestCase
         $this->seed();
         $user = User::where('email', 'anggota@mail.com')->first();
         $event = Event::factory()->create();
-        $participant = Participant::factory()->create(['event_id' => $event->id, 'user_id' => $user->id, 'notes' => 'Bukti tidak jelas']);
+        $participant = Participant::factory()->create(['event_id' => $event->id, 'guest_email' => 'tamu@contoh.id']);
         $member = $user->member;
         $certificate = Certificate::create(['member_id' => $member->id, 'series' => 'INK', 'year' => 2026, 'sequence' => 1, 'number' => '001/INK/RMS/XI/2026', 'verification_code' => 'ABCDEFGHJKLM', 'issued_at' => now()]);
         $applicant = \App\Models\Applicant::firstOrFail();
@@ -39,9 +39,7 @@ class NotificationRenderTest extends TestCase
             new Notifications\AnnouncementPublished(\App\Models\Announcement::firstOrFail()),
             new Notifications\AssignmentReviewed($progress),
         ];
-        foreach (['pending', 'verified', 'rejected', 'cancelled'] as $status) {
-            $notifications[] = new Notifications\RegistrationStatusChanged(tap($participant->replicate(['ticket_code']))->forceFill(['id' => $participant->id, 'status' => $status]));
-        }
+        $notifications[] = new Notifications\EventTicket($participant, 'https://contoh.test/tiket');
 
         foreach ($notifications as $notification) {
             $html = (string) $notification->toMail($user)->render();

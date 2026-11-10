@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Jobs\IssueSkemaCertificates;
 use App\Models\Batch;
 use App\Models\CoachingNote;
+use App\Models\Duty;
+use App\Models\Participant;
 use App\Models\LessonProgress;
 use App\Models\Setting;
 use App\Models\Skema;
@@ -82,7 +84,7 @@ class AssessmentController extends Controller
         return back()->with('success', 'Sertifikat siswa yang lulus sedang diterbitkan di latar belakang. Siswa menerima notifikasi saat siap.');
     }
 
-    /** Siswa angkatan pada skema + nilai pendukung (tugas, pembinaan). Kehadiran kelas & piket menyusul M4. */
+    /** Siswa angkatan pada skema + nilai pendukung: tugas, pembinaan, kehadiran agenda kelas skema ini, piket selesai. */
     private function rows(Batch $batch, Skema $skema)
     {
         $enrollments = SkemaEnrollment::with('member.user', 'result.activeCertificate')->where('skema_id', $skema->id)
@@ -93,8 +95,14 @@ class AssessmentController extends Controller
             $since = $e->opened_at ?? now()->subMonths(2);
             $notes = CoachingNote::where('member_id', $e->member_id)->where('date', '>=', $since->toDateString())->get(['type', 'dimension']);
 
+            // agenda kelas skema ini yang sudah berlangsung & diikuti siswa (PRD 9.8 AC)
+            $classes = $e->member->user_id ? Participant::where('user_id', $e->member->user_id)
+                ->whereHas('event', fn ($q) => $q->where('type', 'kelas')->where('skema_id', $e->skema_id)->where('starts_at', '<=', now()))->pluck('status') : collect();
+
             return [
                 'enrollment' => $e,
+                'classes' => $classes->isEmpty() ? null : $classes->filter(fn ($s) => $s === 'hadir')->count() . '/' . $classes->count(),
+                'duty' => Duty::completionRate($e->member_id, $since->toDateString(), today()->toDateString()),
                 'assignment' => $e->member->user_id ? LessonProgress::where('user_id', $e->member->user_id)->whereIn('lesson_id', $lessonIds)->whereNotNull('reviewed_at')->avg('score') : null,
                 'positive' => $notes->where('type', 'positif')->count(),
                 'violations' => $notes->filter(fn ($n) => str_starts_with($n->type, 'pelanggaran'))->count(),

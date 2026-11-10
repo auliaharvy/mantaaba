@@ -1,18 +1,19 @@
-<x-dashboard.page :title="$event->title" :crumbs="['Kegiatan', 'Acara', 'Kelola']">
+<x-dashboard.page :title="$event->title" :crumbs="['Kegiatan', 'Agenda', 'Kelola']">
     <div class="d-flex flex-wrap justify-content-end gap-2 mb-5">
-        <a class="btn btn-sm btn-light" href="{{ route('event.index') }}"><i class="fa fa-arrow-left"></i> Daftar acara</a>
+        <a class="btn btn-sm btn-light" href="{{ route('event.index') }}"><i class="fa fa-arrow-left"></i> Daftar agenda</a>
         @if ($event->status !== 'draft')<a class="btn btn-sm btn-light" href="{{ route('site.training.show', $event->slug) }}" target="_blank"><i class="fa fa-external-link-alt"></i> Lihat di situs</a>@endif
         @can('update', $event)
             <a class="btn btn-sm btn-light-info" href="{{ route('event.check-in', $event) }}"><i class="fa fa-qrcode"></i> Check-in</a>
             <a class="btn btn-sm btn-light" href="{{ route('event.participants.export', $event) }}"><i class="fa fa-download"></i> Export peserta</a>
+            @if ($event->audience !== 'publik')<form method="POST" action="{{ route('event.participants.sync', $event) }}">@csrf<button class="btn btn-sm btn-light"><i class="fa fa-sync"></i> Sinkronkan peserta</button></form>@endif
             <form method="POST" action="{{ route('event.duplicate', $event) }}">@csrf<button class="btn btn-sm btn-light"><i class="fa fa-copy"></i> Duplikasi</button></form>
             <a class="btn btn-sm btn-light-success" href="{{ route('event.edit', $event) }}"><i class="fa fa-pen"></i> Ubah</a>
         @endcan
     </div>
 
     <div class="row g-5 mb-5">
-        @foreach ([['Menunggu verifikasi', $event->pending_count], ['Terverifikasi', $event->verified_count . ($event->quota ? ' / ' . $event->quota : '')], ['Hadir', $event->attended_count]] as [$label, $value])
-            <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body">
+        @foreach ([['Peserta', $event->registered_count . ($event->quota ? ' / ' . $event->quota : '')], ['Hadir', $event->present_count], ['Status', App\Models\Event::STATUSES[$event->status]]] as [$label, $value])
+            <div class="col-6 col-lg-4"><div class="card h-100"><div class="card-body">
                 <div class="text-muted fs-7">{{ $label }}</div><div class="fs-2x fw-bolder">{{ $value }}</div>
             </div></div></div>
         @endforeach
@@ -20,11 +21,10 @@
 
     <div class="card mb-5">
         <div class="card-body d-flex flex-wrap gap-6 fs-7">
-            <span><strong>Status:</strong> {{ App\Models\Event::STATUSES[$event->status] }}</span>
-            <span><strong>Jenis:</strong> {{ App\Models\Event::TYPES[$event->type] }} ({{ $event->code }})</span>
-            <span><strong>Jadwal:</strong> {{ $event->starts_at?->translatedFormat('j M Y H:i') }} – {{ $event->ends_at?->translatedFormat('j M Y H:i') }}</span>
-            <span><strong>Biaya:</strong> anggota Rp{{ number_format($event->fee_member, 0, ',', '.') }} · umum Rp{{ number_format($event->fee_public, 0, ',', '.') }}</span>
-
+            <span><strong>Jenis:</strong> {{ App\Models\Event::TYPES[$event->type] }}{{ $event->skema ? ' · ' . $event->skema->code : '' }}</span>
+            <span><strong>Jadwal:</strong> {{ $event->starts_at->translatedFormat('j M Y H:i') }} – {{ $event->ends_at->translatedFormat('j M Y H:i') }}</span>
+            <span><strong>Sasaran:</strong> {{ App\Models\Event::AUDIENCES[$event->audience] }}{{ $event->batch ? ' ' . $event->batch->code : '' }}</span>
+            <span><strong>Tempat:</strong> {{ App\Models\Event::MODES[$event->mode] }}{{ $event->location ? ' · ' . $event->location : '' }}</span>
         </div>
     </div>
 
@@ -55,12 +55,11 @@
                     </form>
                 @endcan
             </div>
-            <x-dashboard.datatable id="participants" :url="route('event.participants.datatable', $event)" :order="[[2, 'asc']]" :columns="[
+            <x-dashboard.datatable id="participants" :url="route('event.participants.datatable', $event)" :order="[[4, 'asc']]" :columns="[
                 ['data' => 'check', 'title' => '', 'orderable' => false, 'searchable' => false],
                 ['data' => 'DT_RowIndex', 'title' => 'No.'],
-                ['data' => 'user.name', 'title' => 'Nama'],
-                ['data' => 'user.email', 'title' => 'Email'],
-                ['data' => 'amount', 'name' => 'participants.amount', 'title' => 'Biaya', 'searchable' => false],
+                ['data' => 'name', 'title' => 'Nama', 'orderable' => false],
+                ['data' => 'contact', 'title' => 'Kontak', 'orderable' => false, 'searchable' => false],
                 ['data' => 'status', 'name' => 'participants.status', 'title' => 'Status', 'searchable' => false],
                 ['data' => 'attended_at', 'name' => 'participants.attended_at', 'title' => 'Hadir', 'searchable' => false],
                 ['data' => 'action', 'title' => ''],
@@ -76,7 +75,7 @@
                     <div class="card-header"><div class="card-title fs-4 fw-bolder">Kirim Pengumuman</div></div>
                     <div class="card-body">
                         <x-dashboard.field name="subject" label="Judul" required />
-                        <x-dashboard.field name="message" label="Isi (dikirim ke semua peserta terverifikasi)" type="textarea" required rows="4" />
+                        <x-dashboard.field name="message" label="Isi (dikirim ke email semua peserta)" type="textarea" required rows="4" />
                     </div>
                     <div class="card-footer text-end"><button class="btn btn-sm btn-primary" type="submit">Kirim email</button></div>
                 </form>

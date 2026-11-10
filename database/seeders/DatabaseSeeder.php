@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
             NavMenuSeeder::class,
             BusinessUnitSeeder::class,
             SkemaSeeder::class,
+            DutyAreaSeeder::class,
             ContentTaxonomySeeder::class,
             SuperAdminSeeder::class,
         ]);
 
         if (! app()->isProduction()) {
-            $this->call([UserSeeder::class, BlogSeeder::class, EventSeeder::class, ParticipantSeeder::class, MembershipSeeder::class]);
+            $this->call([UserSeeder::class, BlogSeeder::class, MembershipSeeder::class, EventSeeder::class, DormSeeder::class]);
         }
     }
 }

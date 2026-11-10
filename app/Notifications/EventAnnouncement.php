@@ -23,7 +23,7 @@ class EventAnnouncement extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        $mail = (new MailMessage)->subject("[{$this->event->title}] {$this->subject}")->greeting('Halo, ' . $notifiable->name);
+        $mail = (new MailMessage)->subject("[{$this->event->title}] {$this->subject}")->greeting('Halo, ' . ($notifiable->name ?? 'Peserta'));
         foreach (preg_split('/\R{2,}/', trim($this->message)) as $paragraph) {
             $mail->line($paragraph);
         }

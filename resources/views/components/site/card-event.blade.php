@@ -1,7 +1,7 @@
-{{-- Kartu event (PRD 6.2): poster, badge jenis, tanggal, mode, kuota tersisa, tombol Daftar. --}}
+{{-- Kartu agenda (PRD 9.8): poster, jenis, tanggal, kuota tersisa, tombol Daftar. --}}
 @props(['event'])
 @php($left = $event->seatsLeft())
-<article class="flex flex-col overflow-hidden rounded-lg border border-brand-border bg-white shadow-sm">
+<article class="flex flex-col overflow-hidden rounded-site border border-brand-border bg-white shadow-sm">
     <a href="{{ route('site.training.show', $event->slug) }}" tabindex="-1" aria-hidden="true">
         @if ($event->thumbnail)
             <img src="{{ Storage::disk('public')->url($event->thumbnail) }}" alt="" class="aspect-[16/10] w-full object-cover" loading="lazy">
@@ -16,9 +16,10 @@
         </div>
         <h3 class="text-lg"><a href="{{ route('site.training.show', $event->slug) }}" class="hover:text-brand-accent">{{ $event->title }}</a></h3>
         <p class="mt-2 flex items-center gap-2 text-sm text-gray-700"><x-site.icon name="calendar" class="h-4 w-4 text-brand-primary" />
-            <time datetime="{{ $event->starts_at?->toIso8601String() }}">{{ $event->starts_at?->translatedFormat('l, j M Y · H:i') }}</time></p>
+            <time datetime="{{ $event->starts_at->toIso8601String() }}">{{ $event->starts_at->translatedFormat('l, j M Y · H:i') }}</time></p>
         <p class="mt-1 text-sm text-gray-600">
-            @if ($event->status === 'done') Selesai
+            @if ($event->status === 'done' || $event->ends_at->isPast()) Selesai
+            @elseif ($event->audience !== 'publik') Agenda internal anggota
             @elseif ($left === null) Kuota tidak terbatas
             @elseif ($left === 0) <span class="font-bold text-red-700">Kuota penuh</span>
             @else Sisa kuota {{ $left }} @endif

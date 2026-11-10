@@ -7,18 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/** Peserta agenda (PRD 9.8): pengguna terdaftar atau tamu publik (nama, WA, email). */
 class Participant extends Model
 {
     use HasFactory, LogsActivity;
 
-    public const STATUSES = ['pending' => 'Menunggu verifikasi', 'verified' => 'Terverifikasi', 'rejected' => 'Ditolak', 'cancelled' => 'Dibatalkan'];
+    public const STATUSES = ['terdaftar' => 'Terdaftar', 'hadir' => 'Hadir', 'batal' => 'Batal'];
 
-    protected $fillable = [
-        'event_id', 'user_id', 'status', 'amount', 'payment_proof', 'verified_by', 'verified_at', 'attended_at',
-        'ticket_code', 'notes', 'reason', 'file', 'certificate',
-    ];
+    protected array $logExcept = ['guest_phone', 'guest_email'];
 
-    protected $casts = ['amount' => 'decimal:2', 'verified_at' => 'datetime', 'attended_at' => 'datetime'];
+    protected $fillable = ['event_id', 'user_id', 'guest_name', 'guest_phone', 'guest_email', 'status', 'attended_at', 'notes'];
+
+    protected $casts = ['attended_at' => 'datetime'];
+
+    protected $attributes = ['status' => 'terdaftar'];
 
     protected static function booted(): void
     {
@@ -39,9 +41,23 @@ class Participant extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    public function verifier()
+    public function name(): string
     {
-        return $this->belongsTo(User::class, 'verified_by');
+        return $this->user?->name ?? (string) $this->guest_name;
+    }
+
+    public function phone(): ?string
+    {
+        return $this->user ? ($this->user->member?->phone ?? $this->user->phone_number) : $this->guest_phone;
+    }
+
+    public function email(): ?string
+    {
+        return $this->user?->email ?? $this->guest_email;
+    }
+
+    public function markPresent(): void
+    {
+        $this->update(['status' => 'hadir', 'attended_at' => $this->attended_at ?? now()]);
     }
 }
