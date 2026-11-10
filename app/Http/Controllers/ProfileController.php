@@ -13,9 +13,9 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $participations = $user->participants()->with('event', 'certificateRecord')->latest()->get();
+        $participations = $user->participants()->with('event')->latest()->get();
         // PRD 9.4: anggota melihat data sendiri, catatan pembinaan ber-visibilitas anggota, dan riwayat kesehatan sendiri
-        $member = $user->member?->load('batch', 'journeys.businessUnit');
+        $member = $user->member?->load('batch', 'journeys.businessUnit', 'enrollments.skema');
         $notes = $member ? $member->coachingNotes()->where('visibility', 'anggota')->with('author')->get() : collect();
         $health = $member ? $member->healthRecords()->get() : collect();
 

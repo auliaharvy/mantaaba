@@ -39,10 +39,6 @@ class Participant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function certificateRecord()
-    {
-        return $this->hasOne(Certificate::class);
-    }
 
     public function verifier()
     {

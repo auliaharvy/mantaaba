@@ -38,15 +38,7 @@
                 </div>
             @endif
 
-            @if ($c = $participant->certificateRecord)
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
-                        <div><div class="fw-bolder">Sertifikat {{ $c->number }}</div>
-                            <div class="text-muted fs-7">{{ $c->isValid() ? 'Terbit ' . $c->issued_at->translatedFormat('j F Y') : ($c->revoked_at ? 'Dicabut' : 'Sedang diproses') }}</div></div>
-                        @if ($c->isValid() && $c->file)<a class="btn btn-sm btn-success" href="{{ route('certificate.download', $c) }}"><i class="fa fa-download"></i> Unduh PDF</a>@endif
-                    </div>
-                </div>
-            @elseif ($participant->certificate)
+            @if ($participant->certificate)
                 <a class="btn btn-sm btn-success" href="{{ route('participant.manual-certificate.download', $participant) }}"><i class="fa fa-download"></i> Unduh sertifikat</a>
             @endif
         </div>

@@ -24,31 +24,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header"><div class="card-title fs-4 fw-bolder">Sertifikat</div></div>
-                    <div class="card-body row">
-                        <div class="col-12">
-                            <x-dashboard.field name="certificate_template" label="Latar sertifikat (gambar A4 landscape, opsional)" type="file" accept="image/*" help="Tanpa latar: bingkai hijau sederhana." />
-                            @if ($event->certificate_template)<img src="{{ Storage::disk('public')->url($event->certificate_template) }}" alt="" class="h-100px rounded mb-6">@endif
-                        </div>
-                        @foreach ([0, 1] as $i)
-                            @php($s = $event->certificate_signatory[$i] ?? [])
-                            <div class="col-md-6">
-                                <div class="fw-bolder mb-3">Penandatangan {{ $i + 1 }}</div>
-                                <x-dashboard.field name="signatories[{{ $i }}][name]" label="Nama" :value="$s['name'] ?? null" />
-                                <x-dashboard.field name="signatories[{{ $i }}][title]" label="Jabatan" :value="$s['title'] ?? null" placeholder="Ketua Yayasan Mantaaba" />
-                                <x-dashboard.field name="signatures[{{ $i }}]" label="Tanda tangan (PNG transparan)" type="file" accept="image/png,image/webp" />
-                                @if (! empty($s['signature']))<img src="{{ Storage::disk('public')->url($s['signature']) }}" alt="" class="h-50px mb-6">@endif
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
             </div>
             <div class="col-xl-4">
                 <div class="card mb-5">
                     <div class="card-header"><div class="card-title fs-4 fw-bolder">Pendaftaran</div></div>
                     <div class="card-body">
-                        <x-dashboard.field name="status" label="Status" type="select" :options="App\Models\Event::STATUSES" :value="$event->status" required help="Draf tidak tampil di situs. Sertifikat bisa diterbitkan saat Selesai." />
+                        <x-dashboard.field name="status" label="Status" type="select" :options="App\Models\Event::STATUSES" :value="$event->status" required help="Draf tidak tampil di situs." />
                         <x-dashboard.field name="audience" label="Peserta" type="select" :options="App\Models\Event::AUDIENCES" :value="$event->audience" required />
                         <x-dashboard.field name="registration_opens_at" label="Pendaftaran dibuka" type="datetime-local" :value="$dt($event->registration_opens_at)" />
                         <x-dashboard.field name="registration_closes_at" label="Pendaftaran ditutup" type="datetime-local" :value="$dt($event->registration_closes_at)" />

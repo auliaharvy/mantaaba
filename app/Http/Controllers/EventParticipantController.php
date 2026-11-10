@@ -19,7 +19,7 @@ class EventParticipantController extends Controller
     public function datatable(Request $request, Event $event)
     {
         $this->authorize('view', $event);
-        $participants = Participant::select('participants.*')->with('user', 'certificateRecord')->where('event_id', $event->id)
+        $participants = Participant::select('participants.*')->with('user')->where('event_id', $event->id)
             ->when($request->filled('status'), fn ($q) => $q->where('participants.status', $request->input('status')));
 
         return DataTables::eloquent($participants)
@@ -27,7 +27,6 @@ class EventParticipantController extends Controller
             ->editColumn('status', fn ($p) => Participant::STATUSES[$p->status])
             ->editColumn('amount', fn ($p) => 'Rp' . number_format($p->amount, 0, ',', '.'))
             ->editColumn('attended_at', fn ($p) => $p->attended_at?->translatedFormat('d M H:i') ?? '-')
-            ->addColumn('certificate_state', fn ($p) => $p->certificateRecord?->isValid() ? 'Terbit' : ($p->certificateRecord?->revoked_at ? 'Dicabut' : ($p->certificate ? 'Manual' : '-')))
             ->addColumn('action', fn ($p) => view('dashboard.event.participant-action', ['participant' => $p, 'event' => $event])->render())
             ->rawColumns(['check', 'action'])
             ->addIndexColumn()
@@ -146,11 +145,11 @@ class EventParticipantController extends Controller
 
         return response()->streamDownload(function () use ($event) {
             $out = fopen('php://output', 'w');
-            fputcsv($out, ['nama', 'email', 'telepon', 'status', 'biaya', 'terverifikasi', 'hadir', 'kode_tiket', 'nomor_sertifikat']);
-            $event->participants()->with('user', 'certificateRecord')->orderBy('id')->chunk(500, function ($rows) use ($out) {
+            fputcsv($out, ['nama', 'email', 'telepon', 'status', 'biaya', 'terverifikasi', 'hadir', 'kode_tiket']);
+            $event->participants()->with('user')->orderBy('id')->chunk(500, function ($rows) use ($out) {
                 foreach ($rows as $p) {
                     fputcsv($out, [$p->user->name, $p->user->email, $p->user->phone_number, $p->status, $p->amount,
-                        $p->verified_at?->format('Y-m-d H:i'), $p->attended_at?->format('Y-m-d H:i'), $p->ticket_code, $p->certificateRecord?->number]);
+                        $p->verified_at?->format('Y-m-d H:i'), $p->attended_at?->format('Y-m-d H:i'), $p->ticket_code]);
                 }
             });
             fclose($out);

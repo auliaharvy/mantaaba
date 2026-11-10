@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             NavMenuSeeder::class,
             BusinessUnitSeeder::class,
+            SkemaSeeder::class,
             ContentTaxonomySeeder::class,
             SuperAdminSeeder::class,
         ]);

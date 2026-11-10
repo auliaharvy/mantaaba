@@ -237,6 +237,8 @@ return [
         ['items' => [
             ['title' => 'Beranda', 'route' => 'home', 'active' => 'home', 'icon' => 'fa-home'],
             ['title' => 'Lihat Situs', 'route' => 'site.home', 'active' => 'site.*', 'icon' => 'fa-globe'],
+            ['title' => 'Belajar', 'route' => 'learn.index', 'member' => true, 'icon' => 'fa-book-reader'],
+            ['title' => 'Sertifikat', 'route' => 'certificate.index', 'active' => 'certificate.index', 'icon' => 'fa-certificate'],
             ['title' => 'Agenda Saya', 'route' => 'my-training.index', 'icon' => 'fa-ticket-alt'],
         ]],
         ['title' => 'Website', 'items' => [
@@ -260,6 +262,11 @@ return [
             ['title' => 'Catatan Pembinaan', 'route' => 'coaching.index', 'can' => 'coaching-view', 'icon' => 'fa-clipboard-list'],
             ['title' => 'Kesehatan', 'route' => 'health.index', 'can' => 'health-view', 'icon' => 'fa-notes-medical'],
             ['title' => 'Pengumuman', 'route' => 'announcement.index', 'can' => 'announcement-view', 'icon' => 'fa-bullhorn'],
+        ]],
+        ['title' => 'Pembelajaran', 'items' => [
+            ['title' => 'Skema & Materi', 'route' => 'skema.index', 'active' => 'skema.*|lesson.*', 'can' => 'learning-view', 'icon' => 'fa-layer-group'],
+            ['title' => 'Tugas Masuk', 'route' => 'submission.index', 'can' => 'learning-view', 'icon' => 'fa-inbox'],
+            ['title' => 'Penilaian', 'route' => 'assessment.index', 'can' => 'assessment-view', 'icon' => 'fa-star-half-alt'],
         ]],
         ['title' => 'Kegiatan', 'items' => [
             ['title' => 'Agenda', 'route' => 'event.index', 'can' => 'agenda-view', 'icon' => 'fa-calendar-alt'],

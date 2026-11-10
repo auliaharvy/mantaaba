@@ -22,13 +22,22 @@ class NotificationRenderTest extends TestCase
         $user = User::where('email', 'anggota@mail.com')->first();
         $event = Event::factory()->create();
         $participant = Participant::factory()->create(['event_id' => $event->id, 'user_id' => $user->id, 'notes' => 'Bukti tidak jelas']);
-        $certificate = Certificate::create(['participant_id' => $participant->id, 'number' => '001/SERT/X/RMS/2026', 'verification_code' => 'ABCDEFGHJKLM', 'issued_at' => now()]);
+        $member = $user->member;
+        $certificate = Certificate::create(['member_id' => $member->id, 'series' => 'INK', 'year' => 2026, 'sequence' => 1, 'number' => '001/INK/RMS/XI/2026', 'verification_code' => 'ABCDEFGHJKLM', 'issued_at' => now()]);
+        $applicant = \App\Models\Applicant::firstOrFail();
+        $progress = \App\Models\LessonProgress::whereNotNull('submitted_at')->firstOrFail();
+        $progress->update(['score' => 88, 'feedback' => 'Bagus', 'reviewed_at' => now()]);
 
         $notifications = [
             new Notifications\AccountActivation('https://contoh.test/atur-password'),
             new Notifications\ContactMessageReceived(ContactMessage::create(['name' => 'A', 'email' => 'a@b.c', 'subject' => 'Lainnya', 'message' => 'Halo semua'])),
             new Notifications\CertificateIssued($certificate),
             new Notifications\EventAnnouncement($event, 'Info', "Paragraf satu.\n\nParagraf dua."),
+            new Notifications\NewApplicant($applicant),
+            new Notifications\ApplicantStatusChanged($applicant),
+            new Notifications\SeriousViolation($member),
+            new Notifications\AnnouncementPublished(\App\Models\Announcement::firstOrFail()),
+            new Notifications\AssignmentReviewed($progress),
         ];
         foreach (['pending', 'verified', 'rejected', 'cancelled'] as $status) {
             $notifications[] = new Notifications\RegistrationStatusChanged(tap($participant->replicate(['ticket_code']))->forceFill(['id' => $participant->id, 'status' => $status]));

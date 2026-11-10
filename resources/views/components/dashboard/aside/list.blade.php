@@ -13,7 +13,7 @@
             id="#kt_aside_menu" data-kt-menu="true">
             {{-- PRD 6.3: menu dari config/mantaaba.php; item hanya tampil bila diizinkan --}}
             @foreach (config('mantaaba.menu') as $group)
-                @php($items = collect($group['items'])->filter(fn ($item) => (! isset($item['can']) || auth()->user()->can($item['can'])) && (! isset($item['role']) || auth()->user()->hasRole($item['role']))))
+                @php($items = collect($group['items'])->filter(fn ($item) => (! isset($item['can']) || auth()->user()->can($item['can'])) && (! isset($item['role']) || auth()->user()->hasRole($item['role'])) && (empty($item['member']) || auth()->user()->member)))
                 @continue($items->isEmpty())
                 @isset($group['title'])
                     <div class="menu-item pt-5">

@@ -45,6 +45,25 @@ class MembershipSeeder extends Seeder
             ]);
         }
 
+        // pembelajaran contoh: materi FND, siswa angkatan berjalan terdaftar ke skema, satu tugas terkirim, satu nilai lulus
+        $fnd = \App\Models\Skema::where('code', 'FND')->first();
+        foreach ($fnd?->modules ?? [] as $module) {
+            $module->lessons()->create(['title' => 'Pengantar ' . $module->title, 'type' => 'text', 'body' => '<p>Bacalah pengantar modul ini dan diskusikan bersama kelompok.</p>', 'sort_order' => 0]);
+            $module->lessons()->create(['title' => 'Tugas ' . $module->title, 'type' => 'assignment', 'body' => '<p>Kerjakan latihan lalu unggah hasilnya.</p>', 'due_days' => 7, 'sort_order' => 1]);
+        }
+        app(\App\Services\SkemaEnroller::class)->enrollBatch($running);
+        if ($fnd && ($demo = User::where('email', 'anggota@mail.com')->first())) {
+            $first = $fnd->lessons()->orderBy('lessons.id')->first();
+            \App\Models\LessonProgress::create(['user_id' => $demo->id, 'lesson_id' => $first->id, 'completed_at' => now()]);
+            \App\Models\LessonProgress::create(['user_id' => $demo->id, 'lesson_id' => $first->id + 1, 'completed_at' => now(), 'submitted_at' => now(), 'submission_text' => 'Ringkasan hasil diskusi kelompok.']);
+        }
+        $rizal = Member::where('name', 'Rizal Maulana')->first()?->enrollments()->where('skema_id', $fnd?->id)->first();
+        if ($rizal) {
+            $scores = ['knowledge' => 82, 'skill' => 85, 'character' => 88, 'social_cohesion' => 90];
+            \App\Models\SkemaResult::create(['enrollment_id' => $rizal->id, 'assessed_at' => now()] + $scores + \App\Services\SkemaScore::calculate($scores, \App\Models\Setting::DEFAULT_WEIGHTS, 70, 70));
+            $rizal->update(['status' => 'lulus']);
+        }
+
         Announcement::create(['title' => 'Selamat datang di sistem Rumah Mantaaba', 'body' => 'Silakan lengkapi profil dan cek jadwal piket setiap pagi.', 'audience' => 'siswa',
             'is_pinned' => true, 'published_at' => now()->subDay(), 'created_by' => User::where('email', 'pengurus@mail.com')->value('id')]);
     }

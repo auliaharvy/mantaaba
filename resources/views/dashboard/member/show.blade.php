@@ -19,8 +19,17 @@
                 <div class="fs-2 fw-bolder">{{ $member->name }} @if ($alert)<span class="badge badge-danger ms-2">Batas pelanggaran 30 hari</span>@endif</div>
                 <div class="text-muted">{{ $member->member_number }} · {{ App\Models\Member::CATEGORIES[$member->category] }} · <strong>{{ App\Models\Member::STATUSES[$member->status] }}</strong>{{ $member->phase ? ' · Fase ' . App\Models\Member::PHASES[$member->phase] : '' }}</div>
                 <div class="text-muted fs-7 mt-1">{{ $member->batch ? 'Angkatan ' . $member->batch->code . ' · ' : '' }}Penempatan: {{ $member->activePlacement?->businessUnit?->name ?? $member->activePlacement?->title ?? '–' }}
-                    {{-- Lencana skema & kamar: M3/M4 --}}
                 </div>
+                @if ($member->enrollments->isNotEmpty())
+                    <div class="mt-2">@include('dashboard.learn.badges', ['enrollments' => $member->enrollments->sortBy(fn ($e) => [$e->skema->sort_order, $e->skema->id])])</div>
+                @endif
+                @if ($member->passedAllSkemas() && $member->phase === 'inkubasi')
+                    <div class="alert alert-success py-2 mt-3 mb-0 d-flex flex-wrap align-items-center gap-3"><span><i class="fa fa-award"></i> Lulus Inkubasi — kelima skema lulus.</span>
+                        @can('certificate-issue')
+                            <form method="POST" action="{{ route('certificate.graduate', $member) }}" onsubmit="return confirm('Kukuhkan kelulusan inkubasi {{ e($member->name) }}? Fase berubah menjadi Magang dan sertifikat kelulusan diterbitkan.')">@csrf<button class="btn btn-sm btn-success">Kukuhkan</button></form>
+                        @endcan
+                    </div>
+                @endif
                 @if ($member->category === 'siswa')
                     <div class="fs-8 mt-1 {{ $member->integrity_pact_signed_at ? 'text-success' : 'text-warning' }}">Pakta integritas: {{ $member->integrity_pact_signed_at ? 'disetujui ' . $member->integrity_pact_signed_at->translatedFormat('j M Y') : 'belum disetujui' }}{{ $member->integrity_pact_file ? ' · scan terunggah' : '' }}</div>
                 @endif
@@ -169,8 +178,50 @@
                     @endif
                     @break
 
+                @case('belajar')
+                    @forelse ($member->enrollments->sortBy(fn ($e) => [$e->skema->sort_order, $e->skema->id]) as $e)
+                        <div class="d-flex flex-wrap align-items-center gap-3 py-3 border-bottom">
+                            <span class="badge badge-light-primary">{{ $e->skema->code }}</span><span class="fw-bold flex-grow-1">{{ $e->skema->name }}</span>
+                            <span class="fs-7 text-muted">{{ App\Models\SkemaEnrollment::STATUSES[$e->status] }}{{ $e->isLocked() ? '' : ' · ' . $e->progressPercent() . '% materi' }}</span>
+                        </div>
+                    @empty
+                        <p class="text-muted">Belum terdaftar di skema.</p>
+                    @endforelse
+                    @if ($progress->isNotEmpty())
+                        <h4 class="fs-6 fw-bolder mt-6 mb-3">Tugas dikirim</h4>
+                        @foreach ($progress as $p)
+                            <div class="d-flex gap-3 py-2 border-bottom fs-7"><span class="text-muted w-75px">{{ $p->submitted_at->translatedFormat('j M') }}</span><span class="flex-grow-1">{{ $p->lesson->module->skema->code }} · {{ $p->lesson->title }}</span>
+                                <span>{{ $p->reviewed_at ? 'Nilai ' . $p->score : 'Belum dinilai' }}</span>@can('learning-view')<a href="{{ route('submission.show', $p) }}">Buka</a>@endcan</div>
+                        @endforeach
+                    @endif
+                    @break
+
+                @case('nilai')
+                    <div class="table-responsive">
+                        <table class="table table-row-bordered gs-3 gy-3 fs-7">
+                            <thead><tr class="fw-bold bg-light"><th>Skema</th><th>K</th><th>S</th><th>C</th><th>SC</th><th>Akhir</th><th>Hasil</th><th>Sertifikat</th></tr></thead>
+                            <tbody>
+                                @foreach ($member->enrollments->sortBy(fn ($e) => [$e->skema->sort_order, $e->skema->id]) as $e)
+                                    @php $r = $e->result; @endphp
+                                    <tr><td>{{ $e->skema->code }}</td>
+                                        @foreach (['knowledge', 'skill', 'character', 'social_cohesion', 'final_score'] as $f)<td>{{ $r?->{$f} !== null ? number_format($r->{$f}, 2, ',', '.') : '-' }}</td>@endforeach
+                                        <td>{{ $r ? ($r->passed ? 'Lulus · ' . $r->predicate : 'Belum lulus') : '-' }}</td>
+                                        <td>@if ($c = $r?->activeCertificate){{ $c->number }}@else - @endif</td></tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @foreach ($member->certificates as $c)
+                        <div class="d-flex flex-wrap gap-3 align-items-center py-2 border-bottom fs-7">
+                            <span class="fw-bold">{{ $c->number }}</span><span class="flex-grow-1">{{ $c->title() }}</span>
+                            <span class="badge {{ $c->revoked_at ? 'badge-light-danger' : ($c->issued_at ? 'badge-light-success' : 'badge-light') }}">{{ $c->revoked_at ? 'Dicabut: ' . $c->revoke_reason : ($c->issued_at ? 'Valid' : 'Diproses') }}</span>
+                            @include('dashboard.certificate.action', ['certificate' => $c])
+                        </div>
+                    @endforeach
+                    @break
+
                 @default
-                    {{-- belajar & nilai (M3), piket (M4) --}}
+                    {{-- piket (M4) --}}
                     <p class="text-muted mb-0">Data {{ Str::lower($tabs[$tab] ?? '') }} tersedia setelah modul terkait aktif.</p>
             @endswitch
         </div>

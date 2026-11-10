@@ -13,7 +13,7 @@ class MyTrainingController extends Controller
 {
     public function index(Request $request)
     {
-        $participations = $request->user()->participants()->with('event', 'certificateRecord')->latest()->get();
+        $participations = $request->user()->participants()->with('event')->latest()->get();
 
         return view('dashboard.my-training.index', compact('participations'));
     }
@@ -21,7 +21,7 @@ class MyTrainingController extends Controller
     public function show(Participant $participant)
     {
         $this->authorize('view', $participant);
-        $participant->load('event', 'certificateRecord');
+        $participant->load('event');
 
         return view('dashboard.my-training.show', [
             'participant' => $participant,

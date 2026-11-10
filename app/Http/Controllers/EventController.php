@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\IssueEventCertificates;
 use App\Models\Event;
 use App\Support\Html;
 use App\Support\Upload;
@@ -68,10 +67,7 @@ class EventController extends Controller
             'participants as verified_count' => fn ($q) => $q->where('status', 'verified'),
             'participants as attended_count' => fn ($q) => $q->where('status', 'verified')->whereNotNull('attended_at'),
         ]);
-        $certificates = \App\Models\Certificate::whereHas('participant', fn ($q) => $q->where('event_id', $event->id))
-            ->selectRaw('COUNT(*) as total, SUM(issued_at IS NOT NULL AND revoked_at IS NULL) as issued')->first();
-
-        return view('dashboard.event.show', compact('event', 'certificates'));
+        return view('dashboard.event.show', compact('event'));
     }
 
     public function edit(Event $event)
@@ -108,16 +104,6 @@ class EventController extends Controller
         return redirect()->route('event.edit', $copy)->with('success', 'Event disalin sebagai draf. Sesuaikan judul & jadwal.');
     }
 
-    /** Terbitkan sertifikat untuk semua peserta hadir (PRD 8.9 alur 7) — lewat queue. */
-    public function issueCertificates(Event $event)
-    {
-        $this->authorize('issue', \App\Models\Certificate::class);
-        abort_unless($event->status === 'done', 422, 'Sertifikat hanya bisa diterbitkan setelah event berstatus Selesai.');
-        IssueEventCertificates::dispatch($event);
-
-        return back()->with('success', 'Penerbitan sertifikat sedang diproses di latar belakang. Peserta menerima email saat sertifikatnya siap.');
-    }
-
     private function validated(Request $request, ?Event $event = null): array
     {
         $data = $request->validate([
@@ -139,34 +125,15 @@ class EventController extends Controller
             'skp_hours' => 'nullable|numeric|min:0|max:999',
             'status' => ['required', Rule::in(array_keys(Event::STATUSES))],
             'thumbnail' => 'nullable|' . Upload::IMAGE_RULE,
-            'certificate_template' => 'nullable|' . Upload::IMAGE_RULE,
-            'signatories' => 'nullable|array|max:2',
-            'signatories.*.name' => 'nullable|string|max:100',
-            'signatories.*.title' => 'nullable|string|max:100',
-            'signatures' => 'nullable|array|max:2',
-            'signatures.*' => 'nullable|image|mimes:png,webp|max:1024',
         ]);
         $data['body'] = Html::clean($data['body']);
         $data['code'] = strtoupper($data['code'] ?? '') ?: ($event?->code ?? $this->generateCode($data['type']));
 
-        foreach (['thumbnail' => 'event', 'certificate_template' => 'event/certificates'] as $field => $dir) {
-            unset($data[$field]);
-            if ($request->hasFile($field)) {
-                $data[$field] = Upload::store($request->file($field), $dir, $event?->{$field}, $field === 'certificate_template' ? 3508 : 1920);
-            }
+        // sertifikat agenda dihapus di M3: sertifikat kini per skema (PRD 9.7)
+        unset($data['thumbnail']);
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = Upload::store($request->file('thumbnail'), 'event', $event?->thumbnail);
         }
-
-        // penandatangan maks. 2 (PRD 8.9): nama, jabatan, gambar tanda tangan (png transparan)
-        $old = $event?->certificate_signatory ?? [];
-        $data['certificate_signatory'] = collect([0, 1])->map(function ($i) use ($request, $old) {
-            $signature = $old[$i]['signature'] ?? null;
-            if ($request->hasFile("signatures.{$i}")) {
-                $signature = Upload::store($request->file("signatures.{$i}"), 'event/signatures', $signature, 800);
-            }
-
-            return ['name' => $request->input("signatories.{$i}.name"), 'title' => $request->input("signatories.{$i}.title"), 'signature' => $signature];
-        })->filter(fn ($s) => filled($s['name']))->values()->all();
-        unset($data['signatories'], $data['signatures']);
 
         return $data;
     }

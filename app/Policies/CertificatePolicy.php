@@ -12,7 +12,7 @@ class CertificatePolicy extends ModulePolicy
     /** Unduh: pemilik (bila belum dicabut) atau pemegang assessment-view. */
     public function download(User $user, $certificate): bool
     {
-        return ($certificate->participant->user_id === $user->id && $certificate->isValid()) || parent::view($user, $certificate);
+        return ($certificate->member->user_id === $user->id && $certificate->isValid()) || parent::view($user, $certificate);
     }
 
     public function issue(User $user): bool

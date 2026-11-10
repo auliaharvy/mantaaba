@@ -67,6 +67,24 @@ class Member extends Model
         return $this->hasMany(CoachingNote::class)->latest('date')->latest('id');
     }
 
+    public function enrollments()
+    {
+        return $this->hasMany(SkemaEnrollment::class);
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class)->latest('issued_at');
+    }
+
+    /** Kelima skema lulus → siap dikukuhkan lulus inkubasi (PRD 9.7). */
+    public function passedAllSkemas(): bool
+    {
+        $total = Skema::count();
+
+        return $total > 0 && $this->enrollments()->where('status', 'lulus')->count() === $total;
+    }
+
     public function activePlacement()
     {
         return $this->hasOne(MemberJourney::class)->where('type', 'penempatan')->whereNull('ended_at')->latestOfMany('started_at');

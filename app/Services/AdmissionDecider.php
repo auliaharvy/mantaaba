@@ -75,6 +75,9 @@ class AdmissionDecider
                 'father_name', 'mother_name', 'guardian_name', 'guardian_phone', 'family_status', 'economic_status']));
             $member->update(['documents' => $this->moveDocuments($applicant, $member), 'photo' => $this->publishPhoto($applicant, $member)]);
             $member->startPhase('inkubasi');
+            if ($batch->status === 'running') {
+                app(SkemaEnroller::class)->enrollMember($member);
+            }
 
             $applicant->addHistory('diterima', $note);
             $applicant->fill(['status' => 'diterima', 'decision_note' => $note, 'decided_by' => auth()->id(), 'decided_at' => now(), 'member_id' => $member->id])->save();

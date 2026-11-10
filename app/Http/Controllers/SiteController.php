@@ -22,8 +22,9 @@ class SiteController extends Controller
 {
     public function curriculum()
     {
-        // data skema & modul dibuat di M3; sementara empty state
-        return view('site.curriculum');
+        $skemas = \App\Support\SiteCache::remember('curriculum', fn () => \App\Models\Skema::ordered()->where('is_public', true)->with('modules')->get());
+
+        return view('site.curriculum', compact('skemas'));
     }
 
     public function units()

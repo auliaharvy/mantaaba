@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Batch;
+use App\Models\Skema;
+use App\Services\SkemaEnroller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
@@ -52,9 +54,10 @@ class BatchController extends Controller
     public function show(Request $request, Batch $batch)
     {
         $counts = $batch->applicants()->selectRaw('status, count(*) as total')->groupBy('status')->pluck('total', 'status');
-        $students = $batch->members()->orderBy('name')->get();
+        $students = $batch->members()->with('enrollments.result')->orderBy('name')->get();
+        $skemas = Skema::ordered()->get();
 
-        return view('dashboard.batch.show', compact('batch', 'counts', 'students') + ['tab' => $request->query('tab', 'pendaftar')]);
+        return view('dashboard.batch.show', compact('batch', 'counts', 'students', 'skemas') + ['tab' => $request->query('tab', 'pendaftar')]);
     }
 
     public function edit(Batch $batch)
@@ -65,8 +68,23 @@ class BatchController extends Controller
     public function update(Request $request, Batch $batch)
     {
         $batch->update($this->validated($request, $batch));
+        $message = 'Angkatan diubah.';
+        if ($batch->wasChanged('status') && $batch->status === 'running') {
+            $count = app(SkemaEnroller::class)->enrollBatch($batch); // PRD 9.2: skema pertama dibuka, lainnya terkunci
+            $message .= " {$count} pendaftaran skema dibuat untuk siswa angkatan ini.";
+        }
 
-        return redirect()->route('batch.show', $batch)->with('success', 'Angkatan diubah.');
+        return redirect()->route('batch.show', $batch)->with('success', $message);
+    }
+
+    /** Buka satu skema untuk seluruh siswa angkatan (PRD 9.6). */
+    public function openSkema(Batch $batch, Skema $skema, SkemaEnroller $enroller)
+    {
+        abort_unless(auth()->user()->can('learning-update'), 403);
+        $enroller->enrollBatch($batch);
+        $count = $enroller->openSkema($batch, $skema);
+
+        return redirect()->route('batch.show', [$batch, 'tab' => 'progres'])->with('success', "Skema {$skema->name} dibuka untuk {$count} siswa.");
     }
 
     public function destroy(Batch $batch)

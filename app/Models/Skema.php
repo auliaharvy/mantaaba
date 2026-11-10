@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Concerns\FlushesSiteCache;
+use Illuminate\Database\Eloquent\Model;
+
+/** Skema kompetensi (PRD 9.6): FND, SIM, SIA, SIP, IT. */
+class Skema extends Model
+{
+    use FlushesSiteCache; // /kurikulum & blok skemas
+
+    protected $fillable = ['code', 'name', 'month_label', 'description', 'objectives', 'character_matrix', 'pass_score', 'certificate_template', 'certificate_signatories', 'is_public', 'sort_order'];
+
+    protected $casts = ['character_matrix' => 'array', 'certificate_signatories' => 'array', 'is_public' => 'boolean'];
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class)->orderBy('sort_order')->orderBy('id');
+    }
+
+    public function lessons()
+    {
+        return $this->hasManyThrough(Lesson::class, Module::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(SkemaEnrollment::class);
+    }
+
+    public function passScore(): int
+    {
+        return $this->pass_score ?? Setting::current()->default_pass_score;
+    }
+
+    public static function ordered()
+    {
+        return static::orderBy('sort_order')->orderBy('id');
+    }
+}

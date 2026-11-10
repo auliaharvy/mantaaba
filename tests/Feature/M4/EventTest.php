@@ -2,24 +2,19 @@
 
 namespace Tests\Feature\M4;
 
-use App\Jobs\GenerateCertificatePdf;
-use App\Jobs\IssueEventCertificates;
 use App\Models\ActivityLog;
-use App\Models\Certificate;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\User;
-use App\Notifications\CertificateIssued;
 use App\Notifications\EventAnnouncement;
 use App\Notifications\RegistrationStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-/** Agenda, pendaftaran, kehadiran, sertifikat (kode lama; disederhanakan di M3/M4, PRD 9.7–9.8). */
+/** Agenda, pendaftaran, kehadiran (kode lama; disederhanakan di M4, PRD 9.8). Sertifikat agenda dihapus di M3. */
 class EventTest extends TestCase
 {
     use RefreshDatabase;
@@ -136,69 +131,6 @@ class EventTest extends TestCase
         $this->actingAs($admin)->patch(route('event.attendance', $event), ['ids' => [$other->id, $pending->id], 'present' => 1])->assertSessionHas('success');
         $this->assertNotNull($other->fresh()->attended_at);
         $this->assertNull($pending->fresh()->attended_at, 'peserta belum terverifikasi tidak bisa ditandai hadir');
-    }
-
-    // ---------------- Sertifikat (8.9 alur 7–8)
-
-    public function test_certificates_only_for_attendees_with_public_verification()
-    {
-        Storage::fake('local');
-        Storage::fake('public');
-        $event = $this->event(['status' => 'done', 'code' => 'PPL2611', 'starts_at' => '2026-11-01 08:00', 'ends_at' => '2026-11-01 16:00',
-            'certificate_signatory' => [['name' => 'Dr. Ketua', 'title' => 'Ketua PD', 'signature' => null]]]);
-        $attended = Participant::factory()->create(['event_id' => $event->id, 'user_id' => $this->umum()->id, 'attended_at' => now()]);
-        $absent = Participant::factory()->create(['event_id' => $event->id, 'user_id' => $this->umum()->id]);
-
-        $this->actingAs($this->user('pengurus@mail.com'))->post(route('event.certificates', $event))->assertSessionHas('success'); // queue sync saat test
-
-        $certificate = $attended->fresh()->certificateRecord;
-        $this->assertNotNull($certificate);
-        $this->assertNull($absent->fresh()->certificateRecord);
-        $this->assertSame('001/SERT/PPL2611/RMS/2026', $certificate->number);
-        $this->assertSame(12, strlen($certificate->verification_code));
-        Storage::disk('local')->assertExists($certificate->file);
-        $this->assertStringStartsWith('%PDF', Storage::disk('local')->get($certificate->file));
-        Notification::assertSentTo($attended->user, CertificateIssued::class);
-
-        $this->get("/sertifikat/{$certificate->verification_code}")->assertOk()->assertSee('VALID')->assertSee($attended->user->name)->assertSee($event->title)->assertSee($certificate->number);
-        $this->get('/sertifikat/TIDAKADAKODE')->assertNotFound();
-
-        // unduh: pemilik & pengelola; orang lain tidak
-        $this->actingAs($attended->user)->get(route('certificate.download', $certificate))->assertOk();
-        $this->actingAs($absent->user)->get(route('certificate.download', $certificate))->assertForbidden();
-
-        $this->actingAs($this->user('pengurus@mail.com'))->patch(route('certificate.revoke', $certificate));
-        $this->get("/sertifikat/{$certificate->verification_code}")->assertSee('DICABUT');
-        $this->actingAs($attended->user)->get(route('certificate.download', $certificate))->assertForbidden();
-    }
-
-    public function test_certificates_require_done_status()
-    {
-        $event = $this->event(['status' => 'open']);
-        $this->actingAs($this->user('pengurus@mail.com'))->post(route('event.certificates', $event))->assertStatus(422);
-    }
-
-    public function test_300_certificates_are_generated_through_the_queue_not_the_request()
-    {
-        Queue::fake();
-        $event = $this->event(['status' => 'done', 'code' => 'BIG300']);
-        $users = User::factory()->count(300)->create();
-        Participant::insert($users->map(fn ($u, $i) => [
-            'event_id' => $event->id, 'user_id' => $u->id, 'status' => 'verified', 'amount' => 0, 'attended_at' => now(),
-            'ticket_code' => sprintf('T%09d', $i), 'created_at' => now(), 'updated_at' => now(),
-        ])->all());
-
-        $started = microtime(true);
-        $this->actingAs($this->user('pengurus@mail.com'))->post(route('event.certificates', $event))->assertSessionHas('success');
-        $this->assertLessThan(2, microtime(true) - $started, 'request hanya men-dispatch job');
-        Queue::assertPushed(IssueEventCertificates::class, 1);
-        Queue::assertNotPushed(GenerateCertificatePdf::class);
-        $this->assertSame(0, Certificate::count());
-
-        (new IssueEventCertificates($event))->handle(); // dijalankan worker
-        Queue::assertPushed(GenerateCertificatePdf::class, 300);
-        $this->assertSame(300, Certificate::distinct()->count('number'));
-        $this->assertTrue(Certificate::where('number', '300/SERT/BIG300/RMS/' . $event->starts_at->year)->exists());
     }
 
     public function test_export_announcement_and_duplicate()

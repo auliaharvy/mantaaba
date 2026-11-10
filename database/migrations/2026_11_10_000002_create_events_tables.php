@@ -55,21 +55,10 @@ return new class extends Migration
             $table->unique(['event_id', 'user_id']);
         });
 
-        Schema::create('certificates', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('participant_id')->unique()->constrained()->cascadeOnDelete();
-            $table->string('number')->unique();
-            $table->string('verification_code', 12)->unique();
-            $table->string('file')->nullable();
-            $table->timestamp('issued_at')->nullable();
-            $table->timestamp('revoked_at')->nullable();
-            $table->timestamps();
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('certificates');
         Schema::dropIfExists('participants');
         Schema::dropIfExists('events');
     }

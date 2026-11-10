@@ -11,7 +11,7 @@
     </div>
 
     <div class="row g-5 mb-5">
-        @foreach ([['Menunggu verifikasi', $event->pending_count], ['Terverifikasi', $event->verified_count . ($event->quota ? ' / ' . $event->quota : '')], ['Hadir', $event->attended_count], ['Sertifikat terbit', (int) $certificates->issued]] as [$label, $value])
+        @foreach ([['Menunggu verifikasi', $event->pending_count], ['Terverifikasi', $event->verified_count . ($event->quota ? ' / ' . $event->quota : '')], ['Hadir', $event->attended_count]] as [$label, $value])
             <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body">
                 <div class="text-muted fs-7">{{ $label }}</div><div class="fs-2x fw-bolder">{{ $value }}</div>
             </div></div></div>
@@ -63,7 +63,6 @@
                 ['data' => 'amount', 'name' => 'participants.amount', 'title' => 'Biaya', 'searchable' => false],
                 ['data' => 'status', 'name' => 'participants.status', 'title' => 'Status', 'searchable' => false],
                 ['data' => 'attended_at', 'name' => 'participants.attended_at', 'title' => 'Hadir', 'searchable' => false],
-                ['data' => 'certificate_state', 'title' => 'Sertifikat', 'orderable' => false, 'searchable' => false],
                 ['data' => 'action', 'title' => ''],
             ]" />
         </div>
@@ -71,17 +70,6 @@
 
     @can('update', $event)
         <div class="row g-5">
-            <div class="col-lg-6">
-                <form method="POST" action="{{ route('event.certificates', $event) }}" class="card h-100">
-                    @csrf
-                    <div class="card-header"><div class="card-title fs-4 fw-bolder">Terbitkan Sertifikat</div></div>
-                    <div class="card-body fs-7">
-                        <p>Sertifikat PDF dibuat di latar belakang untuk <strong>{{ $event->attended_count }}</strong> peserta yang hadir, lalu dikirim lewat email. Peserta yang sudah memiliki sertifikat dilewati.</p>
-                        @if ($event->status !== 'done')<div class="alert alert-light-warning py-2">Ubah status acara menjadi <strong>Selesai</strong> terlebih dahulu.</div>@endif
-                    </div>
-                    <div class="card-footer text-end"><button class="btn btn-sm btn-primary" type="submit" @disabled($event->status !== 'done')>Terbitkan</button></div>
-                </form>
-            </div>
             <div class="col-lg-6">
                 <form method="POST" action="{{ route('event.announce', $event) }}" class="card h-100">
                     @csrf

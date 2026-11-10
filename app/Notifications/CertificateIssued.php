@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+/** PRD 9.20: sertifikat terbit → siswa. */
 class CertificateIssued extends Notification implements ShouldQueue
 {
     use Queueable;
@@ -18,18 +19,21 @@ class CertificateIssued extends Notification implements ShouldQueue
 
     public function via($notifiable): array
     {
-        return ['mail'];
+        return ['database', 'mail'];
     }
 
     public function toMail($notifiable): MailMessage
     {
-        $event = $this->certificate->participant->event;
-
         return (new MailMessage)
-            ->subject("Sertifikat terbit: {$event->title}")
+            ->subject('Sertifikat terbit: ' . $this->certificate->title())
             ->greeting('Halo, ' . $notifiable->name)
-            ->line("Sertifikat Anda untuk \"{$event->title}\" sudah terbit (nomor {$this->certificate->number}).")
-            ->action('Unduh sertifikat', route('my-training.show', $this->certificate->participant))
+            ->line("Selamat! Sertifikat {$this->certificate->title()} Anda sudah terbit (nomor {$this->certificate->number}).")
+            ->action('Unduh sertifikat', route('certificate.index'))
             ->line('Keaslian sertifikat dapat diperiksa di ' . route('site.certificate', $this->certificate->verification_code));
+    }
+
+    public function toArray($notifiable): array
+    {
+        return ['title' => 'Sertifikat terbit', 'body' => $this->certificate->title() . ' · ' . $this->certificate->number, 'url' => route('certificate.index')];
     }
 }

@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\LearnController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\SkemaController;
+use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\BatchController;
@@ -116,11 +122,43 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::resource('pengumuman', AnnouncementController::class)->parameters(['pengumuman' => 'announcement'])->names('announcement')->except('show');
 
     /*
+    | Pembelajaran, penilaian & sertifikat (PRD 9.6–9.7)
+    */
+    Route::resource('skema', SkemaController::class);
+    Route::post('skema/{skema}/modul', [ModuleController::class, 'store'])->name('module.store');
+    Route::post('skema/{skema}/urutan', [ModuleController::class, 'reorder'])->name('skema.reorder');
+    Route::patch('modul/{module}', [ModuleController::class, 'update'])->name('module.update');
+    Route::delete('modul/{module}', [ModuleController::class, 'destroy'])->name('module.destroy');
+    Route::get('modul/{module}/materi/create', [LessonController::class, 'create'])->name('lesson.create');
+    Route::post('modul/{module}/materi', [LessonController::class, 'store'])->name('lesson.store');
+    Route::get('materi/{lesson}/edit', [LessonController::class, 'edit'])->name('lesson.edit');
+    Route::patch('materi/{lesson}', [LessonController::class, 'update'])->name('lesson.update');
+    Route::delete('materi/{lesson}', [LessonController::class, 'destroy'])->name('lesson.destroy');
+    Route::post('angkatan/{batch}/buka-skema/{skema}', [BatchController::class, 'openSkema'])->name('batch.open-skema');
+    Route::get('belajar', [LearnController::class, 'index'])->name('learn.index');
+    Route::get('belajar/skema/{skema}', [LearnController::class, 'skema'])->name('learn.skema');
+    Route::get('belajar/materi/{lesson}', [LearnController::class, 'lesson'])->name('learn.lesson');
+    Route::post('belajar/materi/{lesson}/selesai', [LearnController::class, 'complete'])->name('learn.complete');
+    Route::post('belajar/materi/{lesson}/tugas', [LearnController::class, 'submit'])->middleware('throttle:20,1')->name('learn.submit');
+    Route::get('belajar/materi/{lesson}/file', [LearnController::class, 'lessonFile'])->name('learn.file');
+    Route::get('tugas/{progress}/file', [LearnController::class, 'submissionFile'])->name('submission.file');
+    Route::get('tugas-masuk', [SubmissionController::class, 'index'])->name('submission.index');
+    Route::get('tugas-masuk-datatable', [SubmissionController::class, 'datatable'])->name('submission.datatable');
+    Route::get('tugas-masuk/{progress}', [SubmissionController::class, 'show'])->name('submission.show');
+    Route::patch('tugas-masuk/{progress}', [SubmissionController::class, 'review'])->name('submission.review');
+    Route::post('tugas-masuk/{progress}/buka-ulang', [SubmissionController::class, 'reopen'])->name('submission.reopen');
+    Route::get('penilaian', [AssessmentController::class, 'index'])->name('assessment.index');
+    Route::post('penilaian', [AssessmentController::class, 'store'])->name('assessment.store');
+    Route::post('penilaian/terbitkan', [AssessmentController::class, 'issue'])->name('assessment.issue');
+    Route::get('sertifikat', [CertificateController::class, 'index'])->name('certificate.index');
+    Route::get('sertifikat-datatable', [CertificateController::class, 'datatable'])->name('certificate.datatable');
+    Route::post('anggota/{member}/kukuhkan', [CertificateController::class, 'graduate'])->name('certificate.graduate');
+
+    /*
     | Agenda (PRD 9.8; disederhanakan di M4)
     */
     Route::get('event-datatable', [EventController::class, 'datatable'])->name('event.datatable');
     Route::post('event/{event}/salin', [EventController::class, 'duplicate'])->name('event.duplicate');
-    Route::post('event/{event}/sertifikat', [EventController::class, 'issueCertificates'])->name('event.certificates');
     Route::resource('event', EventController::class);
     Route::get('event/{event}/peserta-datatable', [EventParticipantController::class, 'datatable'])->name('event.participants.datatable');
     Route::get('event/{event}/peserta-kandidat', [EventParticipantController::class, 'candidates'])->name('event.participants.candidates');

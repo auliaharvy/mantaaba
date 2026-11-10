@@ -13,6 +13,7 @@
                             <div class="text-muted">Nomor anggota</div><div class="mb-3 fw-bolder">{{ $member->member_number }}</div>
                             <div class="text-muted">Keanggotaan</div><div class="mb-3">{{ App\Models\Member::CATEGORIES[$member->category] }} · {{ App\Models\Member::STATUSES[$member->status] }}{{ $member->phase ? ' · Fase ' . App\Models\Member::PHASES[$member->phase] : '' }}</div>
                             @if ($member->batch)<div class="text-muted">Angkatan</div><div class="mb-3">{{ $member->batch->name }}</div>@endif
+                            @if ($member->enrollments->isNotEmpty())<div class="text-muted mb-1">Skema</div>@include('dashboard.learn.badges', ['enrollments' => $member->enrollments->sortBy(fn ($e) => [$e->skema->sort_order, $e->skema->id])])@endif
                         </div>
                     @endif
                     <div class="text-start fs-6">

@@ -40,7 +40,7 @@ class PageSeeder extends Seeder
                         ['value' => '100%', 'label' => 'Gratis: asrama, makan, kesehatan'],
                     ]]),
                     $this->block('text', ['title' => 'Selamat Datang', 'body' => '<p>Rumah Mantaaba Sigaling hadir sebagai <strong>Wadah Pembinaan Berbasis Realitas Kehidupan</strong> sekaligus <strong>Program Akselerasi Karakter &amp; Vokasi Bisnis Terintegrasi</strong>. Peserta didik tidak dihadapkan pada simulasi fiktif, melainkan langsung menjalankan ekosistem kehidupan yang mandiri: asrama, kebun, kolam ikan, dan dapur yang dikelola layaknya sebuah perusahaan.</p><p>Kami membina pemuda menjadi <strong>pemimpin peradaban</strong>: hatinya terpaut pada Sang Pencipta, pemikirannya merancang sistem yang mutakhir, dan tangannya tak henti menebar kebermanfaatan.</p>']),
-                    $this->block('cards', ['title' => 'Lima Skema Kompetensi', 'intro' => 'Keterampilan teknis berbasis SKKNI, disusun progresif selama 6 bulan.', 'columns' => '3', 'items' => $this->skemas()]),
+                    $this->block('skemas', ['title' => 'Lima Skema Kompetensi', 'intro' => 'Keterampilan teknis berbasis SKKNI, disusun progresif selama 6 bulan.']),
                     $this->block('units', ['title' => 'Laboratorium Kehidupan', 'intro' => 'Asrama, kebun, kolam ikan, dan dapur adalah arena problem-solving tempat siswa mempraktikkan manajemen, akuntansi, dan komunikasi setiap hari.']),
                     $this->block('latest', ['title' => 'Kabar Terbaru', 'source' => 'berita', 'count' => 3]),
                     $this->block('latest', ['title' => 'Agenda Mendatang', 'source' => 'agenda', 'count' => 3]),
@@ -126,16 +126,5 @@ HTML,
     private function block(string $type, array $data): array
     {
         return ['type' => $type, 'hidden' => false, 'data' => $data];
-    }
-
-    private function skemas(): array
-    {
-        return [
-            ['icon' => 'chat', 'title' => 'Fundamental · Bulan 1', 'text' => 'Komunikasi bisnis (mendengar empati, membaca, menganalisis, menyampaikan) dan matematika bisnis dasar.', 'url' => '/kurikulum'],
-            ['icon' => 'building', 'title' => 'SIM · Bulan 2–3', 'text' => 'Visi-misi, struktur organisasi, tupoksi, SOP, workflow, tertib administrasi, dan legalitas.', 'url' => '/kurikulum'],
-            ['icon' => 'book-open', 'title' => 'SIA · Bulan 4', 'text' => 'Chart of Accounts, vouching, jurnal, buku besar, hingga laporan keuangan audit-ready.', 'url' => '/kurikulum'],
-            ['icon' => 'document', 'title' => 'SIP · Bulan 5', 'text' => 'Mapping akun ke SPT, rekonsiliasi fiskal, ekualisasi PPh Badan & PPN.', 'url' => '/kurikulum'],
-            ['icon' => 'computer', 'title' => 'Teknologi Bisnis · Bulan 6', 'text' => 'ERP untuk sentralisasi data dan optimalisasi AI (prompt engineering).', 'url' => '/kurikulum'],
-        ];
     }
 }

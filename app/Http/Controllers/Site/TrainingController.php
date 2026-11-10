@@ -58,11 +58,11 @@ class TrainingController extends Controller
             : 'Pendaftaran diterima. Silakan transfer biaya lalu unggah bukti pembayaran.');
     }
 
-    /** Verifikasi publik (PRD 8.9 alur 8): kode salah -> 404. */
+    /** Verifikasi publik (PRD 9.7): nama, skema, tanggal, status valid/dicabut; kode salah -> 404. */
     public function certificate(string $code)
     {
         $certificate = Certificate::where('verification_code', strtoupper($code))->whereNotNull('issued_at')
-            ->with('participant.user', 'participant.event')->firstOrFail();
+            ->with('member.batch', 'result.enrollment.skema')->firstOrFail();
 
         return view('site.training.certificate', compact('certificate'));
     }

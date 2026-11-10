@@ -42,8 +42,38 @@
                         <p class="text-muted mb-0">Belum ada siswa diterima.</p>
                     @endforelse
                     @break
+                @case('progres')
+                    @php($symbols = ['lulus' => '✓', 'berjalan' => '●', 'belum_lulus' => '✕', 'terkunci' => '○'])
+                    <div class="table-responsive">
+                        <table class="table table-row-bordered align-middle gs-3 gy-3">
+                            <thead><tr class="fw-bold bg-light fs-7"><th>Siswa</th>
+                                @foreach ($skemas as $skema)
+                                    <th class="text-center">{{ $skema->code }}
+                                        @can('learning-update')
+                                            <form method="POST" action="{{ route('batch.open-skema', [$batch, $skema]) }}" class="d-inline" onsubmit="return confirm('Buka skema {{ $skema->name }} untuk semua siswa angkatan ini?')">@csrf<button class="btn btn-sm btn-link p-0 ms-1 fs-8" title="Buka skema untuk angkatan">buka</button></form>
+                                        @endcan
+                                    </th>
+                                @endforeach
+                            </tr></thead>
+                            <tbody>
+                                @forelse ($students as $student)
+                                    @php($byskema = $student->enrollments->keyBy('skema_id'))
+                                    <tr><td class="text-nowrap">{{ $student->name }}</td>
+                                        @foreach ($skemas as $skema)
+                                            @php($e = $byskema[$skema->id] ?? null)
+                                            <td class="text-center" title="{{ $e ? App\Models\SkemaEnrollment::STATUSES[$e->status] : 'Belum terdaftar' }}">{{ $e ? $symbols[$e->status] : '-' }}@if ($e?->result?->final_score)<div class="fs-8 text-muted">{{ number_format($e->result->final_score, 1, ',', '') }}</div>@endif</td>
+                                        @endforeach
+                                    </tr>
+                                @empty
+                                    <tr><td colspan="{{ $skemas->count() + 1 }}" class="text-muted">Belum ada siswa.</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-muted fs-8 mb-0">✓ lulus · ● berjalan · ✕ belum lulus · ○ terkunci. Status angkatan "Berjalan" mendaftarkan siswa ke semua skema (skema pertama langsung dibuka).</p>
+                    @break
                 @default
-                    {{-- Progres skema (M3), piket (M4), agenda (M4) --}}
+                    {{-- piket (M4), agenda (M4) --}}
                     <p class="text-muted mb-0">Data {{ Str::lower($tabs[$tab] ?? '') }} tersedia setelah modul terkait aktif.</p>
             @endswitch
         </div>

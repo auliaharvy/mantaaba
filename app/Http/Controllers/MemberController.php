@@ -96,7 +96,7 @@ class MemberController extends Controller
 
     public function show(Request $request, Member $member)
     {
-        $member->load('user', 'batch', 'journeys.businessUnit', 'activePlacement.businessUnit');
+        $member->load('user', 'batch', 'journeys.businessUnit', 'activePlacement.businessUnit', 'enrollments.skema', 'enrollments.result.activeCertificate', 'certificates');
         $tab = $request->query('tab', 'profil');
         $since = today()->subDays(30);
 
@@ -108,6 +108,7 @@ class MemberController extends Controller
             'health' => $request->user()->can('health-view') ? $member->healthRecords()->with('creator')->get() : collect(),
             'participations' => $member->user?->participants()->with('event')->latest()->get() ?? collect(),
             'units' => BusinessUnit::orderBy('name')->pluck('name', 'id'),
+            'progress' => $member->user_id ? \App\Models\LessonProgress::where('user_id', $member->user_id)->whereNotNull('submitted_at')->with('lesson.module.skema')->latest('submitted_at')->get() : collect(),
         ]);
     }
 
