@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\Operations\AssetController;
 use App\Http\Controllers\Operations\FarmController;
 use App\Http\Controllers\Operations\ItemController;
 use App\Http\Controllers\Operations\KitchenController;
@@ -302,6 +303,14 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::get('dapur/masak/{plan}', [KitchenController::class, 'cookForm'])->name('kitchen.cook-form');
     Route::post('dapur/masak/{plan}', [KitchenController::class, 'cook'])->name('kitchen.cook');
     Route::get('dapur/laporan', [KitchenController::class, 'report'])->name('kitchen.report');
+    // M7: aset & kendaraan (PRD 9.17)
+    Route::get('aset/label', [AssetController::class, 'labels'])->name('asset.labels');
+    Route::get('aset/{asset}/dokumen/{index}', [AssetController::class, 'document'])->name('asset.document');
+    Route::post('aset/{asset}/pakai', [AssetController::class, 'startUsage'])->name('asset.usage-start');
+    Route::post('aset/pemakaian/{usage}/selesai', [AssetController::class, 'endUsage'])->name('asset.usage-end');
+    Route::post('aset/{asset}/perawatan', [AssetController::class, 'maintenance'])->name('asset.maintenance');
+    Route::post('aset/{asset}/lepas', [AssetController::class, 'dispose'])->name('asset.dispose');
+    Route::resource('aset', AssetController::class)->parameters(['aset' => 'asset'])->names('asset')->except(['destroy']);
     Route::get('setting-akuntansi', [PostingRuleController::class, 'edit'])->name('posting-rule.edit');
     Route::put('setting-akuntansi', [PostingRuleController::class, 'update'])->name('posting-rule.update');
 

@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('applicants:purge')->dailyAt('02:00');
         $schedule->command('duties:mark-missed')->dailyAt('23:00');
         $schedule->command('stock:low-summary')->dailyAt('06:00');
+        $schedule->command('assets:reminders')->dailyAt('07:00');
     }
 
     /**

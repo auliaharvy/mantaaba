@@ -26,7 +26,23 @@ class OpeningBalanceController extends Controller
             'partyAccounts' => CoaAccount::postable()->where(fn ($q) => $q->where('is_receivable', true)->orWhere('is_payable', true))->get(),
             'parties' => Party::where('is_active', true)->orderBy('name')->get(['id', 'code', 'name']),
             'date' => Setting::current()->accounting_start_date,
+            'suggested' => self::assetSuggestions(),
         ]);
+    }
+
+    /** Usulan saldo aset tetap dari register aset yang dicatat "aset lama" (tanpa voucher perolehan): nilai perolehan & akumulasi awal per akun. */
+    public static function assetSuggestions(): array
+    {
+        $assets = \App\Models\Asset::whereNull('journal_id')->whereNull('disposed_at')->get();
+        $sum = [];
+        foreach ($assets as $asset) {
+            $sum[$asset->asset_account_id] = ($sum[$asset->asset_account_id] ?? 0) + Money::cents($asset->acquisition_value);
+            if ($asset->accumulated_account_id && Money::cents($asset->opening_accumulated) > 0) {
+                $sum[$asset->accumulated_account_id] = ($sum[$asset->accumulated_account_id] ?? 0) + Money::cents($asset->opening_accumulated);
+            }
+        }
+
+        return array_map(fn ($cents) => Money::decimal($cents), $sum);
     }
 
     public function store(Request $request, JournalPoster $poster)

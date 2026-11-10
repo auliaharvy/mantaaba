@@ -248,6 +248,10 @@ return [
         'harvest_sale' => ['revenue' => '4-2100', 'cash' => '1-1101', 'bank' => '1-1201', 'receivable' => '1-1301'],
         'stock_loss' => ['debit' => '5-3900'], // barang rusak / opname kurang (pusat biaya UMUM)
         'stock_gain' => ['credit' => '4-3100'], // opname lebih
+        'asset_purchase' => ['cash' => '1-1101', 'bank' => '1-1201', 'payable' => '2-1100', 'grant' => '4-1400'],
+        'vehicle' => ['expense' => '5-2100', 'cash' => '1-1101'], // BBM, servis, pajak kendaraan
+        'maintenance' => ['expense' => '5-2200', 'cash' => '1-1101'], // perbaikan aset non-kendaraan
+        'asset_disposal' => ['gain' => '4-3100', 'loss' => '5-3900'],
     ],
 
     // Label aturan yang bisa diubah di Setting Akuntansi (kunci = posting_rules.{kunci})
@@ -258,6 +262,23 @@ return [
         'stock_loss.debit' => 'Barang rusak / selisih opname kurang: akun beban', 'stock_gain.credit' => 'Selisih opname lebih: akun pendapatan',
         'health.debit' => 'Biaya kesehatan: akun beban', 'health.credit' => 'Biaya kesehatan: akun kas',
         'year_close.unrestricted' => 'Tutup buku: aset neto tanpa pembatasan', 'year_close.restricted' => 'Tutup buku: aset neto dengan pembatasan',
+        'asset_purchase.cash' => 'Pembelian aset tunai: akun kas', 'asset_purchase.bank' => 'Pembelian aset transfer: akun bank',
+        'asset_purchase.payable' => 'Pembelian aset kredit: akun utang', 'asset_purchase.grant' => 'Aset hibah/wakaf: akun pendapatan',
+        'vehicle.expense' => 'BBM/servis/pajak kendaraan: akun beban', 'vehicle.cash' => 'BBM/servis kendaraan: akun kas',
+        'maintenance.expense' => 'Perbaikan aset lain: akun beban', 'maintenance.cash' => 'Perbaikan aset lain: akun kas',
+        'asset_disposal.gain' => 'Pelepasan aset: akun keuntungan', 'asset_disposal.loss' => 'Pelepasan aset: akun kerugian',
+    ],
+
+    // PRD 9.17: kategori aset → [label, singkatan kode, akun aset, akun akumulasi, umur bulan (0 = tidak disusutkan), pusat biaya]
+    'asset_categories' => [
+        'tanah' => ['Tanah', 'TNH', '1-2100', null, 0, 'UMUM'],
+        'bangunan' => ['Bangunan', 'BGN', '1-2200', '1-2902', 240, 'UMUM'],
+        'kendaraan' => ['Kendaraan', 'KND', '1-2300', '1-2903', 96, 'KND'],
+        'elektronik' => ['Elektronik', 'ELK', '1-2500', '1-2905', 48, 'UMUM'],
+        'peralatan_dapur' => ['Peralatan dapur', 'PDP', '1-2400', '1-2904', 48, 'DPR'],
+        'peralatan_kebun' => ['Peralatan kebun & kolam', 'PKB', '1-2400', '1-2904', 48, 'KBN'],
+        'mebel' => ['Mebel', 'MBL', '1-2400', '1-2904', 96, 'UMUM'],
+        'lainnya' => ['Lainnya', 'LNY', '1-2400', '1-2904', 48, 'UMUM'],
     ],
 
     // PRD 9.10: kategori barang → [label, akun persediaan, akun beban pemakaian]
@@ -272,9 +293,10 @@ return [
         'lainnya' => ['Lainnya', '1-1404', '5-3900'],
     ],
 
-    // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas); aset (M7) menyusul
+    // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas)
     'monthly_journals' => [
         'stock' => App\Services\StockMonthlyJournal::class,
+        'depreciation' => App\Services\DepreciationJournal::class,
     ],
 
     // Paket yang otomatis diberikan saat akun pengurus dibuat (bisa diubah di layar Hak Akses)
@@ -332,6 +354,7 @@ return [
             ['title' => 'Stok & Barang', 'route' => 'item.index', 'active' => 'item.*|stock.move-form', 'can' => 'stock-view', 'icon' => 'fa-boxes'],
             ['title' => 'Pembelian', 'route' => 'stock.purchases', 'active' => 'stock.purchase*', 'can' => 'stock-view', 'icon' => 'fa-shopping-basket'],
             ['title' => 'Stock Opname', 'route' => 'stock.opnames', 'active' => 'stock.opname*', 'can' => 'stock-view', 'icon' => 'fa-clipboard-check'],
+            ['title' => 'Aset & Kendaraan', 'route' => 'asset.index', 'active' => 'asset.*', 'can' => 'asset-view', 'icon' => 'fa-car'],
         ]],
         ['title' => 'Keuangan', 'items' => [
             ['title' => 'Voucher', 'route' => 'journal.index', 'active' => 'journal.index|journal.show|journal.create|journal.edit', 'can' => 'journal-view', 'icon' => 'fa-file-invoice-dollar'],

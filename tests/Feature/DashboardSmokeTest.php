@@ -73,6 +73,7 @@ class DashboardSmokeTest extends TestCase
             'donation' => \App\Models\Donation::first(), 'period' => \App\Models\FiscalPeriod::first(),
             'item' => \App\Models\Item::first(), 'plot' => \App\Models\FarmPlot::where('code', 'L-02')->first(), 'cycle' => \App\Models\FarmCycle::first(),
             'menu' => \App\Models\KitchenMenu::first(), 'plan' => \App\Models\MealPlan::where('status', 'rencana')->first(), 'opname' => \App\Models\StockOpname::first(),
+            'asset' => \App\Models\Asset::first(),
             'user' => User::where('email', 'anggota@mail.com')->first(),
         ];
         $user = User::where('email', $email)->firstOrFail();

@@ -9,6 +9,7 @@
             <div class="card mb-5">
                 <div class="card-body d-flex flex-wrap gap-5 align-items-end">
                     <div><x-dashboard.field name="date" label="Tanggal mulai pembukuan" type="date" :value="$date ?? today()->startOfYear()" required /></div>
+                    @if ($suggested)<div class="mb-6 fs-7 text-muted w-100 order-last">Saldo aset tetap & akumulasi penyusutan terisi dari register aset ("aset lama"). Lengkapi lewat menu Aset & Kendaraan bila belum semua.</div>@endif
                     <div class="mb-6 fs-5">Debit <strong id="sum-debit">0</strong> · Kredit <strong id="sum-credit">0</strong> · <span id="diff" class="fw-bolder">Selisih 0</span></div>
                 </div>
             </div>
@@ -21,7 +22,7 @@
                                 <tbody>
                                     @foreach ($accounts as $a)
                                         <tr><td>{{ $a->code }}</td><td>{{ $a->name }}</td><td class="text-muted">{{ $a->normal_balance }}</td>
-                                            <td class="w-175px"><input type="number" step="0.01" min="0" name="amounts[{{ $a->id }}]" value="{{ old("amounts.{$a->id}") }}" data-side="{{ $a->normal_balance }}" class="form-control form-control-sm text-end amount" aria-label="Saldo {{ $a->name }}"></td></tr>
+                                            <td class="w-175px"><input type="number" step="0.01" min="0" name="amounts[{{ $a->id }}]" value="{{ old("amounts.{$a->id}", $suggested[$a->id] ?? null) }}" data-side="{{ $a->normal_balance }}" class="form-control form-control-sm text-end amount" aria-label="Saldo {{ $a->name }}"></td></tr>
                                     @endforeach
                                 </tbody>
                             </table>
