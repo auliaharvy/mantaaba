@@ -29,6 +29,8 @@ Route::controller(SiteController::class)->name('site.')->group(function () {
     Route::get('dokumen', 'documents')->name('documents');
     Route::get('dokumen/{document:slug}/unduh', 'downloadDocument')->name('documents.download');
     Route::get('donasi', 'donation')->name('donation');
+    Route::post('donasi', 'sendDonation')->middleware('throttle:donation')->name('donation.send');
+    Route::get('donasi/bukti/{number}', 'donationReceipt')->middleware('signed')->name('donation.receipt');
     Route::get('kontak', 'contact')->name('contact');
     Route::post('kontak', 'sendContact')->middleware('throttle:contact')->name('contact.send');
     Route::get('sitemap.xml', 'sitemap')->name('sitemap');

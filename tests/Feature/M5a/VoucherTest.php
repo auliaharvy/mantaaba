@@ -298,7 +298,12 @@ class VoucherTest extends TestCase
         // buka ulang periode hanya Super Admin dengan alasan
         $period = FiscalPeriod::forDate(today());
         $this->actingAs($this->maker)->post(route('period.close', $period))->assertForbidden(); // Pengurus Inti tanpa period-close
-        $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->post(route('period.close', $period))->assertSessionHas('success');
+        $admin = User::where('email', 'superadmin@mail.com')->first();
+        foreach (\App\Models\CoaAccount::where('is_header', false)->where(fn ($q) => $q->where('is_cash', true)->orWhere('is_bank', true))->get() as $cash) {
+            $this->actingAs($admin)->post(route('period.reconcile', $period), ['coa_account_id' => $cash->id,
+                'actual' => \App\Support\Money::decimal(\App\Services\Ledger::balanceCents($cash->id, \Illuminate\Support\Carbon::create($period->year, $period->month)->endOfMonth()->toDateString()))])->assertSessionHasNoErrors();
+        }
+        $this->actingAs($admin)->post(route('period.close', $period), ['confirm_pending' => 1])->assertSessionHas('success');
         $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->post(route('period.reopen', $period), [])->assertSessionHasErrors('reason');
         $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->post(route('period.reopen', $period), ['reason' => 'Koreksi nota'])->assertSessionHas('success');
 

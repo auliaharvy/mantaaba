@@ -13,13 +13,13 @@
                 <tbody>
                     @foreach ($periods as $p)
                         <tr>
-                            <td class="fw-bold">{{ $p->label() }}</td>
+                            <td class="fw-bold"><a href="{{ route('period.show', $p) }}">{{ $p->label() }}</a></td>
                             <td><span class="badge {{ $p->isClosed() ? 'badge-light-dark' : 'badge-light-success' }}">{{ $p->isClosed() ? 'Ditutup' : 'Terbuka' }}</span></td>
                             <td>{{ $pending[$p->id] ?? 0 }}</td>
                             <td class="fs-8 text-muted">{{ $p->closed_at ? 'Ditutup ' . $p->closed_at->translatedFormat('j M Y') : '' }}{{ $p->reopen_reason ? ' · dibuka ulang: ' . $p->reopen_reason : '' }}</td>
                             <td class="text-end">
                                 @if (! $p->isClosed())
-                                    @can('period-close')<form method="POST" action="{{ route('period.close', $p) }}" onsubmit="return confirm('Tutup periode {{ $p->label() }}?{{ ($pending[$p->id] ?? 0) ? ' Masih ada ' . $pending[$p->id] . ' voucher belum diposting; voucher tersebut tidak bisa diposting ke periode tertutup.' : '' }}')">@csrf<button class="btn btn-sm btn-light-dark">Tutup</button></form>@endcan
+                                    <a href="{{ route('period.show', $p) }}" class="btn btn-sm btn-light-dark">Ceklis tutup bulan</a>
                                 @elseif (auth()->user()->isSuperAdmin())
                                     <form method="POST" action="{{ route('period.reopen', $p) }}" onsubmit="const r = prompt('Alasan membuka ulang {{ $p->label() }}:'); if (!r) return false; this.reason.value = r;">@csrf<input type="hidden" name="reason"><button class="btn btn-sm btn-light-warning">Buka ulang</button></form>
                                 @endif
@@ -30,5 +30,13 @@
             </table>
         </div>
     </div>
-    <p class="text-muted fs-7 mt-4">Ceklis tutup bulan (jurnal otomatis, rekonsiliasi kas/bank) dan tutup buku tahunan ditambahkan bersama laporan keuangan.</p>
+    @can('period-close')
+        <form method="POST" action="{{ route('period.close-year') }}" class="card mt-5" onsubmit="return confirm('Tutup buku {{ $year }}? Pendapatan & beban setahun dipindah ke aset neto dengan jurnal penutup bertanggal 31 Desember.')">
+            @csrf <input type="hidden" name="year" value="{{ $year }}">
+            <div class="card-body d-flex flex-wrap gap-3 align-items-center">
+                <div><b>Tutup buku tahunan {{ $year }}</b><div class="text-muted fs-7">Syarat: Januari–November sudah ditutup. Setelah itu tutup periode Desember.</div></div>
+                <button class="btn btn-sm btn-dark ms-auto"><i class="fa fa-book"></i> Tutup buku {{ $year }}</button>
+            </div>
+        </form>
+    @endcan
 </x-dashboard.page>

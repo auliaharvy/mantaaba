@@ -120,7 +120,7 @@ class JournalController extends Controller
     public function submit(Request $request, Journal $journal)
     {
         abort_unless($request->user()->can('journal-submit'), 403);
-        $this->poster->submit($journal, $request->user());
+        $this->poster->submit($journal, $request->user(), $request->boolean('confirm_budget'));
 
         return redirect()->route('journal.show', $journal)->with('success', 'Voucher diajukan untuk persetujuan.');
     }
@@ -226,7 +226,13 @@ class JournalController extends Controller
     {
         if ($request->input('action') === 'submit') {
             abort_unless($request->user()->can('journal-submit'), 403);
-            $this->poster->submit($journal, $request->user());
+            try {
+                $this->poster->submit($journal, $request->user(), $request->boolean('confirm_budget'));
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                throw_if($request->expectsJson(), $e);
+                // draf sudah tersimpan: kembali ke halaman voucher (bukan form) agar tidak tercipta draf ganda
+                return redirect()->route('journal.show', $journal)->withErrors($e->errors())->with('success', 'Draf disimpan, tetapi belum bisa diajukan.');
+            }
             $message = 'Voucher disimpan dan diajukan.';
         }
 

@@ -26,7 +26,7 @@ class Journal extends Model
     public const SELF_POSTED_SOURCES = ['opening_balance', 'year_close'];
 
     protected $fillable = ['voucher_type', 'date', 'fiscal_period_id', 'description', 'party_id', 'cost_center_id', 'reference_no', 'attachments',
-        'status', 'is_system', 'source_type', 'source_id', 'reversal_of_id', 'created_by'];
+        'status', 'is_system', 'source_type', 'source_id', 'reversal_of_id', 'created_by', 'budget_warning'];
 
     protected $casts = ['date' => 'date', 'attachments' => 'array', 'is_system' => 'boolean', 'submitted_at' => 'datetime', 'posted_at' => 'datetime'];
 

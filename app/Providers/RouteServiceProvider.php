@@ -55,5 +55,6 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('contact', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
         // PRD 9.3: formulir pendaftaran 5/jam/IP
         RateLimiter::for('admission', fn (Request $request) => Limit::perHour(5)->by($request->ip()));
+        RateLimiter::for('donation', fn (Request $request) => Limit::perHour(10)->by($request->ip()));
     }
 }

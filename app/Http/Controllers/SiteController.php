@@ -76,8 +76,49 @@ class SiteController extends Controller
 
     public function donation()
     {
-        // konfirmasi donasi & ringkasan transparansi di M5b
-        return view('site.donation', ['site' => Setting::current()]);
+        $year = now()->year;
+        $summary = \App\Support\SiteCache::remember("donation.summary.{$year}", fn () => ReportController::transparency("{$year}-01-01", today()->toDateString()));
+
+        return view('site.donation', ['site' => Setting::current(), 'summary' => $summary, 'year' => $year,
+            'banks' => \App\Models\CoaAccount::postable()->where('is_bank', true)->get(['id', 'name'])]);
+    }
+
+    /** Konfirmasi donasi publik (PRD 9.15): rate limit + honeypot; bukti transfer privat. */
+    public function sendDonation(Request $request)
+    {
+        if (filled($request->input('website'))) {
+            return redirect()->route('site.donation')->with('success', 'Terima kasih, konfirmasi Anda sudah kami terima.');
+        }
+        $data = $request->validate([
+            'donor_name' => 'required_unless:is_anonymous,1|nullable|string|max:100',
+            'is_anonymous' => 'nullable|boolean',
+            'phone' => 'required|string|max:30|regex:/^[0-9+\-\s]{9,}$/',
+            'email' => 'nullable|email|max:255',
+            'amount' => 'required|numeric|min:1000|max:999999999999',
+            'transferred_at' => 'required|date|before_or_equal:today',
+            'coa_bank_account_id' => ['required', Rule::exists('coa_accounts', 'id')->where('is_bank', true)],
+            'purpose' => ['required', Rule::in(array_keys(\App\Models\Donation::PURPOSES))],
+            'proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'message' => 'nullable|string|max:1000',
+        ], ['donor_name.required_unless' => 'Isi nama atau centang "Hamba Allah".', 'coa_bank_account_id.required' => 'Pilih rekening tujuan.'], ['coa_bank_account_id' => 'rekening tujuan', 'transferred_at' => 'tanggal transfer']);
+        $anonymous = $request->boolean('is_anonymous');
+        $donation = \App\Models\Donation::create([
+            'donor_name' => $anonymous && blank($data['donor_name'] ?? null) ? 'Hamba Allah' : $data['donor_name'], 'is_anonymous' => $anonymous,
+            'proof' => $request->file('proof')->store('donations', 'local'), 'kind' => 'transfer', 'ip' => $request->ip(),
+        ] + collect($data)->except(['donor_name', 'is_anonymous', 'proof'])->all());
+        app(\App\Services\DonationService::class)->notifyNew($donation);
+
+        return redirect()->route('site.donation')->with('success', 'Jazakumullahu khairan. Konfirmasi donasi Anda sudah kami terima dan akan diverifikasi bendahara.');
+    }
+
+    /** Bukti terima donasi (tautan bertanda tangan di email/WA). */
+    public function donationReceipt(string $number)
+    {
+        $donation = \App\Models\Donation::where('receipt_number', $number)->with('journal')->firstOrFail();
+        abort_unless($donation->journal?->status === 'terposting', 404);
+
+        return \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.donation-receipt', ['donation' => $donation, 'site' => Setting::current()])->setPaper('a5', 'landscape')
+            ->download("bukti-donasi-{$number}.pdf");
     }
 
     public function contact()

@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end flex-wrap gap-2 align-items-center">
             <a href="{{ $editing ? route('journal.show', $journal) : route('journal.index') }}" class="btn btn-sm btn-light">Batal</a>
             <button class="btn btn-sm btn-light-primary" name="action" value="draft">Simpan draf</button>
             @can('journal-submit')<button class="btn btn-sm btn-primary" name="action" value="submit">Simpan & ajukan</button>@endcan

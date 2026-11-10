@@ -15,7 +15,9 @@
                 @can('update', $j)<a href="{{ route('journal.edit', $j) }}" class="btn btn-sm btn-light-success"><i class="fa fa-pen"></i> Ubah</a>@endcan
                 @can('delete', $j)<button type="button" class="btn btn-sm btn-light-danger" data-delete-url="{{ route('journal.destroy', $j) }}" data-confirm="Draf voucher dihapus permanen.">Hapus</button>@endcan
                 @if ($j->isEditable() && $user->can('journal-submit'))
-                    <form method="POST" action="{{ route('journal.submit', $j) }}">@csrf<button class="btn btn-sm btn-primary">Ajukan</button></form>
+                    <form method="POST" action="{{ route('journal.submit', $j) }}" class="d-flex gap-2 align-items-center">@csrf
+                        @error('budget')<label class="form-check form-check-sm"><input class="form-check-input" type="checkbox" name="confirm_budget" value="1"> <span class="form-check-label text-warning">Lanjutkan walau melebihi anggaran</span></label>@enderror
+                        <button class="btn btn-sm btn-primary">Ajukan</button></form>
                 @endif
                 @if ($j->status === 'diajukan' && $user->can('journal-approve'))
                     <form method="POST" action="{{ route('journal.post', $j) }}">@csrf<button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Posting</button></form>
@@ -28,6 +30,7 @@
             </div>
         </div>
         <div class="card-body">
+            @if ($j->budget_warning)<div class="alert alert-warning py-3"><i class="fa fa-exclamation-triangle text-warning"></i> {{ $j->budget_warning }}</div>@endif
             @if ($j->status === 'ditolak')<div class="alert alert-light-danger">Ditolak: {{ $j->reject_reason }}</div>@endif
             @if ($j->reversalOf)<div class="alert alert-light-info">Pembalik untuk <a href="{{ route('journal.show', $j->reversalOf) }}">{{ $j->reversalOf->number }}</a>.</div>@endif
             @if ($j->reversal)<div class="alert alert-light-dark">Dibalik oleh <a href="{{ route('journal.show', $j->reversal) }}">{{ $j->reversal->number }}</a>.</div>@endif

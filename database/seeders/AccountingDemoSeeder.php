@@ -55,5 +55,14 @@ class AccountingDemoSeeder extends Seeder
             [['coa_account_id' => $acc('5-1300'), 'debit' => 650000, 'cost_center_id' => $cc('ASR')], ['coa_account_id' => $acc('1-1201'), 'credit' => 650000]], 'submitted');
         $make(['voucher_type' => 'CPV', 'date' => today()->toDateString(), 'description' => 'ATK kelas SIA'],
             [['coa_account_id' => $acc('5-3100'), 'debit' => 85000, 'cost_center_id' => $cc('PND')], ['coa_account_id' => $acc('1-1101'), 'credit' => 85000]], 'draft');
+
+        // M5b: anggaran tahun berjalan + konfirmasi donasi publik yang menunggu verifikasi
+        foreach ([['5-1300', 'ASR', 6000000], ['5-3100', 'PND', 1200000]] as [$code, $center, $amount]) {
+            \App\Models\Budget::create(['year' => today()->year, 'coa_account_id' => $acc($code), 'cost_center_id' => $cc($center), 'amount' => $amount]);
+        }
+        Storage::disk('local')->put('donations/demo-transfer.png', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+        \App\Models\Donation::create(['donor_name' => 'Ibu Sari', 'phone' => '081277778888', 'email' => 'sari@example.com', 'kind' => 'transfer', 'amount' => 500000,
+            'transferred_at' => today()->toDateString(), 'coa_bank_account_id' => $acc('1-1202'), 'purpose' => 'pangan', 'proof' => 'donations/demo-transfer.png',
+            'message' => 'Semoga berkah untuk adik-adik.']);
     }
 }

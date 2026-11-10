@@ -53,7 +53,7 @@ class JournalPoster
         });
     }
 
-    public function submit(Journal $journal, User $user): Journal
+    public function submit(Journal $journal, User $user, bool $confirmBudget = false): Journal
     {
         abort_unless($journal->isEditable(), 422, 'Voucher ini sudah diajukan atau diposting.');
         $journal->load('lines.account', 'period');
@@ -62,7 +62,12 @@ class JournalPoster
         if (! $journal->is_system && empty($journal->attachments)) {
             throw ValidationException::withMessages(['attachments' => 'Lampirkan minimal satu dokumen pendukung (nota, kuitansi, faktur).']);
         }
-        $journal->forceFill(['status' => 'diajukan', 'submitted_by' => $user->id, 'submitted_at' => now(), 'reject_reason' => null])->save();
+        // PRD 9.13.5: melebihi anggaran = peringatan yang wajib dikonfirmasi & tercatat di voucher (soft-stop)
+        $warning = $this->budgetWarning($journal);
+        if ($warning && ! $confirmBudget) {
+            throw ValidationException::withMessages(['budget' => $warning . ' Centang "Lanjutkan walau melebihi anggaran" untuk tetap mengajukan.']);
+        }
+        $journal->forceFill(['status' => 'diajukan', 'submitted_by' => $user->id, 'submitted_at' => now(), 'reject_reason' => null, 'budget_warning' => $warning])->save();
         $approvers = User::withPermission('journal-approve')->reject(fn ($u) => in_array($u->id, [$user->id, $journal->created_by], true));
         Notification::send($approvers, new VoucherSubmitted($journal));
 
@@ -88,6 +93,9 @@ class JournalPoster
             $journal->forceFill(['number' => $this->nextNumber($journal), 'status' => 'terposting', 'approved_by' => $approver->id, 'posted_at' => now()])->save();
         });
         $this->notifyDecision($journal->refresh(), 'posted');
+        if ($journal->source_type === (new \App\Models\Donation)->getMorphClass() && ($donation = \App\Models\Donation::find($journal->source_id))) {
+            app(DonationService::class)->posted($donation);
+        }
 
         return $journal;
     }
@@ -195,6 +203,28 @@ class JournalPoster
             'MJV', 'AJV' => ($cash || $bank) ? "{$type} tidak boleh memakai akun kas/bank." : null,
             default => 'Jenis voucher tidak dikenal.',
         };
+    }
+
+    /** Teks peringatan bila realisasi + voucher ini melebihi anggaran tahunan akun & pusat biaya. */
+    public function budgetWarning(Journal $journal): ?string
+    {
+        $year = $journal->date->year;
+        $messages = [];
+        foreach ($journal->lines->filter(fn ($l) => $l->account->type === 'beban' && $l->cost_center_id)->groupBy(fn ($l) => $l->coa_account_id . '-' . $l->cost_center_id) as $lines) {
+            $first = $lines->first();
+            $budget = \App\Models\Budget::where(['year' => $year, 'coa_account_id' => $first->coa_account_id, 'cost_center_id' => $first->cost_center_id])->first();
+            if (! $budget) {
+                continue;
+            }
+            $planned = Money::cents($budget->amount);
+            $actual = FinancialReports::realized($first->coa_account_id, $first->cost_center_id, "{$year}-01-01", "{$year}-12-31");
+            $voucherAmount = $lines->sum(fn ($l) => Money::cents($l->debit) - Money::cents($l->credit));
+            if ($actual + $voucherAmount > $planned) {
+                $messages[] = "{$first->account->label()} ({$first->costCenter?->code}): realisasi " . Money::format(Money::decimal($actual + $voucherAmount)) . ' melebihi anggaran ' . Money::format($budget->amount) . '.';
+            }
+        }
+
+        return $messages ? 'Melebihi anggaran: ' . implode(' ', $messages) : null;
     }
 
     private function ensurePeriodOpen(Journal $journal): void

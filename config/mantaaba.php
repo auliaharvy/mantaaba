@@ -242,7 +242,12 @@ return [
     // PRD 9.16: pemetaan akun default jurnal dari modul operasional (kode akun & pusat biaya)
     'posting_rules' => [
         'health' => ['debit' => '5-1500', 'credit' => '1-1101', 'cost_center' => 'PND'],
+        // tutup buku: pendapatan/beban tanpa pembatasan → surplus; dengan pembatasan → dana terikat (Q10: rinci per peruntukan di v2)
+        'year_close' => ['unrestricted' => '3-1200', 'restricted' => '3-2100'],
     ],
+
+    // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas); diisi modul stok (M6) & aset (M7)
+    'monthly_journals' => [],
 
     // Paket yang otomatis diberikan saat akun pengurus dibuat (bisa diubah di layar Hak Akses)
     'default_package' => ['pengurus' => 'pengurus_inti'],
@@ -297,6 +302,9 @@ return [
             ['title' => 'Antrean Persetujuan', 'route' => 'journal.queue', 'can' => 'journal-approve', 'icon' => 'fa-check-double'],
             ['title' => 'Buku Kas & Bank', 'route' => 'ledger.cash-book', 'active' => 'ledger.cash-book|ledger.index', 'can' => 'finance-report-view', 'icon' => 'fa-book'],
             ['title' => 'Neraca Saldo', 'route' => 'ledger.trial-balance', 'active' => 'ledger.trial-balance', 'can' => 'finance-report-view', 'icon' => 'fa-balance-scale'],
+            ['title' => 'Laporan Keuangan', 'route' => 'report.index', 'active' => 'report.*', 'can' => 'finance-report-view', 'icon' => 'fa-chart-pie'],
+            ['title' => 'Donasi', 'route' => 'donation.index', 'can' => 'donation-view', 'icon' => 'fa-hand-holding-heart'],
+            ['title' => 'Anggaran', 'route' => 'budget.index', 'can' => 'coa-view', 'icon' => 'fa-coins'],
             ['title' => 'COA & Master', 'route' => 'coa.index', 'active' => 'coa.*|party.*|cost-center.*', 'can' => 'coa-view', 'icon' => 'fa-sitemap'],
             ['title' => 'Periode', 'route' => 'period.index', 'active' => 'period.*|opening.*', 'can' => 'journal-view', 'icon' => 'fa-calendar-check'],
         ]],

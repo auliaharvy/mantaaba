@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CoaController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CostCenterController;
 use App\Http\Controllers\FiscalPeriodController;
 use App\Http\Controllers\JournalController;
@@ -176,7 +179,22 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::post('pusat-biaya', [CostCenterController::class, 'store'])->name('cost-center.store');
     Route::patch('pusat-biaya/{costCenter}', [CostCenterController::class, 'update'])->name('cost-center.update');
     Route::get('periode', [FiscalPeriodController::class, 'index'])->name('period.index');
+    Route::get('periode/{period}', [FiscalPeriodController::class, 'show'])->name('period.show');
+    Route::post('periode/{period}/rekonsiliasi', [FiscalPeriodController::class, 'reconcile'])->name('period.reconcile');
+    Route::post('periode/{period}/jurnal-otomatis', [FiscalPeriodController::class, 'generate'])->name('period.generate');
     Route::post('periode/{period}/tutup', [FiscalPeriodController::class, 'close'])->name('period.close');
+    Route::post('tutup-buku', [FiscalPeriodController::class, 'closeYear'])->name('period.close-year');
+    Route::get('laporan-keuangan', [ReportController::class, 'index'])->name('report.index');
+    Route::post('laporan-keuangan/transparansi/terbitkan', [ReportController::class, 'publishTransparency'])->name('report.publish-transparency');
+    Route::get('laporan-keuangan/{report}', [ReportController::class, 'show'])->name('report.show');
+    Route::get('anggaran', [BudgetController::class, 'index'])->name('budget.index');
+    Route::post('anggaran', [BudgetController::class, 'store'])->name('budget.store');
+    Route::delete('anggaran/{budget}', [BudgetController::class, 'destroy'])->name('budget.destroy');
+    Route::get('donasi-datatable', [DonationController::class, 'datatable'])->name('donation.datatable');
+    Route::post('donasi/{donation}/verifikasi', [DonationController::class, 'verify'])->name('donation.verify');
+    Route::post('donasi/{donation}/tolak', [DonationController::class, 'reject'])->name('donation.reject');
+    Route::get('donasi/{donation}/bukti', [DonationController::class, 'proof'])->name('donation.proof');
+    Route::resource('donasi', DonationController::class)->parameters(['donasi' => 'donation'])->names('donation')->only(['index', 'create', 'store', 'show']);
     Route::post('periode/{period}/buka', [FiscalPeriodController::class, 'reopen'])->name('period.reopen');
     Route::get('saldo-awal', [OpeningBalanceController::class, 'show'])->name('opening.show');
     Route::post('saldo-awal', [OpeningBalanceController::class, 'store'])->name('opening.store');
