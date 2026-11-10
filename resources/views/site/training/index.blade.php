@@ -4,7 +4,7 @@
         <nav class="mb-6 flex gap-2" aria-label="Waktu">
             @foreach (['mendatang' => 'Akan Datang', 'selesai' => 'Selesai'] as $key => $label)
                 <a href="{{ route('site.training', array_merge(request()->except('page'), ['tab' => $key])) }}" @if ($tab === $key) aria-current="page" @endif
-                    class="rounded-full px-4 py-1.5 text-sm font-semibold {{ $tab === $key ? 'bg-brand-secondary text-white' : 'border border-brand-border' }}">{{ $label }}</a>
+                    class="rounded-full px-4 py-1.5 text-sm font-semibold {{ $tab === $key ? 'bg-brand-accent text-white' : 'border border-brand-border' }}">{{ $label }}</a>
             @endforeach
         </nav>
         <form method="GET" class="mb-8 grid gap-3 sm:grid-cols-4">

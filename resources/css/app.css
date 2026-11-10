@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @layer base {
+    /* default PRD 7.1; layout menimpa dengan nilai Setting */
+    :root { --color-primary: 91 58 31; --color-primary-dark: 62 39 21; --color-secondary: 201 160 74; --color-accent: 138 45 30; --color-surface: 247 241 230; }
     body { @apply bg-brand-surface text-brand-text font-sans text-base leading-relaxed antialiased; }
     h1, h2, h3, h4 { @apply text-brand-heading font-bold leading-tight; }
     [x-cloak] { display: none !important; }
@@ -17,8 +19,9 @@
     .prose-cms p { @apply mb-4; }
     .prose-cms ul { @apply mb-4 list-disc pl-6; }
     .prose-cms ol { @apply mb-4 list-decimal pl-6; }
-    .prose-cms a { @apply text-brand-secondary underline; }
+    .prose-cms a { @apply text-brand-accent underline; }
     .prose-cms img { @apply my-4 h-auto max-w-full rounded-md; }
     .prose-cms table { @apply mb-4 block w-full overflow-x-auto; }
-    .prose-cms blockquote { @apply mb-4 border-l-4 border-brand-primary pl-4 italic; }
+    .prose-cms blockquote { @apply mb-4 border-l-4 border-brand-gold pl-4 italic; }
+    .prose-cms [lang="ar"] { @apply font-arabic text-2xl leading-loose; }
 }

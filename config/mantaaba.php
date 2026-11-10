@@ -7,6 +7,10 @@
 
 $crud = ['view', 'create', 'update', 'delete'];
 
+// Field blok halaman (PRD 9.1.3). type: text|textarea|rich|url|image|number|select|icon|embed|gallery|units
+$title = ['type' => 'text', 'label' => 'Judul section'];
+$button = fn ($n = '') => ["button{$n}_text" => ['type' => 'text', 'label' => "Teks tombol {$n}"], "button{$n}_url" => ['type' => 'url', 'label' => "Tautan tombol {$n}", 'help' => 'Alamat di situs ini (mis. /pendaftaran) atau URL lengkap https://']];
+
 return [
     // PRD 5.2
     'roles' => [
@@ -92,6 +96,131 @@ return [
         ],
     ],
 
+    /*
+    | PRD 9.1.3: blok halaman. fields = field data blok; items = daftar berulang (maks `max`).
+    | Menambah blok = tambah definisi di sini + partial resources/views/components/site/block/{type}.blade.php.
+    */
+    'blocks' => [
+        'hero' => ['label' => 'Hero (judul besar + gambar)', 'fields' => [
+            'title' => ['type' => 'text', 'label' => 'Judul', 'required' => true],
+            'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul'],
+            'image' => ['type' => 'image', 'label' => 'Gambar latar (≥ 1600px)'],
+            'overlay' => ['type' => 'number', 'label' => 'Gelap overlay (0–80%)', 'min' => 0, 'max' => 80, 'default' => 55],
+        ] + $button('1') + $button('2')],
+        'slider' => ['label' => 'Slider (dari menu Slider)', 'fields' => []],
+        'text' => ['label' => 'Teks', 'fields' => [
+            'title' => $title,
+            'body' => ['type' => 'rich', 'label' => 'Isi', 'required' => true],
+        ]],
+        'image_text' => ['label' => 'Gambar + teks', 'fields' => [
+            'image' => ['type' => 'image', 'label' => 'Gambar'],
+            'position' => ['type' => 'select', 'label' => 'Posisi gambar', 'options' => ['left' => 'Kiri', 'right' => 'Kanan'], 'default' => 'left'],
+            'title' => ['type' => 'text', 'label' => 'Judul', 'required' => true],
+            'body' => ['type' => 'rich', 'label' => 'Isi'],
+        ] + $button()],
+        'cards' => ['label' => 'Kartu (fitur, pilar, program)', 'fields' => [
+            'title' => $title,
+            'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
+            'columns' => ['type' => 'select', 'label' => 'Kolom', 'options' => ['2' => '2', '3' => '3', '4' => '4'], 'default' => '3'],
+        ], 'items' => ['label' => 'Kartu', 'max' => 12, 'fields' => [
+            'icon' => ['type' => 'icon', 'label' => 'Ikon'],
+            'image' => ['type' => 'image', 'label' => 'atau gambar'],
+            'title' => ['type' => 'text', 'label' => 'Judul', 'required' => true],
+            'text' => ['type' => 'textarea', 'label' => 'Teks'],
+            'url' => ['type' => 'url', 'label' => 'Tautan'],
+        ]]],
+        'stats' => ['label' => 'Angka statistik', 'fields' => ['title' => $title], 'items' => ['label' => 'Angka', 'max' => 6, 'fields' => [
+            'auto' => ['type' => 'select', 'label' => 'Ambil otomatis', 'options' => 'stats'],
+            'value' => ['type' => 'text', 'label' => 'Angka (bila tidak otomatis)'],
+            'label' => ['type' => 'text', 'label' => 'Keterangan', 'required' => true],
+        ]]],
+        'timeline' => ['label' => 'Linimasa (roadmap)', 'fields' => [
+            'title' => $title,
+            'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
+        ], 'items' => ['label' => 'Tahap', 'max' => 12, 'fields' => [
+            'time' => ['type' => 'text', 'label' => 'Waktu (mis. Bulan 1)'],
+            'title' => ['type' => 'text', 'label' => 'Judul', 'required' => true],
+            'text' => ['type' => 'textarea', 'label' => 'Teks'],
+        ]]],
+        'team' => ['label' => 'Tim / pengurus', 'fields' => ['title' => $title], 'items' => ['label' => 'Orang', 'max' => 16, 'fields' => [
+            'photo' => ['type' => 'image', 'label' => 'Foto'],
+            'name' => ['type' => 'text', 'label' => 'Nama', 'required' => true],
+            'role' => ['type' => 'text', 'label' => 'Jabatan'],
+            'quote' => ['type' => 'textarea', 'label' => 'Kutipan singkat'],
+        ]]],
+        'gallery' => ['label' => 'Galeri foto', 'fields' => [
+            'title' => $title,
+            'gallery_id' => ['type' => 'gallery', 'label' => 'Album', 'help' => 'Kosong = foto terbaru dari semua album'],
+            'limit' => ['type' => 'number', 'label' => 'Jumlah foto', 'min' => 3, 'max' => 12, 'default' => 6],
+        ]],
+        'latest' => ['label' => 'Berita / agenda terbaru', 'fields' => [
+            'title' => $title,
+            'source' => ['type' => 'select', 'label' => 'Sumber', 'options' => ['berita' => 'Berita', 'agenda' => 'Agenda'], 'default' => 'berita', 'required' => true],
+            'count' => ['type' => 'number', 'label' => 'Jumlah', 'min' => 3, 'max' => 9, 'default' => 3],
+        ]],
+        'units' => ['label' => 'Unit bisnis', 'fields' => [
+            'title' => $title,
+            'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
+            'unit_ids' => ['type' => 'units', 'label' => 'Unit yang ditampilkan', 'help' => 'Kosong = semua unit publik'],
+        ]],
+        'skemas' => ['label' => '5 skema pembelajaran', 'fields' => [
+            'title' => $title,
+            'intro' => ['type' => 'textarea', 'label' => 'Pengantar'],
+        ]],
+        'testimonial' => ['label' => 'Testimoni', 'fields' => ['title' => $title], 'items' => ['label' => 'Testimoni', 'max' => 9, 'fields' => [
+            'photo' => ['type' => 'image', 'label' => 'Foto'],
+            'name' => ['type' => 'text', 'label' => 'Nama', 'required' => true],
+            'role' => ['type' => 'text', 'label' => 'Peran (mis. Alumni Angkatan 1)'],
+            'quote' => ['type' => 'textarea', 'label' => 'Kutipan', 'required' => true],
+        ]]],
+        'faq' => ['label' => 'Tanya jawab (FAQ)', 'fields' => ['title' => $title], 'items' => ['label' => 'Pertanyaan', 'max' => 20, 'fields' => [
+            'question' => ['type' => 'text', 'label' => 'Pertanyaan', 'required' => true],
+            'answer' => ['type' => 'textarea', 'label' => 'Jawaban', 'required' => true],
+        ]]],
+        'cta' => ['label' => 'Ajakan (CTA)', 'fields' => [
+            'title' => ['type' => 'text', 'label' => 'Judul', 'required' => true],
+            'text' => ['type' => 'textarea', 'label' => 'Teks'],
+            'style' => ['type' => 'select', 'label' => 'Gaya', 'options' => ['primer' => 'Cokelat (primer)', 'aksen' => 'Marun (aksen)', 'krem' => 'Krem'], 'default' => 'primer'],
+        ] + $button('1') + $button('2')],
+        'quote' => ['label' => 'Kutipan / ayat', 'fields' => [
+            'arabic' => ['type' => 'textarea', 'label' => 'Teks Arab (opsional)'],
+            'translation' => ['type' => 'textarea', 'label' => 'Terjemahan / kutipan', 'required' => true],
+            'source' => ['type' => 'text', 'label' => 'Sumber (mis. QS. Al-Baqarah: 148)'],
+        ]],
+        'embed' => ['label' => 'Video YouTube / peta Google Maps', 'fields' => [
+            'title' => $title,
+            'url' => ['type' => 'embed', 'label' => 'URL YouTube atau Google Maps embed', 'required' => true],
+            'caption' => ['type' => 'text', 'label' => 'Keterangan'],
+        ]],
+    ],
+
+    // Statistik otomatis blok `stats` (key => label); nilai dihitung App\Support\SiteStats. Anggota/alumni/angkatan aktif setelah M2.
+    'stats' => [
+        'anggota_aktif' => 'Anggota aktif',
+        'alumni' => 'Alumni',
+        'angkatan' => 'Angkatan',
+        'sertifikat_terbit' => 'Sertifikat terbit',
+        'agenda_selesai' => 'Agenda terselenggara',
+        'berita' => 'Berita terbit',
+    ],
+
+    // Ikon situs untuk blok kartu (nama komponen x-site.icon)
+    'icons' => ['shield', 'academic-cap', 'book-open', 'users', 'heart', 'home', 'building', 'chart-bar', 'computer', 'sun', 'fire', 'sparkles', 'check', 'document', 'calendar', 'chat', 'photo', 'map-pin'],
+
+    // PRD 9.1.2: route publik yang boleh dipilih di Menu Manager (route => label)
+    'menu_routes' => [
+        'site.home' => 'Beranda',
+        'site.curriculum' => 'Kurikulum',
+        'site.units' => 'Ekosistem (unit bisnis)',
+        'site.news' => 'Berita',
+        'site.training' => 'Agenda',
+        'site.gallery' => 'Galeri',
+        'site.documents' => 'Dokumen',
+        'site.admission' => 'Pendaftaran',
+        'site.donation' => 'Donasi',
+        'site.contact' => 'Kontak',
+    ],
+
     // Paket yang otomatis diberikan saat akun pengurus dibuat (bisa diubah di layar Hak Akses)
     'default_package' => ['pengurus' => 'pengurus_inti'],
 
@@ -107,11 +236,13 @@ return [
         ]],
         ['title' => 'Website', 'items' => [
             ['title' => 'Halaman', 'route' => 'page.index', 'can' => 'cms-view', 'icon' => 'fa-file-alt'],
+            ['title' => 'Menu', 'route' => 'menu.index', 'can' => 'cms-view', 'icon' => 'fa-bars'],
             ['title' => 'Slider', 'route' => 'slider.index', 'can' => 'cms-view', 'icon' => 'fa-images'],
             ['title' => 'Berita', 'route' => 'blog.index', 'can' => 'news-view', 'icon' => 'fa-newspaper'],
             ['title' => 'Kategori Berita', 'route' => 'taxonomy.index', 'params' => ['kategori'], 'active' => 'taxonomy.*', 'can' => 'news-publish', 'icon' => 'fa-tags'],
             ['title' => 'Galeri', 'route' => 'gallery.index', 'can' => 'cms-view', 'icon' => 'fa-camera'],
             ['title' => 'Dokumen', 'route' => 'document.index', 'can' => 'cms-view', 'icon' => 'fa-file-pdf'],
+            ['title' => 'Unit Bisnis', 'route' => 'business-unit.index', 'can' => 'cms-view', 'icon' => 'fa-store'],
             ['title' => 'Pesan Masuk', 'route' => 'contact-message.index', 'can' => 'contact-message-view', 'icon' => 'fa-envelope'],
             ['title' => 'Setting Situs', 'route' => 'setting.edit', 'can' => 'cms-update', 'icon' => 'fa-sliders-h'],
         ]],

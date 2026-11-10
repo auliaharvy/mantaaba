@@ -1,5 +1,5 @@
 <x-site.layout title="Galeri" description="Dokumentasi kegiatan Rumah Mantaaba Sigaling.">
-    <x-site.breadcrumb-header title="Galeri" :crumbs="['Profil' => route('site.profile'), 'Galeri']" />
+    <x-site.breadcrumb-header title="Galeri" :crumbs="['Galeri']" />
     <div class="container-site py-12">
         @if ($galleries->isEmpty())
             <x-site.empty-state title="Belum ada album" icon="photo" />
@@ -13,7 +13,7 @@
                             <div class="flex aspect-[16/10] items-center justify-center bg-brand-section-bg"><x-site.icon name="photo" class="h-10 w-10 text-brand-muted" /></div>
                         @endif
                         <div class="p-5">
-                            <h2 class="text-lg group-hover:text-brand-secondary">{{ $gallery->title }}</h2>
+                            <h2 class="text-lg group-hover:text-brand-accent">{{ $gallery->title }}</h2>
                             <p class="mt-1 text-sm text-gray-600">{{ $gallery->published_at->translatedFormat('d M Y') }} · {{ $gallery->photos_count }} foto</p>
                         </div>
                     </a>

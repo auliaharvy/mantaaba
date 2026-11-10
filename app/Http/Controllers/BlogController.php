@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
-/** Berita & Artikel (PRD 8.6). */
+/** Berita & Artikel (PRD 9.1.4): draf / terbit (bisa dijadwalkan). */
 class BlogController extends Controller
 {
     public function __construct()
@@ -35,7 +35,7 @@ class BlogController extends Controller
             ->when($request->filled('status'), fn ($q) => $q->where('blogs.status', $request->input('status')));
 
         return DataTables::eloquent($blogs)
-            ->editColumn('status', fn ($b) => Blog::STATUSES[$b->status])
+            ->editColumn('status', fn ($b) => $b->status === 'published' && $b->published_at?->isFuture() ? 'Terjadwal ' . $b->published_at->translatedFormat('d M H:i') : Blog::STATUSES[$b->status])
             ->editColumn('updated_at', fn ($b) => $b->updated_at->translatedFormat('d M Y'))
             ->addColumn('action', fn ($b) => view('components.dashboard.row-actions', [
                 'show' => route('blog.show', $b),
@@ -106,12 +106,12 @@ class BlogController extends Controller
             $data['thumbnail'] = Upload::store($request->file('thumbnail'), 'blog', $blog?->thumbnail);
         }
 
-        // PRD 8.6 AC: penulis non-penerbit hanya bisa draft atau review; `published` dari request diabaikan
+        // penulis tanpa news-publish hanya menyimpan draf; `published` dari request diabaikan
         if ($request->user()->can('publish', Blog::class)) {
             $data['status'] ??= 'published';
             $data['published_at'] = $data['status'] === 'published' ? ($data['published_at'] ?? $blog?->published_at ?? now()) : null;
         } else {
-            $data['status'] = ($data['status'] ?? null) === 'draft' ? 'draft' : 'review';
+            $data['status'] = 'draft';
             unset($data['published_at']);
         }
 
@@ -127,9 +127,9 @@ class BlogController extends Controller
 
     private function statusMessage(Blog $blog): string
     {
-        return match ($blog->status) {
-            'published' => 'Tulisan diterbitkan.',
-            'review' => 'Tulisan disimpan dan menunggu review editor.',
+        return match (true) {
+            $blog->status === 'published' && $blog->published_at->isFuture() => 'Tulisan dijadwalkan terbit ' . $blog->published_at->translatedFormat('d M Y H:i') . '.',
+            $blog->status === 'published' => 'Tulisan diterbitkan.',
             default => 'Draf disimpan.',
         };
     }

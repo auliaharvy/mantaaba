@@ -44,7 +44,7 @@ class TrainingController extends Controller
             'registration' => $user ? $event->participants()->where('user_id', $user->id)->first() : null,
             'fee' => $user ? $event->feeFor($user) : null,
             'seatsLeft' => $event->seatsLeft(),
-            'bank' => Setting::current()->bank_account_info,
+            'bank' => Setting::current()->bankText(),
         ]);
     }
 

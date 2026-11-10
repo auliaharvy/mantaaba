@@ -26,7 +26,7 @@ class MyTrainingController extends Controller
         return view('dashboard.my-training.show', [
             'participant' => $participant,
             'event' => $participant->event,
-            'bank' => Setting::current()->bank_account_info,
+            'bank' => Setting::current()->bankText(),
             // QR hanya untuk peserta terverifikasi (tiket check-in)
             'qr' => $participant->status === 'verified' ? QrCode::format('svg')->size(220)->margin(1)->generate($participant->ticket_code) : null,
         ]);

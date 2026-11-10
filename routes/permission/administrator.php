@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BusinessUnitController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\DocumentController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyTrainingController;
+use App\Http\Controllers\NavMenuController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -32,7 +34,12 @@ Route::middleware(['auth', 'active'])->prefix('dashboard')->group(function () {
     | Website (PRD 9.1)
     */
     Route::get('page-datatable', [PageController::class, 'datatable'])->name('page.datatable');
-    Route::resource('page', PageController::class)->only(['index', 'edit', 'update']);
+    Route::get('page/{page}/pratinjau', [PageController::class, 'preview'])->middleware('signed')->name('page.preview');
+    Route::resource('page', PageController::class)->except('show');
+    Route::post('menu/urutan', [NavMenuController::class, 'reorder'])->name('menu.reorder');
+    Route::resource('menu', NavMenuController::class)->except('show');
+    Route::get('business-unit-datatable', [BusinessUnitController::class, 'datatable'])->name('business-unit.datatable');
+    Route::resource('business-unit', BusinessUnitController::class)->except('show');
     Route::get('slider-datatable', [SliderController::class, 'datatable'])->name('slider.datatable');
     Route::resource('slider', SliderController::class)->except('show');
     Route::get('gallery-datatable', [GalleryController::class, 'datatable'])->name('gallery.datatable');

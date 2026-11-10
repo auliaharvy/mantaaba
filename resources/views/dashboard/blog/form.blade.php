@@ -27,15 +27,14 @@
                         @endif
                         @if ($publisher)
                             <x-dashboard.field name="status" label="Status" type="select" :options="App\Models\Blog::STATUSES" :value="$blog->status === 'draft' && ! $editing ? 'published' : $blog->status" required />
-                            <x-dashboard.field name="published_at" label="Tanggal terbit" type="date" :value="$blog->published_at" help="Kosong = sekarang." />
+                            <x-dashboard.field name="published_at" label="Waktu terbit" type="datetime-local" :value="$blog->published_at?->format('Y-m-d\TH:i')" help="Kosong = sekarang. Isi waktu mendatang untuk menjadwalkan." />
                         @else
-                            <div class="alert alert-light-primary fs-7">Tulisan dikirim ke editor untuk ditinjau sebelum terbit. Setelah terbit, tulisan tidak bisa diubah lagi.</div>
+                            <div class="alert alert-light-primary fs-7">Tulisan disimpan sebagai draf dan diterbitkan oleh pengurus yang berwenang. Setelah terbit, tulisan tidak bisa diubah lagi.</div>
                         @endif
                     </div>
                     <div class="card-footer d-flex flex-wrap justify-content-end gap-2">
                         @unless ($publisher)
-                            <button class="btn btn-sm btn-light" type="submit" name="status" value="draft">Simpan draf</button>
-                            <button class="btn btn-sm btn-primary" type="submit" name="status" value="review">Kirim untuk review</button>
+                            <button class="btn btn-sm btn-primary" type="submit" name="status" value="draft">Simpan draf</button>
                         @else
                             <button class="btn btn-sm btn-primary" type="submit">Simpan</button>
                         @endunless

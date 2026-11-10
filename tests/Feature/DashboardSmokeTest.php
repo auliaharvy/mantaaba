@@ -63,7 +63,7 @@ class DashboardSmokeTest extends TestCase
         $models = [
             'blog' => \App\Models\Blog::first(),
             'event' => \App\Models\Event::first(), 'participant' => \App\Models\Participant::first(),
-            'page' => \App\Models\Page::first(),
+            'page' => \App\Models\Page::first(), 'menu' => \App\Models\NavMenu::first(), 'business_unit' => \App\Models\BusinessUnit::first(),
             'user' => User::where('email', 'anggota@mail.com')->first(),
         ];
         $user = User::where('email', $email)->firstOrFail();

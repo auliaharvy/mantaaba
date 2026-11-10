@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             SettingSeeder::class,
             PageSeeder::class,
+            NavMenuSeeder::class,
+            BusinessUnitSeeder::class,
             ContentTaxonomySeeder::class,
             SuperAdminSeeder::class,
         ]);

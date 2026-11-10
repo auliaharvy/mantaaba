@@ -5,7 +5,7 @@
     <div class="container-site py-12">
         <article class="mx-auto max-w-3xl">
             <p class="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600">
-                @if ($blog->category)<a href="{{ route('site.news.category', $blog->category->slug) }}" class="font-bold uppercase text-brand-secondary">{{ $blog->category->name }}</a>@endif
+                @if ($blog->category)<a href="{{ route('site.news.category', $blog->category->slug) }}" class="font-bold uppercase text-brand-accent">{{ $blog->category->name }}</a>@endif
                 <span>{{ $blog->user->name }}</span>
                 <time datetime="{{ $blog->published_at->toIso8601String() }}">{{ $blog->published_at->translatedFormat('l, j F Y') }}</time>
                 <span>{{ number_format($blog->views, 0, ',', '.') }}× dibaca</span>

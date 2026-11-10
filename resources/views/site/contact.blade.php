@@ -1,12 +1,13 @@
-<x-site.layout title="Hubungi Kami" description="Hubungi Rumah Mantaaba Sigaling.">
+<x-site.layout title="Hubungi Kami" description="Alamat, WhatsApp, dan formulir pesan Rumah Mantaaba Sigaling: pendaftaran, donasi, kemitraan, dan kunjungan.">
     <x-site.breadcrumb-header title="Hubungi Kami" :crumbs="['Kontak']" />
     <div class="container-site grid gap-10 py-12 lg:grid-cols-5">
         <div class="space-y-4 lg:col-span-2">
-            <h2 class="text-xl">Rumah Mantaaba Sigaling</h2>
-            @if ($site->address)<p class="flex gap-3"><x-site.icon name="map-pin" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->address }}</p>@endif
+            <h2 class="font-display text-xl text-brand-primary">{{ $site->site_name }}</h2>
+            @if ($site->fullAddress())<p class="flex gap-3"><x-site.icon name="map-pin" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->fullAddress() }}</p>@endif
+            @if ($site->office_hours)<p class="flex gap-3"><x-site.icon name="calendar" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->office_hours }}</p>@endif
             @if ($site->phone)<p class="flex gap-3"><x-site.icon name="phone" class="h-6 w-6 flex-none text-brand-primary" />{{ $site->phone }}</p>@endif
-            @if ($site->whatsappUrl())<p class="flex gap-3"><x-site.icon name="chat" class="h-6 w-6 flex-none text-brand-primary" /><a href="{{ $site->whatsappUrl() }}" target="_blank" rel="noopener" class="text-brand-secondary underline">WhatsApp {{ $site->whatsapp }}</a></p>@endif
-            <p class="flex gap-3"><x-site.icon name="mail" class="h-6 w-6 flex-none text-brand-primary" /><a href="mailto:{{ $site->email }}" class="break-all text-brand-secondary underline">{{ $site->email }}</a></p>
+            @if ($site->whatsappUrl())<p class="flex gap-3"><x-site.icon name="chat" class="h-6 w-6 flex-none text-brand-primary" /><a href="{{ $site->whatsappUrl() }}" target="_blank" rel="noopener" class="text-brand-accent underline">WhatsApp {{ $site->whatsapp }}</a></p>@endif
+            @if ($site->email)<p class="flex gap-3"><x-site.icon name="mail" class="h-6 w-6 flex-none text-brand-primary" /><a href="mailto:{{ $site->email }}" class="break-all text-brand-accent underline">{{ $site->email }}</a></p>@endif
             @if ($site->maps_embed)
                 <iframe src="{{ $site->maps_embed }}" title="Peta lokasi Rumah Mantaaba Sigaling" class="mt-4 h-64 w-full rounded-lg border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             @endif
@@ -14,7 +15,7 @@
         <div class="lg:col-span-3">
             @if (session('success'))<x-site.alert class="mb-6">{{ session('success') }}</x-site.alert>@endif
             @if ($errors->any())<x-site.alert type="error" class="mb-6">Periksa kembali isian yang ditandai.</x-site.alert>@endif
-            <form method="POST" action="{{ route('site.contact.send') }}" class="grid gap-5 rounded-lg border border-brand-border bg-white p-6 shadow-sm sm:grid-cols-2" novalidate>
+            <form method="POST" action="{{ route('site.contact.send') }}" class="grid gap-5 rounded-site border border-brand-border bg-white p-6 shadow-sm sm:grid-cols-2" novalidate>
                 @csrf
                 {{-- honeypot: disembunyikan dari manusia --}}
                 <div class="hidden" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>

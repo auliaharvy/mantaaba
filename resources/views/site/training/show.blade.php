@@ -30,7 +30,7 @@
                         <p class="text-sm font-bold text-red-700">Kuota penuh.</p>
                     @elseif (! auth()->check())
                         <x-site.button :href="route('login')" class="w-full">Masuk untuk mendaftar</x-site.button>
-                        <p class="mt-3 text-center text-sm">Belum punya akun? <a href="{{ route('site.contact') }}" class="font-semibold text-brand-secondary underline">Hubungi pengurus</a></p>
+                        <p class="mt-3 text-center text-sm">Belum punya akun? <a href="{{ route('site.contact') }}" class="font-semibold text-brand-accent underline">Hubungi pengurus</a></p>
                     @elseif ($event->audience === 'anggota' && ! auth()->user()->hasRole('anggota'))
                         <p class="text-sm font-semibold text-gray-700">Agenda ini khusus anggota Rumah Mantaaba Sigaling.</p>
                     @else

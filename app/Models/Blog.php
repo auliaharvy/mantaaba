@@ -12,7 +12,8 @@ class Blog extends Model
 {
     use FlushesSiteCache, HasFactory, HasSlug, SoftDeletes;
 
-    public const STATUSES = ['draft' => 'Draf', 'review' => 'Menunggu review', 'published' => 'Terbit'];
+    /** PRD 9.1.4: tanpa review; `published` dengan published_at di masa depan = terjadwal. */
+    public const STATUSES = ['draft' => 'Draf', 'published' => 'Terbit'];
 
     protected $fillable = ['title', 'slug', 'excerpt', 'body', 'thumbnail', 'status', 'published_at', 'category_id', 'user_id'];
 

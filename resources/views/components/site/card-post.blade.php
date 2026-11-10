@@ -10,12 +10,12 @@
     </a>
     <div class="flex flex-1 flex-col p-5">
         @if ($blog->category)
-            <a href="{{ route('site.news.category', $blog->category->slug) }}" class="mb-2 self-start rounded bg-brand-section-bg px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-brand-secondary">{{ $blog->category->name }}</a>
+            <a href="{{ route('site.news.category', $blog->category->slug) }}" class="mb-2 self-start rounded bg-brand-section-bg px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-brand-accent">{{ $blog->category->name }}</a>
         @endif
-        <h3 class="text-lg"><a href="{{ route('site.news.show', $blog->slug) }}" class="hover:text-brand-secondary">{{ $blog->title }}</a></h3>
+        <h3 class="text-lg"><a href="{{ route('site.news.show', $blog->slug) }}" class="hover:text-brand-accent">{{ $blog->title }}</a></h3>
         <p class="mt-2 flex-1 text-sm text-gray-600">{{ $blog->excerptText(120) }}</p>
         <p class="mt-4 flex items-center gap-2 text-xs text-gray-600">
-            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-brand-section-bg font-bold text-brand-secondary" aria-hidden="true">{{ mb_substr($blog->user->name, 0, 1) }}</span>
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-brand-section-bg font-bold text-brand-accent" aria-hidden="true">{{ mb_substr($blog->user->name, 0, 1) }}</span>
             {{ $blog->user->name }} · <time datetime="{{ $blog->published_at->toDateString() }}">{{ $blog->published_at->translatedFormat('d M Y') }}</time>
         </p>
     </div>

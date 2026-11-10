@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Support\Upload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -25,8 +26,9 @@ class DocumentController extends Controller
     {
         return DataTables::eloquent(Document::query())
             ->editColumn('published_at', fn ($d) => $d->published_at?->translatedFormat('d M Y') ?? 'Draf')
+            ->editColumn('visibility', fn ($d) => Document::VISIBILITIES[$d->visibility])
             ->addColumn('action', fn ($d) => view('components.dashboard.row-actions', [
-                'show' => asset('storage/' . $d->file), 'edit' => route('document.edit', $d), 'delete' => route('document.destroy', $d), 'confirm' => null,
+                'show' => route('site.documents.download', $d), 'edit' => route('document.edit', $d), 'delete' => route('document.destroy', $d), 'confirm' => null,
             ])->render())
             ->rawColumns(['action'])
             ->addIndexColumn()
@@ -59,7 +61,7 @@ class DocumentController extends Controller
 
     public function destroy(Document $document)
     {
-        Upload::delete($document->file);
+        Storage::disk('local')->delete($document->file);
         $document->delete();
         session()->flash('success', 'Dokumen dihapus.');
 
@@ -71,13 +73,18 @@ class DocumentController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'category' => ['required', Rule::in(Document::CATEGORIES)],
+            'visibility' => ['required', Rule::in(array_keys(Document::VISIBILITIES))],
             'file' => ($document ? 'nullable|' : 'required|') . Upload::PDF_RULE,
             'description' => 'nullable|string|max:1000',
             'published_at' => 'nullable|date',
             'sort_order' => 'nullable|integer|min:0',
         ]);
         if ($request->hasFile('file')) {
-            $data['file'] = Upload::store($request->file('file'), 'documents', $document?->file);
+            // disk local: file hanya bisa diunduh lewat route site.documents.download
+            $data['file'] = $request->file('file')->store('documents', 'local');
+            if ($document?->file) {
+                Storage::disk('local')->delete($document->file);
+            }
         }
 
         return ['sort_order' => (int) $request->input('sort_order')] + $data;

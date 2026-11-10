@@ -7,7 +7,7 @@
             </div>
             <div class="card-toolbar gap-2">
                 @if ($blog->status === 'published')<a class="btn btn-sm btn-light" href="{{ route('site.news.show', $blog->slug) }}" target="_blank"><i class="fa fa-external-link-alt"></i> Lihat di situs</a>@endif
-                @can('update', $blog)<a class="btn btn-sm btn-light-success" href="{{ route('blog.edit', $blog) }}"><i class="fa fa-pen"></i> {{ auth()->user()->can('publish', App\Models\Blog::class) && $blog->status === 'review' ? 'Tinjau & terbitkan' : 'Ubah' }}</a>@endcan
+                @can('update', $blog)<a class="btn btn-sm btn-light-success" href="{{ route('blog.edit', $blog) }}"><i class="fa fa-pen"></i> {{ auth()->user()->can('publish', App\Models\Blog::class) && $blog->status === 'draft' ? 'Tinjau & terbitkan' : 'Ubah' }}</a>@endcan
                 <a class="btn btn-sm btn-light-primary" href="{{ route('blog.index') }}"><i class="fa fa-arrow-left"></i> Kembali</a>
             </div>
         </div>

@@ -12,7 +12,10 @@ class SettingSeeder extends Seeder
     {
         Setting::firstOrCreate([], [
             'site_name' => 'Rumah Mantaaba Sigaling',
+            'foundation_name' => 'Yayasan Mantaaba',
             'tagline' => 'Wadah pembinaan berbasis realitas kehidupan: akselerasi karakter & vokasi bisnis untuk pemuda, menuju masyarakat Indonesia yang transparan pajak.',
+            'meta_description' => 'Rumah Mantaaba Sigaling (Yayasan Mantaaba): inkubasi karakter & vokasi bisnis 6 bulan, berasrama dan gratis, bagi pemuda lulusan SMA/sederajat.',
+            'assessment_weights' => Setting::DEFAULT_WEIGHTS,
         ]);
     }
 }

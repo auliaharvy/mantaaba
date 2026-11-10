@@ -9,6 +9,7 @@
                 ['data' => 'DT_RowIndex', 'title' => 'No.'],
                 ['data' => 'title', 'title' => 'Judul'],
                 ['data' => 'category', 'title' => 'Kategori'],
+                ['data' => 'visibility', 'title' => 'Akses'],
                 ['data' => 'published_at', 'title' => 'Terbit', 'searchable' => false],
                 ['data' => 'action', 'title' => ''],
             ]" />

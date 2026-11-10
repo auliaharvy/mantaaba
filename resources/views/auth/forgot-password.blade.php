@@ -1,86 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<!--begin::Head-->
-
-<head>
-    <title>Lupa Password | {{ config('app.name') }}</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="Rumah Mantaaba Sigaling: pembinaan karakter &amp; vokasi bisnis pemuda menuju masyarakat Indonesia yang transparan pajak." />
-    <meta name="keywords" content="Rumah Mantaaba Sigaling, Yayasan Mantaaba, pendidikan gratis, vokasi bisnis, asrama, transparansi pajak" />
-    <meta name="viewport" content="width= device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta property="og:locale" content="id, in" />
-    <meta property="og:site_name" content="{{ config('app.name') }}" />
-    <link rel="shortcut icon" href="{{ asset('media/logos/favicon-32.png') }}" />
-    <!--begin::Fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="{{ asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-</head>
-<!--end::Head-->
-<!--begin::Body-->
-
-<body id="kt_body" class="bg-body">
-    <!--begin::Main-->
-    <div class="d-flex flex-column flex-root">
-        <!--begin::Authentication - Password reset -->
-        <div class="d-flex flex-column flex-column-fluid">
-            <!--begin::Content-->
-            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-                <!--begin::Logo-->
-                <a href="#" class="mb-12">
-                    <img alt="Logo" src="{{ App\Models\Setting::current()->imageUrl('logo', 'media/logos/logo-mantaaba-512.jpg') }}" class="h-100px" />
-                </a>
-                <!--end::Logo-->
-                <!--begin::Wrapper-->
-                <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
-                    <!--begin::Form-->
-                    <form class="form w-100" method="POST" action="{{ route('password.email') }}" novalidate="novalidate" id="kt_password_reset_form">
-                        @csrf
-                        <!--begin::Heading-->
-                        <div class="text-center mb-10">
-                            <!--begin::Title-->
-                            <h2 class="text-dark mb-3">Lupa Password ?</h2>
-                            <!--end::Title-->
-                            <!--begin::Link-->
-                            <div class="text-gray-400 fw-bold fs-4">Masukkan emailmu untuk mengubah password.</div>
-                            <!--end::Link-->
-                        </div>
-                        <!--begin::Heading-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <label class="form-label fw-bolder text-gray-900 fs-6">Email</label>
-                            <input class="form-control form-control-solid" type="email" placeholder="" name="email" autocomplete="off" autofocus required />
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Actions-->
-                        <div class="d-flex flex-wrap justify-content-center pb-lg-0">
-                            <button type="button" id="kt_password_reset_submit" class="btn btn-lg btn-color-white me-4" style="background-color: #f7a052!important;">
-                                <span class="indicator-label">Kirim</span>
-                            </button>
-                            <a href="{{ route('login') }}" class="btn btn-lg btn-secondary btn-active-light-dark fw-bolder">Kembali</a>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-                <!--end::Wrapper-->
-            </div>
-            <!--end::Content-->
+<x-site.auth-card title="Lupa Password" subtitle="Masukkan email akun Anda. Kami kirimkan tautan untuk mengatur password baru.">
+    <form method="POST" action="{{ route('password.email') }}" novalidate>
+        @csrf
+        <x-site.input name="email" label="Email" type="email" required autocomplete="email" autofocus />
+        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            <x-site.button :href="route('login')" variant="outline">Kembali</x-site.button>
+            <x-site.button>Kirim Tautan</x-site.button>
         </div>
-        <!--end::Authentication - Password reset-->
-    </div>
-    <!--end::Main-->
-    <!--begin::Javascript-->
-    <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="{{ asset('plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--end::Javascript-->
-</body>
-<!--end::Body-->
-
-</html>
+    </form>
+</x-site.auth-card>

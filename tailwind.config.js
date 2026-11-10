@@ -1,7 +1,9 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
-// Design token PRD 7.1 (dari logo Mantaaba); mulai M1 dibaca dari CSS variable Setting
+// Design token PRD 7.1: warna dari CSS variable yang ditulis layout dari Setting, sehingga perubahan warna berlaku tanpa build ulang.
+const token = (name) => `rgb(var(--color-${name}) / <alpha-value>)`;
+
 export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/tailwind.blade.php',
@@ -10,28 +12,32 @@ export default {
         './resources/views/layouts/**/*.blade.php',
         './resources/views/auth/**/*.blade.php',
         './resources/views/dashboard/**/*.blade.php',
+        './config/mantaaba.php',
     ],
 
     theme: {
         extend: {
             colors: {
                 brand: {
-                    primary: '#5b3a1f', // cokelat tua: tombol, header, judul
-                    'primary-hover': '#3e2714',
-                    secondary: '#8a2d1e', // marun: tautan & aksen (kontras >= 4.5:1 di atas putih)
-                    gold: '#c9a04a', // emas: dekoratif saja, bukan teks di atas putih
+                    primary: token('primary'), // cokelat tua: tombol, header, judul
+                    'primary-hover': token('primary-dark'),
+                    gold: token('secondary'), // emas: dekoratif saja, bukan teks di atas putih
+                    accent: token('accent'), // marun: tautan & CTA sekunder (kontras >= 4.5:1 di atas putih)
+                    'section-bg': token('surface'), // krem
                     heading: '#2b1d12',
                     text: '#2b1d12',
                     muted: '#6e5b4b',
                     'footer-border': '#4a3018',
-                    'section-bg': '#f7f1e6',
                     border: '#e8dccb',
                     surface: '#ffffff',
                 },
             },
             fontFamily: {
-                sans: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['Cinzel', ...defaultTheme.fontFamily.serif],
+                arabic: ['Amiri', ...defaultTheme.fontFamily.serif],
             },
+            borderRadius: { site: '10px' },
         },
     },
 

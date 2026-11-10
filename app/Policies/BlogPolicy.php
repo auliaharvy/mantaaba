@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-/** PRD 8.6: penulis menulis -> review; editor/admin PD menerbitkan; penulis hanya mengedit saat draft/review. */
+/** PRD 9.1.4: penulis menyimpan draf; pemegang news-publish menerbitkan; penulis hanya mengedit drafnya. */
 class BlogPolicy extends OwnedPolicy
 {
     protected string $module = 'news';

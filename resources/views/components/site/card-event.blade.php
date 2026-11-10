@@ -11,10 +11,10 @@
     </a>
     <div class="flex flex-1 flex-col p-5">
         <div class="mb-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
-            <span class="rounded bg-brand-section-bg px-2 py-0.5 text-brand-secondary">{{ App\Models\Event::TYPES[$event->type] }}</span>
+            <span class="rounded bg-brand-section-bg px-2 py-0.5 text-brand-accent">{{ App\Models\Event::TYPES[$event->type] }}</span>
             <span class="rounded bg-gray-100 px-2 py-0.5 text-gray-700">{{ App\Models\Event::MODES[$event->mode] }}</span>
         </div>
-        <h3 class="text-lg"><a href="{{ route('site.training.show', $event->slug) }}" class="hover:text-brand-secondary">{{ $event->title }}</a></h3>
+        <h3 class="text-lg"><a href="{{ route('site.training.show', $event->slug) }}" class="hover:text-brand-accent">{{ $event->title }}</a></h3>
         <p class="mt-2 flex items-center gap-2 text-sm text-gray-700"><x-site.icon name="calendar" class="h-4 w-4 text-brand-primary" />
             <time datetime="{{ $event->starts_at?->toIso8601String() }}">{{ $event->starts_at?->translatedFormat('l, j M Y · H:i') }}</time></p>
         <p class="mt-1 text-sm text-gray-600">

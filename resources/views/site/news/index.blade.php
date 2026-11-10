@@ -17,7 +17,7 @@
                 <label for="q" class="mb-2 block font-bold text-brand-heading">Cari</label>
                 <div class="flex gap-2">
                     <input id="q" name="q" value="{{ $q }}" class="w-full rounded-md border-brand-border text-sm focus:border-brand-primary focus:ring-brand-primary" placeholder="Judul atau isi">
-                    <button class="rounded-md bg-brand-secondary px-3 text-white" aria-label="Cari"><x-site.icon name="search" class="h-4 w-4" /></button>
+                    <button class="rounded-md bg-brand-accent px-3 text-white" aria-label="Cari"><x-site.icon name="search" class="h-4 w-4" /></button>
                 </div>
             </form>
             @if ($categories->isNotEmpty())
@@ -25,7 +25,7 @@
                     <h2 class="mb-3 text-base">Kategori</h2>
                     <ul class="space-y-1 text-sm">
                         @foreach ($categories as $c)
-                            <li><a href="{{ route('site.news.category', $c->slug) }}" class="flex justify-between rounded px-2 py-1 {{ $category?->is($c) ? 'bg-brand-section-bg font-bold text-brand-secondary' : 'hover:bg-brand-section-bg' }}">{{ $c->name }} <span class="text-gray-500">{{ $c->blogs_count }}</span></a></li>
+                            <li><a href="{{ route('site.news.category', $c->slug) }}" class="flex justify-between rounded px-2 py-1 {{ $category?->is($c) ? 'bg-brand-section-bg font-bold text-brand-accent' : 'hover:bg-brand-section-bg' }}">{{ $c->name }} <span class="text-gray-500">{{ $c->blogs_count }}</span></a></li>
                         @endforeach
                     </ul>
                 </nav>

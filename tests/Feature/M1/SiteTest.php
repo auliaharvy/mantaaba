@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\M2;
+namespace Tests\Feature\M1;
 
 use App\Models\ContactMessage;
 use App\Models\Document;
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-/** PRD 8 & 9.1: situs publik + CMS (desain blok menyusul di M1) */
+/** PRD 8 & 9.1: situs publik + konten CMS (lihat juga CmsTest untuk blok, menu, dan cache). */
 class SiteTest extends TestCase
 {
     use RefreshDatabase;
@@ -39,7 +39,8 @@ class SiteTest extends TestCase
     public function test_every_public_page_renders()
     {
         $gallery = Gallery::create(['title' => 'Panen Perdana', 'published_at' => now()]);
-        $uris = ['/', '/profil', '/galeri', "/galeri/{$gallery->slug}", '/dokumen', '/kontak', '/kebijakan-privasi',
+        $uris = ['/', '/tentang', '/program', '/kurikulum', '/ekosistem', '/ekosistem/' . \App\Models\BusinessUnit::value('slug'), '/galeri', "/galeri/{$gallery->slug}",
+            '/dokumen', '/pendaftaran', '/donasi', '/kontak', '/kebijakan-privasi', '/login', '/forgot-password',
             '/agenda', '/agenda?tab=selesai', '/agenda/' . \App\Models\Event::value('slug'), '/berita', '/berita/' . \App\Models\Blog::published()->value('slug')];
 
         foreach ($uris as $uri) {
@@ -48,43 +49,37 @@ class SiteTest extends TestCase
                 $this->assertStringNotContainsStringIgnoringCase($old, $html, "{$uri} masih memuat '{$old}'");
             }
         }
-        $this->get('/halaman/profil')->assertRedirect(route('site.profile'));
+        $this->get('/home')->assertRedirect('/');
         $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml')->assertSee(route('site.gallery.show', $gallery->slug), false);
         $this->get('/robots.txt')->assertOk()->assertSee('Sitemap: ' . route('site.sitemap'), false);
         $this->get('/galeri/tidak-ada')->assertNotFound();
-        foreach (['/pengurus', '/pengurus-cabang', '/keanggotaan', '/forum', '/jurnal', '/syarat-ketentuan'] as $removed) {
+        foreach (['/pengurus', '/pengurus-cabang', '/keanggotaan', '/forum', '/jurnal', '/syarat-ketentuan', '/profil', '/halaman/profil'] as $removed) {
             $this->get($removed)->assertNotFound();
         }
     }
 
-    public function test_pengurus_changes_profile_page_and_it_shows_immediately()
+    public function test_pengurus_changes_rich_page_and_it_shows_immediately()
     {
-        $page = Page::where('slug', 'profil')->firstOrFail();
-        $this->get('/profil'); // isi cache
+        $page = Page::where('slug', 'kebijakan-privasi')->firstOrFail();
+        $this->get('/kebijakan-privasi'); // isi cache
 
         $this->actingAs($this->user('pengurus@mail.com'))->patch(route('page.update', $page), [
-            'title' => 'Profil', 'body' => '<p>Asrama, kebun, kolam, dan dapur dikelola siswa.</p><script>alert(1)</script>', 'is_published' => 1,
+            'title' => 'Kebijakan Privasi', 'template' => 'rich', 'body' => '<p>Data anak hanya untuk pembinaan.</p><script>alert(1)</script>',
         ])->assertSessionHasNoErrors();
 
-        $this->get('/profil')->assertOk()->assertSee('Asrama, kebun, kolam, dan dapur dikelola siswa.')->assertDontSee('alert(1)', false);
+        $this->get('/kebijakan-privasi')->assertOk()->assertSee('Data anak hanya untuk pembinaan.')->assertDontSee('alert(1)', false);
+        $this->assertTrue($page->fresh()->is_published, 'halaman sistem selalu terbit');
         $this->assertSame($this->user('pengurus@mail.com')->id, $page->fresh()->updated_by);
         $this->actingAs($this->user('anggota@mail.com'))->get(route('page.edit', $page))->assertForbidden();
-    }
-
-    public function test_fixed_pages_cannot_be_deleted()
-    {
-        $page = Page::first();
-        $this->actingAs($this->user('superadmin@mail.com'))->delete("/dashboard/page/{$page->slug}")->assertStatus(405);
-        $this->assertSame(3, Page::count());
     }
 
     public function test_setting_form_updates_site_identity()
     {
         Storage::fake('public');
 
-        $this->actingAs($this->user('pengurus@mail.com'))->patch(route('setting.update'), [
+        $this->actingAs($this->user('pengurus@mail.com'))->patch(route('setting.update'), CmsTest::settingPayload([
             'site_name' => 'Rumah Mantaaba Uji', 'email' => 'info@contoh.id', 'logo' => UploadedFile::fake()->image('logo.png', 400, 400),
-        ])->assertSessionHasNoErrors();
+        ]))->assertSessionHasNoErrors();
 
         $setting = Setting::current();
         Storage::disk('public')->assertExists($setting->logo);
@@ -95,17 +90,17 @@ class SiteTest extends TestCase
     public function test_open_graph_preview_uses_page_title_and_image()
     {
         Storage::fake('public');
-        $page = Page::where('slug', 'profil')->first();
+        $page = Page::where('slug', 'tentang')->first();
         $this->actingAs($this->user('pengurus@mail.com'))->patch(route('page.update', $page), [
-            'title' => 'Profil', 'meta_title' => 'Profil Rumah Mantaaba Sigaling', 'meta_description' => 'Sejarah dan visi misi.',
+            'title' => 'Tentang Kami', 'template' => 'blocks', 'meta_title' => 'Profil Rumah Mantaaba Sigaling', 'meta_description' => 'Sejarah dan visi misi.',
             'cover' => UploadedFile::fake()->image('cover.jpg', 1200, 630), 'is_published' => 1,
         ])->assertSessionHasNoErrors();
 
-        $html = $this->get('/profil')->assertOk()->getContent();
+        $html = $this->get('/tentang')->assertOk()->getContent();
         $this->assertStringContainsString('<meta property="og:title" content="Profil Rumah Mantaaba Sigaling">', $html);
         $this->assertStringContainsString('<meta property="og:description" content="Sejarah dan visi misi.">', $html);
         $this->assertMatchesRegularExpression('#<meta property="og:image" content="[^"]+/storage/pages/[^"]+\.jpg">#', $html);
-        $this->assertStringContainsString('<link rel="canonical" href="' . route('site.profile') . '">', $html);
+        $this->assertStringContainsString('<link rel="canonical" href="' . route('site.page', 'tentang') . '">', $html);
     }
 
     public function test_contact_form_honeypot_notification_and_throttle()
@@ -133,16 +128,12 @@ class SiteTest extends TestCase
         $this->actingAs($this->user('anggota@mail.com'))->get(route('contact-message.index'))->assertForbidden();
     }
 
-    public function test_home_stats_come_from_database_and_cache_is_flushed_on_change()
+    public function test_home_latest_news_and_cache_is_flushed_on_change()
     {
-        $html = $this->get('/')->assertOk()->getContent();
-        $news = \App\Models\Blog::published()->count();
-        $this->assertStringContainsString(">{$news}</p>", $html);
-        $this->assertTrue(Cache::has('site.stats'));
+        $this->get('/')->assertOk()->assertSee(\App\Models\Blog::published()->latest('published_at')->value('title'));
 
-        \App\Models\Blog::factory()->create(['user_id' => $this->user('pengurus@mail.com')->id, 'published_at' => now()->subMinute()]);
-        $this->assertFalse(Cache::has('site.stats'), 'cache statistik dibersihkan saat berita berubah');
-        $this->assertStringContainsString('>' . ($news + 1) . '</p>', $this->get('/')->getContent());
+        \App\Models\Blog::factory()->create(['title' => 'Panen Kangkung Perdana', 'user_id' => $this->user('pengurus@mail.com')->id, 'published_at' => now()->subMinute()]);
+        $this->get('/')->assertSee('Panen Kangkung Perdana');
     }
 
     public function test_slider_upload_limits_and_old_file_removed()
@@ -164,7 +155,6 @@ class SiteTest extends TestCase
         $this->actingAs($editor)->patch(route('slider.update', $slider), ['title' => 'Raker 2026', 'image' => UploadedFile::fake()->image('b.jpg'), 'is_active' => 1]);
         Storage::disk('public')->assertMissing($old);
         Storage::disk('public')->assertExists($slider->fresh()->image);
-        $this->get('/')->assertSee('Raker 2026');
 
         $this->actingAs($editor)->delete(route('slider.destroy', $slider))->assertNoContent();
         Storage::disk('public')->assertMissing($slider->image);
@@ -191,14 +181,14 @@ class SiteTest extends TestCase
 
     public function test_documents_grouped_and_pdf_only()
     {
-        Storage::fake('public');
+        Storage::fake('local');
         $editor = $this->user('pengurus@mail.com');
 
-        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Laporan Transparansi', 'file' => UploadedFile::fake()->create('x.docx', 10)])
+        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Laporan Transparansi', 'visibility' => 'publik', 'file' => UploadedFile::fake()->create('x.docx', 10)])
             ->assertSessionHasErrors('file');
-        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Bukan Kategori', 'file' => UploadedFile::fake()->create('a.pdf', 10, 'application/pdf')])
+        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Bukan Kategori', 'visibility' => 'publik', 'file' => UploadedFile::fake()->create('a.pdf', 10, 'application/pdf')])
             ->assertSessionHasErrors('category');
-        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Laporan Transparansi', 'published_at' => now()->toDateString(),
+        $this->actingAs($editor)->post(route('document.store'), ['title' => 'Laporan 2026', 'category' => 'Laporan Transparansi', 'visibility' => 'publik', 'published_at' => now()->toDateString(),
             'file' => UploadedFile::fake()->create('laporan.pdf', 100, 'application/pdf')])->assertSessionHasNoErrors();
         Document::create(['title' => 'Pedoman Draf', 'category' => 'Pedoman & Tata Tertib', 'file' => 'documents/x.pdf']);
 

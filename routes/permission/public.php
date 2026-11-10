@@ -1,23 +1,28 @@
 <?php
 
 use App\Http\Controllers\Site\NewsController;
+use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\TrainingController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
-| Situs publik (PRD 8). Header & footer dikelola Menu Manager mulai M1.
+| Situs publik (PRD 8). Header & footer dari Menu Manager; halaman bebas `/{slug}` didaftarkan paling akhir di web.php.
 */
+Route::get('/', [PageController::class, 'home'])->name('site.home');
+
 Route::controller(SiteController::class)->name('site.')->group(function () {
-    Route::get('/', 'home')->name('home');
-    Route::get('profil', 'profile')->name('profile');
+    Route::get('kurikulum', 'curriculum')->name('curriculum');
+    Route::get('ekosistem', 'units')->name('units');
+    Route::get('ekosistem/{slug}', 'unit')->name('units.show');
     Route::get('galeri', 'galleries')->name('gallery');
     Route::get('galeri/{slug}', 'gallery')->name('gallery.show');
     Route::get('dokumen', 'documents')->name('documents');
+    Route::get('dokumen/{document:slug}/unduh', 'downloadDocument')->name('documents.download');
+    Route::get('pendaftaran', 'admission')->name('admission');
+    Route::get('donasi', 'donation')->name('donation');
     Route::get('kontak', 'contact')->name('contact');
     Route::post('kontak', 'sendContact')->middleware('throttle:contact')->name('contact.send');
-    Route::get('kebijakan-privasi', 'privacy')->name('privacy');
-    Route::get('halaman/{slug}', 'page')->name('page');
     Route::get('sitemap.xml', 'sitemap')->name('sitemap');
     Route::get('robots.txt', 'robots')->name('robots');
 });
