@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 # Auth routes
 require __DIR__ . '/auth.php';
 
-# Public routes
-require __DIR__ . '/permission/public.php';
+# Public routes (mode "sedang dibangun" dari Setting Situs)
+Route::middleware('site.construction')->group(__DIR__ . '/permission/public.php');
 
 # Administrator routes
 require __DIR__ . '/permission/administrator.php';
 
 # Halaman CMS bebas (PRD 8): paling akhir agar tidak menutupi route lain
-Route::get('{slug}', [PageController::class, 'show'])->where('slug', '[a-z0-9]+(?:-[a-z0-9]+)*')->name('site.page');
+Route::get('{slug}', [PageController::class, 'show'])->middleware('site.construction')->where('slug', '[a-z0-9]+(?:-[a-z0-9]+)*')->name('site.page');

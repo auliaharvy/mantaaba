@@ -32,6 +32,8 @@ class Setting extends Model
         'report_signatories' => 'array',
         'posting_accounts' => 'array',
         'accounting_start_date' => 'date',
+        'maintenance_mode' => 'boolean',
+        'maintenance_until' => 'date',
         'meal_budget_per_person_day' => 'decimal:2',
     ];
 

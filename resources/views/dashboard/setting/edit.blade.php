@@ -1,6 +1,6 @@
 {{-- Setting situs (PRD 9.1.1) dalam tab; satu form. --}}
 @php
-    $tabs = ['identitas' => 'Identitas', 'tampilan' => 'Tampilan', 'kontak' => 'Kontak & Peta', 'sosmed' => 'Media Sosial', 'donasi' => 'Donasi',
+    $tabs = ['identitas' => 'Identitas', 'pemeliharaan' => 'Mode Dibangun', 'tampilan' => 'Tampilan', 'kontak' => 'Kontak & Peta', 'sosmed' => 'Media Sosial', 'donasi' => 'Donasi',
         'pendaftaran' => 'Pendaftaran', 'akademik' => 'Akademik', 'operasional' => 'Operasional & Akuntansi', 'lainnya' => 'Lainnya'];
     $active = array_key_exists(request('tab'), $tabs) ? request('tab') : 'identitas';
     $weights = old('assessment_weights', $setting->assessment_weights ?? App\Models\Setting::DEFAULT_WEIGHTS);
@@ -144,6 +144,21 @@
                     <div class="col-md-6"><x-dashboard.field name="report_signatories[bendahara]" label="Penandatangan laporan: Bendahara" :value="$setting->report_signatories['bendahara'] ?? null" /></div>
                 </div>
                 <p class="text-muted fs-7">Voucher selalu disetujui oleh orang yang berbeda dari pembuatnya (aturan sistem, tidak bisa dimatikan).</p>
+            </div>
+
+            <div class="tab-pane fade {{ $active === 'pemeliharaan' ? 'show active' : '' }}" id="tab-pemeliharaan" role="tabpanel">
+                <div class="form-check form-switch form-check-custom form-check-solid mb-3">
+                    <input type="hidden" name="maintenance_mode" value="0">
+                    <input class="form-check-input" type="checkbox" name="maintenance_mode" value="1" id="field-maintenance_mode" @checked(old('maintenance_mode', $setting->maintenance_mode))>
+                    <label class="form-check-label fw-semibold" for="field-maintenance_mode">Tampilkan halaman "Sedang Dibangun" kepada pengunjung</label>
+                </div>
+                <p class="text-muted fs-7 mb-8">Semua halaman situs publik (termasuk pendaftaran & donasi) diganti halaman under construction. Login dan dashboard tetap berjalan; pengguna yang sudah login tetap melihat situs untuk meninjau isinya.
+                    <a href="{{ route('site.home') }}" target="_blank" rel="noopener">Lihat situs</a></p>
+                <div class="row">
+                    <div class="col-md-8"><x-dashboard.field name="maintenance_title" label="Judul" :value="$setting->maintenance_title" placeholder="Situs sedang dalam pembangunan" /></div>
+                    <div class="col-md-4"><x-dashboard.field name="maintenance_until" label="Perkiraan selesai (opsional)" type="date" :value="$setting->maintenance_until" /></div>
+                    <div class="col-12"><x-dashboard.field name="maintenance_message" label="Pesan untuk pengunjung" type="textarea" :value="$setting->maintenance_message" help="Kosong = pesan bawaan. Kontak (WhatsApp, email) dan media sosial dari tab Kontak & Media Sosial ikut ditampilkan." /></div>
+                </div>
             </div>
 
             <div class="tab-pane fade {{ $active === 'lainnya' ? 'show active' : '' }}" id="tab-lainnya" role="tabpanel">

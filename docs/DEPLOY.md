@@ -34,6 +34,7 @@ Super Admin dibuat dari `MANTAABA_ADMIN_EMAIL`; password dari `MANTAABA_ADMIN_PA
 
 Setelah itu login sebagai Super Admin (email dari `SuperAdminSeeder`, segera ganti password), lalu:
 1. **Setting Situs**: identitas, kontak, rekening & QRIS donasi, penandatangan laporan, anggaran makan.
+   Selama konten belum siap, nyalakan **Setting Situs → Mode Dibangun**: pengunjung melihat halaman "sedang dibangun" (503), login & dashboard tetap jalan.
 2. **Setting Akuntansi**: periksa akun aturan posting.
 3. **Saldo awal**: catat aset lama di menu Aset (pencatatan "aset lama"), lalu jalankan wizard **Periode → Saldo awal** (akun aset tetap terisi otomatis).
 4. **Pengguna & Hak Akses**: buat akun pengurus dan beri paket (Bendahara, Koordinator, Mentor, Redaksi, Siswa petugas).

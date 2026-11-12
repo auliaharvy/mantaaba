@@ -34,6 +34,12 @@
 </head>
 <body class="flex min-h-screen flex-col">
     <a href="#konten" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-3">Langsung ke konten</a>
+    @if ($site->maintenance_mode && auth()->check())
+        <div class="bg-brand-accent px-4 py-2 text-center text-sm font-medium text-white" role="status">
+            Mode "Sedang Dibangun" aktif: pengunjung yang belum login melihat halaman under construction.
+            @can('update', $site)<a href="{{ route('setting.edit', ['tab' => 'pemeliharaan']) }}" class="ml-1 font-bold underline">Atur</a>@endcan
+        </div>
+    @endif
     <x-site.topbar :site="$site" />
     <x-site.header :site="$site" />
     <main id="konten" class="flex-1">
