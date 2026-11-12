@@ -38,6 +38,31 @@ class SkemaController extends Controller
         return view('dashboard.skema.show', ['skema' => $skema->load('modules.lessons')]);
     }
 
+    /** Unduh skema sebagai template JSON (bisa diedit lalu diimpor kembali). */
+    public function export(Skema $skema)
+    {
+        $this->authorize('view', $skema);
+
+        return response()->json(\App\Services\SkemaImporter::export($skema->load('modules')), 200, [
+            'Content-Disposition' => "attachment; filename=\"skema-{$skema->code}.json\"",
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function import(Request $request, Skema $skema, \App\Services\SkemaImporter $importer)
+    {
+        $this->authorize('update', $skema);
+        $request->validate(['file' => 'required|file|max:2048|mimetypes:application/json,text/plain'], ['file.mimetypes' => 'File harus berformat JSON.']);
+        $data = json_decode((string) file_get_contents($request->file('file')->getRealPath()), true);
+        if (! is_array($data)) {
+            return back()->withErrors(['file' => 'Isi file bukan JSON yang valid.']);
+        }
+        $stats = $importer->import($data, $skema);
+        $message = "Impor selesai: {$stats['created']} unit baru, {$stats['updated']} diperbarui, {$stats['removed']} dihapus.";
+
+        return redirect()->route('skema.show', $skema)->with('success', $message)
+            ->with('warning', $stats['kept'] ? 'Unit lama dipertahankan karena sudah punya materi: ' . implode('; ', $stats['kept']) . '. Pindahkan materinya lalu hapus unit itu bila tidak dipakai.' : null);
+    }
+
     public function edit(Skema $skema)
     {
         return view('dashboard.skema.form', compact('skema'));

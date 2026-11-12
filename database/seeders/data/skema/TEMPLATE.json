@@ -1,0 +1,50 @@
+{
+  "$schema_note": "Template skema Rumah Mantaaba. Salin file ini (mis. SIA.json), isi, lalu impor lewat Dashboard › Skema & Materi › (skema) › Impor JSON, atau `php artisan skema:import path/SIA.json`. Unit dicocokkan berdasarkan kode: unit yang sudah ada diperbarui (materi tetap), unit baru ditambahkan. Bobot dimensi dalam persen. dimension: knowledge | skill | character | social_cohesion.",
+  "code": "SIA",
+  "name": "Sistem Informasi Akuntansi",
+  "title": "Judul lengkap skema sesuai dokumen standar kompetensi",
+  "month_label": "Bulan 4",
+  "objectives": "Tujuan utama skema (dari Pemetaan Standar Kompetensi).",
+  "competency_map": [
+    { "key_function": "Fungsi kunci", "main_function": "Fungsi utama", "basic_functions": ["Fungsi dasar (opsional)"], "units": ["MTB-SIA-0001"] }
+  ],
+  "units": [
+    {
+      "code": "MTB-SIA-0001",
+      "title": "Judul unit kompetensi",
+      "description": "Deskripsi unit: pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Elemen kompetensi 1",
+          "criteria": [
+            { "no": "1.1", "text": "Kriteria unjuk kerja (tindakan teramati)." },
+            { "no": "1.2", "text": "Kriteria unjuk kerja berikutnya." }
+          ]
+        }
+      ],
+      "assessment": [
+        { "dimension": "knowledge", "label": "Knowledge", "weight": 20, "indicator": "Indikator penilaian (rujuk KUK).", "evidence": "Bukti/metode penilaian." },
+        { "dimension": "skill", "label": "Skill", "weight": 25, "indicator": "", "evidence": "" },
+        { "dimension": "character", "label": "Character", "weight": 30, "indicator": "", "evidence": "" },
+        { "dimension": "social_cohesion", "label": "Social Cohesion / Team Contribution", "weight": 25, "indicator": "", "evidence": "" }
+      ],
+      "context": {
+        "Skenario praktik": "",
+        "Portofolio/bukti wajib": "",
+        "Aspek kritis": "",
+        "Prasyarat dan alat": "",
+        "Kondisi asesmen": ""
+      }
+    }
+  ],
+  "final_portfolio": [
+    { "no": "01", "output": "Keluaran akhir portofolio", "units": "MTB-SIA-0001" }
+  ],
+  "assessment_guide": [
+    { "topic": "Ambang kelulusan", "text": "Panduan penilaian/rubrik yang berlaku untuk seluruh unit." }
+  ],
+  "notes": [
+    { "topic": "Status rujukan SKKNI", "text": "Catatan status standar." }
+  ]
+}

@@ -10,9 +10,9 @@ class Skema extends Model
 {
     use FlushesSiteCache; // /kurikulum & blok skemas
 
-    protected $fillable = ['code', 'name', 'month_label', 'description', 'objectives', 'character_matrix', 'pass_score', 'certificate_template', 'certificate_signatories', 'is_public', 'sort_order'];
+    protected $fillable = ['code', 'name', 'title', 'standard', 'month_label', 'description', 'objectives', 'character_matrix', 'pass_score', 'certificate_template', 'certificate_signatories', 'is_public', 'sort_order'];
 
-    protected $casts = ['character_matrix' => 'array', 'certificate_signatories' => 'array', 'is_public' => 'boolean'];
+    protected $casts = ['standard' => 'array', 'character_matrix' => 'array', 'certificate_signatories' => 'array', 'is_public' => 'boolean'];
 
     public function modules()
     {

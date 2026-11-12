@@ -1,0 +1,1612 @@
+{
+  "$schema_note": "Template skema Rumah Mantaaba. Satu file = satu skema; units = unit kompetensi (modul). Impor lewat Dashboard › Skema › Impor JSON atau `php artisan skema:import`.",
+  "code": "FND",
+  "name": "Fundamental (12 Jurus)",
+  "title": "Skill Fundamental dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+  "month_label": "Bulan 1",
+  "objectives": "Mampu melakukan komunikasi bisnis secara aktif, efektif dan efisien serta mampu memahami keseimbangan matematika bisnis dasar yang bersifat umum",
+  "competency_map": [
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Mendengar",
+      "basic_functions": [
+        "Mendengar Aktif (Hadir Penuh/Fokus)",
+        "Mendengar Efektif (Validasi)",
+        "Mendengar Efisien (Tepat Konteks)"
+      ],
+      "units": [
+        "MTB-F-0001"
+      ]
+    },
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Membaca",
+      "basic_functions": [
+        "Membaca Aktif (Pencarian Informasi Menyeluruh)",
+        "Membaca Efektif (Pemahaman Esensi/Makna)",
+        "Membaca Efisien (Kecepatan Memindai Data Relevan)"
+      ],
+      "units": [
+        "MTB-F-0002"
+      ]
+    },
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Memahami",
+      "basic_functions": [
+        "Memahami Aktif (Keterlibatan Kognitif Penuh)",
+        "Memahami Efektif (Penyelarasan Maksud & Tujuan)",
+        "Memahami Efisien (Cepat Menangkap Inti Persoalan)"
+      ],
+      "units": [
+        "MTB-F-0003"
+      ]
+    },
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menganalisis",
+      "basic_functions": [
+        "Menganalisis Aktif (Eksplorasi Akar Masalah)",
+        "Menganalisis Efektif (Uji Kelayakan Solusi)",
+        "Menganalisis Efisien (Penggunaan Metode Tercepat)"
+      ],
+      "units": [
+        "MTB-F-0004"
+      ]
+    },
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menyampaikan Secara Lisan",
+      "basic_functions": [
+        "Menyampaikan Secara Lisan Aktif (Artikulasi Jelas & Tegas)",
+        "Menyampaikan Secara Lisan Efektif (Pesan Tersampaikan & Diterima)",
+        "Menyampaikan Secara Lisan Efisien (Singkat, Padat, & Bermakna)"
+      ],
+      "units": [
+        "MTB-F-0005"
+      ]
+    },
+    {
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menyampaikan Secara Tertulis",
+      "basic_functions": [
+        "Menyampaikan Secara Tertulis Aktif (Penulisan Deskriptif & Proaktif)",
+        "Menyampaikan Secara Tertulis Efektif (Struktur Kalimat Logis)",
+        "Menyampaikan Secara Tertulis Efisien (Ringkas & Tepat Sasaran)"
+      ],
+      "units": [
+        "MTB-F-0006"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Tambah",
+      "basic_functions": [
+        "Melakukan Operasi Matemmatika Pertambahan Aktif",
+        "Tambah Efektif (Kebenaran Hasil Kalkulasi)",
+        "Tambah Efisien (Penggunaan Alat/Metode Cepat)"
+      ],
+      "units": [
+        "MTB-F-0007"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Kurang",
+      "basic_functions": [
+        "Kurang Aktif",
+        "Kurang Efektif (Kebenaran Hasil Kalkulasi)",
+        "Kurang Efisien (Penggunaan Alat/Metode Cepat)"
+      ],
+      "units": [
+        "MTB-F-0008"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Kali",
+      "basic_functions": [
+        "Kali Aktif",
+        "Kali Efektif (Kebenaran Hasil Kalkulasi)",
+        "Kali Efisien (Penggunaan Alat/Metode Cepat)"
+      ],
+      "units": [
+        "MTB-F-0009"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Bagi",
+      "basic_functions": [
+        "Bagi Aktif",
+        "Bagi Efektif (Penggunaan Alat/Metode Cepat)",
+        "Bagi Efisien (Kebenaran Hasil Kalkulasi)"
+      ],
+      "units": [
+        "MTB-F-0010"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Persamaan",
+      "basic_functions": [
+        "Persamaan Aktif",
+        "Persamaan Efektif (Penggunaan Alat/Metode Cepat)",
+        "Persamaan Efisien (Kebenaran Hasil Kalkulasi)"
+      ],
+      "units": [
+        "MTB-F-0011"
+      ]
+    },
+    {
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Persentase",
+      "basic_functions": [
+        "PersentaseAktif",
+        "Persentase Efektif (Kebenaran Hasil Kalkulasi)",
+        "Persentase Efisien (Penggunaan Alat/Metode Cepat)"
+      ],
+      "units": [
+        "MTB-F-0012"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "code": "MTB-F-0001",
+      "title": "Mendengarkan secara aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk menerima, menyerap, mengkonfirmasi, dan memproses informasi lisan (audio / Audio Visual) secara fokus, akurat, serta tepat konteks. Hal ini bertujuan untuk mendukung transparansi, keharusan validasi data (internal control), serta kelancaran efisiensi operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan proses penerimaan informasi lisan (audio / audio visual)",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Tujuan dan konteks komunikasi (agenda rapat/instruksi kerja) diidentifikasi sesuai kebutuhan operasional."
+            },
+            {
+              "no": "1.2",
+              "text": "Informasi awal dan materi pendukung dipahami secara komprehensif sebelum proses komunikasi berlangsung."
+            },
+            {
+              "no": "1.3",
+              "text": "Perangkat kerja dan media pendukung (buku catatan/perangkat digital) disiapkan untuk dokumentasi."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap mental yang objektif dan kehadiran penuh (full presence) disiapkan untuk memastikan penyerapan informasi yang maksimal."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses mendengarkan secara aktif dan empatik",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Perhatian penuh diberikan kepada pembicara tanpa melakukan interupsi yang tidak konstruktif."
+            },
+            {
+              "no": "2.2",
+              "text": "Bahasa tubuh dan respons nonverbal yang profesional digunakan untuk menunjukkan empati dan atensi."
+            },
+            {
+              "no": "2.3",
+              "text": "Poin-poin instruksi, data krusial, dan ide gagasan dicatat secara sistematis dan relevan."
+            },
+            {
+              "no": "2.4",
+              "text": "Keterbukaan pikiran dijaga untuk menerima sudut pandang atau instruksi baru dari berbagai pihak."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan informasi (Mendengar Efektif)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Pertanyaan klarifikasi diajukan secara asertif untuk memastikan instruksi dipahami dengan benar dan mencegah miskomunikasi."
+            },
+            {
+              "no": "3.2",
+              "text": "Inti pembahasan dirangkum ulang (paraphrasing) dan dikonfirmasikan kepada pembicara guna memvalidasi keakuratan data (anti-manipulasi/asumsi)."
+            },
+            {
+              "no": "3.3",
+              "text": "Potensi masalah atau bias informasi diidentifikasi secara proaktif berdasarkan hasil pembahasan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti hasil komunikasi secara kolaboratif (Mendengar Efisien)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Informasi hasil komunikasi dianalisis dan dipilah berdasarkan skala prioritas serta urgensi operasional."
+            },
+            {
+              "no": "4.2",
+              "text": "Kesimpulan hasil pembahasan didokumentasikan secara ringkas, jelas, dan terstruktur sesuai standar organisasi."
+            },
+            {
+              "no": "4.3",
+              "text": "Hasil keputusan atau instruksi kerja didistribusikan secara transparan kepada pihak/anggota tim terkait guna mendukung sinergi dan efisiensi kelompok."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan tujuan mendengar, perbedaan mendengar aktif/efektif/efisien, serta fungsi klarifikasi dan parafrasa; memilih respons tepat untuk instruksi ambigu. (KUK 1.1–1.2, 3.1–3.3)",
+          "evidence": "Tes lisan/tulis berbasis situasi; jawaban dan alasan."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyiapkan agenda dan catatan; mencatat tujuan, data, tugas, PIC dan tenggat; mengklarifikasi informasi ambigu; memparafrasakan untuk konfirmasi; menyusun prioritas dan ringkasan tindak lanjut tanpa mengubah maksud. (KUK 1.1–1.3, 2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Observasi pengarahan/rapat; catatan, konfirmasi dan ringkasan tindak lanjut."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menjaga perhatian tanpa aktivitas lain yang mengganggu; memberi giliran bicara; mencatat fakta dan menandai ketidakpastian; menerima koreksi serta memperbaiki catatan tanpa menutupi kesalahan. (KUK 1.4, 2.1–2.4, 3.2)",
+          "evidence": "Observasi perilaku bertanggal dan riwayat revisi catatan."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengundang klarifikasi dari rekan; membagikan ringkasan terverifikasi hanya kepada pihak terkait; memastikan rekan mampu menjelaskan kembali pembagian tugas dan tenggat. (KUK 2.2, 2.4, 4.3)",
+          "evidence": "Observasi koordinasi, bukti distribusi dan teach-back rekan."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0002",
+      "title": "Membaca dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien.",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mempersiapkan, mengeksekusi, memvalidasi, dan menindaklanjuti pembacaan dokumen/data bisnis tertulis secara cermat, cepat, dan objektif. Hal ini bertujuan untuk memastikan akurasi data (internal control), transparansi informasi, serta efisiensi kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan proses penerimaan data tertulis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Jenis dan format dokumen bisnis (laporan, SOP, korespondensi, instruksi tertulis) diidentifikasi sesuai kebutuhan operasional."
+            },
+            {
+              "no": "1.2",
+              "text": "Tujuan membaca dan konteks penggunaan informasi ditentukan secara spesifik sebelum proses penelaahan dokumen."
+            },
+            {
+              "no": "1.3",
+              "text": "Perangkat kerja dan media baca (cetak/digital) disiapkan untuk mendukung pemindaian dan analisis data."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat, teliti, dan terfokus disiapkan untuk memastikan penyerapan informasi tertulis secara menyeluruh."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses membaca secara aktif dan komprehensif (Active Reading)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Teknik pemindaian cepat (skimming/scanning) diterapkan untuk mengidentifikasi ide utama dan struktur dokumen secara efisien."
+            },
+            {
+              "no": "2.2",
+              "text": "Data kuantitatif, poin instruksional, dan informasi krusial diidentifikasi serta ditandai secara sistematis."
+            },
+            {
+              "no": "2.3",
+              "text": "Istilah teknis, regulasi, atau variabel bisnis yang kompleks ditelaah untuk memastikan pemahaman kontekstual yang mendalam."
+            },
+            {
+              "no": "2.4",
+              "text": "Catatan ringkas (annotation/summary) dibuat secara objektif untuk merekam poin-poin utama dokumen."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan menganalisis keakuratan data dokumen (Effective Reading)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Konsistensi data, kelogisan argumen, dan keabsahan sumber informasi tertulis diverifikasi secara cermat (internal control)."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi anomali, bias, atau ketidaksesuaian data dalam dokumen diidentifikasi secara proaktif untuk mencegah risiko operasional."
+            },
+            {
+              "no": "3.3",
+              "text": "Keterkaitan antar-informasi tertulis divalidasi dengan standar operasional atau regulasi bisnis yang berlaku."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendistribusikan hasil pembacaan (Efficient Reading)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Intisari dokumen disarikan menjadi informasi yang siap guna (actionable insights) sesuai skala prioritas operasional."
+            },
+            {
+              "no": "4.2",
+              "text": "Kesimpulan dan rekomendasi tertulis disusun secara terstruktur, ringkas, dan jelas."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi krusial hasil pembacaan didistribusikan secara transparan kepada anggota tim terkait guna mendukung sinergi dan efisiensi kelompok."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan tujuan membaca, penggunaan skimming/scanning dan pembacaan rinci, cara memeriksa sumber/versi dokumen, serta perbedaan fakta dan pendapat. (KUK 1.1–1.2, 2.1, 2.3, 3.1)",
+          "evidence": "Tes pemilihan teknik baca dan pemeriksaan sumber."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menetapkan tujuan dan menyiapkan dokumen; menemukan instruksi, angka, satuan dan tenggat; memberi penanda sumber; membuat ringkasan; menemukan ketidaksesuaian yang disisipkan dan memeriksanya terhadap SOP sebelum memberi rekomendasi. (KUK 1.1–1.3, 2.1–2.4, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Dokumen beranotasi, daftar anomali, ringkasan dan rekomendasi."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Membaca bagian relevan sampai tuntas; tidak mengubah kutipan atau angka; menandai istilah yang belum dimengerti; mengakui kesalahan interpretasi dan memperbaikinya dengan rujukan. (KUK 1.4, 2.3–2.4, 3.1–3.2)",
+          "evidence": "Observasi proses dan jejak koreksi interpretasi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Membagikan intisari beserta lokasi rujukan kepada pihak terkait; menjelaskan bagian sulit kepada rekan; mengonfirmasi bahwa informasi yang diteruskan cukup untuk tugas tim. (KUK 4.1–4.3)",
+          "evidence": "Bukti berbagi rujukan dan penjelasan ulang oleh rekan."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0003",
+      "title": "Memahami dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mempersiapkan, mengolah, menyelaraskan, dan menindaklanjuti pemahaman atas instruksi, prosedur, serta data operasional bisnis. Hal ini bertujuan untuk menciptakan kesamaan persepsi (alignment), mencegah kesalahan eksekusi (internal control), serta mendorong efisiensi kerja tim secara akuntabel.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan proses pemahaman instruksi dan data operasional",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Konteks instruksi kerja, batasan operasional, dan tujuan bisnis diidentifikasi sesuai prosedur organisasi."
+            },
+            {
+              "no": "1.2",
+              "text": "Kerangka acuan (frame of reference) dan Standar Operasional Prosedur (SOP) relevan dipelajari secara proaktif."
+            },
+            {
+              "no": "1.3",
+              "text": "Keterlibatan kognitif penuh (full cognitive engagement) dan sikap objektif disiapkan untuk mengolah informasi tanpa bias."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses pemahaman secara aktif (Active Understanding)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Maksud, sasaran utama, dan prioritas dari instruksi atau data bisnis diekstraksi secara terstruktur."
+            },
+            {
+              "no": "2.2",
+              "text": "Hubungan sebab-akibat antar-komponen instruksi dipetakan untuk memahami dampak operasional secara menyeluruh."
+            },
+            {
+              "no": "2.3",
+              "text": "Asumsi yang tidak jelas atau potensi hambatan pemahaman diidentifikasi dan diklarifikasi secara asertif kepada pihak terkait."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menyelaraskan pemahaman secara efektif (Effective Understanding)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Keselarasan persepsi (alignment) dikonfirmasi kepada atasan dan rekan kerja untuk memastikan kesamaan pemahaman target operasional."
+            },
+            {
+              "no": "3.2",
+              "text": "Batasan wewenang, alokasi sumber daya, dan tanggung jawab eksekusi divalidasi sesuai standar kepatuhan organisasi."
+            },
+            {
+              "no": "3.3",
+              "text": "Potensi risiko eksekusi akibat ketidaksesuaian pemahaman dianalisis dan dimitigasi secara proaktif."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Mengaplikasikan pemahaman secara efisien dalam kerja tim (Efficient Understanding)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Inti persoalan operasional diisolasi secara cepat guna menentukan langkah penyelesaian yang tepat sasaran."
+            },
+            {
+              "no": "4.2",
+              "text": "Pemahaman yang telah diselaraskan diterjemahkan menjadi rencana aksi (action plan) operasional yang jelas."
+            },
+            {
+              "no": "4.3",
+              "text": "Pemahaman instruksi ditransmisikan kepada anggota tim terkait dengan cara yang mudah dipahami guna menjaga kelancaran dan efisiensi kelompok."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan hubungan tujuan, instruksi, batasan, wewenang dan hasil kerja; membedakan fakta, asumsi serta informasi yang perlu diklarifikasi. (KUK 1.1–1.2, 2.1–2.3, 3.2)",
+          "evidence": "Pertanyaan kasus instruksi ambigu; jawaban beralasan."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Mengurai instruksi menjadi sasaran, langkah, sumber daya dan batas wewenang; memetakan sebab-akibat; mengklarifikasi ambiguitas; memvalidasi persepsi dan risiko; menyusun rencana aksi dengan PIC, tenggat dan hasil yang diharapkan. (KUK 1.1–1.2, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Peta instruksi, log klarifikasi dan rencana aksi tervalidasi."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menyatakan hal yang belum dipahami sebelum bertindak; menggunakan SOP sebagai rujukan; menerima koreksi; memperbaiki rencana tanpa menyalahkan pihak lain atau mengklaim sudah paham tanpa bukti. (KUK 1.3, 2.3, 3.1–3.3)",
+          "evidence": "Observasi klarifikasi dan revisi rencana."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Melakukan teach-back instruksi kepada tim; mengajak rekan menyatakan kembali tanggung jawab; menyelesaikan perbedaan persepsi melalui konfirmasi sehingga rencana tim konsisten. (KUK 3.1, 4.3)",
+          "evidence": "Catatan penyelarasan tim dan teach-back individu."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0004",
+      "title": "Menganalisis dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mengurai masalah, memvalidasi fakta, mengevaluasi risiko, dan merumuskan solusi berbasis data. Proses analisis ini ditujukan untuk memastikan keandalan keputusan operasional (internal control), mendorong perbaikan berkelanjutan, serta menciptakan strategi yang mendukung kelancaran tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan proses analisis data dan situasi bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Ruang lingkup permasalahan dan tujuan analisis diidentifikasi secara presisi sesuai kebutuhan operasional."
+            },
+            {
+              "no": "1.2",
+              "text": "Data, fakta lapangan, dan informasi pendukung dikumpulkan dari sumber yang valid dan dapat dipertanggungjawabkan."
+            },
+            {
+              "no": "1.3",
+              "text": "Perangkat analisis (metode kerangka berpikir atau tools digital) disiapkan untuk membedah informasi secara sistematis."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap mental yang objektif, kritis, dan bebas dari asumsi prabentuk (preconceived bias) disiapkan sebelum mengolah data."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses analisis secara proaktif (Active Analysis)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Fakta dan variabel bisnis / data diurai (breakdown) untuk menemukan akar permasalahan (root cause) secara mendalam."
+            },
+            {
+              "no": "2.2",
+              "text": "Pola, tren, dan korelasi antar-data dipetakan secara objektif untuk melihat gambaran besar operasional."
+            },
+            {
+              "no": "2.3",
+              "text": "Berbagai alternatif solusi atau strategi perbaikan dieksplorasi secara proaktif berdasarkan temuan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan menguji keandalan hasil analisis (Effective Analysis)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Kelayakan dan dampak operasional dari setiap alternatif solusi diuji silang (cross-check) terhadap kapasitas serta regulasi organisasi."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi risiko, kerugian, atau efek samping dari penerapan solusi diidentifikasi sebagai bentuk mitigasi (internal control)."
+            },
+            {
+              "no": "3.3",
+              "text": "Temuan hasil analisis divalidasi kepada pihak/ahli terkait untuk memastikan tidak ada kesalahan interpretasi data."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Merumuskan dan mendistribusikan rekomendasi secara efisien (Efficient Analysis)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Alternatif solusi terbaik disaring dan dirumuskan menjadi rekomendasi tindakan (actionable insights) yang tepat guna dan efisien."
+            },
+            {
+              "no": "4.2",
+              "text": "Laporan hasil analisis disusun secara ringkas, logis, dan terstruktur agar mudah dipahami oleh pengambil keputusan."
+            },
+            {
+              "no": "4.3",
+              "text": "Rekomendasi dan strategi perbaikan didistribusikan kepada anggota tim terkait guna dieksekusi secara sinergis dan kolaboratif."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan gejala dan akar masalah, fakta dan dugaan, korelasi dan sebab-akibat; menjelaskan alasan memilih metode analisis serta kriteria biaya, manfaat dan risiko solusi. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes kasus gejala/akar masalah dan pemilihan metode."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Merumuskan masalah dan mengumpulkan bukti; mengurai data dengan metode yang sesuai; menguji dugaan akar masalah; membandingkan sedikitnya dua alternatif; memvalidasi temuan dan merumuskan rekomendasi beserta langkah pelaksanaan. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar analisis, sumber data, perbandingan solusi dan rekomendasi."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menyebutkan sumber dan keterbatasan data; tidak memilih data hanya untuk membenarkan dugaan; bersedia merevisi analisis; mencatat dampak dan risiko sebelum menyarankan tindakan. (KUK 1.4, 3.1–3.3)",
+          "evidence": "Observasi diskusi dan jejak revisi berbasis bukti."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meminta masukan dari pelaksana terdampak; menanggapi kritik berdasarkan bukti; menyampaikan rekomendasi yang dapat dipahami dan membagi tindak lanjut sesuai peran tim. (KUK 3.3, 4.2–4.3)",
+          "evidence": "Masukan pihak terdampak dan catatan pembagian tindak lanjut."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0005",
+      "title": "Menyampaikan Informasi Bisnis Secara Lisan dalam Melaksanakan Operasional yang Aktif, Efektif, dan Efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk menyusun, mengomunikasikan, dan memvalidasi pesan bisnis secara lisan. Tujuannya adalah memastikan instruksi dan informasi tersampaikan secara transparan, akurat (internal control), serta membangun sinergi tim yang kuat tanpa adanya miskomunikasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan penyampaian informasi lisan",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Tujuan komunikasi dan profil pendengar (atasan, rekan kerja, atau klien) diidentifikasi untuk menentukan gaya bahasa yang tepat sasaran."
+            },
+            {
+              "no": "1.2",
+              "text": "Data, fakta, dan materi pendukung divalidasi kebenarannya sebelum disampaikan guna menjaga integritas informasi (anti-hoaks/anti-manipulasi)."
+            },
+            {
+              "no": "1.3",
+              "text": "Struktur pesan lisan disusun secara logis, ringkas, dan berorientasi pada penyelesaian masalah (problem-solving)."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan penyampaian informasi secara aktif dan asertif (Active Delivery)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Pesan bisnis / informasi disampaikan dengan artikulasi yang jelas, intonasi yang tepat, dan tingkat kepercayaan diri yang terukur."
+            },
+            {
+              "no": "2.2",
+              "text": "Bahasa tubuh (non-verbal) dikelola secara profesional untuk menunjukkan keterbukaan, empati, dan rasa hormat kepada audiens."
+            },
+            {
+              "no": "2.3",
+              "text": "Penyampaian kritik atau evaluasi operasional difokuskan murni pada fakta dan perbaikan, tanpa menyudutkan individu secara personal."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi pemahaman penerima pesan (Effective Delivery)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Umpan balik (feedback) atau konfirmasi diminta secara proaktif dari pendengar untuk memastikan pesan ditangkap dengan makna yang sama."
+            },
+            {
+              "no": "3.2",
+              "text": "Pertanyaan, keraguan, atau sanggahan dari audiens direspons secara tenang, objektif, dan berbasis data."
+            },
+            {
+              "no": "3.3",
+              "text": "Potensi perbedaan persepsi diklarifikasi saat itu juga untuk mencegah risiko kesalahan penyampaian informasi."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti hasil komunikasi lisan secara efisien (Efficient Delivery)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Kesimpulan dan kesepakatan lisan dirangkum serta ditegaskan kembali sebagai bentuk komitmen kerja bersama."
+            },
+            {
+              "no": "4.2",
+              "text": "Poin-poin instruksi krusial yang disampaikan secara lisan segera didokumentasikan ke dalam format tertulis jika diperlukan."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi krusial didistribusikan secara transparan kepada anggota tim lain yang tidak hadir agar seluruh rantai kerja tetap terhubung."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan penyesuaian pesan terhadap tujuan/audiens, struktur pembuka–inti–penutup, perbedaan kritik berbasis fakta dan serangan personal, serta fungsi umpan balik. (KUK 1.1–1.3, 2.3, 3.1)",
+          "evidence": "Tes kasus pemilihan struktur dan respons audiens."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyiapkan fakta terverifikasi; menyampaikan pesan terstruktur dan terdengar jelas dalam waktu brief; menjawab pertanyaan dengan data; mengklarifikasi perbedaan persepsi; merangkum kesepakatan dan mencatat instruksi krusial. (KUK 1.1–1.3, 2.1, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Observasi briefing, tanya jawab, kesepakatan dan catatan tindak lanjut."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menyampaikan fakta tanpa melebihkan atau menyembunyikan informasi; menggunakan bahasa hormat; tidak merendahkan orang; mengakui jawaban yang belum diketahui dan menindaklanjuti pencarian datanya. (KUK 1.2, 2.2–2.3, 3.2)",
+          "evidence": "Catatan perilaku saat kritik/pertanyaan sulit."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Memberi kesempatan bertanya; memastikan pendengar dapat menyebutkan inti dan tindakan berikutnya; meneruskan kesepakatan kepada rekan terkait yang tidak hadir. (KUK 3.1–3.3, 4.1, 4.3)",
+          "evidence": "Teach-back audiens dan bukti penerusan hasil briefing."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0006",
+      "title": "Menyampaikan Secara Tertulis dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk merencanakan, menyusun, menyunting, dan mendokumentasikan komunikasi bisnis tertulis secara transparan, logis, terstruktur, serta akuntabel. Tujuannya adalah untuk memastikan keandalan data (internal control), kepatuhan administrasi, dan efisiensi operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan penyusunan dokumen dan komunikasi tertulis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Jenis, format, dan tujuan dokumen bisnis (email resmi, laporan kerja, memo, instruksi tertulis, SOP) diidentifikasi sesuai kebutuhan penyampaian informasi."
+            },
+            {
+              "no": "1.2",
+              "text": "Target penerima pesan dan tingkat kerahasiaan informasi dianalisis untuk menentukan kerangka serta gaya penulisan yang tepat sasaran."
+            },
+            {
+              "no": "1.3",
+              "text": "Data, fakta, dan informasi pendukung divalidasi kebenarannya (internal control) sebelum dituangkan ke dalam naskah tertulis."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat, teliti, dan bertanggung jawab disiapkan untuk menjaga akurasi serta legalitas dokumen."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun pesan tertulis secara aktif dan terstruktur (Active Writing)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Pesan bisnis tertulis disusun menggunakan struktur kalimat yang baku, logis, dan ringkas."
+            },
+            {
+              "no": "2.2",
+              "text": "Data kuantitatif, tabel, atau lampiran disajikan secara presisi, objektif, dan transparan (zero mark-up/anti-manipulasi)."
+            },
+            {
+              "no": "2.3",
+              "text": "Poin-poin instruksi, rekomendasi, atau keputusan kerja dirumuskan secara tegas dan berorientasi pada solusi operasional."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menyunting dan memvalidasi keandalan dokumen (Effective Writing)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Naskah tertulis disunting ulang (proofreading) untuk mengeliminasi kesalahan ejaan, tata bahasa, maupun ketidakjelasan makna."
+            },
+            {
+              "no": "3.2",
+              "text": "Keselarasan dokumen terhadap regulasi internal perusahaan, standar format, dan etika komunikasi tertulis divalidasi secara cermat."
+            },
+            {
+              "no": "3.3",
+              "text": "Otorisasi atau pengesahan dokumen diperoleh dari pihak/atasan berwenang sesuai dengan hierarki organisasi."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Mendistribusikan dan mengarsip dokumen secara efisien (Efficient Writing)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Dokumen tertulis didistribusikan kepada pihak atau unit kerja terkait melalui saluran komunikasi resmi secara tepat waktu."
+            },
+            {
+              "no": "4.2",
+              "text": "Konfirmasi penerimaan dan Keterbacaan pesan dipastikan secara proaktif guna mencegah terjadinya hambatan operasional."
+            },
+            {
+              "no": "4.3",
+              "text": "Dokumen dan rekam jejak korespondensi disimpan secara sistematis dalam sistem kearsipan (filing system) organisasi agar mudah diakses kembali untuk kebutuhan audit atau koordinasi tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan pemilihan format, tujuan, penerima, kerahasiaan, struktur pesan, penyuntingan, otorisasi dan pengarsipan dokumen kerja. (KUK 1.1–1.3, 3.1–3.3, 4.3)",
+          "evidence": "Tes kasus format, akses dan otorisasi dokumen."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyusun pesan/email dan laporan singkat dari sumber terverifikasi; mencantumkan tujuan, fakta, tindakan, PIC dan tenggat sesuai brief; menyunting angka/ejaan/lampiran; memperoleh otorisasi bila dipersyaratkan; mendistribusikan, mengonfirmasi penerimaan dan mengarsipkan versi final. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.3)",
+          "evidence": "Draf–final, checklist sunting, bukti otorisasi/distribusi dan arsip."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak merekayasa data atau mengakui tulisan pihak lain sebagai karya sendiri; menjaga informasi sesuai hak akses; mencatat revisi dan mengoreksi kesalahan sebelum atau segera setelah distribusi. (KUK 1.2–1.4, 2.2, 3.2)",
+          "evidence": "Riwayat revisi serta observasi penjagaan akses/sumber."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menulis agar penerima mengetahui tindakan yang harus dilakukan; menerima masukan penyunting; memastikan pihak terkait menerima versi yang sama dan dapat menemukan kembali dokumen. (KUK 2.3, 4.1–4.3)",
+          "evidence": "Umpan balik penerima dan uji temu kembali dokumen."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0007",
+      "title": "Melakukan operasi matematika dasar (Tambah), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk menemani logika bisnis yang memerlukan operasi perhitungan pertambahan, serta melakukan eksekusi matematika dasar(tambah) secara aktif, efektif dan efisien. Tujuanya adalahuntuk memastikan akurasi data (internal control) dalam perhitungan bisnis dan mendukung kelancaran operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika perhitungan pertambahan dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi matematika dasar (tambah) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika perhitungan dalam konteks penggunaan pertambahan dalam pekerjaan bisnis dipahami secara komperhensif."
+            },
+            {
+              "no": "1.3",
+              "text": "Data numerik, dokumen sumber transaksi dan perangkat hitung dipersiapkan secara tepat guna mencegah kesalahan input."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat dan teliti disiapkan sebagai bentuk kehati-hatian (Internal control) sebelum mengelola data perhitungan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses perhitungan pertambahan secara aktif (Active Addition)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Data angka dimasukan dan dijumlahkan sesuai dengan kaidah operasi matematika dasar (tambah) yang benar."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses perhitungan pertambahan dieksekusi secara sistematis untuk mengakumulasikan nilai, aset atau beban biaya bisnis."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan dimanfaatkan secara maksimal untuk meningkatkan kecepatan dan kapasitas kerja operasional."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan hasil perhitungan (Effective Addition)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil perhitungan diverifikasi ulang (cross-check) dengan kata sumber untuk memastikan kebenaran dan presisi mutlak."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi selisih, kesalahan input atau anomali data diidentifikasi dan dikoreksi secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan hasil kalkulasi dipastikan telah memenuhi standar operasional perusahaan tanpa adanya manipulasi data."
+            },
+            {
+              "no": "3.4",
+              "text": "Laporan hasil perhitungan disajikan secara jelas, terstruktur dan siap digunakan untuk proses operasional selanjutnya."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil pertambahan (Efficient Addition)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil perhitungan disajikan secara jelas, terstruktur dan siap digunakan untuk proses operasional selanjutnya."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen hasil perhitungan diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar mudah diakses kembali."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi hasil perhitungan didistribusikan secara transparan kepada rekan kerja atau pihak terkait guna mendukung sinergi."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Memilih data sejenis yang boleh dijumlahkan; menjelaskan satuan, periode, subtotal/total dan risiko transaksi ganda. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyiapkan dokumen dan satuan; memasukkan seluruh transaksi relevan satu kali; menjumlahkan dengan langkah/rumus terlacak; memeriksa ulang terhadap sumber dan subtotal; mengoreksi anomali; menyajikan dan mengarsipkan total. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak memasukkan transaksi tanpa bukti atau menghitung ganda; mempertahankan data sumber; mencatat koreksi dan menyampaikan selisih secara jujur. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menyerahkan rekap beserta sumber kepada rekan pemeriksa; menjelaskan komponen total; membantu rekan menelusuri selisih tanpa mengambil alih seluruh tugasnya. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0008",
+      "title": "Melakukan operasi matematika dasar (Kurang), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan pengurangan (seperti perhitungan margin, selisih anggaran, diskon, atau sisa stok), serta melakukan eksekusinya secara aktif, efektif, dan efisien. Tujuannya adalah untuk memastikan akurasi data (internal control), mendeteksi pemborosan, dan mendukung efisiensi operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika perhitungan pengurangan dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi matematika dasar (kurang) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional (misal: perhitungan sisa stok, laba kotor, selisih anggaran, atau diskon)."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika perhitungan dan konteks penggunaan pengurangan dipahami secara komprehensif sebagai instrumen untuk mengevaluasi efisiensi dan menekan pemborosan."
+            },
+            {
+              "no": "1.3",
+              "text": "Data numerik, dokumen sumber transaksi, dan perangkat hitung dipersiapkan secara tepat guna mencegah kesalahan penentuan variabel pengurang (deductor)."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat dan teliti disiapkan sebagai bentuk kehati-hatian (internal control) sebelum mengelola data perhitungan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses perhitungan pengurangan secara aktif (Active Subtraction)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Data angka (nilai dasar dan nilai pengurang) dimasukkan sesuai dengan kaidah operasi matematika dasar (kurang) yang benar."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses perhitungan kurang dieksekusi secara presisi dan sistematis untuk menentukan nilai sisa, reduksi biaya, atau margin keuntungan."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan (spreadsheet/kalkulator) dimanfaatkan secara maksimal untuk meningkatkan kecepatan kalkulasi operasional."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan hasil perhitungan (Effective Subtraction)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil perhitungan diverifikasi ulang (cross-check) dengan data sumber untuk memastikan kebenaran dan menghindari kesalahan hitung (minus/negatif yang tidak valid)."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi selisih stok, anomali pengurangan, atau penyusutan yang tidak wajar diidentifikasi dan ditelusuri akar masalahnya secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan hasil kalkulasi dipastikan telah memenuhi standar operasional perusahaan secara jujur dan tanpa manipulasi (anti mark-down/pengurangan fiktif)."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil pengurangan (Efficient Subtraction)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil perhitungan (seperti laporan efisiensi biaya, sisa material, atau varians anggaran) disajikan secara jelas, terstruktur, dan siap digunakan."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen hasil perhitungan diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar rekam jejak (audit trail) mudah diakses kembali."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi hasil perhitungan didistribusikan secara transparan kepada rekan kerja terkait guna mendukung sinergi evaluasi dan efisiensi kerja tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan nilai awal, pengurang, urutan operasi, arti hasil negatif dan perbedaan nominal laba kotor dengan margin persentase. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menentukan nilai awal/pengurang dari sumber; menghitung sisa stok atau varians anggaran dengan satuan dan periode konsisten; memeriksa melalui penjumlahan balik; menelusuri selisih; membuat laporan dan arsip. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak mengurangi nilai tanpa dasar; tidak menghapus hasil negatif hanya agar tampak benar; melaporkan penyusutan atau selisih serta mencatat koreksi berdasarkan bukti. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengonfirmasi selisih kepada pemegang data; menjelaskan konsekuensinya bagi tim; membagikan hasil koreksi dan bukti kepada pihak terkait. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0009",
+      "title": "Melakukan operasi matematika dasar (Kali), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan perkalian, serta melakukan eksekusi matematika dasar (kali) secara aktif, efektif dan efisien. Tujuanya adalah untuk memastikan akurasi data (Intenal control), ekskalasi skala bisnis, serta mendukung kelancaran operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika perhitungan perkalian dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi matematika dasar (kali) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional (misal: kalkulasi total harga berdasarkan kuantitas, proyeksi pertumbuhan atau ekskalasi nilai)."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika perhitungan perkalian dan konteks penggunaanya dalam pekerjaan bisnis dipahami secara komperhensif."
+            },
+            {
+              "no": "1.3",
+              "text": "Data numerik, dokumen sumber, faktor pengali (multiplier) dan perangkat hitung dipersiapkan secara tepat guna mencegah kesalahan input."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat dan teliti disiapkan sebagai bentukkehati-hatian (Internal control) sebelum mengelola data perhitungan perkalian"
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses perhitungan perkalian secara aktif (Active multiplication)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Data angka dimasukan dan dikalikan sesuai dengan kaidah operasi matematika dasar perkalian yang benar."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses perhitungan kali dieksekusi secara sistematis untuk mengekskalasi nilai, kapasitas atau estimasi kebutuhan bisnis."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan (kalkulator atau perangkat lunak Spreadsheet) dimanfaatkan secara maksimal untuk meningkatkan kecepatan dan kapasitas kerja operasional."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan hasil perhitungan perkalian (Effevtive Multipication)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil perhitungan perkalian diverifikasi ulang (cross-check) dengan data sumber untuk memastikan kebenaran dan presisi mutlak."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi kesalahan faktor pengali, selisih, atau anomali data diidentifikasikan dan dikoreksi secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan hasil kalkulasi dipastikan telah memenuhi standar operasional perusahaan tanpa adanya manipulasi data (zero mark-up)."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil perkalian (Efficient Multipication)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil perhitungan perkalian disajikan secara jelas, terstruktur dan siap digunakan untuk proses operasional atau pengambilan keputusan selanjutnya."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen hasil perhitungan diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar mudah diakses kembali."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi hasil perhitungan didistribusikan secara transparan kepada rekan kerja atau pihak terikat guna mendukung sinergi dan efisiensi tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan hubungan kuantitas, tarif/harga satuan dan nilai total; konversi satuan; kewajaran hasil dan fungsi perkalian balik/pembagian untuk verifikasi. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Memeriksa kuantitas dan tarif sumber; mengonversi satuan bila diperlukan; menghitung kebutuhan atau total harga memakai rumus terlacak; memvalidasi faktor, hasil dan pembulatan; melaporkan serta mengarsipkan hasil. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak merekayasa kuantitas atau tarif; membedakan markup harga yang sah dari manipulasi; mencatat sumber tarif, kesalahan faktor pengali dan perbaikannya. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menjelaskan dasar kuantitas dan tarif kepada rekan pemeriksa; bertukar pemeriksaan hasil; membantu rekan memahami rumus dan membagikan versi final. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0010",
+      "title": "Melakukan operasi matematika dasar (Bagi), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi pembagian (seperti penentuan harga pokok per unit, alokasi anggaran, distribusi beban kerja, atau perhitungan rata-rata performa), serta pengeksekusiannya secara aktif, efektif, dan efisien. Tujuannya adalah memastikan keadilan proporsional, akurasi distribusi data (internal control), dan sinergi tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika perhitungan pembagian dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi matematika dasar (bagi) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional (misal: mencari harga satuan, rata-rata penjualan, atau kuota pembagian tugas)."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika perhitungan pembagian dipahami secara komprehensif sebagai instrumen untuk mendistribusikan nilai secara adil, proporsional, dan terukur."
+            },
+            {
+              "no": "1.3",
+              "text": "Data numerik dan dokumen sumber dipersiapkan secara tepat untuk membedakan secara mutlak antara nilai total yang akan dibagi (dividend) dan faktor pembaginya (divisor)."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat disiapkan sebagai bentuk kehati-hatian (internal control) untuk mencegah kesalahan fatal perhitungan (seperti membagi dengan angka nol atau salah menetapkan pembagi)."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses perhitungan pembagian secara aktif (Active Division)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Data angka dimasukkan sesuai dengan kaidah operasi matematika dasar pembagian yang benar dan presisi."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses pembagian dieksekusi secara sistematis untuk menentukan nilai satuan unit, rasio, atau alokasi distribusi sumber daya."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan (spreadsheet/kalkulator) dimanfaatkan secara maksimal untuk menangani angka desimal/pecahan guna meningkatkan kecepatan dan efisiensi kerja operasional."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan hasil perhitungan (Effective Division)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil pembagian diverifikasi ulang (cross-check melalui perkalian balik) untuk memastikan total nilai yang didistribusikan seimbang dengan nilai awalnya."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi selisih akibat pembulatan desimal, proporsi yang tidak logis, atau anomali data diidentifikasi dan dikoreksi secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan hasil kalkulasi dan keadilan distribusi dipastikan telah memenuhi standar operasional perusahaan tanpa ada manipulasi data."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil pembagian (Efficient Division)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil pembagian (seperti laporan biaya per unit atau pemetaan kuota kerja) disajikan secara jelas, terstruktur, dan siap digunakan untuk pengambilan keputusan."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen alokasi/distribusi diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar mudah dilacak (audit trail) di kemudian hari."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi hasil pembagian nilai didistribusikan secara transparan dan proporsional kepada rekan kerja terkait guna menjaga harmonisasi dan sinergi tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan pembilang, penyebut, satuan hasil, larangan pembagian dengan nol serta perbedaan pembagian merata dan proporsional menurut dasar yang disepakati. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Memvalidasi total dan pembagi; menghitung biaya per unit atau alokasi; menangani pembagi nol dengan meminta klarifikasi; mencatat pembulatan/sisa; memeriksa lewat perkalian balik dan rekonsiliasi total; melaporkan serta mengarsipkan hasil. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menggunakan dasar alokasi yang dinyatakan; tidak mengubah pembagi untuk menguntungkan pihak tertentu; mengungkapkan sisa pembulatan dan mengusulkan penyelesaiannya sesuai kewenangan. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengonfirmasi dasar alokasi dengan pihak terkait; menjelaskan bagian dan sisa secara terbuka sesuai hak akses; menanggapi keberatan dengan data serta membantu rekan memeriksa alokasi. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0011",
+      "title": "Melakukan operasi matematika dasar (Persamaan), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan penyelesaian persamaan/kesetaraan nilai, serta melakukan eksekusi kalkulasi persamaan secara aktif, efektif dan efisien. Tujuanya adalah untuk memastikan keseimbangan neraca, akurasi transaksi (Intenal control), serta mendukung kelancaran operasional kerja tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika persamaan dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi persamaan (kesetaraan nilai) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional (misal: neraca keseimbangan debit-kredit, rekonsiliasi, pencarian nilai variabel X/Y yang belum diketahui, atau penentun titik impas/BEP)."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika kalkulasi persamaan dan konteks penggunaanya dalam pekerjaan bisnis dipahami secara komperhensif."
+            },
+            {
+              "no": "1.3",
+              "text": "Variabel angka, dokumen sumber transaksi dan perangkat hitung disiapkan secara tepat guna mencegah kesalahan formulasi."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermati dan teliti disiapkan sebagai bentuk kehati-hatian (Internal control) sebelum menyelesaikan persamaan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses kalkulasi persamaan secara aktif (Active Equation)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Formulasi persamaan disusun dan diselesaikan sesuai dengan kaidah aljabar/matematika bisnis dasar yang benar."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses penyelesaian persamaan dieksekusi secara sistematis untuk menyeimbangkan nilai antara dua ruas data atau mencari variabel operasional yang hilang."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan (kalkulator atau perangkat lunak spreadsheet) dimanfaatkan secara maksimal untuk mempercepat proses pencarian kesetaraan nilai."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keseimbangan hasil persamaan (Effective Equation)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil perhitungan perkalian diverifikasi ulang (cross-check) dengan memasukan nilai variabel ke kedua sisi untuk memastikan kesetaraan presisi mutlak."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi ketidakseimbangan (selisih), kesalahan manipulasi ruas atau anomali data diidentifikasikan dan dikoreksi secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan dan Keseimbangan hasil persamaan dipastikan telah memenuhi standar operasional perusahaan tanpa manipulasi data."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil persamaan (Efficient Equation)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil penyelesaian persamaan disajikan secara jelas, terstruktur dan siap digunakan untuk proses operasional atau pengambilan keputusan selanjutnya."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen rekonsiliasi atau pencatatan persamaan diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar mudah diakses kembali."
+            },
+            {
+              "no": "4.3",
+              "text": "Informasi kesetaraan nilai didistribusikan secara transparan kepada rekan kerja atau pihak terikat guna mendukung sinergi dan efisiensi tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan variabel, konstanta, kesetaraan dua ruas, operasi yang menjaga kesetaraan dan alasan solusi harus diuji dengan substitusi dalam konteks bisnis. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Mengubah masalah saldo awal + masuk − keluar = saldo akhir menjadi persamaan; mencari satu variabel yang belum diketahui; menunjukkan langkah; menguji substitusi pada kedua ruas; menelusuri selisih dan mendokumentasikan hasil. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak menambah angka penyeimbang tanpa bukti; membedakan transformasi aljabar yang sah dari rekayasa data; mengakui ketidakcocokan dan menelusuri sumber sebelum menyatakan selesai. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menjelaskan model dan arti variabel kepada tim; meminta pemeriksaan substitusi oleh rekan; menyampaikan selisih yang belum selesai kepada pihak berwenang beserta bukti. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    },
+    {
+      "code": "MTB-F-0012",
+      "title": "Melakukan operasi matematika dasar (Persentase), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan persentase (seperti penentuan margin laba, diskon, pajak, komisi, hingga rasio pertumbuhan), serta pengeksekusiannya secara aktif, efektif, dan efisien. Tujuannya adalah memastikan akurasi pengukuran performa finansial (internal control), transparansi pembagian hasil, dan dukungan pada efisiensi keputusan tim.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mempersiapkan data dan memahami logika perhitungan persentase dalam bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan dan tujuan operasi matematika dasar (persentase) diidentifikasi untuk mengetahui kapan metode ini digunakan dalam aktivitas bisnis operasional (misal: menghitung margin keuntungan, potongan harga, pertumbuhan penjualan, atau pajak)."
+            },
+            {
+              "no": "1.2",
+              "text": "Logika perhitungan persentase dipahami secara komprehensif sebagai instrumen untuk membandingkan proporsi, rasio efisiensi, dan mengukur skala pertumbuhan bisnis."
+            },
+            {
+              "no": "1.3",
+              "text": "Data numerik dan nilai rujukan utama (base value) dipersiapkan secara tepat agar tidak terjadi kesalahan penetapan dasar perhitungan persentase."
+            },
+            {
+              "no": "1.4",
+              "text": "Sikap cermat disiapkan sebagai bentuk kehati-hatian (internal control) untuk mencegah bias dalam menafsirkan angka persentase."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Melaksanakan proses perhitungan persentase secara aktif (Active Percentage)",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Data angka dimasukkan sesuai dengan kaidah rumusan operasi matematika dasar persentase yang presisi (mengubah persentase menjadi desimal/pecahan dan sebaliknya)."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses perhitungan dieksekusi secara sistematis untuk menentukan nilai tambah, nilai potong, atau nilai perbandingan dari total keseluruhan."
+            },
+            {
+              "no": "2.3",
+              "text": "Alat bantu perhitungan (spreadsheet/kalkulator) dimanfaatkan secara maksimal untuk mengotomatisasi konversi nilai persentase guna meningkatkan kecepatan kerja."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memvalidasi dan mengevaluasi keakuratan hasil perhitungan (Effective Percentage)",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Hasil persentase diverifikasi ulang (cross-check) terhadap nilai dasar (base value) untuk memastikan proporsi yang dihasilkan akurat dan logis."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi kesalahan konversi desimal, selisih indeks, atau anomali pembulatan diidentifikasi dan dikoreksi secara proaktif."
+            },
+            {
+              "no": "3.3",
+              "text": "Keakuratan hasil kalkulasi rasio dipastikan telah memenuhi standar pelaporan operasional perusahaan secara transparan tanpa manipulasi data finansial."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menindaklanjuti dan mendokumentasikan hasil perhitungan (Efficient Percentage)",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Laporan hasil perhitungan persentase (seperti laporan pencapaian target, indeks efisiensi, atau margin) disajikan secara jelas, terstruktur, dan siap digunakan untuk evaluasi manajerial."
+            },
+            {
+              "no": "4.2",
+              "text": "Dokumen hasil perhitungan persentase diarsipkan secara sistematis sesuai prosedur kearsipan organisasi agar mudah dilacak (audit trail) di kemudian hari."
+            },
+            {
+              "no": "4.3",
+              "text": "Indikator keberhasilan atau rasio pertumbuhan yang dihasilkan didistribusikan secara transparan kepada tim terkait guna memacu motivasi kelompok dan sinergi evaluasi kinerja."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan persen/desimal/pecahan, nilai dasar, margin versus markup, perubahan persen versus poin persentase serta risiko pembagi nol. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.2)",
+          "evidence": "Tes pemilihan operasi, alasan rumus dan interpretasi hasil."
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menentukan nilai dasar yang benar; menghitung nilai persentase, diskon, pencapaian atau perubahan; menunjukkan rumus dan satuan; memvalidasi konversi/pembulatan; menjelaskan makna hasil; melaporkan dan mengarsipkan perhitungan. (KUK 1.1–1.3, 2.1–2.3, 3.1–3.3, 4.1–4.2)",
+          "evidence": "Lembar kerja individu, dokumen sumber, rumus/langkah, pemeriksaan balik dan laporan final."
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak mengganti nilai dasar untuk memperindah hasil; mengungkapkan periode, sumber, asumsi dan pembulatan; memperbaiki persentase yang menyesatkan; memakai tarif pajak hanya jika diberikan dalam brief. (KUK 1.4, 3.2–3.3)",
+          "evidence": "Observasi proses serta log selisih dan koreksi."
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menjelaskan rasio dalam bahasa yang dipahami rekan; mengonfirmasi kesamaan nilai dasar dan periode; memeriksa hasil bersama serta membagikan interpretasi untuk keputusan tim. (KUK 4.1–4.3)",
+          "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
+        }
+      ]
+    }
+  ],
+  "final_portfolio": [],
+  "assessment_guide": [
+    {
+      "topic": "Status standar",
+      "text": "Kerangka kompetensi internal. Dokumen belum mencantumkan Kepmen/SKKNI, tahun/revisi dan pemetaan unit resmi. Kesetaraan SKKNI/KKNI atau sertifikasi BNSP belum diverifikasi; kode MTB-F bukan bukti kode SKKNI."
+    },
+    {
+      "topic": "Ruang lingkup audit",
+      "text": "12 unit pada skema; pembandingan filosofi dan bobot dengan Grand Design Rumah Mantaaba Sigaling yang dilampirkan. Audit desain dokumen, bukan hasil asesmen peserta."
+    },
+    {
+      "topic": "Lintas unit — bobot",
+      "text": "Keputusan pengguna 20 Oktober 2026: Knowledge 20%, Skill 25%, Character 30%, Social Cohesion / Team Contribution 25%. Bobot skema sudah sesuai. Grand Design bagian 7 masih 25%, 30%, 20%, 25% dan perlu diselaraskan pada revisi berikutnya; dokumen Grand Design tidak diedit dalam pekerjaan ini."
+    },
+    {
+      "topic": "Lintas unit — keputusan kompetensi",
+      "text": "Belum ada batas kelulusan, rubrik, aspek kritis dan aturan asesmen ulang. Nilai karakter/sosial dapat menutupi kegagalan teknis jika hanya dirata-rata. Usulan panduan di bawah wajib dibahas pengelola sebelum menjadi kebijakan."
+    },
+    {
+      "topic": "Lintas unit — kelengkapan standar",
+      "text": "Tambahkan batasan konteks, kompleksitas, alat, SOP, pengetahuan/keterampilan prasyarat, panduan bukti dan kondisi asesmen. Indikator D20:D23 kini memuat perilaku, rujukan KUK serta bukti/metode; bukan pengganti instrumen per-KUK."
+    },
+    {
+      "topic": "Lintas unit — progres",
+      "text": "Pemetaan menandai elemen/KUK unit 0007–0012 = 0% meski naskahnya sudah terisi; ini dapat berarti belum ditinjau, bukan belum ada. Definisikan arti progres dan kriteria selesai. Indikator yang terisi tidak otomatis membuat materi/pelatihan 100%."
+    },
+    {
+      "topic": "PANDUAN PENILAIAN — USULAN",
+      "text": "Rekomendasi pedagogis internal; bukan ketentuan SKKNI/BNSP dan belum mengganti kebijakan lembaga."
+    },
+    {
+      "topic": "Kondisi asesmen",
+      "text": "Brief menyebut konteks, hasil, SOP, alat yang boleh dipakai, pihak berwenang dan batas waktu. Gunakan operasi dapur, kebun, kolam, asrama atau unit bisnis nyata; simulasi sebagai latihan/opsi aman. Nilai proses serta produk individu meski bekerja dalam tim."
+    },
+    {
+      "topic": "Cakupan dan keterlacakan",
+      "text": "Gunakan rujukan KUK pada indikator D20:D23 untuk membuat checklist per KUK. Satu bukti boleh mendukung beberapa dimensi, tetapi nilai harus berbeda alasannya: pengetahuan=alasan, skill=hasil/proses, karakter=integritas, sosial=dampak bantuan/koordinasi. KUK 3.4 unit Tambah belum dihitung terpisah dari 4.1."
+    },
+    {
+      "topic": "Rubrik Knowledge — 1–4",
+      "text": "1: konsep/rumus salah dan alasan tidak relevan. 2: konsep sebagian benar dengan arahan. 3: menjelaskan konsep dan alasan pilihan secara benar, mandiri pada kasus setara. 4: mampu menjelaskan batas penerapan serta mengevaluasi kasus baru. Nilai setiap indikator terpisah."
+    },
+    {
+      "topic": "Rubrik Skill — 1–4",
+      "text": "1: hasil salah atau prosedur kritis tidak dijalankan. 2: selesai dengan arahan/koreksi substansial. 3: hasil akurat, langkah terlacak, pemeriksaan dan tindak lanjut mandiri sesuai brief. 4: konsisten pada variasi kasus serta memperbaiki metode tanpa mengurangi akurasi."
+    },
+    {
+      "topic": "Rubrik Character — 1–4",
+      "text": "1: perilaku kerja menyimpang dengan bukti. 2: memenuhi setelah diingatkan. 3: konsisten jujur, tertib dan bertanggung jawab tanpa diingatkan. 4: konsisten sekaligus menginisiasi perbaikan kontrol. Nilai perilaku kerja teramati, bukan keyakinan batin, popularitas atau label kepribadian."
+    },
+    {
+      "topic": "Rubrik Social — 1–4",
+      "text": "1: menghambat koordinasi/menahan informasi yang diperlukan tanpa alasan sah. 2: berkontribusi setelah diarahkan. 3: berbagi informasi sesuai akses, membantu dan mengonfirmasi pemahaman rekan. 4: memampukan rekan bekerja mandiri dan memperbaiki koordinasi. Ukur kontribusi, bukan banyaknya bicara."
+    },
+    {
+      "topic": "Belum ada bukti",
+      "text": "Gunakan status BB (belum cukup bukti), bukan skor 1 atau 0. Catat indikator/KUK yang belum teramati dan jadwalkan pengumpulan bukti. Asesor manusia membuat keputusan akhir dengan catatan alasan."
+    },
+    {
+      "topic": "Ambang usulan",
+      "text": "Setiap indikator minimal level 3 dan semua KUK terdemonstrasi; tidak mengompensasi kegagalan kritis dengan skor dimensi lain. Pengetahuan dapat dinilai lewat pertanyaan beralasan yang tertanam dalam praktik. Jika tidak memenuhi, status Belum Kompeten untuk unit terkait, lalu remediasi terarah."
+    },
+    {
+      "topic": "Aspek kritis usulan — komunikasi",
+      "text": "Tujuan/instruksi, angka, PIC dan tenggat krusial tidak berubah; ketidakjelasan dikonfirmasi sebelum tindakan; sumber tidak direkayasa; data hanya dibagikan sesuai akses; otorisasi diperoleh bila diwajibkan."
+    },
+    {
+      "topic": "Aspek kritis usulan — numerasi",
+      "text": "Operasi, satuan dan dasar hitung benar; hasil akhir sesuai kunci/sumber dan aturan pembulatan yang dinyatakan; pembagi nol ditangani; persamaan diuji dua ruas; tidak ada rekayasa data atau penyesuaian paksa agar seimbang."
+    },
+    {
+      "topic": "Skor dan rekap",
+      "text": "Jika disetujui, nilai dimensi = rerata skor indikator yang memiliki bukti ÷ 4 × 100; rekap hanya setelah seluruh bukti lengkap. Nilai akhir = 0,20×Knowledge + 0,25×Skill + 0,30×Character + 0,25×Social, mengikuti bobot skema saat ini. Rekap numerik tidak menggantikan pemenuhan seluruh kriteria."
+    },
+    {
+      "topic": "Kecukupan dan konsistensi bukti",
+      "text": "Usulan: demonstrasi pada sedikitnya dua kesempatan/konteks setara, termasuk observasi kerja nyata saat aman. Catat tanggal, konteks, bukti individu dan intervensi asesor. Konfirmasi karakter/sosial lewat observasi berulang, bukan hanya penilaian teman."
+    },
+    {
+      "topic": "Efisiensi dan aksesibilitas",
+      "text": "Tetapkan waktu dari uji coba tugas oleh pengajar, jangan mengorbankan akurasi demi cepat. Sediakan penyesuaian akses/media yang wajar dengan tuntutan kompetensi sama; nilai pesan dan hasil, bukan kontak mata, aksen atau kondisi fisik."
+    },
+    {
+      "topic": "Remediasi dan moderasi",
+      "text": "Umpan balik menyebut KUK yang belum terpenuhi, bukti kesalahan dan latihan perbaikan; asesmen ulang menggunakan kasus setara. Samakan persepsi antarpenilai dengan contoh bukti level 1–4; simpan alasan keputusan dan sediakan tinjauan/keberatan."
+    },
+    {
+      "topic": "Pemanfaatan AI",
+      "text": "Peserta menyatakan alat/bantuan yang dipakai; tetap menjelaskan alasan, memverifikasi sumber/angka dan mendemonstrasikan tugas individu. Untuk menguji dasar, asesor dapat meminta demonstrasi singkat tanpa bantuan sesuai brief."
+    },
+    {
+      "topic": "Batas implementasi",
+      "text": "Indikator telah dilengkapi sebagai draf operasional untuk ditinjau. Bobot 20%–25%–30%–25% dikonfirmasi pengguna; kode, judul, KUK dan progres lama dipertahankan. Tahap berikutnya: selaraskan Grand Design, sahkan kriteria kritis dan bangun checklist per-KUK dari bukti nyata."
+    }
+  ],
+  "notes": []
+}

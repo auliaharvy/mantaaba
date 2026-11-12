@@ -3,19 +3,27 @@
 namespace Database\Seeders;
 
 use App\Models\Skema;
+use App\Services\SkemaImporter;
 use Illuminate\Database\Seeder;
 
-/** 5 skema + modul + matriks karakter dari Grand Design 3 & 5 (PRD 13.2). Hanya dibuat bila kode belum ada. */
+/** 5 skema + matriks karakter dari Grand Design 3 & 5 (PRD 13.2); unit kompetensi FND & SIM dari template JSON. Hanya dibuat bila kode belum ada. */
 class SkemaSeeder extends Seeder
 {
     public function run(): void
     {
         foreach ($this->skemas() as $i => [$code, $name, $month, $description, $modules, $matrix]) {
             $skema = Skema::firstOrCreate(['code' => $code], ['name' => $name, 'month_label' => $month, 'description' => $description, 'character_matrix' => $matrix, 'sort_order' => $i]);
-            if ($skema->wasRecentlyCreated) {
-                foreach ($modules as $j => $title) {
-                    $skema->modules()->create(['code' => "{$code}-" . ($j + 1), 'title' => $title, 'sort_order' => $j]);
-                }
+            if (! $skema->wasRecentlyCreated) {
+                continue;
+            }
+            // skema yang sudah punya standar kompetensi resmi: unit, elemen & KUK dari template JSON
+            $template = database_path("seeders/data/skema/{$code}.json");
+            if (is_file($template)) {
+                app(SkemaImporter::class)->importFile($template, $skema);
+                continue;
+            }
+            foreach ($modules as $j => $title) {
+                $skema->modules()->create(['code' => "{$code}-" . ($j + 1), 'title' => $title, 'sort_order' => $j]);
             }
         }
     }

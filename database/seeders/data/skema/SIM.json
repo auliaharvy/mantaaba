@@ -1,0 +1,2882 @@
+{
+  "$schema_note": "Template skema Rumah Mantaaba. Satu file = satu skema; units = unit kompetensi (modul). Impor lewat Dashboard › Skema › Impor JSON atau `php artisan skema:import`.",
+  "code": "SIM",
+  "name": "Sistem Informasi Manajemen",
+  "title": "Sistem Informasi Manajemen — Perancangan, Dokumentasi & Pengendalian Operasional Bisnis",
+  "month_label": "Bulan 2–3",
+  "objectives": "Mampu memahami, merancang, menjalankan, mendokumentasikan, mengevaluasi dan memperbaiki sistem operasional perusahaan barang/jasa/manufaktur, dari visi–misi hingga pertanggungjawaban dan monitoring, secara bertanggung jawab, jujur, dan kolaboratif.",
+  "competency_map": [
+    {
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
+      "units": [
+        "MTB-SIM-0001"
+      ]
+    },
+    {
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
+      "units": [
+        "MTB-SIM-0002"
+      ]
+    },
+    {
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
+      "units": [
+        "MTB-SIM-0003"
+      ]
+    },
+    {
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
+      "units": [
+        "MTB-SIM-0004"
+      ]
+    },
+    {
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
+      "units": [
+        "MTB-SIM-0005"
+      ]
+    },
+    {
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
+      "units": [
+        "MTB-SIM-0006"
+      ]
+    },
+    {
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
+      "units": [
+        "MTB-SIM-0007"
+      ]
+    },
+    {
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
+      "units": [
+        "MTB-SIM-0008"
+      ]
+    },
+    {
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
+      "units": [
+        "MTB-SIM-0009"
+      ]
+    },
+    {
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
+      "units": [
+        "MTB-SIM-0010"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0011"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0012"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0013"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0014"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0015"
+      ]
+    },
+    {
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
+      "units": [
+        "MTB-SIM-0016"
+      ]
+    },
+    {
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
+      "units": [
+        "MTB-SIM-0017"
+      ]
+    },
+    {
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
+      "units": [
+        "MTB-SIM-0018"
+      ]
+    },
+    {
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
+      "units": [
+        "MTB-SIM-0019"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "code": "MTB-SIM-0001",
+      "title": "Mengidentifikasi Ide, Bentuk, dan Model Bisnis Perusahaan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi Ide, Bentuk, dan Model Bisnis Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengidentifikasi masalah dan peluang pelanggan",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kelompok calon pelanggan dan masalah nyata diidentifikasi melalui observasi atau wawancara singkat."
+            },
+            {
+              "no": "1.2",
+              "text": "Fakta hasil pengamatan dibedakan dari pendapat dan asumsi pribadi."
+            },
+            {
+              "no": "1.3",
+              "text": "Sedikitnya dua kebutuhan pelanggan dicatat dalam formulir dengan sumber dan tanggal."
+            },
+            {
+              "no": "1.4",
+              "text": "Temuan dijelaskan kembali secara lisan dengan bahasa yang dapat dipahami rekan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Membedakan bentuk dan cara kerja usaha",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Perbedaan alur kerja perdagangan, jasa, dan manufaktur dijelaskan menggunakan contoh yang tepat."
+            },
+            {
+              "no": "2.2",
+              "text": "Sumber nilai, pendapatan, biaya, serta sumber daya utama tiap alternatif dibandingkan."
+            },
+            {
+              "no": "2.3",
+              "text": "Ide barang atau jasa dipilih sesuai kebutuhan pelanggan dan kapasitas awal yang tersedia."
+            },
+            {
+              "no": "2.4",
+              "text": "Alasan pilihan disampaikan dengan membandingkan minimal dua alternatif."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menyusun profil ide dan model bisnis",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Nama usaha, jenis pelanggan, kebutuhan, produk/jasa, dan manfaat utama ditulis secara konsisten."
+            },
+            {
+              "no": "3.2",
+              "text": "Alur sederhana cara usaha memperoleh dan memenuhi pesanan digambar sesuai model terpilih."
+            },
+            {
+              "no": "3.3",
+              "text": "Asumsi biaya, kebutuhan orang, alat, dan bahan dicatat tanpa menyajikannya sebagai data terverifikasi."
+            },
+            {
+              "no": "3.4",
+              "text": "Profil ide usaha disimpan dalam dokumen yang berjudul, bertanggal, dan berversi."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memvalidasi dan mempertanggungjawabkan ide",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Kecocokan solusi dengan kebutuhan pelanggan diuji melalui umpan balik atau simulasi pemesanan."
+            },
+            {
+              "no": "4.2",
+              "text": "Ketidaksesuaian serta keterbatasan model bisnis dicatat terbuka."
+            },
+            {
+              "no": "4.3",
+              "text": "Perbaikan konsep dirumuskan dengan alasan dan penanggung jawab."
+            },
+            {
+              "no": "4.4",
+              "text": "Hasil rancangan dipresentasikan dan setiap anggota mampu menjelaskan kontribusinya."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan usaha perdagangan, jasa, dan manufaktur beserta pelanggan, sumber pendapatan, kebutuhan sumber daya, dan risiko awal.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menunjukkan formulir observasi, 2 alternatif ide, model bisnis terpilih, dan alasan pemilihan yang ditelusuri ke data.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Mencatat sumber data serta asumsi secara jujur; tidak menyebut perkiraan sebagai fakta; menerima kritik dan memperbaiki konsep.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mendengarkan kebutuhan calon pelanggan dan melibatkan anggota tim dalam mengevaluasi ide tanpa mendominasi keputusan.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Kelompok memilih ide usaha barang, jasa, atau manufaktur dari masalah pelanggan yang dapat diamati di lingkungan sekitar.",
+        "Portofolio/bukti wajib": "Lembar identifikasi kebutuhan pelanggan; deskripsi produk/jasa; peta sederhana pelanggan–nilai–pendapatan–biaya; perbandingan 3 model usaha.",
+        "Aspek kritis": "Masalah pelanggan dan penawaran nilai harus saling cocok; model barang/jasa/manufaktur dibedakan tanpa mencampur persediaan dan penyampaian jasa.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0002",
+      "title": "Memahami dan Merumuskan Visi, Misi, dan Tujuan Perusahaan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk memahami dan Merumuskan Visi, Misi, dan Tujuan Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menganalisis arah dan tujuan organisasi",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Pengertian visi, misi, nilai, dan tujuan dijelaskan dengan contoh serta bukan contoh."
+            },
+            {
+              "no": "1.2",
+              "text": "Arah organisasi dari minimal dua contoh perusahaan dibedakan dari kegiatan rutin harian."
+            },
+            {
+              "no": "1.3",
+              "text": "Kebutuhan pemangku kepentingan yang relevan dengan ide usaha diidentifikasi."
+            },
+            {
+              "no": "1.4",
+              "text": "Hubungan antara tujuan usaha, kebutuhan pelanggan, dan manfaat sosial dijelaskan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Merumuskan visi perusahaan",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Gambaran keberhasilan jangka panjang dirumuskan sesuai produk/jasa dan segmen yang dipilih."
+            },
+            {
+              "no": "2.2",
+              "text": "Rumusan visi ditulis ringkas dan tidak mencampurkan daftar pekerjaan harian."
+            },
+            {
+              "no": "2.3",
+              "text": "Visi diperiksa terhadap kelayakan, arah perusahaan, dan kebermanfaatannya."
+            },
+            {
+              "no": "2.4",
+              "text": "Alasan pemilihan kata-kata kunci visi dipaparkan dalam diskusi tim."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menjabarkan visi ke misi dan tujuan",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Tiga sampai lima misi dirumuskan sebagai kontribusi dan tindakan utama organisasi."
+            },
+            {
+              "no": "3.2",
+              "text": "Setiap misi ditautkan ke visi dan kebutuhan pelanggan atau pemangku kepentingan."
+            },
+            {
+              "no": "3.3",
+              "text": "Tujuan awal ditetapkan sebagai hasil yang ingin dicapai, bukan hanya daftar aktivitas."
+            },
+            {
+              "no": "3.4",
+              "text": "Matriks hubungan visi–misi–tujuan dibuat tanpa kontradiksi yang belum dijelaskan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menelaah dan mengesahkan rancangan",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Masukan tiap anggota dicatat beserta alasan menerima atau menolak usulan."
+            },
+            {
+              "no": "4.2",
+              "text": "Rancangan diperbaiki berdasarkan uji kejelasan, kesesuaian, dan keterukuran tujuan."
+            },
+            {
+              "no": "4.3",
+              "text": "Versi akhir diberi identitas dokumen, tanggal, dan penanggung jawab penyusun."
+            },
+            {
+              "no": "4.4",
+              "text": "Visi, misi, dan tujuan dijelaskan tanpa membaca naskah secara penuh serta dapat dijawab saat ditanya."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Membedakan visi (kondisi masa depan), misi (tugas pokok), nilai, tujuan, serta contoh rumusan yang kurang operasional.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyusun visi, misi dan tujuan yang koheren, memiliki alasan berbasis kebutuhan pelanggan, dan dapat dijelaskan hubungan logisnya.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Merumuskan komitmen usaha tanpa klaim tidak berdasar dan mencatat masukan/revisi secara transparan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Memfasilitasi musyawarah yang memberi kesempatan anggota menyampaikan pendapat serta menjelaskan manfaat usaha bagi pihak lain.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Tim pendiri merumuskan arah perusahaan yang menghasilkan manfaat pelanggan sekaligus kontribusi sosial yang realistis.",
+        "Portofolio/bukti wajib": "Analisis contoh visi/misi; rumusan visi; 3–5 misi; 3 tujuan yang terkait; risalah pembahasan dan revisi.",
+        "Aspek kritis": "Visi berbeda dari misi; setiap tujuan harus terkait arah usaha dan tidak memuat klaim yang bertentangan dengan model bisnis.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0003",
+      "title": "Menjabarkan Tujuan Perusahaan Menjadi Sasaran dan Kebutuhan Operasional",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menjabarkan Tujuan Perusahaan Menjadi Sasaran dan Kebutuhan Operasional. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menganalisis tujuan dan faktor pencapaian",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Tujuan terpilih dari dokumen visi-misi dibaca dan dijelaskan kembali dengan benar."
+            },
+            {
+              "no": "1.2",
+              "text": "Faktor pelanggan, proses, orang, biaya, dan waktu yang memengaruhi pencapaian diidentifikasi."
+            },
+            {
+              "no": "1.3",
+              "text": "Kondisi awal atau keterbatasan data dicatat sebagai dasar perencanaan."
+            },
+            {
+              "no": "1.4",
+              "text": "Sasaran yang dapat dijalankan dalam proyek pembelajaran dipilih dengan alasan jelas."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun sasaran dan ukuran keberhasilan",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Setiap tujuan dijabarkan menjadi sasaran dengan hasil akhir dan batas waktu tertentu."
+            },
+            {
+              "no": "2.2",
+              "text": "Indikator disusun lengkap dengan definisi, satuan, periode, dan sumber data."
+            },
+            {
+              "no": "2.3",
+              "text": "Target angka atau kriteria keberhasilan ditetapkan dari asumsi/data awal yang dinyatakan."
+            },
+            {
+              "no": "2.4",
+              "text": "Sasaran yang berpotensi bertentangan diuji dan diperbaiki melalui diskusi."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memetakan kebutuhan untuk mencapai sasaran",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Kegiatan utama yang diperlukan untuk masing-masing sasaran diuraikan berurutan."
+            },
+            {
+              "no": "3.2",
+              "text": "Kebutuhan orang, anggaran, barang, alat, informasi, dan waktu diinventarisasi."
+            },
+            {
+              "no": "3.3",
+              "text": "Ketergantungan antar kebutuhan dan fungsi ditandai dalam matriks perencanaan."
+            },
+            {
+              "no": "3.4",
+              "text": "Daftar kebutuhan dibandingkan dengan kapasitas awal dan disertai kesenjangan yang ditemukan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menyusun rencana dan menguji konsistensi",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Rencana awal memuat kegiatan, target, penanggung jawab, dan waktu pelaksanaan."
+            },
+            {
+              "no": "4.2",
+              "text": "Keterhubungan tujuan–indikator–kegiatan–kebutuhan diperiksa dengan daftar cek."
+            },
+            {
+              "no": "4.3",
+              "text": "Prioritas dan revisi dijelaskan berdasarkan sumber daya serta kebutuhan pelanggan."
+            },
+            {
+              "no": "4.4",
+              "text": "Dokumen rencana kerja diserahkan kepada tim terkait dalam versi yang terkendali."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Membedakan tujuan, sasaran, indikator, target dan kegiatan menggunakan contoh penjualan, produksi, layanan, atau pengadaan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Membuat sasaran terukur beserta definisi indikator, data dasar dan daftar sumber daya yang relevan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Memeriksa kelayakan target, mengakui keterbatasan data dan membuat perubahan target secara tercatat.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menyepakati prioritas antar fungsi secara terbuka sehingga target satu fungsi tidak merugikan fungsi lain.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Perusahaan simulasi ingin memenuhi pesanan secara konsisten; peserta menurunkan tujuan menjadi target operasional dan kebutuhan penunjang.",
+        "Portofolio/bukti wajib": "Matriks tujuan–sasaran–indikator–target–periode; daftar kebutuhan sumber daya dan asumsi; rencana kerja awal.",
+        "Aspek kritis": "Indikator punya definisi, satuan, sumber data, dan periode; kebutuhan sumber daya terkait langsung pada sasaran.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0004",
+      "title": "Mengidentifikasi Fungsi-Fungsi Utama dan Pendukung Perusahaan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi Fungsi-Fungsi Utama dan Pendukung Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengidentifikasi fungsi inti pembentuk nilai",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Aktivitas yang langsung menciptakan nilai bagi pelanggan dijabarkan dari perjalanan bisnis."
+            },
+            {
+              "no": "1.2",
+              "text": "Fungsi pemasaran/penjualan, pemenuhan, pengadaan, dan pelayanan dipetakan sesuai jenis usaha."
+            },
+            {
+              "no": "1.3",
+              "text": "Perbedaan produksi barang, pelaksanaan jasa, dan jual-beli stok dijelaskan dengan contoh."
+            },
+            {
+              "no": "1.4",
+              "text": "Output tiap fungsi inti dihubungkan dengan tahap pelanggan berikutnya."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mengidentifikasi fungsi pendukung dan pengendalian",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Fungsi SDM, aset, keuangan, pendanaan, administrasi/legal, IT, dan pengendalian kualitas diidentifikasi sesuai kebutuhan."
+            },
+            {
+              "no": "2.2",
+              "text": "Peran fungsi pendukung dalam menjaga kelangsungan operasi dijelaskan melalui contoh masalah."
+            },
+            {
+              "no": "2.3",
+              "text": "Kebutuhan pembelian sendiri dan pengadaan melalui produksi/purchasing dibedakan menurut alur usaha."
+            },
+            {
+              "no": "2.4",
+              "text": "Fungsi yang tidak diperlukan sebagai unit terpisah diberi alasan terkait skala perusahaan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memetakan input, kegiatan, dan hasil fungsi",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Setiap fungsi diuraikan menjadi input, kegiatan inti, output, dan pengguna hasil."
+            },
+            {
+              "no": "3.2",
+              "text": "Antar fungsi dihubungkan melalui minimal satu arus informasi, barang, jasa, atau uang."
+            },
+            {
+              "no": "3.3",
+              "text": "Matriks fungsi dibuat untuk model bisnis terpilih dan diberi keterangan alur khusus."
+            },
+            {
+              "no": "3.4",
+              "text": "Daftar peran diperiksa terhadap tujuan/sasaran perusahaan tanpa fungsi yang tidak jelas manfaatnya."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memvalidasi peta fungsi dengan tim",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Kasus pesanan pelanggan ditelusuri untuk menguji apakah fungsi yang diperlukan tersedia."
+            },
+            {
+              "no": "4.2",
+              "text": "Tumpang tindih dan kekosongan fungsi dicatat beserta contoh dampaknya."
+            },
+            {
+              "no": "4.3",
+              "text": "Revisi fungsi dijelaskan kepada pihak terkait dalam diskusi lintas peran."
+            },
+            {
+              "no": "4.4",
+              "text": "Peta fungsi akhir disimpan sebagai dasar bagan struktur dan tupoksi."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menguraikan peran pemasaran, penjualan, pengadaan, produksi/layanan, gudang, SDM, aset, keuangan, pendanaan, administrasi, dan IT.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Memetakan fungsi diperlukan per model bisnis berikut input, output, pihak penerima, dan alasan keberadaannya.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menghindari pembentukan divisi semata karena contoh perusahaan besar serta menjelaskan asumsi skala usaha.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menguji hubungan antar fungsi bersama rekan dan memberi ruang masukan dari bagian yang terdampak.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta membandingkan kebutuhan fungsi pada bisnis perdagangan, jasa dan manufaktur dengan tujuan usaha yang sama.",
+        "Portofolio/bukti wajib": "Matriks fungsi bisnis; peta fungsi inti/pendukung; daftar input–aktivitas–output serta keterkaitan lintas fungsi.",
+        "Aspek kritis": "Fungsi bukan selalu departemen atau satu jabatan; tidak ada fungsi penting yang terlewat dari customer journey.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0005",
+      "title": "Merancang Struktur Organisasi Berdasarkan Kebutuhan Perusahaan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk merancang Struktur Organisasi Berdasarkan Kebutuhan Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menentukan kebutuhan posisi dan tanggung jawab",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Peta fungsi dan beban kerja proyek ditinjau sebelum memilih bentuk struktur."
+            },
+            {
+              "no": "1.2",
+              "text": "Jabatan yang wajib ada secara fungsional diidentifikasi tanpa mengasumsikan setiap fungsi memerlukan satu orang."
+            },
+            {
+              "no": "1.3",
+              "text": "Perbedaan tugas pelaksana, koordinator, manajer, dan pimpinan dijelaskan."
+            },
+            {
+              "no": "1.4",
+              "text": "Posisi yang mungkin dirangkap beserta risiko pemisahan tugasnya dicatat."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mendesain garis pelaporan dan koordinasi",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Bagan organisasi dibuat menggunakan nama posisi yang konsisten."
+            },
+            {
+              "no": "2.2",
+              "text": "Setiap posisi memiliki atasan pelaporan atau otoritas pengawas yang ditentukan."
+            },
+            {
+              "no": "2.3",
+              "text": "Hubungan koordinasi lintas fungsi digambarkan atau dijelaskan terpisah dari komando."
+            },
+            {
+              "no": "2.4",
+              "text": "Jalur keputusan penting, eskalasi kendala, dan pengganti sementara didefinisikan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menguji fungsi dan pengendalian organisasi",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Bagan dicocokkan dengan fungsi bisnis agar tidak ada kegiatan kritis tanpa pemilik."
+            },
+            {
+              "no": "3.2",
+              "text": "Potensi konflik kepentingan dalam permintaan, persetujuan, penerimaan, dan pembayaran diidentifikasi."
+            },
+            {
+              "no": "3.3",
+              "text": "Struktur disederhanakan sesuai skala usaha tanpa menghilangkan pengendalian minimum."
+            },
+            {
+              "no": "3.4",
+              "text": "Versi dan tanggal bagan dicantumkan untuk menghindari penggunaan struktur lama."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menjelaskan dan merevisi desain organisasi",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Alasan pembagian peran dipresentasikan dengan merujuk sasaran dan beban kerja."
+            },
+            {
+              "no": "4.2",
+              "text": "Peserta menjawab skenario ketidakhadiran pejabat penanggung jawab."
+            },
+            {
+              "no": "4.3",
+              "text": "Masukan dari fungsi lain dicatat dan diputuskan secara terbuka."
+            },
+            {
+              "no": "4.4",
+              "text": "Bagan final disahkan sesuai mekanisme simulasi yang telah ditetapkan."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan fungsi, divisi, posisi, hubungan pelaporan, koordinasi, dan otoritas keputusan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyusun bagan organisasi berbasis peta fungsi dan sasaran yang memuat garis tanggung jawab.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menghindari rangkap peran tanpa pengendalian dan menyebutkan keterbatasan struktur kecil dengan jujur.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menguji struktur bersama rekan dari fungsi berbeda dan merespons masukan secara profesional.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Tim mengubah peta fungsi ke susunan jabatan sederhana dan membandingkan kondisi mikro dan berkembang.",
+        "Portofolio/bukti wajib": "Bagan organisasi berjenjang; daftar jabatan; matriks hubungan pelaporan dan koordinasi; alasan desain organisasi.",
+        "Aspek kritis": "Satu penanggung jawab akhir per keputusan penting harus jelas; hubungan pelaporan tidak berputar/tidak ambigu.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0006",
+      "title": "Menyusun Tugas Pokok, Fungsi, Wewenang, dan Tanggung Jawab Jabatan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Tugas Pokok, Fungsi, Wewenang, dan Tanggung Jawab Jabatan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengidentifikasi kebutuhan jabatan dan peran",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Fungsi dan jabatan pada bagan organisasi dihubungkan dengan sasaran perusahaan."
+            },
+            {
+              "no": "1.2",
+              "text": "Perbedaan tugas pokok, fungsi, wewenang, dan tanggung jawab dijelaskan dengan contoh kerja."
+            },
+            {
+              "no": "1.3",
+              "text": "Masukan dan keluaran utama suatu jabatan diidentifikasi dari alur kerja."
+            },
+            {
+              "no": "1.4",
+              "text": "Pihak pemberi tugas, penerima laporan, dan rekan koordinasi dicatat."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun uraian jabatan yang operasional",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Uraian jabatan mencakup tujuan posisi, aktivitas berulang, output, dan frekuensi."
+            },
+            {
+              "no": "2.2",
+              "text": "Dokumen/formulir yang dibuat, diterima, diperiksa, atau diserahkan per jabatan didaftar."
+            },
+            {
+              "no": "2.3",
+              "text": "Batas kewenangan persetujuan dan kewajiban eskalasi ditulis tanpa ambiguitas."
+            },
+            {
+              "no": "2.4",
+              "text": "Indikator hasil kerja dan bentuk pertanggungjawaban ditetapkan sesuai aktivitas."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Membuat matriks pemilik aktivitas",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Proses utama dipetakan ke pelaksana, penanggung jawab, pihak konsultasi, dan penerima informasi."
+            },
+            {
+              "no": "3.2",
+              "text": "Tugas yang belum memiliki pemilik atau memiliki lebih dari satu penanggung jawab akhir ditandai."
+            },
+            {
+              "no": "3.3",
+              "text": "Pekerjaan mengusulkan, menyetujui, menerima, dan membayar diuji dari sisi pemisahan tugas."
+            },
+            {
+              "no": "3.4",
+              "text": "Matriks dan jobdesk direvisi agar konsisten dengan bagan struktur."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Mengkomunikasikan dan menguji tupoksi",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Setiap pemegang peran menjelaskan batas pekerjaannya menggunakan kasus lintas fungsi."
+            },
+            {
+              "no": "4.2",
+              "text": "Simulasi eskalasi dilakukan ketika keputusan melampaui kewenangan jabatan."
+            },
+            {
+              "no": "4.3",
+              "text": "Perbedaan tafsir pembagian kerja dibahas dan hasil kesepakatan dicatat."
+            },
+            {
+              "no": "4.4",
+              "text": "Uraian jabatan akhir diberi pengendalian versi serta penanggung jawab pengesahan."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Membedakan tugas pokok, fungsi, aktivitas, wewenang, tanggung jawab, PIC, dan akuntabilitas.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Membuat minimal tiga jobdesk jabatan beserta keluaran, frekuensi, dokumen, ukuran kerja, dan eskalasi.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menuliskan batas wewenang secara jelas dan melaporkan kemungkinan konflik peran.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengonfirmasi hasil rancangan kepada pemegang peran terkait dan menyelesaikan perbedaan pembagian tugas.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Setiap anggota tim menerima satu jabatan simulasi lalu menyusun jobdesk yang berhubungan dengan proses nyata.",
+        "Portofolio/bukti wajib": "Dokumen uraian jabatan; matriks peran aktivitas/RACI sederhana; daftar kewenangan dan bukti pertanggungjawaban.",
+        "Aspek kritis": "Pemisahan kewenangan mengusulkan, menyetujui, menerima, dan mencatat diperiksa; hasil kerja dapat dibuktikan.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0007",
+      "title": "Memetakan Perjalanan Bisnis Perusahaan Secara Menyeluruh (Business Journey Mapping)",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk memetakan Perjalanan Bisnis Perusahaan Secara Menyeluruh (Business Journey Mapping). Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menentukan ruang lingkup perjalanan bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Pemicu proses seperti permintaan pelanggan dan kondisi akhir seperti pembayaran/penyelesaian ditetapkan."
+            },
+            {
+              "no": "1.2",
+              "text": "Pelanggan, pemasok, fungsi internal, dan pihak eksternal yang berperan diidentifikasi."
+            },
+            {
+              "no": "1.3",
+              "text": "Variasi alur perdagangan, jasa, dan manufaktur dibandingkan sebelum menentukan skenario."
+            },
+            {
+              "no": "1.4",
+              "text": "Batas proses dan asumsi yang tidak ditampilkan diberi catatan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mengurutkan rangkaian aktivitas lintas fungsi",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Langkah dari permintaan, penawaran, kesepakatan, pemenuhan, penyerahan, penagihan, sampai pembayaran diurutkan."
+            },
+            {
+              "no": "2.2",
+              "text": "Proses pembelian, produksi, atau pelaksanaan jasa disisipkan sesuai kebutuhan model usaha."
+            },
+            {
+              "no": "2.3",
+              "text": "Setiap langkah diberi penanggung jawab fungsi serta input dan output."
+            },
+            {
+              "no": "2.4",
+              "text": "Titik keputusan seperti persetujuan penawaran, stok, dan mutu ditandai dalam peta."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menghubungkan journey dengan dokumen dan serah terima",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Dokumen yang diterima, dibuat, serta dikirim pada setiap perpindahan proses diidentifikasi."
+            },
+            {
+              "no": "3.2",
+              "text": "Pihak pengirim, penerima, dan bukti serah terima dijelaskan untuk tahapan kritis."
+            },
+            {
+              "no": "3.3",
+              "text": "Contoh QR-C, OL, PO-C/OA, SRP/BAST, invoice, dan bukti pembayaran ditempatkan secara logis."
+            },
+            {
+              "no": "3.4",
+              "text": "Kebutuhan informasi fungsi berikutnya diperiksa agar proses dapat dilanjutkan tanpa menebak."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menguji dan menyempurnakan journey",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Satu skenario pesanan normal ditelusuri melalui seluruh langkah peta."
+            },
+            {
+              "no": "4.2",
+              "text": "Skenario perubahan pesanan, barang tidak tersedia, atau hasil jasa ditolak diuji pada titik keputusan."
+            },
+            {
+              "no": "4.3",
+              "text": "Celah proses, dokumen hilang, dan duplikasi aktivitas dicatat lalu diperbaiki."
+            },
+            {
+              "no": "4.4",
+              "text": "Peta final dipresentasikan dan diperiksa oleh perwakilan fungsi terkait."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan awal/akhir journey dan membedakan proses bisnis end-to-end dari susunan organisasi.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menggambar journey lengkap dengan aktor, langkah, keputusan, keluaran, dan dokumen kunci.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Memperlihatkan ketidaksesuaian alur yang ditemukan dan alasan perbaikannya, bukan menyembunyikannya.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meminta validasi fungsi yang menerima hasil dan membagi pengetahuan journey kepada seluruh anggota tim.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Kelompok menelusuri perjalanan satu permintaan pelanggan dari awal hingga pemenuhan, penagihan, pembayaran, dan purnajual.",
+        "Portofolio/bukti wajib": "Peta journey end-to-end; daftar titik serah terima; interaksi eksternal/internal; contoh jalur barang, jasa, atau manufaktur.",
+        "Aspek kritis": "Peta tidak boleh berhenti pada penjualan; titik serah terima dan aliran dokumen harus dapat ditelusuri.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0008",
+      "title": "Mengidentifikasi dan Memetakan Kegiatan Operasional Setiap Fungsi",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi dan Memetakan Kegiatan Operasional Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menurunkan journey menjadi daftar kegiatan",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Fungsi pada peta perjalanan bisnis dipilih dan ditelusuri aktivitas riilnya."
+            },
+            {
+              "no": "1.2",
+              "text": "Kegiatan dipisahkan dari jabatan, hasil kerja, dan nama dokumen agar tidak tercampur."
+            },
+            {
+              "no": "1.3",
+              "text": "Minimal tiga aktivitas kunci untuk setiap lima fungsi yang relevan dicatat."
+            },
+            {
+              "no": "1.4",
+              "text": "Urutan, pemicu, dan keluaran kegiatan dijelaskan kepada rekan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun matriks aktivitas dan koordinasi",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Setiap baris kegiatan diisi nama fungsi, jobdesk, aktivitas, PIC, input, dan output."
+            },
+            {
+              "no": "2.2",
+              "text": "Pihak internal/eksternal yang terlibat serta aktivitas serah terima ditentukan."
+            },
+            {
+              "no": "2.3",
+              "text": "Frekuensi atau tenggat kegiatan dicatat dan asumsi waktunya diberi keterangan."
+            },
+            {
+              "no": "2.4",
+              "text": "Dokumen yang menyertai kegiatan disebutkan sesuai isi dan tujuan, bukan sekadar singkatan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memeriksa kelengkapan dan dependensi kegiatan",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Setiap input penting ditelusuri ke aktivitas sebelumnya atau sumber eksternal."
+            },
+            {
+              "no": "3.2",
+              "text": "Output suatu kegiatan dicocokkan dengan kebutuhan fungsi penerima."
+            },
+            {
+              "no": "3.3",
+              "text": "Tahapan otorisasi, pemeriksaan mutu, dan pelaporan dicatat pada kegiatan relevan."
+            },
+            {
+              "no": "3.4",
+              "text": "Kegiatan berulang, terlewat, dan tidak bernilai tambah diberi tanda untuk perbaikan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Mengkomunikasikan hasil pemetaan",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Matriks ditinjau silang bersama rekan yang memerankan fungsi berbeda."
+            },
+            {
+              "no": "4.2",
+              "text": "Perbedaan data atau istilah diselesaikan dengan kamus istilah ringkas."
+            },
+            {
+              "no": "4.3",
+              "text": "Versi matriks diperbarui dan alasan perubahan dicatat."
+            },
+            {
+              "no": "4.4",
+              "text": "Setiap anggota dapat menunjuk kegiatan tanggung jawabnya dan pihak penerima hasilnya."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Membedakan fungsi, jobdesk, kegiatan, komunikasi, dokumen, dan output dari contoh Business Mapping.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Mengisi pemetaan paling sedikit lima fungsi, masing-masing 3 aktivitas relevan, lengkap dengan pihak yang terlibat.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Mengikuti urutan aktivitas dan mencatat sumber/asumsi waktu dengan cermat.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengonfirmasi perpindahan aktivitas kepada fungsi penerima dan menyelesaikan perbedaan informasi melalui diskusi.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta menguraikan journey menjadi tugas harian/mingguan masing-masing fungsi memakai pendekatan tabel Business Mapping.",
+        "Portofolio/bukti wajib": "Matriks fungsi–jobdesk–kegiatan–dokumen–PIC–waktu–pihak internal/eksternal–keluaran; peta aktivitas minimum 5 fungsi.",
+        "Aspek kritis": "Tidak ada kegiatan tanpa output atau PIC; pengelompokan pekerjaan tidak boleh menghilangkan kegiatan silang fungsi.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0009",
+      "title": "Merancang Alur Kerja (Workflow) dan Mekanisme Pengendalian Antar Fungsi",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk merancang Alur Kerja (Workflow) dan Mekanisme Pengendalian Antar Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menentukan kebutuhan dan batas workflow",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Satu proses prioritas dipilih dari matriks aktivitas dan tujuan kendalinya dijelaskan."
+            },
+            {
+              "no": "1.2",
+              "text": "Peran pengusul, pemeriksa, penyetuju, pelaksana, dan penerima hasil dibedakan."
+            },
+            {
+              "no": "1.3",
+              "text": "Pemicu, data wajib, output, serta kondisi selesai ditetapkan."
+            },
+            {
+              "no": "1.4",
+              "text": "Risiko sederhana seperti persetujuan tanpa bukti dan duplikasi permintaan diidentifikasi."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menggambar langkah dan keputusan workflow",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Langkah kerja disusun dalam alur yang memiliki awal, arah, dan akhir yang jelas."
+            },
+            {
+              "no": "2.2",
+              "text": "Titik persetujuan/penolakan dan pihak berwenang ditunjukkan pada diagram."
+            },
+            {
+              "no": "2.3",
+              "text": "Dokumen/bukti wajib ditautkan ke langkah yang menghasilkan atau memerlukannya."
+            },
+            {
+              "no": "2.4",
+              "text": "Jalur alternatif untuk penolakan, perbaikan, dan pengulangan diberi penjelasan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menguji kontrol dan serah terima lintas fungsi",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Pemisahan peran dan otorisasi diperiksa terhadap struktur serta tupoksi yang telah dibuat."
+            },
+            {
+              "no": "3.2",
+              "text": "Workflow diuji pada satu kasus normal dan satu kasus pengecualian yang realistis."
+            },
+            {
+              "no": "3.3",
+              "text": "Bukti serah terima, pemberitahuan, dan status penyelesaian diperlihatkan dalam uji."
+            },
+            {
+              "no": "3.4",
+              "text": "Temuan alur buntu, duplikasi, atau dokumen terlewat dicatat beserta koreksinya."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memperbaiki dan menerapkan workflow",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Diagram direvisi menggunakan hasil uji dan alasan revisinya didokumentasikan."
+            },
+            {
+              "no": "4.2",
+              "text": "Cara menggunakan alur dijelaskan melalui demonstrasi langkah demi langkah."
+            },
+            {
+              "no": "4.3",
+              "text": "Tim penerima proses mengonfirmasi bahwa input serta output dapat dipahami."
+            },
+            {
+              "no": "4.4",
+              "text": "Versi final diagram disimpan dan direferensikan pada SOP terkait."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan journey, workflow, SOP, otorisasi, pemeriksaan, dan eskalasi.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menggambar alur yang memperlihatkan pemicu, peran, dokumen, keputusan, status, dan kondisi akhir.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menguji risiko otorisasi oleh diri sendiri, dokumen tidak lengkap, dan keterlambatan tanpa menghilangkan jejak perubahan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengkomunikasikan perubahan workflow kepada tim terdampak dan membuktikan skenario dapat dilaksanakan bersama.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Kelompok membuat workflow permintaan pembelian sampai pembayaran atau order pelanggan sampai serah terima.",
+        "Portofolio/bukti wajib": "Flowchart/swimlane; tabel input–aksi–keputusan–otorisasi–output; skenario normal dan pengecualian.",
+        "Aspek kritis": "Tidak boleh ada transaksi/kegiatan kritis tanpa langkah pemeriksaan/persetujuan yang ditentukan; skenario gagal punya tindak lanjut.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0010",
+      "title": "Menyusun Standar Operasional Prosedur (SOP) dan Instruksi Kerja",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Standar Operasional Prosedur (SOP) dan Instruksi Kerja. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menetapkan ruang lingkup dan sumber SOP",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Proses dan risiko yang akan distandarkan dipilih dari workflow yang disepakati."
+            },
+            {
+              "no": "1.2",
+              "text": "Tujuan, awal/akhir prosedur, pengguna, dan keluaran didefinisikan."
+            },
+            {
+              "no": "1.3",
+              "text": "Kebijakan internal, peran, formulir, dan titik pengendalian yang diperlukan dikumpulkan."
+            },
+            {
+              "no": "1.4",
+              "text": "Perbedaan SOP, instruksi kerja, dan formulir dijelaskan dengan contoh."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menulis SOP yang dapat dijalankan",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Identitas SOP mencakup judul, nomor, versi, tanggal, pemilik proses, dan pengesahan simulasi."
+            },
+            {
+              "no": "2.2",
+              "text": "Langkah ditulis berurutan dengan kata kerja jelas, pelaksana, dan output tiap tahap."
+            },
+            {
+              "no": "2.3",
+              "text": "Keputusan, toleransi/pengecualian yang diketahui, dan jalur eskalasi dicantumkan."
+            },
+            {
+              "no": "2.4",
+              "text": "Dokumen pendukung diberi nama konsisten dengan daftar induk dokumen."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Membuat instruksi kerja dan formulir pendukung",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Satu langkah yang memerlukan rincian dibuat menjadi instruksi kerja sederhana."
+            },
+            {
+              "no": "3.2",
+              "text": "Contoh formulir memuat identitas, data inti, tanggal, pihak terkait, dan ruang persetujuan bila diperlukan."
+            },
+            {
+              "no": "3.3",
+              "text": "Instruksi dan formulir diuji keterbacaannya untuk peserta berlatar SMA/SMK."
+            },
+            {
+              "no": "3.4",
+              "text": "Referensi silang SOP–instruksi–formulir diperiksa agar tidak terjadi pertentangan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menguji, merevisi, dan menyosialisasikan SOP",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Rekan menjalankan simulasi prosedur menggunakan dokumen tanpa penjelasan tambahan dari penyusun."
+            },
+            {
+              "no": "4.2",
+              "text": "Waktu, kebingungan, langkah terlewat, dan kesalahan dicatat sebagai temuan."
+            },
+            {
+              "no": "4.3",
+              "text": "SOP dan instruksi diperbaiki serta riwayat perubahannya disimpan."
+            },
+            {
+              "no": "4.4",
+              "text": "SOP final dijelaskan dan lokasi dokumen terkendali diinformasikan kepada pengguna."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan tujuan SOP, instruksi kerja, formulir, kebijakan, dan cara menggunakan kontrol versi.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menulis SOP dengan tujuan, ruang lingkup, tanggung jawab, langkah, dokumen, kontrol, dan penyelesaian.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Mengikuti urutan aman, menjelaskan keterbatasan dan memperbaiki dokumen saat ditemukan kebingungan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meminta rekan yang bukan pembuat untuk melakukan uji coba dan menindaklanjuti umpan balik secara konstruktif.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta menyusun SOP penerimaan order, permintaan pembelian, atau penerimaan barang berdasarkan workflow terpilih.",
+        "Portofolio/bukti wajib": "SOP bernomor dan berversi; instruksi kerja ringkas; daftar formulir terkait; berita acara uji SOP.",
+        "Aspek kritis": "Langkah SOP selaras workflow; orang lain harus dapat mengikuti tanpa instruksi lisan yang tidak terdokumentasi.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0011",
+      "title": "Mengidentifikasi dan Mengklasifikasikan Dokumen Kegiatan Bisnis",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi dan Mengklasifikasikan Dokumen Kegiatan Bisnis. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengenali jenis dan tujuan dokumen bisnis",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Dokumen transaksi, pelengkap transaksi, perpajakan, pendukung, legalitas, dan aset dibedakan dengan contoh."
+            },
+            {
+              "no": "1.2",
+              "text": "Fungsi bukti permintaan, penawaran, persetujuan, pelaksanaan, tagihan, dan pembayaran dijelaskan."
+            },
+            {
+              "no": "1.3",
+              "text": "Contoh QR-C, BPBI, OE/BOM, OL, PO-C/OA, SRP/PRP, INV, FPK, dan bukti bayar dikenali."
+            },
+            {
+              "no": "1.4",
+              "text": "Alasan satu kegiatan memerlukan lebih dari satu dokumen dijelaskan tanpa menganggap semua dokumen selalu wajib."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mengklasifikasikan dokumen berdasarkan penggunaan",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Daftar dokumen dari satu journey disusun dalam kelompok yang ditetapkan lembaga."
+            },
+            {
+              "no": "2.2",
+              "text": "Setiap dokumen dicatat nama baku, singkatan, fungsi, asal, tujuan, dan tahap prosesnya."
+            },
+            {
+              "no": "2.3",
+              "text": "Status dibuat/diteima/diperiksa/diserahkan dibedakan untuk setiap jenis dokumen."
+            },
+            {
+              "no": "2.4",
+              "text": "Dokumen yang relevan bagi proses berikutnya dihubungkan lewat referensi silang."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menyusun daftar induk dan relasi dokumen",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Register memuat kode internal, nama, jenis, fungsi pemilik, format, versi, serta tempat simpan."
+            },
+            {
+              "no": "3.2",
+              "text": "Rantai dokumen permintaan–persetujuan–pemenuhan–tagihan–pembayaran dicontohkan."
+            },
+            {
+              "no": "3.3",
+              "text": "Duplikasi kode/nama yang berpotensi membingungkan ditandai dan diusulkan perbaikan."
+            },
+            {
+              "no": "3.4",
+              "text": "Kolom status dokumen yang belum tersedia atau belum valid diisi apa adanya."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menguji pengelompokan dan keterlacakan",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Dua contoh bundel dokumen ditelusuri dari dokumen awal ke bukti penyelesaian."
+            },
+            {
+              "no": "4.2",
+              "text": "Kesalahan jenis, pemilik, versi, atau hubungan dokumen dicatat dengan alasan."
+            },
+            {
+              "no": "4.3",
+              "text": "Revisi klasifikasi disepakati bersama fungsi pengguna dokumen."
+            },
+            {
+              "no": "4.4",
+              "text": "Daftar induk final digunakan sebagai acuan unit penyusunan dokumen berikutnya."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan fungsi dokumen transaksi, pelengkap transaksi, pelengkap perpajakan, pendukung, legal, dan aset.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Mendaftarkan contoh dokumen nyata dan menghubungkannya dengan kegiatan, penerbit/penerima, serta dokumen terkait.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak membuat kategori hanya berdasarkan nama file; menjaga status, sumber, versi, dan keutuhan bukti.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menyepakati istilah dokumen antar fungsi dan membantu rekan menemukan dokumen sumber secara benar.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta menerima bundel beragam dokumen dari Business Mapping dan menentukan fungsi, jenis, pemilik, relasi, serta keterpakaiannya.",
+        "Portofolio/bukti wajib": "Daftar induk dokumen; matriks klasifikasi transaksi/pelengkap/pajak/pendukung/legal/aset; diagram dependensi dokumen.",
+        "Aspek kritis": "Klasifikasi bukan penentuan perlakuan pajak atau jurnal; perbedaan dokumen sumber, pendukung, dan pelengkap dijelaskan.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0012",
+      "title": "Membuat Dokumen Kegiatan Pemasaran, Penjualan, dan Pelayanan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan Pemasaran, Penjualan, dan Pelayanan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menyiapkan kebutuhan informasi penjualan",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan pelanggan dicatat dari permintaan/QR-C beserta spesifikasi, waktu, jumlah, dan kontak."
+            },
+            {
+              "no": "1.2",
+              "text": "Informasi belum jelas diklarifikasi sebelum membuat penawaran."
+            },
+            {
+              "no": "1.3",
+              "text": "Harga, kapasitas pemenuhan, masa berlaku, dan asumsi dihimpun sesuai kasus."
+            },
+            {
+              "no": "1.4",
+              "text": "Perbedaan permintaan penawaran, penawaran, dan pesanan pelanggan dijelaskan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Membuat penawaran dan dokumen kesepakatan",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Quotation/OL contoh dibuat dengan identitas pihak, objek, kuantitas, harga, syarat, dan tanggal."
+            },
+            {
+              "no": "2.2",
+              "text": "Perhitungan OE/BOM atau dasar perkiraan biaya dilampirkan bila relevan."
+            },
+            {
+              "no": "2.3",
+              "text": "PO-C atau persetujuan pelanggan diperiksa terhadap isi penawaran sebelum dibuat OA/konfirmasi pesanan."
+            },
+            {
+              "no": "2.4",
+              "text": "Ketidaksesuaian spesifikasi atau angka ditandai untuk persetujuan perubahan."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Membuat dokumen pelaksanaan dan tagihan",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Bukti penyerahan barang atau SRP/PRP/BAST untuk jasa dipilih sesuai skenario."
+            },
+            {
+              "no": "3.2",
+              "text": "Identitas barang/jasa, hasil, tanggal, dan pihak penerima dicatat sesuai kejadian simulasi."
+            },
+            {
+              "no": "3.3",
+              "text": "Invoice contoh dibuat berdasarkan persetujuan dan bukti pelaksanaan yang dirujuk."
+            },
+            {
+              "no": "3.4",
+              "text": "Status pembayaran didukung bukti yang sesuai dan tidak ditandai lunas hanya atas dasar invoice."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memeriksa dan menyerahkan berkas penjualan",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Nomor referensi, nama pihak, jumlah, harga, dan tanggal dicek silang pada paket dokumen."
+            },
+            {
+              "no": "4.2",
+              "text": "Daftar kekurangan dokumen disusun sebelum berkas diserahkan ke fungsi terkait."
+            },
+            {
+              "no": "4.3",
+              "text": "Berkas dipresentasikan dengan alasan tiap dokumen dibutuhkan dan kapan digunakan."
+            },
+            {
+              "no": "4.4",
+              "text": "Paket dokumen dan register disimpan sesuai aturan versi serta hak akses simulasi."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan fungsi RFQ pelanggan, penawaran, kesepakatan, bukti layanan/pengiriman, invoice, dan bukti pembayaran.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menghasilkan rangkaian formulir penjualan yang lengkap dan konsisten pada satu skenario pelanggan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Memeriksa angka, identitas pelanggan, persetujuan, dan fakta penyelesaian sebelum menulis status selesai.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengonfirmasi kebutuhan pelanggan dan menyerahkan berkas ke fungsi pemenuhan/keuangan dengan informasi yang tepat.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta menyiapkan paket administrasi penjualan dari kebutuhan pelanggan sampai penagihan untuk satu kasus terhubung.",
+        "Portofolio/bukti wajib": "Request pelanggan; lembar kebutuhan; penawaran/quotation; penerimaan PO; dokumen kesepakatan; serah terima; invoice contoh; register penjualan.",
+        "Aspek kritis": "Dokumen berisi nama pihak, objek, harga/kuantitas, tanggal dan referensi yang konsisten; tidak mengaku transaksi simulasi sebagai transaksi nyata.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0013",
+      "title": "Membuat Dokumen Kegiatan Pengadaan, Persediaan, dan Produksi",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan Pengadaan, Persediaan, dan Produksi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menetapkan kebutuhan pengadaan dan produksi",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Kebutuhan bahan/barang/jasa diturunkan dari pesanan atau rencana kerja."
+            },
+            {
+              "no": "1.2",
+              "text": "Stok tersedia, jumlah, spesifikasi, dan tanggal dibutuhkan dicatat pada permintaan pembelian."
+            },
+            {
+              "no": "1.3",
+              "text": "Fungsi pengusul, pembeli, penerima, dan pengguna hasil dibedakan."
+            },
+            {
+              "no": "1.4",
+              "text": "Dokumen kebutuhan produksi seperti BOM/work order dikenali sesuai skenario."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun dokumen pemilihan dan pemesanan pemasok",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Permintaan penawaran kepada pemasok dibuat dengan spesifikasi yang jelas."
+            },
+            {
+              "no": "2.2",
+              "text": "Sedikitnya dua alternatif penawaran dibandingkan pada harga, mutu, syarat, dan waktu."
+            },
+            {
+              "no": "2.3",
+              "text": "Purchase order dibuat berdasarkan pilihan yang disetujui sesuai batas wewenang simulasi."
+            },
+            {
+              "no": "2.4",
+              "text": "Perubahan kebutuhan atau harga dijelaskan dan direkam dalam dokumen versi terbaru."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menyusun dokumen penerimaan dan penggunaan",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Penerimaan dicatat berdasarkan jumlah/kondisi yang diperiksa, bukan hanya yang dipesan."
+            },
+            {
+              "no": "3.2",
+              "text": "Selisih, kerusakan, atau penolakan diberi catatan dan status tindak lanjut."
+            },
+            {
+              "no": "3.3",
+              "text": "Kartu stok diperbarui dari bukti barang masuk, keluar, dan saldo awal yang diketahui."
+            },
+            {
+              "no": "3.4",
+              "text": "Work order atau laporan hasil produksi/jasa dibuat dengan input dan output terukur."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memastikan ketertelusuran lintas fungsi",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Paket permintaan–penawaran–PO–penerimaan–pemakaian ditelusuri melalui nomor referensi."
+            },
+            {
+              "no": "4.2",
+              "text": "Kesesuaian kuantitas dan satuan diperiksa pada tiap dokumen terkait."
+            },
+            {
+              "no": "4.3",
+              "text": "Dokumen pendukung tagihan pemasok diserahkan ke keuangan beserta daftar kelengkapannya."
+            },
+            {
+              "no": "4.4",
+              "text": "Hasil pengadaan dan kondisi stok dilaporkan kepada pemilik kegiatan secara objektif."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan alur permintaan, pengadaan, penerimaan, persediaan, produksi/pelaksanaan jasa, serta penerapan pada model usaha berbeda.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Membuat paket dokumen pengadaan sampai pemakaian bahan atau serah terima hasil yang dapat ditelusuri.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak menyatakan barang diterima sebelum dicek; selisih dan barang tidak sesuai wajib dicatat.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meneruskan informasi kebutuhan dan hasil pemeriksaan tepat waktu kepada pemohon, gudang, dan keuangan.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Perusahaan perdagangan atau manufaktur membutuhkan material; peserta mencatat permintaan, penawaran vendor, PO, penerimaan, stok, dan hasil kerja.",
+        "Portofolio/bukti wajib": "Permintaan pembelian; evaluasi penawaran pemasok; purchase order; penerimaan/inspeksi; kartu stok; work order/output/BAST; paket bukti.",
+        "Aspek kritis": "Jumlah dipesan, diterima, digunakan, dan sisa stok konsisten; pemesanan dan penerimaan punya peran kontrol terpisah bila memungkinkan.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0014",
+      "title": "Membuat Dokumen Kegiatan SDM, Aset, dan Operasional Pendukung",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan SDM, Aset, dan Operasional Pendukung. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengidentifikasi kebutuhan administrasi SDM",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Peran HR dalam kebutuhan personel, penugasan, absensi, dan evaluasi dijelaskan."
+            },
+            {
+              "no": "1.2",
+              "text": "Data SDM yang diperlukan dibedakan dari informasi pribadi yang tidak relevan."
+            },
+            {
+              "no": "1.3",
+              "text": "Contoh formulir permintaan tenaga kerja, jobdesk, absensi, serta izin disusun daftar komponennya."
+            },
+            {
+              "no": "1.4",
+              "text": "Pengakses dan penyimpan data SDM ditetapkan sesuai kebijakan simulasi."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Membuat dokumen pelaksanaan kegiatan SDM",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Form kebutuhan tenaga kerja mencantumkan posisi, alasan, kualifikasi dasar, dan persetujuan."
+            },
+            {
+              "no": "2.2",
+              "text": "Daftar kehadiran dan jadwal kerja dibuat dengan identitas, tanggal, status, dan PIC."
+            },
+            {
+              "no": "2.3",
+              "text": "Catatan kegiatan atau evaluasi tugas membedakan fakta observasi dari opini."
+            },
+            {
+              "no": "2.4",
+              "text": "Data latihan dianonimkan bila berasal dari orang nyata."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Membuat register dan dokumen penggunaan aset",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Aset diberi nomor unik, nama, lokasi, pemilik/pengelola, kondisi, dan tanggal pencatatan."
+            },
+            {
+              "no": "3.2",
+              "text": "Form serah terima pemakaian memuat pihak penyerah/penerima, tanggal, kondisi, dan tujuan."
+            },
+            {
+              "no": "3.3",
+              "text": "Jadwal pemeliharaan atau inspeksi ditetapkan untuk aset yang relevan."
+            },
+            {
+              "no": "3.4",
+              "text": "Perubahan lokasi, kerusakan, dan pengembalian diperbarui pada register."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memeriksa dan melaporkan administrasi pendukung",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Form SDM dan aset diperiksa kelengkapan identitas serta kewenangan pengisian."
+            },
+            {
+              "no": "4.2",
+              "text": "Satu simulasi peminjaman hingga pengembalian ditelusuri ke register aset."
+            },
+            {
+              "no": "4.3",
+              "text": "Temuan aset tidak ditemukan atau data kehadiran tidak konsisten dilaporkan tanpa menutupi fakta."
+            },
+            {
+              "no": "4.4",
+              "text": "Berkas akhir diserahkan kepada pengelola yang ditetapkan dan disimpan secara terbatas."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan fungsi dokumen HR, kehadiran, penugasan, daftar aset, peminjaman, perawatan, dan bukti pengembalian.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyusun formulir contoh untuk HR serta aset yang menghubungkan pemilik, pemakai, kondisi, dan status.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menjaga kerahasiaan data personel, kejujuran absensi, dan mengakui kerusakan atau kehilangan secara terbuka.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Membuat jadwal penggunaan aset bersama dan menindaklanjuti kebutuhan rekan secara adil.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Tim mengelola karyawan, peralatan, jadwal pemakaian, dan pemeliharaan pada usaha simulasi atau laboratorium Mantaaba.",
+        "Portofolio/bukti wajib": "Form kebutuhan SDM; deskripsi jabatan; kehadiran; agenda kerja; register aset; serah terima peralatan; pemeliharaan; laporan insiden.",
+        "Aspek kritis": "Informasi personal diperlakukan terbatas; aset diberi ID unik; pemakaian dan pengembalian dapat dilacak.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0015",
+      "title": "Membuat Dokumen Perencanaan Keuangan Operasional, Anggaran, dan Pendanaan",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Perencanaan Keuangan Operasional, Anggaran, dan Pendanaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Mengidentifikasi kebutuhan dan sumber dana",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Rencana kegiatan lintas fungsi ditelusuri untuk mencatat kebutuhan dana dan waktunya."
+            },
+            {
+              "no": "1.2",
+              "text": "Modal pemilik, pinjaman, pendapatan, dan kas tersedia dibedakan sebagai sumber yang berbeda."
+            },
+            {
+              "no": "1.3",
+              "text": "Biaya awal, biaya berulang, dan belanja aset dipisahkan untuk tujuan perencanaan."
+            },
+            {
+              "no": "1.4",
+              "text": "Batas informasi keuangan yang boleh diakses tiap fungsi dijelaskan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun anggaran operasional dan kas",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Daftar kebutuhan dibuat dengan nama item, satuan, kuantitas, harga asumsi, total, dan waktu."
+            },
+            {
+              "no": "2.2",
+              "text": "Perhitungan total anggaran diperiksa dengan rumus/rekap yang dapat ditelusuri."
+            },
+            {
+              "no": "2.3",
+              "text": "Rencana penerimaan dan pengeluaran kas dikelompokkan berdasarkan periode."
+            },
+            {
+              "no": "2.4",
+              "text": "Selisih kebutuhan dana dan sumber yang tersedia disajikan berikut tindakan prioritasnya."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Membuat dokumen permintaan dan persetujuan dana",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Form permintaan dana dilengkapi tujuan, nilai, kode kegiatan, dokumen pendukung, dan pemohon."
+            },
+            {
+              "no": "3.2",
+              "text": "Pihak pemeriksa dan pemberi persetujuan ditentukan dari matriks kewenangan."
+            },
+            {
+              "no": "3.3",
+              "text": "Dokumen perintah pembayaran atau bukti bayar dibuat sebagai simulasi yang diberi label jelas."
+            },
+            {
+              "no": "3.4",
+              "text": "Sumber dana, tanggal rencana, dan kewajiban pengembalian dicatat bila skenario menggunakan pendanaan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memvalidasi dan melaporkan rencana dana",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Anggaran dicek terhadap target aktivitas dan rencana waktunya."
+            },
+            {
+              "no": "4.2",
+              "text": "Permintaan yang tidak didukung bukti atau melampaui batas rencana diberi status untuk ditinjau."
+            },
+            {
+              "no": "4.3",
+              "text": "Perubahan nilai/asumsi disampaikan kepada pihak terdampak dan didokumentasikan."
+            },
+            {
+              "no": "4.4",
+              "text": "Paket anggaran dan form dana diserahkan kepada fungsi keuangan sebagai dasar monitoring, bukan jurnal akuntansi."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan pendanaan, modal, anggaran, kas, biaya, tagihan, realisasi, serta bukti pembayaran.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Membuat rencana anggaran dan arus kas sederhana serta formulir permintaan/persetujuan dana berdasar kebutuhan aktivitas.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Memeriksa kesesuaian total, tanggal, kewenangan, dan sumber angka; tidak mengarang bukti pembayaran.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menyelaraskan kebutuhan dana fungsi lain dengan prioritas perusahaan dan menyampaikan kendala kas secara transparan.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Perusahaan menyiapkan anggaran kegiatan, kebutuhan modal kerja, permintaan pembayaran, dan rencana sumber pendanaan.",
+        "Portofolio/bukti wajib": "Anggaran sederhana; rencana kas masuk/keluar; form permintaan dana; otorisasi pembayaran; register pendanaan dan jadwal kewajiban.",
+        "Aspek kritis": "Anggaran berbeda dari realisasi; kebutuhan modal dan sumber pendanaan disajikan sebagai rencana, bukan transaksi yang telah terjadi.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0016",
+      "title": "Mengelola Registrasi, Pengarsipan, Otorisasi, dan Ketertelusuran Dokumen",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengelola Registrasi, Pengarsipan, Otorisasi, dan Ketertelusuran Dokumen. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menetapkan aturan pengendalian dokumen",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Jenis dokumen yang harus diregistrasi diidentifikasi dari daftar induk."
+            },
+            {
+              "no": "1.2",
+              "text": "Aturan nama file, penomoran, versi, pemilik, dan status dokumen dirumuskan."
+            },
+            {
+              "no": "1.3",
+              "text": "Hak membuat, memeriksa, menyetujui, melihat, dan mengubah ditentukan berdasarkan tugas."
+            },
+            {
+              "no": "1.4",
+              "text": "Lokasi arsip, mekanisme cadangan, dan aturan retensi internal dicatat sebagai usulan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mencatat dan mengarsipkan dokumen",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Setiap dokumen diberi ID unik dan nama yang konsisten dengan register."
+            },
+            {
+              "no": "2.2",
+              "text": "Metadata tanggal, penerbit, penerima, nomor acuan, versi, dan status dicatat."
+            },
+            {
+              "no": "2.3",
+              "text": "Folder arsip disusun menurut proses/fungsi dan periode secara mudah dipahami."
+            },
+            {
+              "no": "2.4",
+              "text": "Dokumen simulasi/konsep dibedakan jelas dari dokumen final atau asli."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menguji otorisasi dan kelengkapan bundel",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Satu bundel transaksi ditelusuri dari pemicu hingga bukti penyelesaian melalui referensi silang."
+            },
+            {
+              "no": "3.2",
+              "text": "Dokumen wajib menurut SOP simulasi dibandingkan dengan dokumen yang tersedia."
+            },
+            {
+              "no": "3.3",
+              "text": "Bukti otorisasi atau persetujuan diperiksa sesuai matriks peran."
+            },
+            {
+              "no": "3.4",
+              "text": "Dokumen kurang lengkap, ditolak, atau perlu revisi dicatat beserta alasan dan PIC."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Melakukan penelusuran dan serah terima arsip",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Rekan lain diminta menemukan dokumen tertentu hanya dari register dan struktur folder."
+            },
+            {
+              "no": "4.2",
+              "text": "Waktu pencarian dan kesalahan versi dicatat untuk evaluasi ketercarian."
+            },
+            {
+              "no": "4.3",
+              "text": "Prosedur pembaruan, akses, dan cadangan dijelaskan kepada pengguna arsip."
+            },
+            {
+              "no": "4.4",
+              "text": "Berita acara serah terima arsip dibuat dengan daftar dokumen, PIC, dan lokasi simpan."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan arsip aktif, register dokumen, versi, otorisasi, hak akses, retensi internal, serta keterlacakan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menomori, mengarsipkan, dan menelusuri dokumen lintas proses dengan kode konsisten dan bukti revisi.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menjaga data personal dan dokumen bisnis terbatas serta tidak mengubah dokumen yang sudah disahkan tanpa catatan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Menyiapkan folder dan petunjuk serah terima agar rekan lain dapat menemukan dokumen tanpa bergantung pada pembuat.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Setelah paket dokumen selesai, peserta membuat aturan nomor dokumen, register, folder, hak akses, dan pemeriksaan kelengkapan.",
+        "Portofolio/bukti wajib": "Aturan penomoran; daftar induk dan register; struktur folder; matriks hak akses; simulasi penelusuran dan revisi.",
+        "Aspek kritis": "Dokumen tidak boleh ditimpa tanpa versi; yang menerima, membuat, dan mengesahkan harus dapat dibedakan; akses data dibatasi.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0017",
+      "title": "Menyusun Buku Laporan Pertanggungjawaban Kegiatan Setiap Fungsi",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Buku Laporan Pertanggungjawaban Kegiatan Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menentukan tujuan dan objek pelaporan fungsi",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Tanggung jawab fungsi ditelusuri ke jobdesk, target, dan kegiatan yang dijalankan."
+            },
+            {
+              "no": "1.2",
+              "text": "Periode laporan, pengguna laporan, serta keputusan yang akan didukung ditentukan."
+            },
+            {
+              "no": "1.3",
+              "text": "Perbedaan laporan pertanggungjawaban, buku monitoring, dan laporan keuangan dijelaskan."
+            },
+            {
+              "no": "1.4",
+              "text": "Sumber data berupa dokumen, register, atau catatan aktivitas dicatat."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Membuat format buku laporan dan mengisi hasil",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Format laporan memuat periode, fungsi, PIC, kegiatan, target, realisasi, dan referensi bukti."
+            },
+            {
+              "no": "2.2",
+              "text": "Hasil kegiatan ditulis berdasarkan bukti yang dapat diperiksa."
+            },
+            {
+              "no": "2.3",
+              "text": "Selisih antara target dan realisasi beserta kendala dinyatakan secara objektif."
+            },
+            {
+              "no": "2.4",
+              "text": "Minimal tiga fungsi disajikan dalam laporan dengan format konsisten."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Memeriksa bukti dan pertanggungjawaban",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Sampel output laporan ditelusuri ke dokumen sumber/hasil kerja."
+            },
+            {
+              "no": "3.2",
+              "text": "Angka, satuan, tanggal, dan status yang berbeda diperbaiki dengan catatan koreksi."
+            },
+            {
+              "no": "3.3",
+              "text": "Bagian yang belum ada bukti diberi status belum terverifikasi, bukan dianggap selesai."
+            },
+            {
+              "no": "3.4",
+              "text": "Laporan diserahkan kepada pihak pemeriksa atau atasan sesuai alur persetujuan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menyampaikan dan memperbaiki laporan",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Ringkasan capaian, masalah, dan kebutuhan keputusan dipresentasikan dengan jelas."
+            },
+            {
+              "no": "4.2",
+              "text": "Pertanyaan pengguna laporan dijawab dengan menunjukkan dokumen pendukung."
+            },
+            {
+              "no": "4.3",
+              "text": "Koreksi hasil pemeriksaan dicatat pada versi laporan berikutnya."
+            },
+            {
+              "no": "4.4",
+              "text": "Laporan final diarsipkan dan rencana tindak lanjut diteruskan ke buku monitoring."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan dokumen sumber, catatan kegiatan, laporan pertanggungjawaban, dan laporan keuangan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Menyusun laporan berkala untuk sedikitnya tiga fungsi dengan indikator capaian, referensi bukti, dan PIC.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Membuka informasi kendala atau kegagalan pencapaian dan memberi koreksi saat ditemukan salah catat.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meminta klarifikasi rekan dan menyampaikan laporan yang dapat digunakan tim penerus bekerja.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Setelah satu siklus pesanan dan kegiatan pendukung, tiap fungsi membuat laporan capaian terhadap tugasnya.",
+        "Portofolio/bukti wajib": "Buku laporan per fungsi; rekap kegiatan, output, bukti, kendala, keputusan, dan tindak lanjut; laporan konsolidasi singkat.",
+        "Aspek kritis": "Pelaporan berbasis bukti nyata/simulasi bertanda; rencana bukan realisasi dan selisih harus dijelaskan.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0018",
+      "title": "Menyusun Buku Monitoring Kinerja dan Tindak Lanjut Setiap Fungsi",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Buku Monitoring Kinerja dan Tindak Lanjut Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menentukan indikator dan sumber monitoring",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Sasaran dan aktivitas prioritas dipilih untuk menentukan hal yang perlu dipantau."
+            },
+            {
+              "no": "1.2",
+              "text": "Indikator memiliki definisi, satuan, target, frekuensi, dan PIC pembaruan."
+            },
+            {
+              "no": "1.3",
+              "text": "Sumber data monitoring ditetapkan dari register, dokumen, atau laporan fungsi."
+            },
+            {
+              "no": "1.4",
+              "text": "Batas toleransi/status diputuskan berdasarkan aturan kasus yang dinyatakan."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Menyusun buku monitoring lintas fungsi",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Template berisi periode, fungsi, indikator, target, realisasi, deviasi, status, dan bukti."
+            },
+            {
+              "no": "2.2",
+              "text": "Data contoh paling sedikit tiga fungsi dimasukkan menurut periode yang sama."
+            },
+            {
+              "no": "2.3",
+              "text": "Selisih/rasio dihitung dengan rumus yang sesuai beserta pemeriksaan satuannya."
+            },
+            {
+              "no": "2.4",
+              "text": "Status tercapai, belum tercapai, terlambat, atau menunggu data dipilih berdasarkan kondisi aktual."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Menganalisis penyimpangan dan menyusun tindak lanjut",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Deviasi yang memerlukan perhatian dipilih berdasar target dan risiko operasional."
+            },
+            {
+              "no": "3.2",
+              "text": "Penyebab sementara dibedakan dari fakta yang sudah dibuktikan."
+            },
+            {
+              "no": "3.3",
+              "text": "Tindakan perbaikan dilengkapi penanggung jawab, tenggat, dan hasil yang diharapkan."
+            },
+            {
+              "no": "3.4",
+              "text": "Bukti penyelesaian ditetapkan agar status tindakan dapat ditutup secara sah."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Memutakhirkan dan mengkomunikasikan monitoring",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Status dipertahankan terbuka bila data/bukti penutupan belum tersedia."
+            },
+            {
+              "no": "4.2",
+              "text": "Pembaruan dicatat lengkap dengan tanggal dan pihak pengubah."
+            },
+            {
+              "no": "4.3",
+              "text": "Rekap monitoring dipresentasikan kepada pemilik fungsi disertai prioritas eskalasi."
+            },
+            {
+              "no": "4.4",
+              "text": "Pelajaran perbaikan dibagikan dan kebutuhan perubahan SOP/workflow dicatat."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan perbedaan KPI, target, realisasi, deviasi, status, penyebab, tindakan, dan bukti penutupan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Membuat monitoring minimum tiga fungsi dengan perhitungan status dan tindak lanjut berdasar data yang diberikan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Tidak mengubah target diam-diam agar hasil terlihat baik dan melaporkan data yang terlambat masuk.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Meminta pembaruan kepada fungsi lain dengan tertib dan membantu pemilik masalah menjalankan rencana perbaikan.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Peserta menyiapkan monitoring pesanan, pengadaan, produksi/jasa, SDM, aset, serta anggaran dengan target-realisasi.",
+        "Portofolio/bukti wajib": "Buku monitoring per fungsi; daftar indikator; status dan umur tindak lanjut; PIC dan tenggat; ringkasan deviasi mingguan.",
+        "Aspek kritis": "Monitoring menunjukkan kondisi aktual, bukan sekadar rencana; setiap deviasi signifikan punya tindakan, PIC, dan tenggat.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    },
+    {
+      "code": "MTB-SIM-0019",
+      "title": "Mengevaluasi Keterpaduan Sistem Manajemen dan Menyusun Perbaikan Proses Bisnis",
+      "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengevaluasi Keterpaduan Sistem Manajemen dan Menyusun Perbaikan Proses Bisnis. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
+      "elements": [
+        {
+          "no": "1",
+          "title": "Menyiapkan uji kelengkapan SIM perusahaan",
+          "criteria": [
+            {
+              "no": "1.1",
+              "text": "Portofolio visi–misi, sasaran, fungsi, struktur, jobdesk, journey, SOP, dokumen, laporan, dan monitoring dikumpulkan."
+            },
+            {
+              "no": "1.2",
+              "text": "Matriks keterkaitan dari tujuan ke bukti operasional dibuat dengan penunjuk dokumen."
+            },
+            {
+              "no": "1.3",
+              "text": "Peran penguji, skenario order, data awal, dan kriteria hasil uji ditetapkan."
+            },
+            {
+              "no": "1.4",
+              "text": "Keterbatasan simulasi serta elemen yang belum teruji dijelaskan di awal."
+            }
+          ]
+        },
+        {
+          "no": "2",
+          "title": "Mendemonstrasikan proses dan keterpaduan dokumen",
+          "criteria": [
+            {
+              "no": "2.1",
+              "text": "Pesanan/permintaan ditelusuri dari tahap awal hingga pemenuhan dan penagihan sesuai model bisnis."
+            },
+            {
+              "no": "2.2",
+              "text": "Pelaksana menunjuk PIC, langkah, dokumen masuk/keluar, dan titik persetujuan untuk setiap perpindahan fungsi."
+            },
+            {
+              "no": "2.3",
+              "text": "Buku laporan dan monitoring diperbarui berdasarkan bukti realisasi dari simulasi."
+            },
+            {
+              "no": "2.4",
+              "text": "Setiap anggota menjelaskan peran dan dampak keterlambatan informasinya pada fungsi lain."
+            }
+          ]
+        },
+        {
+          "no": "3",
+          "title": "Mengidentifikasi ketidaksesuaian dan akar masalah",
+          "criteria": [
+            {
+              "no": "3.1",
+              "text": "Ketidakcocokan data, langkah, tanggung jawab, atau dokumen dicatat sebagai temuan objektif."
+            },
+            {
+              "no": "3.2",
+              "text": "Dampak temuan pada pelanggan, mutu, waktu, biaya, atau kepatuhan internal dijelaskan."
+            },
+            {
+              "no": "3.3",
+              "text": "Penyebab dugaan diuji menggunakan penelusuran proses atau pertanyaan 5 Whys sederhana."
+            },
+            {
+              "no": "3.4",
+              "text": "Temuan prioritas dipisahkan dari perbaikan kosmetik dan disertai bukti rujukan."
+            }
+          ]
+        },
+        {
+          "no": "4",
+          "title": "Menyusun tindakan perbaikan dan mempertanggungjawabkan hasil",
+          "criteria": [
+            {
+              "no": "4.1",
+              "text": "Tindakan koreksi/perbaikan ditetapkan berikut PIC, tenggat, dan indikator keberhasilan."
+            },
+            {
+              "no": "4.2",
+              "text": "Perubahan peta/SOP/formulir dicatat sebagai revisi dokumen terkendali."
+            },
+            {
+              "no": "4.3",
+              "text": "Efektivitas perbaikan diuji ulang pada skenario yang relevan."
+            },
+            {
+              "no": "4.4",
+              "text": "Hasil akhir disajikan sebagai portofolio beserta temuan tersisa dan refleksi kolaborasi tim."
+            }
+          ]
+        }
+      ],
+      "assessment": [
+        {
+          "dimension": "knowledge",
+          "label": "Knowledge",
+          "weight": 20,
+          "indicator": "Menjelaskan hubungan tujuan, struktur, tupoksi, journey, workflow, SOP, dokumen, laporan, dan monitoring.",
+          "evidence": ""
+        },
+        {
+          "dimension": "skill",
+          "label": "Skill",
+          "weight": 25,
+          "indicator": "Mendemonstrasikan satu siklus operasional end-to-end dan menunjukkan bukti dokumen serta perbaikan masalah.",
+          "evidence": ""
+        },
+        {
+          "dimension": "character",
+          "label": "Character",
+          "weight": 30,
+          "indicator": "Menunjukkan kejujuran saat ada celah sistem, mengakui kontribusi pihak lain dan mencatat keputusan perubahan.",
+          "evidence": ""
+        },
+        {
+          "dimension": "social_cohesion",
+          "label": "Social Cohesion / Team Contribution",
+          "weight": 25,
+          "indicator": "Mengadakan tinjauan bersama, membagi peran pengujian, dan memastikan anggota lain dapat menjelaskan sistem final.",
+          "evidence": ""
+        }
+      ],
+      "context": {
+        "Skenario praktik": "Pada proyek akhir, tim menerima kasus pesanan lengkap, gangguan proses, dan audit bukti; seluruh rancangan SIM diuji lintas fungsi.",
+        "Portofolio/bukti wajib": "Portofolio sistem manajemen terintegrasi; hasil uji satu siklus bisnis; daftar temuan; rencana tindakan korektif; presentasi dan refleksi.",
+        "Aspek kritis": "Jejak dari visi sampai bukti, pelaporan, dan monitoring harus konsisten; penutupan temuan memerlukan bukti, bukan pernyataan selesai.",
+        "Prasyarat dan alat": "Skema Fundamental: komunikasi bisnis, membaca instruksi, perhitungan dasar, mengetik, Word/Excel dan pengelolaan file. Alat: laptop/aplikasi perkantoran, template formulir, dokumen contoh, bagan atau kertas plano.",
+        "Kondisi asesmen": "Jelaskan konsep (tanya jawab), buat dokumen (praktik mandiri), uji/simulasikan alur (observasi), dan pertanggungjawabkan hasil (wawancara/portofolio). Pengajar memvalidasi hasil tanpa menggantikan pekerjaan peserta.",
+        "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
+        "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
+        "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      }
+    }
+  ],
+  "final_portfolio": [
+    {
+      "no": "01",
+      "output": "Profil usaha dan model bisnis",
+      "units": "MTB-SIM-0001"
+    },
+    {
+      "no": "02",
+      "output": "Visi, misi, tujuan, sasaran dan rencana",
+      "units": "MTB-SIM-0002 s.d. 0003"
+    },
+    {
+      "no": "03",
+      "output": "Peta fungsi, bagan organisasi, dan jobdesk",
+      "units": "MTB-SIM-0004 s.d. 0006"
+    },
+    {
+      "no": "04",
+      "output": "Journey end-to-end, matriks aktivitas, workflow dan SOP",
+      "units": "MTB-SIM-0007 s.d. 0010"
+    },
+    {
+      "no": "05",
+      "output": "Klasifikasi dan daftar induk dokumen",
+      "units": "MTB-SIM-0011"
+    },
+    {
+      "no": "06",
+      "output": "Paket dokumen penjualan, pengadaan/produksi, SDM, aset, dan dana",
+      "units": "MTB-SIM-0012 s.d. 0015"
+    },
+    {
+      "no": "07",
+      "output": "Register, filing, otorisasi, dan bukti traceability",
+      "units": "MTB-SIM-0016"
+    },
+    {
+      "no": "08",
+      "output": "Buku laporan pertanggungjawaban fungsi",
+      "units": "MTB-SIM-0017"
+    },
+    {
+      "no": "09",
+      "output": "Buku monitoring fungsi dan tindakan perbaikan",
+      "units": "MTB-SIM-0018"
+    },
+    {
+      "no": "10",
+      "output": "Hasil uji integrasi, daftar temuan, dan revisi",
+      "units": "MTB-SIM-0019"
+    }
+  ],
+  "assessment_guide": [
+    {
+      "topic": "Status standar",
+      "text": "Ini skema kompetensi internal dengan kode MTB-SIM-0001 s.d. MTB-SIM-0019. Belum ada referensi resmi Kepmen/SKKNI, kode unit, tahun, revisi, atau pemetaan KUK resmi yang terverifikasi."
+    },
+    {
+      "topic": "Tujuan & sasaran",
+      "text": "Siswa lulusan SMA/SMK, bulan 2–3 program 6 bulan: dari ide perusahaan → visi/misi → organisasi → proses → dokumentasi → laporan/monitoring → evaluasi."
+    },
+    {
+      "topic": "Sumber 1",
+      "text": "Grand Design & Konsep Pendidikan Rumah Mantaaba Sigaling — program SIM bulan 2 & 3, tanggung jawab sosial, sistem operasional bisnis."
+    },
+    {
+      "topic": "Sumber 2",
+      "text": "00.Mantaaba-Page-1.drawio.pdf — halaman 6, kotak Sistem Informasi Manajemen: visi, misi, struktur, fungsi, kegiatan, dokumen, filing, buku laporan, monitoring."
+    },
+    {
+      "topic": "Sumber 3",
+      "text": "Business Mapping - Google Spreadsheet.pdf — halaman 1: kelompok fungsi, jobdesk, kegiatan/komunikasi, kode/jenis dokumen, pihak terkait, buku laporan, dan buku monitoring."
+    },
+    {
+      "topic": "Sumber 4",
+      "text": "SKEMA Skill Fundamental...xlsx — pola Pemetaaan Standar Kompetensi, 4 elemen/unit, KUK bernomor, 4 dimensi penilaian; audit bobot 20/25/30/25."
+    },
+    {
+      "topic": "Sumber 5",
+      "text": "Modul Orientasi dan Pengenalan — pengelolaan agenda, laporan kegiatan, MoM, file/folder, serta pembelajaran berbasis realitas."
+    },
+    {
+      "topic": "Konflik bobot",
+      "text": "Grand Design memuat Knowledge 25%, Skill 30%, Character 20%, Social Cohesion 25%. Audit di workbook Fundamental mencatat keputusan lebih baru: 20%, 25%, 30%, 25%. Workbook SIM ini mengacu ke keputusan yang lebih baru."
+    },
+    {
+      "topic": "Batas validitas",
+      "text": "Tidak menyatakan tersertifikasi, akreditasi, atau patuh SKKNI/BNSP. Aspek legalitas usaha dan perpajakan hanya dikenali sebagai dokumen/sistem yang dibutuhkan; rincian ketentuan harus diverifikasi terpisah."
+    },
+    {
+      "topic": "Integrasi skema",
+      "text": "SIM membahas kontrol proses, dokumen sumber, pelaporan fungsi, monitoring, bukan jurnal/GL, penyusunan SPT, maupun pengaturan ERP."
+    },
+    {
+      "topic": "Persiapan asesmen",
+      "text": "Gunakan brief yang menjelaskan perusahaan pilihan, alur pesanan, peran, SOP simulasi, alat, dokumen sumber, batas waktu, dan hasil yang harus dibuat."
+    },
+    {
+      "topic": "Keterlacakan KUK",
+      "text": "Setiap unit punya 4 elemen × 4 KUK. Setiap KUK dicantumkan lagi pada checklist. Catat jenis/lokasi bukti dan hasil observasi, bukan cukup dengan kehadiran."
+    },
+    {
+      "topic": "Metode minimum",
+      "text": "Uji lisan/tertulis untuk menjelaskan; praktik/portofolio untuk membuat; observasi/demonstrasi untuk menjalankan; wawancara singkat untuk memvalidasi alasan."
+    },
+    {
+      "topic": "Knowledge 20%",
+      "text": "Skor 1: tidak mampu menjelaskan dasar; 2: sebagian benar dengan banyak bantuan; 3: konsep dan contoh tepat secara mandiri; 4: mampu membandingkan alternatif dan memberi alasan yang valid."
+    },
+    {
+      "topic": "Skill 25%",
+      "text": "Skor 1: output keliru/missing; 2: selesai dengan koreksi substansial; 3: hasil benar dan dapat ditelusuri secara mandiri; 4: hasil teruji dan mampu menangani pengecualian."
+    },
+    {
+      "topic": "Character 30%",
+      "text": "Skor 1: bukti perilaku tidak amanah/ceroboh; 2: tertib setelah diingatkan; 3: konsisten jujur, disiplin, rapi dan bertanggung jawab; 4: proaktif mencegah risiko dan memperbaiki mutu."
+    },
+    {
+      "topic": "Social Cohesion 25%",
+      "text": "Skor 1: menghambat koordinasi; 2: membantu setelah diarahkan; 3: memberi informasi dan bantuan tepat pada rekan; 4: secara aktif memperkuat kemandirian tim tanpa mengambil alih tanggung jawabnya."
+    },
+    {
+      "topic": "BB = bukti belum cukup",
+      "text": "Gunakan BB bila KUK belum terlihat atau bukti tidak dapat diverifikasi. Jangan memberi skor 1 hanya karena kesempatan demonstrasi belum tersedia."
+    },
+    {
+      "topic": "Ambang usulan",
+      "text": "Rekomendasi internal: setiap KUK mendapat status M dan setiap dimensi skor minimal 3, ditambah pemenuhan aspek kritis; tidak ada kompensasi untuk bukti kritis yang gagal."
+    },
+    {
+      "topic": "Keputusan manusia",
+      "text": "Skor terbobot hanya ringkasan pembelajaran. Penguji bertanggung jawab memverifikasi keaslian, kelengkapan, konsistensi bukti dan memutuskan tuntas/belum tuntas."
+    },
+    {
+      "topic": "Uji ulang & remediasi",
+      "text": "Catat KUK yang belum memenuhi, berikan umpan balik spesifik, latih lagi, lalu asesmen ulang pada kasus setara. Simpan versi perbaikan dan catatan pemeriksa."
+    },
+    {
+      "topic": "Bukti lintas konteks",
+      "text": "Bila mungkin lakukan minimal dua kesempatan/kasus setara; satu berupa aktivitas nyata di lingkungan Mantaaba atau perusahaan mitra dengan pengawasan."
+    },
+    {
+      "topic": "Pemanfaatan AI",
+      "text": "AI boleh membantu mencari alternatif dan memeriksa format, tetapi peserta harus menandai bantuannya, memeriksa setiap hasil, serta menjelaskan dan menjalankan karyanya sendiri."
+    },
+    {
+      "topic": "Pembatasan standar",
+      "text": "SKKNI/KKNI/BNSP adalah ranah berbeda. Pemetaan resmi baru boleh dibuat setelah nomor Kepmen, tahun, unit, KUK, batasan variabel, dan panduan asesmen diverifikasi."
+    }
+  ],
+  "notes": [
+    {
+      "topic": "Target pembelajaran",
+      "text": "Bulan 2–3 dari program inkubasi 6 bulan; peserta lulusan SMA/SMK; satu proyek perusahaan barang, jasa, atau manufaktur."
+    },
+    {
+      "topic": "Status rujukan SKKNI",
+      "text": "Kode MTB-SIM adalah kode INTERNAL dan bukan kode resmi SKKNI/BNSP. Pemetaan ke unit SKKNI resmi membutuhkan verifikasi Kepmen, versi dan KUK."
+    },
+    {
+      "topic": "Bukti penilaian",
+      "text": "Setiap sheet unit berisi 4 elemen, 16 KUK, bukti kerja, aspek kritis, checklist per KUK, serta rubric empat dimensi."
+    },
+    {
+      "topic": "Alur lanjutan",
+      "text": "SIM → Sistem Informasi Akuntansi (SIA) → Sistem Informasi Perpajakan (SIP) → ERP/AI; SIM tidak mencakup penilaian formal sertifikasi."
+    },
+    {
+      "topic": "Sumber utama",
+      "text": "Grand Design & Konsep Pendidikan; 00.Mantaaba-Page-1.drawio.pdf hlm. 6; Business Mapping - Google Spreadsheet.pdf; Skema Skill Fundamental; Modul Orientasi."
+    }
+  ]
+}

@@ -13,10 +13,12 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10)->unique(); // FND, SIM, SIA, SIP, IT
             $table->string('name');
+            $table->string('title')->nullable(); // judul lengkap skema (dokumen standar kompetensi)
             $table->string('month_label', 50)->nullable(); // "Bulan 2–3"
             $table->text('description')->nullable();
             $table->longText('objectives')->nullable();
             $table->json('character_matrix')->nullable(); // [{competency, technical, asabiyah, fastabiqul}]
+            $table->json('standard')->nullable(); // {competency_map, final_portfolio, assessment_guide, notes} dari template JSON skema
             $table->unsignedTinyInteger('pass_score')->nullable(); // null = Setting
             $table->string('certificate_template')->nullable();
             $table->json('certificate_signatories')->nullable(); // [{name, title, signature}] maks. 2
@@ -30,7 +32,10 @@ return new class extends Migration
             $table->foreignId('skema_id')->constrained()->cascadeOnDelete();
             $table->string('code', 20)->nullable();
             $table->string('title');
-            $table->text('summary')->nullable();
+            $table->text('summary')->nullable(); // deskripsi unit kompetensi
+            $table->json('elements')->nullable(); // [{no, title, criteria: [{no, text}]}] elemen & KUK
+            $table->json('assessment')->nullable(); // [{dimension, label, weight, indicator, evidence}] 4 dimensi
+            $table->json('context')->nullable(); // {label: teks} skenario praktik, portofolio, aspek kritis, prasyarat, ...
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
         });

@@ -8,8 +8,9 @@
     </div>
     @foreach ($skema->modules as $module)
         <div class="card mb-4">
-            <div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">{{ $module->title }}</div></div>
+            <div class="card-header min-h-50px"><div class="card-title fs-5 fw-bolder">{{ $module->code && $module->elements ? $module->code . ' · ' : '' }}{{ $module->title }}</div></div>
             <div class="card-body py-2">
+                <div class="pt-3">@include('dashboard.skema.unit-detail', ['module' => $module, 'collapseId' => 'unit-' . $module->id])</div>
                 @forelse ($module->lessons as $lesson)
                     @php($p = $progress[$lesson->id] ?? null)
                     <a href="{{ route('learn.lesson', $lesson) }}" class="d-flex align-items-center gap-3 py-3 border-bottom text-gray-800">

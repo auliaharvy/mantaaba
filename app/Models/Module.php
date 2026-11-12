@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** Modul dalam skema (PRD 9.6). */
+/** Unit kompetensi (modul) dalam skema (PRD 9.6): elemen + KUK, aturan penilaian 4 dimensi, konteks praktik. */
 class Module extends Model
 {
-    protected $fillable = ['skema_id', 'code', 'title', 'summary', 'sort_order'];
+    protected $fillable = ['skema_id', 'code', 'title', 'summary', 'elements', 'assessment', 'context', 'sort_order'];
+
+    protected $casts = ['elements' => 'array', 'assessment' => 'array', 'context' => 'array'];
+
+    public function criteriaCount(): int
+    {
+        return collect($this->elements)->sum(fn ($e) => count($e['criteria'] ?? []));
+    }
 
     public function skema()
     {
