@@ -114,7 +114,7 @@ class PageController extends Controller
     {
         // berlaku juga untuk Super Admin (Gate::before tidak boleh melewati aturan ini)
         abort_if($page->is_system, 403, 'Halaman sistem tidak bisa dihapus.');
-        $menus = $page->menus()->pluck('label');
+        $menus = $page->menus()->pluck('label')->unique();
         if ($menus->isNotEmpty()) {
             return response()->json(['message' => 'Halaman masih dipakai menu: ' . $menus->implode(', ') . '. Hapus atau ubah menu tersebut dulu.'], 422);
         }

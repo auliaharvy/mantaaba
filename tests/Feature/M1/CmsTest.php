@@ -194,7 +194,7 @@ class CmsTest extends TestCase
         $this->actingAs($admin)->delete(route('page.destroy', 'home'))->assertForbidden();
         $this->actingAs($admin)->delete(route('page.destroy', 'kebijakan-privasi'))->assertForbidden();
 
-        $this->actingAs($admin)->deleteJson(route('page.destroy', 'tentang'))->assertStatus(422)->assertJsonFragment(['message' => 'Halaman masih dipakai menu: Tentang, Tentang Kami. Hapus atau ubah menu tersebut dulu.']);
+        $this->actingAs($admin)->deleteJson(route('page.destroy', 'tentang'))->assertStatus(422)->assertJsonFragment(['message' => 'Halaman masih dipakai menu: Tentang Kami, Profil. Hapus atau ubah menu tersebut dulu.']);
 
         $free = Page::create(['slug' => 'uji', 'title' => 'Uji']);
         $this->actingAs($admin)->delete(route('page.destroy', $free))->assertNoContent();
@@ -225,7 +225,7 @@ class CmsTest extends TestCase
     public function test_menu_manager_levels_and_reorder()
     {
         $editor = $this->pengurus();
-        $parent = NavMenu::where('location', 'header')->where('label', 'Tentang')->firstOrFail();
+        $parent = NavMenu::where('location', 'header')->where('label', 'Tentang Kami')->whereNull('parent_id')->firstOrFail();
 
         $this->actingAs($editor)->post(route('menu.store'), ['location' => 'footer', 'parent_id' => $parent->id, 'label' => 'X', 'type' => 'url', 'url' => '/x'])
             ->assertSessionHasErrors('parent_id');
@@ -241,7 +241,7 @@ class CmsTest extends TestCase
         $this->actingAs($editor)->post(route('menu.store'), ['location' => 'header', 'parent_id' => $child->id, 'label' => 'Cucu', 'type' => 'url', 'url' => '/c'])
             ->assertSessionHasErrors('parent_id');
         $other = NavMenu::where('label', 'Kontak')->where('location', 'header')->firstOrFail();
-        $this->actingAs($editor)->patch(route('menu.update', $parent), ['location' => 'header', 'parent_id' => $other->id, 'label' => 'Tentang', 'type' => 'page', 'page_id' => $parent->page_id])
+        $this->actingAs($editor)->patch(route('menu.update', $parent), ['location' => 'header', 'parent_id' => $other->id, 'label' => 'Tentang Kami', 'type' => 'page', 'page_id' => $parent->page_id])
             ->assertSessionHasErrors('parent_id');
 
         $this->get('/')->assertSee('Struktur Yayasan');
