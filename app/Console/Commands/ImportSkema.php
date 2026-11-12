@@ -15,9 +15,9 @@ class ImportSkema extends Command
     public function handle(SkemaImporter $importer): int
     {
         $stats = $importer->importFile($this->argument('file'));
-        $this->info("{$stats['skema']->code}: {$stats['created']} unit baru, {$stats['updated']} diperbarui, {$stats['removed']} dihapus.");
+        $this->info("{$stats['skema']->code}: {$stats['created']} unit kompetensi baru, {$stats['updated']} diperbarui, {$stats['removed']} dihapus; " . $stats['skema']->modules()->count() . ' modul (elemen).');
         foreach ($stats['kept'] as $kept) {
-            $this->warn("Dipertahankan (sudah punya materi): {$kept}");
+            $this->warn("Modul dipertahankan (sudah punya materi): {$kept}");
         }
 
         return self::SUCCESS;

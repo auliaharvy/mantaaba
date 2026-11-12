@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** Unit kompetensi (modul) dalam skema (PRD 9.6): elemen + KUK, aturan penilaian 4 dimensi, konteks praktik. */
+/** Modul pembelajaran = satu elemen dari unit kompetensi, beserta KUK-nya (PRD 9.6). Modul tanpa unit tetap boleh (skema lama/manual). */
 class Module extends Model
 {
-    protected $fillable = ['skema_id', 'code', 'title', 'summary', 'elements', 'assessment', 'context', 'sort_order'];
+    protected $fillable = ['skema_id', 'competency_unit_id', 'code', 'title', 'summary', 'criteria', 'sort_order'];
 
-    protected $casts = ['elements' => 'array', 'assessment' => 'array', 'context' => 'array'];
+    protected $casts = ['criteria' => 'array'];
 
-    public function criteriaCount(): int
+    public function unit()
     {
-        return collect($this->elements)->sum(fn ($e) => count($e['criteria'] ?? []));
+        return $this->belongsTo(CompetencyUnit::class, 'competency_unit_id');
     }
 
     public function skema()

@@ -27,15 +27,28 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // unit kompetensi (kompetensi kurikulum): satu unit punya beberapa elemen → masing-masing jadi modul pembelajaran
+        Schema::create('competency_units', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('skema_id')->constrained()->cascadeOnDelete();
+            $table->string('code', 20); // MTB-F-0001
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->json('assessment')->nullable(); // [{dimension, label, weight, indicator, evidence}] 4 dimensi
+            $table->json('context')->nullable(); // {label: teks} skenario praktik, portofolio, aspek kritis, prasyarat, ...
+            $table->unsignedInteger('sort_order')->default(0);
+            $table->timestamps();
+            $table->unique(['skema_id', 'code']);
+        });
+
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('skema_id')->constrained()->cascadeOnDelete();
-            $table->string('code', 20)->nullable();
+            $table->foreignId('competency_unit_id')->nullable()->constrained()->nullOnDelete(); // modul = elemen dari unit kompetensi
+            $table->string('code', 30)->nullable(); // MTB-F-0001.1
             $table->string('title');
-            $table->text('summary')->nullable(); // deskripsi unit kompetensi
-            $table->json('elements')->nullable(); // [{no, title, criteria: [{no, text}]}] elemen & KUK
-            $table->json('assessment')->nullable(); // [{dimension, label, weight, indicator, evidence}] 4 dimensi
-            $table->json('context')->nullable(); // {label: teks} skenario praktik, portofolio, aspek kritis, prasyarat, ...
+            $table->text('summary')->nullable();
+            $table->json('criteria')->nullable(); // KUK elemen ini: [{no, text}]
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
         });
@@ -118,7 +131,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        foreach (['certificates', 'skema_results', 'lesson_progress', 'skema_enrollments', 'lessons', 'modules', 'skemas'] as $table) {
+        foreach (['certificates', 'skema_results', 'lesson_progress', 'skema_enrollments', 'lessons', 'modules', 'competency_units', 'skemas'] as $table) {
             Schema::dropIfExists($table);
         }
     }

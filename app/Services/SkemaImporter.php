@@ -10,14 +10,15 @@ use Illuminate\Validation\Rule;
 
 /**
  * Impor/ekspor skema dari template JSON (database/seeders/data/skema/*.json).
- * Unit dicocokkan berdasarkan kode: unit lama diperbarui (materi tetap), unit baru ditambahkan,
- * unit yang tidak ada di JSON dihapus hanya bila belum punya materi.
+ * Struktur: skema → unit kompetensi → modul (satu per elemen, berisi KUK) → materi.
+ * Dicocokkan berdasarkan kode (unit MTB-F-0001, modul MTB-F-0001.1): yang lama diperbarui (materi tetap), yang baru ditambahkan,
+ * modul yang hilang dari JSON dihapus hanya bila belum punya materi.
  */
 class SkemaImporter
 {
     public const DIMENSIONS = ['knowledge', 'skill', 'character', 'social_cohesion'];
 
-    /** @return array{skema: Skema, created: int, updated: int, removed: int, kept: array<string>} */
+    /** @return array{skema: Skema, created: int, updated: int, removed: int, kept: array<string>} jumlah unit; kept = modul bermateri yang dipertahankan */
     public function import(array $data, ?Skema $into = null): array
     {
         $data = Validator::make($data, [
@@ -53,23 +54,33 @@ class SkemaImporter
             $skema->save();
 
             $stats = ['skema' => $skema, 'created' => 0, 'updated' => 0, 'removed' => 0, 'kept' => []];
-            $codes = [];
-            foreach (array_values($data['units']) as $i => $unit) {
-                $codes[] = $unit['code'];
-                $module = $skema->modules()->firstOrNew(['code' => $unit['code']]);
-                $stats[$module->exists ? 'updated' : 'created']++;
-                $module->fill(['title' => $unit['title'], 'summary' => $unit['description'] ?? null, 'elements' => $unit['elements'],
-                    'assessment' => $unit['assessment'] ?? null, 'context' => $unit['context'] ?? null, 'sort_order' => $i])->save();
-            }
-            foreach ($skema->modules()->whereNotIn('code', $codes)->withCount('lessons')->get() as $old) {
-                if ($old->lessons_count) {
-                    $stats['kept'][] = "{$old->code} {$old->title}";
-                    $old->update(['sort_order' => count($codes) + $old->sort_order]);
-                } else {
-                    $old->delete();
-                    $stats['removed']++;
+            $unitCodes = [];
+            $moduleCodes = [];
+            $order = 0;
+            foreach (array_values($data['units']) as $i => $item) {
+                $unitCodes[] = $item['code'];
+                $unit = $skema->units()->firstOrNew(['code' => $item['code']]);
+                $stats[$unit->exists ? 'updated' : 'created']++;
+                $unit->fill(['title' => $item['title'], 'description' => $item['description'] ?? null, 'assessment' => $item['assessment'] ?? null,
+                    'context' => $item['context'] ?? null, 'sort_order' => $i])->save();
+                // setiap elemen unit = satu modul pembelajaran (materi menempel di modul)
+                foreach ($item['elements'] as $element) {
+                    $code = $item['code'] . '.' . $element['no'];
+                    $moduleCodes[] = $code;
+                    $skema->modules()->updateOrCreate(['code' => $code], ['competency_unit_id' => $unit->id, 'title' => $element['title'],
+                        'criteria' => $element['criteria'], 'sort_order' => $order++]);
                 }
             }
+            // modul (elemen) yang tidak ada lagi: hapus bila belum punya materi, selain itu dipertahankan
+            foreach ($skema->modules()->where(fn ($q) => $q->whereNotIn('code', $moduleCodes)->orWhereNull('code'))->withCount('lessons')->get() as $old) {
+                if ($old->lessons_count) {
+                    $stats['kept'][] = trim("{$old->code} {$old->title}");
+                    $old->update(['sort_order' => $order++]);
+                } else {
+                    $old->delete();
+                }
+            }
+            $stats['removed'] = $skema->units()->whereNotIn('code', $unitCodes)->delete();
 
             return $stats;
         });
@@ -83,14 +94,19 @@ class SkemaImporter
         return $this->import($data, $into);
     }
 
-    /** Bentuk sama dengan template, bisa diedit lalu diimpor kembali. */
+    /** Bentuk sama dengan template, bisa diedit lalu diimpor kembali (nomor elemen dari akhiran kode modul). */
     public static function export(Skema $skema): array
     {
+        $skema->loadMissing('units.modules');
+
         return [
             'code' => $skema->code, 'name' => $skema->name, 'title' => $skema->title, 'month_label' => $skema->month_label, 'objectives' => $skema->objectives,
             'competency_map' => $skema->standard['competency_map'] ?? [],
-            'units' => $skema->modules->map(fn (Module $m) => array_filter([
-                'code' => $m->code, 'title' => $m->title, 'description' => $m->summary, 'elements' => $m->elements ?? [], 'assessment' => $m->assessment ?? [], 'context' => $m->context,
+            'units' => $skema->units->map(fn ($unit) => array_filter([
+                'code' => $unit->code, 'title' => $unit->title, 'description' => $unit->description,
+                'elements' => $unit->modules->values()->map(fn (Module $m, $i) => ['no' => \Illuminate\Support\Str::contains((string) $m->code, '.') ? \Illuminate\Support\Str::afterLast($m->code, '.') : (string) ($i + 1),
+                    'title' => $m->title, 'criteria' => $m->criteria ?? []])->all(),
+                'assessment' => $unit->assessment ?? [], 'context' => $unit->context,
             ], fn ($v) => $v !== null))->values()->all(),
             'final_portfolio' => $skema->standard['final_portfolio'] ?? [],
             'assessment_guide' => $skema->standard['assessment_guide'] ?? [],

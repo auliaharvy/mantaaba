@@ -5,7 +5,10 @@
         <x-site.pillar-card :code="$skema->code" :meta="$skema->month_label" :title="$skema->name" :href="$detailed ? null : route('site.curriculum') . '#' . Str::lower($skema->code)" :id="Str::lower($skema->code)">
             <p>{{ $skema->description }}</p>
             @if ($detailed)
-                @if ($skema->modules->isNotEmpty())
+                @if ($skema->units->isNotEmpty())
+                    <p class="mt-4 font-semibold text-brand-heading">Unit kompetensi</p>
+                    <ul class="mt-1 list-disc pl-5">@foreach ($skema->units as $unit)<li>{{ $unit->title }} <span class="text-xs text-brand-muted">{{ $unit->code }}</span></li>@endforeach</ul>
+                @elseif ($skema->modules->isNotEmpty())
                     <p class="mt-4 font-semibold text-brand-heading">Modul</p>
                     <ul class="mt-1 list-disc pl-5">@foreach ($skema->modules as $module)<li>{{ $module->title }}</li>@endforeach</ul>
                 @endif

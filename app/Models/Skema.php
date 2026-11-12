@@ -14,6 +14,17 @@ class Skema extends Model
 
     protected $casts = ['standard' => 'array', 'character_matrix' => 'array', 'certificate_signatories' => 'array', 'is_public' => 'boolean'];
 
+    public function units()
+    {
+        return $this->hasMany(CompetencyUnit::class)->orderBy('sort_order')->orderBy('id');
+    }
+
+    /** Jumlah KUK seluruh modul (elemen). */
+    public function criteriaCount(): int
+    {
+        return $this->modules->sum(fn ($m) => count($m->criteria ?? []));
+    }
+
     public function modules()
     {
         return $this->hasMany(Module::class)->orderBy('sort_order')->orderBy('id');

@@ -18,7 +18,7 @@ class SkemaController extends Controller
 
     public function index()
     {
-        return view('dashboard.skema.index', ['skemas' => Skema::ordered()->withCount(['modules', 'lessons', 'enrollments'])->get()]);
+        return view('dashboard.skema.index', ['skemas' => Skema::ordered()->withCount(['units', 'modules', 'lessons', 'enrollments'])->get()]);
     }
 
     public function create()
@@ -35,7 +35,7 @@ class SkemaController extends Controller
 
     public function show(Skema $skema)
     {
-        return view('dashboard.skema.show', ['skema' => $skema->load('modules.lessons')]);
+        return view('dashboard.skema.show', ['skema' => $skema->load('units', 'modules.lessons')]);
     }
 
     /** Unduh skema sebagai template JSON (bisa diedit lalu diimpor kembali). */
@@ -43,7 +43,7 @@ class SkemaController extends Controller
     {
         $this->authorize('view', $skema);
 
-        return response()->json(\App\Services\SkemaImporter::export($skema->load('modules')), 200, [
+        return response()->json(\App\Services\SkemaImporter::export($skema), 200, [
             'Content-Disposition' => "attachment; filename=\"skema-{$skema->code}.json\"",
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
@@ -57,10 +57,10 @@ class SkemaController extends Controller
             return back()->withErrors(['file' => 'Isi file bukan JSON yang valid.']);
         }
         $stats = $importer->import($data, $skema);
-        $message = "Impor selesai: {$stats['created']} unit baru, {$stats['updated']} diperbarui, {$stats['removed']} dihapus.";
+        $message = "Impor selesai: {$stats['created']} unit kompetensi baru, {$stats['updated']} diperbarui, {$stats['removed']} dihapus; modul mengikuti elemen tiap unit.";
 
         return redirect()->route('skema.show', $skema)->with('success', $message)
-            ->with('warning', $stats['kept'] ? 'Unit lama dipertahankan karena sudah punya materi: ' . implode('; ', $stats['kept']) . '. Pindahkan materinya lalu hapus unit itu bila tidak dipakai.' : null);
+            ->with('warning', $stats['kept'] ? 'Modul lama dipertahankan karena sudah punya materi: ' . implode('; ', $stats['kept']) . '. Pindahkan materinya lalu hapus modul itu bila tidak dipakai.' : null);
     }
 
     public function edit(Skema $skema)

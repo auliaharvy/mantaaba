@@ -93,8 +93,8 @@
                 @endforeach
                 <tr><th>Nilai akhir</th><th></th><th class="n">{{ number_format($result->final_score, 2, ',', '.') }} ({{ $result->predicate }})</th></tr>
             </table>
-            <h2 style="margin-top: 8mm; font-size: 16px">Modul yang ditempuh</h2>
-            <div style="font-size: 12px; line-height: 1.6">{{ $skema->modules->pluck('title')->implode(' · ') }}</div>
+            <h2 style="margin-top: 8mm; font-size: 16px">{{ $skema->units->isNotEmpty() ? 'Unit kompetensi yang ditempuh' : 'Modul yang ditempuh' }}</h2>
+            <div style="font-size: 12px; line-height: 1.6">{{ ($skema->units->isNotEmpty() ? $skema->units : $skema->modules)->pluck('title')->implode(' · ') }}</div>
         @endif
     </div>
 </div>

@@ -6,13 +6,13 @@ use App\Models\Module;
 use App\Models\Skema;
 use Illuminate\Http\Request;
 
-/** Modul dalam skema (PRD 9.6). */
+/** Modul pembelajaran dalam skema; biasanya satu elemen dari unit kompetensi (PRD 9.6). */
 class ModuleController extends Controller
 {
     public function store(Request $request, Skema $skema)
     {
         $this->authorize('update', $skema);
-        $skema->modules()->create($this->validated($request) + ['sort_order' => (int) $skema->modules()->max('sort_order') + 1]);
+        $skema->modules()->create($this->validated($request, $skema) + ['sort_order' => (int) $skema->modules()->max('sort_order') + 1]);
 
         return redirect()->route('skema.show', $skema)->with('success', 'Modul ditambahkan.');
     }
@@ -20,7 +20,7 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module)
     {
         $this->authorize('update', $module->skema);
-        $module->update($this->validated($request));
+        $module->update($this->validated($request, $module->skema));
 
         return redirect()->route('skema.show', $module->skema_id)->with('success', 'Modul diubah.');
     }
@@ -51,8 +51,11 @@ class ModuleController extends Controller
         return redirect()->route('skema.show', $skema)->with('success', 'Urutan disimpan.');
     }
 
-    private function validated(Request $request): array
+    private function validated(Request $request, Skema $skema): array
     {
-        return $request->validate(['code' => 'nullable|string|max:20', 'title' => 'required|string|max:255', 'summary' => 'nullable|string|max:2000']);
+        return $request->validate([
+            'competency_unit_id' => ['nullable', \Illuminate\Validation\Rule::exists('competency_units', 'id')->where('skema_id', $skema->id)],
+            'code' => 'nullable|string|max:30', 'title' => 'required|string|max:255', 'summary' => 'nullable|string|max:2000',
+        ]);
     }
 }

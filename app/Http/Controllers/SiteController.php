@@ -22,7 +22,7 @@ class SiteController extends Controller
 {
     public function curriculum()
     {
-        $skemas = \App\Support\SiteCache::remember('curriculum', fn () => \App\Models\Skema::ordered()->where('is_public', true)->with('modules')->get());
+        $skemas = \App\Support\SiteCache::remember('curriculum', fn () => \App\Models\Skema::ordered()->where('is_public', true)->with('units', 'modules')->get());
 
         return view('site.curriculum', compact('skemas'));
     }

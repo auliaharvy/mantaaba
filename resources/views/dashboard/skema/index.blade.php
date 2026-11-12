@@ -14,7 +14,7 @@
                         </div>
                         <div class="fs-4 fw-bolder mb-2">{{ $skema->name }}</div>
                         <div class="text-muted fs-7 mb-4">{{ Str::limit($skema->description, 140) }}</div>
-                        <div class="fs-7">{{ $skema->modules_count }} modul · {{ $skema->lessons_count }} materi · {{ $skema->enrollments_count }} siswa · lulus ≥ {{ $skema->passScore() }}</div>
+                        <div class="fs-7">{{ $skema->units_count ? $skema->units_count . ' unit kompetensi · ' : '' }}{{ $skema->modules_count }} modul · {{ $skema->lessons_count }} materi · {{ $skema->enrollments_count }} siswa · lulus ≥ {{ $skema->passScore() }}</div>
                     </div>
                     <div class="card-footer d-flex gap-2 justify-content-end">
                         <a href="{{ route('skema.show', $skema) }}" class="btn btn-sm btn-light-primary">Susun materi</a>

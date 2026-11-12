@@ -28,7 +28,7 @@ class GenerateCertificatePdf implements ShouldQueue
 
     public function handle(): void
     {
-        $certificate = $this->certificate->load('member.batch', 'result.enrollment.skema.modules');
+        $certificate = $this->certificate->load('member.batch', 'result.enrollment.skema.modules', 'result.enrollment.skema.units');
         $skema = $certificate->result?->enrollment?->skema;
         $verifyUrl = route('site.certificate', $certificate->verification_code);
         $site = Setting::current();

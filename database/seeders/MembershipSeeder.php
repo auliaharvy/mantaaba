@@ -47,7 +47,8 @@ class MembershipSeeder extends Seeder
 
         // pembelajaran contoh: materi FND, siswa angkatan berjalan terdaftar ke skema, satu tugas terkirim, satu nilai lulus
         $fnd = \App\Models\Skema::where('code', 'FND')->first();
-        foreach ($fnd?->modules ?? [] as $module) {
+        // materi contoh hanya untuk modul (elemen) dari 2 unit kompetensi pertama
+        foreach ($fnd?->modules()->whereIn('competency_unit_id', $fnd->units()->limit(2)->pluck('id'))->get() ?? [] as $module) {
             $module->lessons()->create(['title' => 'Pengantar ' . $module->title, 'type' => 'text', 'body' => '<p>Bacalah pengantar modul ini dan diskusikan bersama kelompok.</p>', 'sort_order' => 0]);
             $module->lessons()->create(['title' => 'Tugas ' . $module->title, 'type' => 'assignment', 'body' => '<p>Kerjakan latihan lalu unggah hasilnya.</p>', 'due_days' => 7, 'sort_order' => 1]);
         }

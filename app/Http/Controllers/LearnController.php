@@ -27,7 +27,7 @@ class LearnController extends Controller
     public function skema(Request $request, Skema $skema)
     {
         $enrollment = $this->enrollment($request, $skema);
-        $skema->load(['modules.lessons' => fn ($q) => $q->where('is_published', true)]);
+        $skema->load(['units', 'modules.lessons' => fn ($q) => $q->where('is_published', true)]);
         $progress = LessonProgress::where('user_id', $request->user()->id)->whereIn('lesson_id', $skema->modules->flatMap->lessons->pluck('id'))->get()->keyBy('lesson_id');
 
         return view('dashboard.learn.skema', compact('skema', 'enrollment', 'progress'));
