@@ -12,7 +12,7 @@
                 <div class="col-md-2"><x-dashboard.field name="pass_score" label="Nilai lulus" type="number" min="0" max="100" :value="$skema->pass_score" :placeholder="'Setting: ' . App\Models\Setting::current()->default_pass_score" /></div>
                 <div class="col-md-1"><x-dashboard.field name="sort_order" label="Urutan" type="number" min="0" :value="$skema->sort_order" /></div>
                 <div class="col-12"><x-dashboard.field name="description" label="Deskripsi singkat" type="textarea" :value="$skema->description" /></div>
-                <div class="col-12 mb-6"><label class="form-label" for="body">Tujuan pembelajaran</label><textarea id="body" name="objectives">{{ old('objectives', $skema->objectives) }}</textarea></div>
+                <div class="col-12 mb-6"><label class="form-label" for="body">Tujuan utama <span class="text-muted fs-8">(pemetaan standar kompetensi)</span></label><textarea id="body" name="objectives">{{ old('objectives', $skema->objectives) }}</textarea></div>
                 <div class="col-12 form-check form-switch ms-3"><input class="form-check-input" type="checkbox" id="is_public" name="is_public" value="1" @checked(old('is_public', $skema->is_public))><label class="form-check-label" for="is_public">Tampil di halaman Kurikulum</label></div>
             </div>
         </div>

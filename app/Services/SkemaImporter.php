@@ -32,6 +32,8 @@ class SkemaImporter
             'units' => 'required|array|min:1',
             'units.*.code' => 'required|string|max:20|distinct',
             'units.*.title' => 'required|string|max:255',
+            'units.*.key_function' => 'nullable|string|max:500',
+            'units.*.main_function' => 'nullable|string|max:255',
             'units.*.description' => 'nullable|string',
             'units.*.elements' => 'required|array|min:1',
             'units.*.elements.*.no' => 'required',
@@ -61,11 +63,15 @@ class SkemaImporter
             $unitCodes = [];
             $moduleCodes = [];
             $order = 0;
+            // Fungsi Kunci/Utama per unit; template lama cukup mengisi competency_map
+            $map = collect($data['competency_map'] ?? [])->flatMap(fn ($row) => collect($row['units'] ?? [])->mapWithKeys(fn ($code) => [$code => $row]));
             foreach (array_values($data['units']) as $i => $item) {
                 $unitCodes[] = $item['code'];
                 $unit = $skema->units()->firstOrNew(['code' => $item['code']]);
                 $stats[$unit->exists ? 'updated' : 'created']++;
-                $unit->fill(['title' => $item['title'], 'description' => $item['description'] ?? null, 'assessment' => $item['assessment'] ?? null,
+                $unit->fill(['title' => $item['title'], 'description' => $item['description'] ?? null,
+                    'key_function' => $item['key_function'] ?? $map[$item['code']]['key_function'] ?? null,
+                    'main_function' => $item['main_function'] ?? $map[$item['code']]['main_function'] ?? null, 'assessment' => $item['assessment'] ?? null,
                     'context' => $item['context'] ?? null, 'character' => $item['character'] ?? null, 'sort_order' => $i])->save();
                 // setiap elemen unit = satu modul pembelajaran (materi menempel di modul)
                 foreach ($item['elements'] as $element) {
@@ -107,7 +113,7 @@ class SkemaImporter
             'code' => $skema->code, 'name' => $skema->name, 'title' => $skema->title, 'description' => $skema->description, 'month_label' => $skema->month_label, 'objectives' => $skema->objectives,
             'competency_map' => $skema->standard['competency_map'] ?? [],
             'units' => $skema->units->map(fn ($unit) => array_filter([
-                'code' => $unit->code, 'title' => $unit->title, 'description' => $unit->description,
+                'code' => $unit->code, 'title' => $unit->title, 'key_function' => $unit->key_function, 'main_function' => $unit->main_function, 'description' => $unit->description,
                 'elements' => $unit->modules->values()->map(fn (Module $m, $i) => ['no' => \Illuminate\Support\Str::contains((string) $m->code, '.') ? \Illuminate\Support\Str::afterLast($m->code, '.') : (string) ($i + 1),
                     'title' => $m->title, 'criteria' => $m->criteria ?? []])->all(),
                 'assessment' => $unit->assessment ?? [], 'context' => $unit->context, 'character' => $unit->character,

@@ -106,4 +106,43 @@ class SkemaTemplateTest extends TestCase
             ->assertSee('Membaca dalam melaksanakan operasional bisnis')
             ->assertSee('Berlomba mendesain dan menerapkan workflow yang paling minim kesalahan');
     }
+
+    /** Pemetaan: Tujuan Utama → Fungsi Kunci → Fungsi Utama → Fungsi Dasar (unit); PDF format dokumen skema. */
+    public function test_function_mapping_and_pdf_download()
+    {
+        $sim = Skema::where('code', 'SIM')->first()->load('units', 'modules');
+        $first = $sim->units->first();
+        $this->assertSame(['Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.', 'Fondasi dan Arah Perusahaan'], [$first->key_function, $first->main_function]);
+        $groups = $sim->functionGroups();
+        $this->assertCount(5, $groups, '5 fungsi kunci SIM');
+        $this->assertSame([3, 3, 4, 6, 3], $groups->map(fn ($g) => $g[1]->count())->all());
+        $this->assertSame('Mendengar', Skema::where('code', 'FND')->first()->units()->first()->main_function);
+
+        $admin = User::where('email', 'superadmin@mail.com')->first();
+        $pdf = $this->actingAs($admin)->get(route('skema.pdf', $sim))->assertOk()->assertHeader('content-type', 'application/pdf');
+        $this->assertStringStartsWith('%PDF', $pdf->getContent());
+        $this->assertStringContainsString('Skema Kompetensi SIM.pdf', $pdf->headers->get('content-disposition'));
+        $this->assertStringStartsWith('%PDF', $this->get(route('site.curriculum.pdf', 'SIM'))->assertOk()->getContent());
+        $sim->update(['is_public' => false]);
+        $this->get(route('site.curriculum.pdf', 'SIM'))->assertNotFound();
+        $this->actingAs($admin)->get(route('skema.show', $sim))->assertOk()->assertSee('Pemetaan standar kompetensi')->assertSee('Fondasi dan Arah Perusahaan');
+
+        // ubah fungsi kunci/utama unit; anggota tanpa hak → 403
+        $this->actingAs($admin)->patch(route('skema.unit-update', $first), ['title' => $first->title, 'key_function' => 'Fungsi kunci baru', 'main_function' => 'Fungsi utama baru'])->assertSessionHasNoErrors();
+        $this->assertSame(['Fungsi kunci baru', 'Fungsi utama baru'], [$first->fresh()->key_function, $first->fresh()->main_function]);
+        $this->actingAs(User::where('email', 'anggota@mail.com')->first())->patch(route('skema.unit-update', $first), ['title' => 'x'])->assertForbidden();
+    }
+
+    public function test_curriculum_page_shows_competencies_first_then_collapsible_modules()
+    {
+        $html = $this->get(route('site.curriculum'))->assertOk()->getContent();
+        $sim = substr($html, strpos($html, 'id="sim"'));
+        $this->assertLessThan(strpos($sim, 'Modul (76 elemen unit kompetensi)'), strpos($sim, 'id="kompetensi-mtb-sim-0001"'), 'tabel kompetensi sebelum modul');
+        $this->assertStringContainsString('<details', $sim);
+        $this->assertStringContainsString('Lihat selengkapnya (19 kompetensi)', $sim);
+        // baris ke-11 dst disembunyikan sampai "lihat selengkapnya"
+        $this->assertMatchesRegularExpression('/id="kompetensi-mtb-sim-0011"\s+x-show="all"/', $sim);
+        $this->assertDoesNotMatchRegularExpression('/id="kompetensi-mtb-sim-0010"\s+x-show/', $sim);
+        $this->assertStringContainsString(route('site.curriculum.pdf', 'SIM'), $sim);
+    }
 }

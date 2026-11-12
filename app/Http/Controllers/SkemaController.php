@@ -48,6 +48,33 @@ class SkemaController extends Controller
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
+    /** Ubah unit kompetensi: judul, Fungsi Kunci & Fungsi Utama (pemetaan), deskripsi. */
+    public function updateUnit(Request $request, \App\Models\CompetencyUnit $unit)
+    {
+        $this->authorize('update', $unit->skema);
+        $unit->update($request->validate([
+            'title' => 'required|string|max:255', 'key_function' => 'nullable|string|max:500', 'main_function' => 'nullable|string|max:255', 'description' => 'nullable|string|max:5000',
+        ]));
+
+        return redirect()->route('skema.show', $unit->skema_id)->with('success', "Unit {$unit->code} diubah.");
+    }
+
+    /** PDF Pemetaan Standar Kompetensi (format dokumen skema). */
+    public function pdf(Skema $skema)
+    {
+        $this->authorize('view', $skema);
+
+        return self::mapPdf($skema);
+    }
+
+    public static function mapPdf(Skema $skema)
+    {
+        $skema->loadMissing('units', 'modules');
+
+        return \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.skema-map', ['skema' => $skema, 'site' => \App\Models\Setting::current()])
+            ->setPaper('a4')->download("Skema Kompetensi {$skema->code}.pdf");
+    }
+
     public function import(Request $request, Skema $skema, \App\Services\SkemaImporter $importer)
     {
         $this->authorize('update', $skema);

@@ -20,6 +20,12 @@ use Illuminate\Validation\Rule;
 /** Situs publik (PRD 8). Hanya data publik: tidak ada data pribadi anggota (PRD 10). */
 class SiteController extends Controller
 {
+    /** Unduh pemetaan standar kompetensi skema publik (PDF). */
+    public function curriculumPdf(string $code)
+    {
+        return SkemaController::mapPdf(\App\Models\Skema::where('code', $code)->where('is_public', true)->firstOrFail());
+    }
+
     public function curriculum()
     {
         $skemas = \App\Support\SiteCache::remember('curriculum', fn () => \App\Models\Skema::ordered()->where('is_public', true)->with('units', 'modules')->get());

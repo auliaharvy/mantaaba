@@ -2,7 +2,7 @@
   "$schema_note": "Template skema Rumah Mantaaba. Satu file = satu skema; units = unit kompetensi (modul). Impor lewat Dashboard › Skema › Impor JSON atau `php artisan skema:import`.",
   "code": "SIM",
   "name": "Sistem Informasi Manajemen",
-  "title": "Sistem Informasi Manajemen — Perancangan, Dokumentasi & Pengendalian Operasional Bisnis",
+  "title": "Sistem Informasi Manajemen (SIM) — Merancang, Mendokumentasikan, dan Mengendalikan Operasional Perusahaan",
   "description": "Mampu memahami, merancang, menjalankan, mendokumentasikan, mengevaluasi dan memperbaiki sistem operasional perusahaan barang/jasa/manufaktur, dari visi–misi hingga pertanggungjawaban dan monitoring, secara bertanggung jawab, jujur, dan kolaboratif.",
   "month_label": "Bulan 2–3",
   "objectives": "Mampu memahami, merancang, menjalankan, mendokumentasikan, mengevaluasi dan memperbaiki sistem operasional perusahaan barang/jasa/manufaktur, dari visi–misi hingga pertanggungjawaban dan monitoring, secara bertanggung jawab, jujur, dan kolaboratif.",
@@ -145,6 +145,8 @@
     {
       "code": "MTB-SIM-0001",
       "title": "Mengidentifikasi Ide, Bentuk, dan Model Bisnis Perusahaan",
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi Ide, Bentuk, dan Model Bisnis Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -285,6 +287,8 @@
     {
       "code": "MTB-SIM-0002",
       "title": "Memahami dan Merumuskan Visi, Misi, dan Tujuan Perusahaan",
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk memahami dan Merumuskan Visi, Misi, dan Tujuan Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -425,6 +429,8 @@
     {
       "code": "MTB-SIM-0003",
       "title": "Menjabarkan Tujuan Perusahaan Menjadi Sasaran dan Kebutuhan Operasional",
+      "key_function": "Merumuskan arah usaha yang relevan dengan pelanggan dan manfaat sosial.",
+      "main_function": "Fondasi dan Arah Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menjabarkan Tujuan Perusahaan Menjadi Sasaran dan Kebutuhan Operasional. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -565,6 +571,8 @@
     {
       "code": "MTB-SIM-0004",
       "title": "Mengidentifikasi Fungsi-Fungsi Utama dan Pendukung Perusahaan",
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi Fungsi-Fungsi Utama dan Pendukung Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -705,6 +713,8 @@
     {
       "code": "MTB-SIM-0005",
       "title": "Merancang Struktur Organisasi Berdasarkan Kebutuhan Perusahaan",
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk merancang Struktur Organisasi Berdasarkan Kebutuhan Perusahaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -845,6 +855,8 @@
     {
       "code": "MTB-SIM-0006",
       "title": "Menyusun Tugas Pokok, Fungsi, Wewenang, dan Tanggung Jawab Jabatan",
+      "key_function": "Menentukan fungsi, posisi, wewenang, dan akuntabilitas.",
+      "main_function": "Fungsi dan Organisasi Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Tugas Pokok, Fungsi, Wewenang, dan Tanggung Jawab Jabatan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -985,6 +997,8 @@
     {
       "code": "MTB-SIM-0007",
       "title": "Memetakan Perjalanan Bisnis Perusahaan Secara Menyeluruh (Business Journey Mapping)",
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk memetakan Perjalanan Bisnis Perusahaan Secara Menyeluruh (Business Journey Mapping). Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1125,6 +1139,8 @@
     {
       "code": "MTB-SIM-0008",
       "title": "Mengidentifikasi dan Memetakan Kegiatan Operasional Setiap Fungsi",
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi dan Memetakan Kegiatan Operasional Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1265,6 +1281,8 @@
     {
       "code": "MTB-SIM-0009",
       "title": "Merancang Alur Kerja (Workflow) dan Mekanisme Pengendalian Antar Fungsi",
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk merancang Alur Kerja (Workflow) dan Mekanisme Pengendalian Antar Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1405,6 +1423,8 @@
     {
       "code": "MTB-SIM-0010",
       "title": "Menyusun Standar Operasional Prosedur (SOP) dan Instruksi Kerja",
+      "key_function": "Menyambungkan journey, aktivitas, workflow, dan SOP.",
+      "main_function": "Proses dan Kegiatan Perusahaan",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Standar Operasional Prosedur (SOP) dan Instruksi Kerja. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1545,6 +1565,8 @@
     {
       "code": "MTB-SIM-0011",
       "title": "Mengidentifikasi dan Mengklasifikasikan Dokumen Kegiatan Bisnis",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengidentifikasi dan Mengklasifikasikan Dokumen Kegiatan Bisnis. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1685,6 +1707,8 @@
     {
       "code": "MTB-SIM-0012",
       "title": "Membuat Dokumen Kegiatan Pemasaran, Penjualan, dan Pelayanan",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan Pemasaran, Penjualan, dan Pelayanan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1825,6 +1849,8 @@
     {
       "code": "MTB-SIM-0013",
       "title": "Membuat Dokumen Kegiatan Pengadaan, Persediaan, dan Produksi",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan Pengadaan, Persediaan, dan Produksi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -1965,6 +1991,8 @@
     {
       "code": "MTB-SIM-0014",
       "title": "Membuat Dokumen Kegiatan SDM, Aset, dan Operasional Pendukung",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Kegiatan SDM, Aset, dan Operasional Pendukung. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -2105,6 +2133,8 @@
     {
       "code": "MTB-SIM-0015",
       "title": "Membuat Dokumen Perencanaan Keuangan Operasional, Anggaran, dan Pendanaan",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk membuat Dokumen Perencanaan Keuangan Operasional, Anggaran, dan Pendanaan. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -2245,6 +2275,8 @@
     {
       "code": "MTB-SIM-0016",
       "title": "Mengelola Registrasi, Pengarsipan, Otorisasi, dan Ketertelusuran Dokumen",
+      "key_function": "Menghasilkan dokumen sumber terklasifikasi dan tertelusur.",
+      "main_function": "Sistem Dokumentasi Kegiatan Bisnis",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengelola Registrasi, Pengarsipan, Otorisasi, dan Ketertelusuran Dokumen. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -2385,6 +2417,8 @@
     {
       "code": "MTB-SIM-0017",
       "title": "Menyusun Buku Laporan Pertanggungjawaban Kegiatan Setiap Fungsi",
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Buku Laporan Pertanggungjawaban Kegiatan Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -2525,6 +2559,8 @@
     {
       "code": "MTB-SIM-0018",
       "title": "Menyusun Buku Monitoring Kinerja dan Tindak Lanjut Setiap Fungsi",
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk menyusun Buku Monitoring Kinerja dan Tindak Lanjut Setiap Fungsi. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {
@@ -2665,6 +2701,8 @@
     {
       "code": "MTB-SIM-0019",
       "title": "Mengevaluasi Keterpaduan Sistem Manajemen dan Menyusun Perbaikan Proses Bisnis",
+      "key_function": "Melaporkan, memonitor, dan memperbaiki hasil kerja.",
+      "main_function": "Pelaporan dan Pengendalian",
       "description": "Unit kompetensi internal ini mencakup pengetahuan, keterampilan, sikap kerja dan kontribusi tim untuk mengevaluasi Keterpaduan Sistem Manajemen dan Menyusun Perbaikan Proses Bisnis. Pembelajaran berbasis proyek perusahaan terpilih (barang, jasa, atau manufaktur), dengan hasil kerja yang dapat dibuktikan melalui dokumen dan demonstrasi.",
       "elements": [
         {

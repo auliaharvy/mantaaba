@@ -146,6 +146,8 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     | Pembelajaran, penilaian & sertifikat (PRD 9.6–9.7)
     */
     Route::get('skema/{skema}/json', [SkemaController::class, 'export'])->name('skema.export');
+    Route::get('skema/{skema}/pdf', [SkemaController::class, 'pdf'])->name('skema.pdf');
+    Route::patch('skema/unit/{unit}', [SkemaController::class, 'updateUnit'])->name('skema.unit-update');
     Route::post('skema/{skema}/impor', [SkemaController::class, 'import'])->name('skema.import');
     Route::resource('skema', SkemaController::class);
     Route::post('skema/{skema}/modul', [ModuleController::class, 'store'])->name('module.store');

@@ -156,6 +156,8 @@
     {
       "code": "MTB-F-0001",
       "title": "Mendengarkan secara aktif, efektif dan efisien",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Mendengar",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk menerima, menyerap, mengkonfirmasi, dan memproses informasi lisan (audio / Audio Visual) secara fokus, akurat, serta tepat konteks. Hal ini bertujuan untuk mendukung transparansi, keharusan validasi data (internal control), serta kelancaran efisiensi operasional kerja tim.",
       "elements": [
         {
@@ -278,6 +280,8 @@
     {
       "code": "MTB-F-0002",
       "title": "Membaca dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien.",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Membaca",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mempersiapkan, mengeksekusi, memvalidasi, dan menindaklanjuti pembacaan dokumen/data bisnis tertulis secara cermat, cepat, dan objektif. Hal ini bertujuan untuk memastikan akurasi data (internal control), transparansi informasi, serta efisiensi kerja tim.",
       "elements": [
         {
@@ -400,6 +404,8 @@
     {
       "code": "MTB-F-0003",
       "title": "Memahami dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Memahami",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mempersiapkan, mengolah, menyelaraskan, dan menindaklanjuti pemahaman atas instruksi, prosedur, serta data operasional bisnis. Hal ini bertujuan untuk menciptakan kesamaan persepsi (alignment), mencegah kesalahan eksekusi (internal control), serta mendorong efisiensi kerja tim secara akuntabel.",
       "elements": [
         {
@@ -514,6 +520,8 @@
     {
       "code": "MTB-F-0004",
       "title": "Menganalisis dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menganalisis",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk mengurai masalah, memvalidasi fakta, mengevaluasi risiko, dan merumuskan solusi berbasis data. Proses analisis ini ditujukan untuk memastikan keandalan keputusan operasional (internal control), mendorong perbaikan berkelanjutan, serta menciptakan strategi yang mendukung kelancaran tim.",
       "elements": [
         {
@@ -632,6 +640,8 @@
     {
       "code": "MTB-F-0005",
       "title": "Menyampaikan Informasi Bisnis Secara Lisan dalam Melaksanakan Operasional yang Aktif, Efektif, dan Efisien",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menyampaikan Secara Lisan",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk menyusun, mengomunikasikan, dan memvalidasi pesan bisnis secara lisan. Tujuannya adalah memastikan instruksi dan informasi tersampaikan secara transparan, akurat (internal control), serta membangun sinergi tim yang kuat tanpa adanya miskomunikasi.",
       "elements": [
         {
@@ -746,6 +756,8 @@
     {
       "code": "MTB-F-0006",
       "title": "Menyampaikan Secara Tertulis dalam Melaksanakan Operasional Bisnis yang Aktif, Efektif, dan Efisien",
+      "key_function": "Mampu berkomunikasi bisnis aktif, efektif, dan efisien dengan mengedepankan transparansi, empati dan kolaborasi.",
+      "main_function": "Menyampaikan Secara Tertulis",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk merencanakan, menyusun, menyunting, dan mendokumentasikan komunikasi bisnis tertulis secara transparan, logis, terstruktur, serta akuntabel. Tujuannya adalah untuk memastikan keandalan data (internal control), kepatuhan administrasi, dan efisiensi operasional kerja tim.",
       "elements": [
         {
@@ -864,6 +876,8 @@
     {
       "code": "MTB-F-0007",
       "title": "Melakukan operasi matematika dasar (Tambah), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Tambah",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk menemani logika bisnis yang memerlukan operasi perhitungan pertambahan, serta melakukan eksekusi matematika dasar(tambah) secara aktif, efektif dan efisien. Tujuanya adalahuntuk memastikan akurasi data (internal control) dalam perhitungan bisnis dan mendukung kelancaran operasional kerja tim.",
       "elements": [
         {
@@ -986,6 +1000,8 @@
     {
       "code": "MTB-F-0008",
       "title": "Melakukan operasi matematika dasar (Kurang), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Kurang",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan pengurangan (seperti perhitungan margin, selisih anggaran, diskon, atau sisa stok), serta melakukan eksekusinya secara aktif, efektif, dan efisien. Tujuannya adalah untuk memastikan akurasi data (internal control), mendeteksi pemborosan, dan mendukung efisiensi operasional kerja tim.",
       "elements": [
         {
@@ -1104,6 +1120,8 @@
     {
       "code": "MTB-F-0009",
       "title": "Melakukan operasi matematika dasar (Kali), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Kali",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan perkalian, serta melakukan eksekusi matematika dasar (kali) secara aktif, efektif dan efisien. Tujuanya adalah untuk memastikan akurasi data (Intenal control), ekskalasi skala bisnis, serta mendukung kelancaran operasional kerja tim.",
       "elements": [
         {
@@ -1222,6 +1240,8 @@
     {
       "code": "MTB-F-0010",
       "title": "Melakukan operasi matematika dasar (Bagi), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Bagi",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi pembagian (seperti penentuan harga pokok per unit, alokasi anggaran, distribusi beban kerja, atau perhitungan rata-rata performa), serta pengeksekusiannya secara aktif, efektif, dan efisien. Tujuannya adalah memastikan keadilan proporsional, akurasi distribusi data (internal control), dan sinergi tim.",
       "elements": [
         {
@@ -1340,6 +1360,8 @@
     {
       "code": "MTB-F-0011",
       "title": "Melakukan operasi matematika dasar (Persamaan), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Persamaan",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan penyelesaian persamaan/kesetaraan nilai, serta melakukan eksekusi kalkulasi persamaan secara aktif, efektif dan efisien. Tujuanya adalah untuk memastikan keseimbangan neraca, akurasi transaksi (Intenal control), serta mendukung kelancaran operasional kerja tim.",
       "elements": [
         {
@@ -1458,6 +1480,8 @@
     {
       "code": "MTB-F-0012",
       "title": "Melakukan operasi matematika dasar (Persentase), dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+      "key_function": "Mampu melakukan operasi matematika dasar secara akurat untuk efisiensi bisnis dengan inisiatif tinggi, ketelitian (Internal Control), dan keadilan proporsional.",
+      "main_function": "Persentase",
       "description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk memahami logika bisnis yang memerlukan operasi perhitungan persentase (seperti penentuan margin laba, diskon, pajak, komisi, hingga rasio pertumbuhan), serta pengeksekusiannya secara aktif, efektif, dan efisien. Tujuannya adalah memastikan akurasi pengukuran performa finansial (internal control), transparansi pembagian hasil, dan dukungan pada efisiensi keputusan tim.",
       "elements": [
         {

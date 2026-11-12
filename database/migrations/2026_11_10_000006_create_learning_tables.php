@@ -33,6 +33,8 @@ return new class extends Migration
             $table->foreignId('skema_id')->constrained()->cascadeOnDelete();
             $table->string('code', 20); // MTB-F-0001
             $table->string('title');
+            $table->string('key_function', 500)->nullable(); // Fungsi Kunci (pemetaan standar kompetensi)
+            $table->string('main_function')->nullable(); // Fungsi Utama; unit ini = Fungsi Dasar-nya
             $table->text('description')->nullable();
             $table->json('assessment')->nullable(); // [{dimension, label, weight, indicator, evidence}] 4 dimensi
             $table->json('context')->nullable(); // {label: teks} skenario praktik, portofolio, aspek kritis, prasyarat, ...

@@ -19,6 +19,24 @@ class Skema extends Model
         return $this->hasMany(CompetencyUnit::class)->orderBy('sort_order')->orderBy('id');
     }
 
+    /**
+     * Pemetaan standar kompetensi: Tujuan Utama (objectives) → Fungsi Kunci → Fungsi Utama → Fungsi Dasar (= unit kompetensi).
+     * Unit berurutan dengan Fungsi Kunci sama digabung (rowspan di tabel/PDF). @return Collection<[key_function, units]>
+     */
+    public function functionGroups(): \Illuminate\Support\Collection
+    {
+        $groups = collect();
+        foreach ($this->units as $unit) {
+            if ($groups->isNotEmpty() && $groups->last()[0] === $unit->key_function) {
+                $groups->last()[1]->push($unit);
+            } else {
+                $groups->push([$unit->key_function, collect([$unit])]);
+            }
+        }
+
+        return $groups;
+    }
+
     /** Jumlah KUK seluruh modul (elemen). */
     public function criteriaCount(): int
     {

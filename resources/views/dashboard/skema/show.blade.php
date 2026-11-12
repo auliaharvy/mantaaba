@@ -11,6 +11,7 @@
             <div><div class="text-muted fs-7">Kurikulum</div><div class="fw-bold">{{ $skema->units->count() ? $skema->units->count() . ' unit · ' : '' }}{{ $skema->modules->count() }} modul · {{ $skema->criteriaCount() }} KUK</div></div>
             <div class="flex-grow-1" style="min-width: 0"><div class="text-muted fs-7">{{ $skema->title ? 'Skema' : 'Deskripsi' }}</div><div>{{ $skema->title ?: ($skema->description ?: '-') }}</div></div>
             <div class="d-flex flex-wrap gap-2">
+                @if ($skema->units->isNotEmpty())<a href="{{ route('skema.pdf', $skema) }}" class="btn btn-sm btn-light-primary"><i class="fa fa-file-pdf"></i> Pemetaan (PDF)</a>@endif
                 <a href="{{ route('skema.export', $skema) }}" class="btn btn-sm btn-light"><i class="fa fa-download"></i> Unduh JSON</a>
                 @if ($canUpdate)<button type="button" class="btn btn-sm btn-light" data-bs-toggle="collapse" data-bs-target="#import-json"><i class="fa fa-upload"></i> Impor JSON</button>
                     <a href="{{ route('skema.edit', $skema) }}" class="btn btn-sm btn-light-success"><i class="fa fa-pen"></i> Ubah skema</a>@endif
@@ -30,6 +31,32 @@
         </form>
     @endif
 
+    @if ($skema->units->isNotEmpty())
+        <div class="card mb-5">
+            <div class="card-header"><div class="card-title fs-5 fw-bolder">Pemetaan standar kompetensi</div>
+                <div class="card-toolbar"><button type="button" class="btn btn-sm btn-light" data-bs-toggle="collapse" data-bs-target="#function-map">Tampilkan / sembunyikan</button></div></div>
+            <div class="collapse show" id="function-map">
+                <div class="card-body p-0 table-responsive">
+                    <table class="table table-bordered align-middle mb-0 fs-7">
+                        <thead><tr class="fw-bold bg-light text-center"><th>Tujuan utama</th><th>Fungsi kunci</th><th>Fungsi utama</th><th>Fungsi dasar / unit kompetensi</th></tr></thead>
+                        <tbody>
+                            @foreach ($skema->functionGroups() as $g => [$keyFunction, $groupUnits])
+                                @foreach ($groupUnits as $i => $unit)
+                                    <tr>
+                                        @if ($g === 0 && $i === 0)<td rowspan="{{ $skema->units->count() }}" class="fw-bold bg-light-primary w-25">{{ strip_tags($skema->objectives) ?: '—' }}</td>@endif
+                                        @if ($i === 0)<td rowspan="{{ $groupUnits->count() }}" class="w-25">{{ $keyFunction ?: '—' }}</td>@endif
+                                        <td>{{ $unit->main_function ?: '—' }}</td>
+                                        <td><span class="text-muted text-nowrap">{{ $unit->code }}</span> · {{ $unit->title }}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('skema.reorder', $skema) }}" id="order-form">
         @csrf
         {{-- unit kompetensi → modul (satu per elemen, berisi KUK) → materi; modul tanpa unit di kelompok terakhir --}}
@@ -47,7 +74,9 @@
                         <span class="badge badge-primary">Unit kompetensi</span>
                         <span class="fw-bolder fs-4 flex-grow-1" style="min-width: 0">{{ $unit->code }} · {{ $unit->title }}</span>
                         <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="collapse" data-bs-target="#unit-{{ $unit->id }}"><i class="fa fa-info-circle"></i> Detail unit</button>
+                        @if ($canUpdate)<button type="button" class="btn btn-sm btn-icon btn-light" data-bs-toggle="collapse" data-bs-target="#edit-unit-{{ $unit->id }}" title="Ubah unit"><i class="fa fa-pen"></i></button>@endif
                     </div>
+                    @if ($unit->main_function || $unit->key_function)<div class="text-muted fs-7 mb-3">Fungsi utama: <b>{{ $unit->main_function ?: '—' }}</b> · Fungsi kunci: {{ $unit->key_function ?: '—' }}</div>@endif
                     @include('dashboard.skema.unit-detail', ['unit' => $unit, 'collapseId' => 'unit-' . $unit->id])
                 @elseif ($skema->units->isNotEmpty())
                     <div class="fw-bolder fs-5 mb-3">Modul lain</div>
@@ -122,6 +151,19 @@
     @endif
 
     @if ($canUpdate)
+        @foreach ($skema->units as $unit)
+            <form method="POST" action="{{ route('skema.unit-update', $unit) }}" class="collapse card mb-5" id="edit-unit-{{ $unit->id }}">
+                @csrf @method('PATCH')
+                <div class="card-header"><div class="card-title fs-5 fw-bolder">Ubah unit kompetensi {{ $unit->code }}</div></div>
+                <div class="card-body row">
+                    <div class="col-12"><x-dashboard.field name="title" :id="'unit-title-' . $unit->id" label="Judul unit (fungsi dasar)" :value="$unit->title" required /></div>
+                    <div class="col-md-6"><x-dashboard.field name="key_function" :id="'unit-key-' . $unit->id" label="Fungsi kunci" type="textarea" :value="$unit->key_function" /></div>
+                    <div class="col-md-6"><x-dashboard.field name="main_function" :id="'unit-main-' . $unit->id" label="Fungsi utama" :value="$unit->main_function" /></div>
+                    <div class="col-12"><x-dashboard.field name="description" :id="'unit-desc-' . $unit->id" label="Deskripsi unit" type="textarea" :value="$unit->description" /></div>
+                </div>
+                <div class="card-footer text-end"><button class="btn btn-sm btn-primary">Simpan unit</button></div>
+            </form>
+        @endforeach
         @foreach ($skema->modules as $module)
             <form method="POST" action="{{ route('module.update', $module) }}" class="collapse card mb-5" id="edit-module-{{ $module->id }}">
                 @csrf @method('PATCH')

@@ -22,6 +22,7 @@ Route::controller(AdmissionController::class)->name('site.admission')->prefix('p
 
 Route::controller(SiteController::class)->name('site.')->group(function () {
     Route::get('kurikulum', 'curriculum')->name('curriculum');
+    Route::get('kurikulum/{code}/pemetaan.pdf', 'curriculumPdf')->name('curriculum.pdf');
     Route::get('ekosistem', 'units')->name('units');
     Route::get('ekosistem/{slug}', 'unit')->name('units.show');
     Route::get('galeri', 'galleries')->name('gallery');

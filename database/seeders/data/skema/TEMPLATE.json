@@ -22,6 +22,8 @@
     {
       "code": "MTB-SIA-0001",
       "title": "Judul unit kompetensi",
+      "key_function": "Fungsi kunci",
+      "main_function": "Fungsi utama",
       "description": "Deskripsi unit: pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan.",
       "elements": [
         {
