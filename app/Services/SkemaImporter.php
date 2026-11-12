@@ -25,6 +25,7 @@ class SkemaImporter
             'code' => ['required', 'string', 'max:10', Rule::when($into, fn () => Rule::in([$into->code]))],
             'name' => 'required|string|max:255',
             'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:2000',
             'month_label' => 'nullable|string|max:50',
             'objectives' => 'nullable|string',
             'competency_map' => 'nullable|array', 'final_portfolio' => 'nullable|array', 'assessment_guide' => 'nullable|array', 'notes' => 'nullable|array',
@@ -43,11 +44,14 @@ class SkemaImporter
             'units.*.assessment.*.weight' => 'required|numeric|min:0|max:100',
             'units.*.assessment.*.indicator' => 'nullable|string',
             'units.*.context' => 'nullable|array',
+            'units.*.character' => 'nullable|array',
+            'units.*.character.technical' => 'nullable|string|max:500', 'units.*.character.asabiyah' => 'nullable|string|max:1000', 'units.*.character.fastabiqul' => 'nullable|string|max:1000',
         ], ['code.in' => 'Kode skema di JSON harus sama dengan skema yang diimpor.'], ['units.*.elements' => 'elemen', 'units.*.elements.*.criteria' => 'kriteria unjuk kerja'])->validate();
 
         return DB::transaction(function () use ($data, $into) {
             $skema = $into ?? Skema::firstOrNew(['code' => $data['code']]);
             $skema->fill(['name' => $data['name'], 'title' => $data['title'] ?? null, 'month_label' => $data['month_label'] ?? $skema->month_label,
+                'description' => $data['description'] ?? $skema->description,
                 'objectives' => isset($data['objectives']) ? \App\Support\Html::clean($data['objectives']) : $skema->objectives, // ditampilkan sebagai HTML di halaman belajar
                 'standard' => collect($data)->only(['competency_map', 'final_portfolio', 'assessment_guide', 'notes'])->all()]);
             $skema->sort_order ??= (int) Skema::max('sort_order') + 1;
@@ -62,7 +66,7 @@ class SkemaImporter
                 $unit = $skema->units()->firstOrNew(['code' => $item['code']]);
                 $stats[$unit->exists ? 'updated' : 'created']++;
                 $unit->fill(['title' => $item['title'], 'description' => $item['description'] ?? null, 'assessment' => $item['assessment'] ?? null,
-                    'context' => $item['context'] ?? null, 'sort_order' => $i])->save();
+                    'context' => $item['context'] ?? null, 'character' => $item['character'] ?? null, 'sort_order' => $i])->save();
                 // setiap elemen unit = satu modul pembelajaran (materi menempel di modul)
                 foreach ($item['elements'] as $element) {
                     $code = $item['code'] . '.' . $element['no'];
@@ -100,13 +104,13 @@ class SkemaImporter
         $skema->loadMissing('units.modules');
 
         return [
-            'code' => $skema->code, 'name' => $skema->name, 'title' => $skema->title, 'month_label' => $skema->month_label, 'objectives' => $skema->objectives,
+            'code' => $skema->code, 'name' => $skema->name, 'title' => $skema->title, 'description' => $skema->description, 'month_label' => $skema->month_label, 'objectives' => $skema->objectives,
             'competency_map' => $skema->standard['competency_map'] ?? [],
             'units' => $skema->units->map(fn ($unit) => array_filter([
                 'code' => $unit->code, 'title' => $unit->title, 'description' => $unit->description,
                 'elements' => $unit->modules->values()->map(fn (Module $m, $i) => ['no' => \Illuminate\Support\Str::contains((string) $m->code, '.') ? \Illuminate\Support\Str::afterLast($m->code, '.') : (string) ($i + 1),
                     'title' => $m->title, 'criteria' => $m->criteria ?? []])->all(),
-                'assessment' => $unit->assessment ?? [], 'context' => $unit->context,
+                'assessment' => $unit->assessment ?? [], 'context' => $unit->context, 'character' => $unit->character,
             ], fn ($v) => $v !== null))->values()->all(),
             'final_portfolio' => $skema->standard['final_portfolio'] ?? [],
             'assessment_guide' => $skema->standard['assessment_guide'] ?? [],

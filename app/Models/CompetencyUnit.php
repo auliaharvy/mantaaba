@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 /** Unit kompetensi (kompetensi kurikulum): deskripsi, penilaian 4 dimensi, konteks praktik; elemennya menjadi modul pembelajaran. */
 class CompetencyUnit extends Model
 {
-    protected $fillable = ['skema_id', 'code', 'title', 'description', 'assessment', 'context', 'sort_order'];
+    protected $fillable = ['skema_id', 'code', 'title', 'description', 'assessment', 'context', 'character', 'sort_order'];
 
-    protected $casts = ['assessment' => 'array', 'context' => 'array'];
+    protected $casts = ['assessment' => 'array', 'context' => 'array', 'character' => 'array'];
 
     public function skema()
     {

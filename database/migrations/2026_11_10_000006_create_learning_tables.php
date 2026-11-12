@@ -36,6 +36,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('assessment')->nullable(); // [{dimension, label, weight, indicator, evidence}] 4 dimensi
             $table->json('context')->nullable(); // {label: teks} skenario praktik, portofolio, aspek kritis, prasyarat, ...
+            $table->json('character')->nullable(); // {technical, asabiyah, fastabiqul} baris tabel kompetensi di Kurikulum
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
             $table->unique(['skema_id', 'code']);

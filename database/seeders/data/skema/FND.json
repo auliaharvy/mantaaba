@@ -3,6 +3,7 @@
   "code": "FND",
   "name": "Fundamental (12 Jurus)",
   "title": "Skill Fundamental dalam melaksanakan operasional bisnis yang aktif, efektif dan efisien",
+  "description": "Mampu melakukan komunikasi bisnis secara aktif, efektif dan efisien serta mampu memahami keseimbangan matematika bisnis dasar yang bersifat umum",
   "month_label": "Bulan 1",
   "objectives": "Mampu melakukan komunikasi bisnis secara aktif, efektif dan efisien serta mampu memahami keseimbangan matematika bisnis dasar yang bersifat umum",
   "competency_map": [
@@ -267,7 +268,12 @@
           "indicator": "Mengundang klarifikasi dari rekan; membagikan ringkasan terverifikasi hanya kepada pihak terkait; memastikan rekan mampu menjelaskan kembali pembagian tugas dan tenggat. (KUK 2.2, 2.4, 4.3)",
           "evidence": "Observasi koordinasi, bukti distribusi dan teach-back rekan."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Mendengar aktif, efektif, efisien: persiapan, klarifikasi & parafrasa, tindak lanjut",
+        "asabiyah": "Mendengar keluh kesah dan gagasan rekan dengan empati tanpa memotong, sehingga setiap anggota tim merasa didengar.",
+        "fastabiqul": "Berinisiatif mengklarifikasi instruksi yang ambigu lebih dulu dan menindaklanjuti hasil rapat sebelum diminta."
+      }
     },
     {
       "code": "MTB-F-0002",
@@ -384,7 +390,12 @@
           "indicator": "Membagikan intisari beserta lokasi rujukan kepada pihak terkait; menjelaskan bagian sulit kepada rekan; mengonfirmasi bahwa informasi yang diteruskan cukup untuk tugas tim. (KUK 4.1–4.3)",
           "evidence": "Bukti berbagi rujukan dan penjelasan ulang oleh rekan."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Membaca dokumen kerja, regulasi & data: menelusuri, memahami esensi, memindai cepat",
+        "asabiyah": "Merangkum bacaan penting lalu membagikannya kepada rekan yang kesulitan memahami dokumen.",
+        "fastabiqul": "Berlomba menuntaskan bacaan rujukan (SOP, regulasi) dan menemukan informasi relevan paling cepat dan akurat."
+      }
     },
     {
       "code": "MTB-F-0003",
@@ -493,7 +504,12 @@
           "indicator": "Melakukan teach-back instruksi kepada tim; mengajak rekan menyatakan kembali tanggung jawab; menyelesaikan perbedaan persepsi melalui konfirmasi sehingga rencana tim konsisten. (KUK 3.1, 4.3)",
           "evidence": "Catatan penyelarasan tim dan teach-back individu."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Menyelaraskan maksud & tujuan informasi, menangkap inti persoalan",
+        "asabiyah": "Memastikan pemahaman bersama dalam tim sehingga tidak ada rekan yang tertinggal atau salah paham.",
+        "fastabiqul": "Proaktif mengonfirmasi maksud instruksi dan menerjemahkannya menjadi langkah kerja yang jelas."
+      }
     },
     {
       "code": "MTB-F-0004",
@@ -606,7 +622,12 @@
           "indicator": "Meminta masukan dari pelaksana terdampak; menanggapi kritik berdasarkan bukti; menyampaikan rekomendasi yang dapat dipahami dan membagi tindak lanjut sesuai peran tim. (KUK 3.3, 4.2–4.3)",
           "evidence": "Masukan pihak terdampak dan catatan pembagian tindak lanjut."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Eksplorasi akar masalah, uji kelayakan solusi, metode analisis yang efisien",
+        "asabiyah": "Menganalisis masalah bersama secara terbuka tanpa saling menyalahkan dan mencari solusi yang adil bagi semua pihak.",
+        "fastabiqul": "Berinisiatif menemukan akar masalah dan mengusulkan solusi paling efisien sebelum masalah membesar."
+      }
     },
     {
       "code": "MTB-F-0005",
@@ -715,7 +736,12 @@
           "indicator": "Memberi kesempatan bertanya; memastikan pendengar dapat menyebutkan inti dan tindakan berikutnya; meneruskan kesepakatan kepada rekan terkait yang tidak hadir. (KUK 3.1–3.3, 4.1, 4.3)",
           "evidence": "Teach-back audiens dan bukti penerusan hasil briefing."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Menyampaikan informasi bisnis secara lisan: artikulasi jelas, pesan diterima, singkat & bermakna",
+        "asabiyah": "Aktif melatih rekan yang masih pemalu agar berani berbicara; menyampaikan pesan dengan santun dan menjaga perasaan.",
+        "fastabiqul": "Berani tampil lebih dulu mempresentasikan gagasan secara jelas, ringkas, dan berbasis data."
+      }
     },
     {
       "code": "MTB-F-0006",
@@ -828,7 +854,12 @@
           "indicator": "Menulis agar penerima mengetahui tindakan yang harus dilakukan; menerima masukan penyunting; memastikan pihak terkait menerima versi yang sama dan dapat menemukan kembali dokumen. (KUK 2.3, 4.1–4.3)",
           "evidence": "Umpan balik penerima dan uji temu kembali dokumen."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Menulis email, pesan kerja, dan laporan singkat yang deskriptif, logis, dan ringkas",
+        "asabiyah": "Menyusun tulisan yang mudah dipahami rekan dan tim pelanjut, serta membantu menyunting tulisan teman.",
+        "fastabiqul": "Berlomba menghasilkan dokumen tertulis yang rapi, tepat waktu, dan bebas kesalahan."
+      }
     },
     {
       "code": "MTB-F-0007",
@@ -945,7 +976,12 @@
           "indicator": "Menyerahkan rekap beserta sumber kepada rekan pemeriksa; menjelaskan komponen total; membantu rekan menelusuri selisih tanpa mengambil alih seluruh tugasnya. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Operasi penjumlahan untuk rekap transaksi, stok, dan anggaran",
+        "asabiyah": "Budaya peer-tutoring: yang mahir berhitung mengajari rekan yang tertinggal agar seluruh kelas lulus evaluasi.",
+        "fastabiqul": "Berlomba menyajikan rekap penjumlahan yang paling akurat dan cepat dengan alat bantu yang tepat."
+      }
     },
     {
       "code": "MTB-F-0008",
@@ -1058,7 +1094,12 @@
           "indicator": "Mengonfirmasi selisih kepada pemegang data; menjelaskan konsekuensinya bagi tim; membagikan hasil koreksi dan bukti kepada pihak terkait. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Operasi pengurangan: selisih, sisa stok, laba kotor",
+        "asabiyah": "Memeriksa ulang hitungan rekan secara kekeluargaan untuk mencegah selisih yang merugikan bersama.",
+        "fastabiqul": "Proaktif menemukan selisih kas atau stok lebih awal lalu menelusuri penyebabnya."
+      }
     },
     {
       "code": "MTB-F-0009",
@@ -1171,7 +1212,12 @@
           "indicator": "Menjelaskan dasar kuantitas dan tarif kepada rekan pemeriksa; bertukar pemeriksaan hasil; membantu rekan memahami rumus dan membagikan versi final. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Operasi perkalian: harga × kuantitas, total biaya, proyeksi kebutuhan",
+        "asabiyah": "Menghitung kebutuhan bersama (porsi dapur, bahan) secara adil sehingga tidak ada anggota yang kekurangan.",
+        "fastabiqul": "Berinisiatif menghitung proyeksi kebutuhan dan biaya sebelum belanja agar sumber daya tidak terbuang."
+      }
     },
     {
       "code": "MTB-F-0010",
@@ -1284,7 +1330,12 @@
           "indicator": "Mengonfirmasi dasar alokasi dengan pihak terkait; menjelaskan bagian dan sisa secara terbuka sesuai hak akses; menanggapi keberatan dengan data serta membantu rekan memeriksa alokasi. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Operasi pembagian: rata-rata, biaya per unit/per orang, pembagian proporsional",
+        "asabiyah": "Membagi beban kerja dan sumber daya secara proporsional dan transparan kepada seluruh tim.",
+        "fastabiqul": "Berlomba menemukan biaya per unit/per orang yang paling efisien tanpa menurunkan mutu."
+      }
     },
     {
       "code": "MTB-F-0011",
@@ -1397,7 +1448,12 @@
           "indicator": "Menjelaskan model dan arti variabel kepada tim; meminta pemeriksaan substitusi oleh rekan; menyampaikan selisih yang belum selesai kepada pihak berwenang beserta bukti. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Persamaan sederhana: mencari nilai yang belum diketahui, titik impas",
+        "asabiyah": "Menjelaskan langkah penyelesaian persamaan kepada rekan sampai mereka mampu mengerjakannya sendiri.",
+        "fastabiqul": "Proaktif memakai persamaan untuk menguji keputusan bisnis (harga, titik impas) sebelum dijalankan."
+      }
     },
     {
       "code": "MTB-F-0012",
@@ -1510,7 +1566,12 @@
           "indicator": "Menjelaskan rasio dalam bahasa yang dipahami rekan; mengonfirmasi kesamaan nilai dasar dan periode; memeriksa hasil bersama serta membagikan interpretasi untuk keputusan tim. (KUK 4.1–4.3)",
           "evidence": "Catatan pemeriksaan sejawat, penjelasan individu dan serah terima hasil."
         }
-      ]
+      ],
+      "character": {
+        "technical": "Persentase, margin, markup, dan perubahan nilai",
+        "asabiyah": "Menyajikan angka persentase secara jujur dan mudah dipahami agar keputusan tim tidak menyesatkan.",
+        "fastabiqul": "Berlomba menaikkan margin melalui efisiensi biaya (mis. biaya dapur) secara matematis tanpa mengurangi mutu."
+      }
     }
   ],
   "final_portfolio": [],

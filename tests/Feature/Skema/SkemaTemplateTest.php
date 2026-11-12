@@ -49,7 +49,10 @@ class SkemaTemplateTest extends TestCase
         $json = $this->actingAs($admin)->get(route('skema.export', $fnd))->assertOk()->assertHeader('content-disposition', 'attachment; filename="skema-FND.json"')->json();
         $this->assertCount(12, $json['units']);
         $this->assertCount(4, $json['units'][0]['elements']);
-        $this->assertSame(json_decode(file_get_contents(database_path('seeders/data/skema/FND.json')), true)['units'][0]['elements'], $json['units'][0]['elements'], 'ekspor = template');
+        $template = json_decode(file_get_contents(database_path('seeders/data/skema/FND.json')), true);
+        $this->assertSame($template['units'][0]['elements'], $json['units'][0]['elements'], 'ekspor = template');
+        $this->assertEquals($template['units'][0]['character'], $json['units'][0]['character'], 'urutan kunci JSON diatur MySQL');
+        $this->assertSame($template['description'], $json['description']);
 
         // ubah judul elemen 1 unit 1 (bermateri), hapus elemen 4 unit 1 (bermateri → dipertahankan), hapus unit 12, tambah unit 13
         $module = $fnd->modules()->where('code', 'MTB-F-0001.1')->first();
@@ -92,6 +95,15 @@ class SkemaTemplateTest extends TestCase
         $member = User::where('email', 'anggota@mail.com')->first();
         $fnd = Skema::where('code', 'FND')->first();
         $this->actingAs($member)->get(route('learn.skema', $fnd))->assertOk()->assertSee('MTB-F-0001')->assertSee('Tentang unit ini')->assertSee('Kriteria unjuk kerja');
-        $this->get(route('site.curriculum'))->assertOk()->assertSee('Unit kompetensi')->assertSee('Membaca dalam melaksanakan operasional bisnis');
+        // Kurikulum publik: deskripsi = tujuan utama skema; modul (elemen) menaut ke baris kompetensi (unit) beserta 'Asabiyah & Fastabiqul Khairat
+        $sim->load('units');
+        $this->assertStringStartsWith('Mampu memahami, merancang, menjalankan', $sim->description);
+        $this->assertCount(19, $sim->units->filter(fn ($u) => ! empty($u->character['asabiyah']) && ! empty($u->character['fastabiqul']) && ! empty($u->character['technical'])));
+        $this->get(route('site.curriculum'))->assertOk()
+            ->assertSee('Mampu memahami, merancang, menjalankan')
+            ->assertSee('Mengidentifikasi masalah dan peluang pelanggan')
+            ->assertSee('href="#kompetensi-mtb-sim-0001"', false)->assertSee('id="kompetensi-mtb-sim-0001"', false)
+            ->assertSee('Membaca dalam melaksanakan operasional bisnis')
+            ->assertSee('Berlomba mendesain dan menerapkan workflow yang paling minim kesalahan');
     }
 }

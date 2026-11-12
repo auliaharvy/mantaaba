@@ -3,6 +3,7 @@
   "code": "SIM",
   "name": "Sistem Informasi Manajemen",
   "title": "Sistem Informasi Manajemen — Perancangan, Dokumentasi & Pengendalian Operasional Bisnis",
+  "description": "Mampu memahami, merancang, menjalankan, mendokumentasikan, mengevaluasi dan memperbaiki sistem operasional perusahaan barang/jasa/manufaktur, dari visi–misi hingga pertanggungjawaban dan monitoring, secara bertanggung jawab, jujur, dan kolaboratif.",
   "month_label": "Bulan 2–3",
   "objectives": "Mampu memahami, merancang, menjalankan, mendokumentasikan, mengevaluasi dan memperbaiki sistem operasional perusahaan barang/jasa/manufaktur, dari visi–misi hingga pertanggungjawaban dan monitoring, secara bertanggung jawab, jujur, dan kolaboratif.",
   "competency_map": [
@@ -274,6 +275,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Masalah pelanggan, bentuk usaha (dagang/jasa/manufaktur), dan model bisnis",
+        "asabiyah": "Merumuskan ide usaha yang menjawab kebutuhan nyata masyarakat sekitar, bukan semata keuntungan pribadi.",
+        "fastabiqul": "Berlomba menemukan peluang usaha dan menguji ide lebih dulu melalui umpan balik calon pelanggan."
       }
     },
     {
@@ -409,6 +415,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Merumuskan visi, misi, dan tujuan perusahaan",
+        "asabiyah": "Merumuskan visi bisnis yang memajukan masyarakat sekitar dan disepakati bersama seluruh tim.",
+        "fastabiqul": "Berani menetapkan visi yang menantang dan menjadi pelopor kebaikan di bidangnya."
       }
     },
     {
@@ -544,6 +555,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Sasaran, indikator, target, dan kebutuhan sumber daya operasional",
+        "asabiyah": "Menyusun sasaran yang realistis bagi kemampuan tim agar tidak ada anggota yang terbebani berlebihan.",
+        "fastabiqul": "Menetapkan target terukur dan memantau capaiannya sejak awal agar tujuan tercapai sebelum tenggat."
       }
     },
     {
@@ -679,6 +695,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Peta fungsi inti & pendukung serta input–aktivitas–output",
+        "asabiyah": "Menyadari setiap fungsi saling bergantung dan menghargai peran fungsi pendukung sama pentingnya.",
+        "fastabiqul": "Proaktif menemukan fungsi penting yang terlewat dari perjalanan pelanggan."
       }
     },
     {
@@ -814,6 +835,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Bagan organisasi, jabatan, hubungan pelaporan & koordinasi",
+        "asabiyah": "Menyusun struktur yang memudahkan koordinasi dan saling bantu antaranggota, bukan sekadar hierarki.",
+        "fastabiqul": "Berlomba merancang struktur yang paling ramping dengan akuntabilitas yang jelas."
       }
     },
     {
@@ -949,6 +975,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Uraian jabatan, wewenang, tanggung jawab, RACI, pemisahan tugas",
+        "asabiyah": "Membagi tugas secara adil dan saling mengisi kekurangan rekan dalam satu tim.",
+        "fastabiqul": "Mengambil tanggung jawab lebih dulu atas tugas yang belum bertuan dan menuntaskannya."
       }
     },
     {
@@ -1084,6 +1115,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Peta perjalanan bisnis end-to-end dan titik serah terima",
+        "asabiyah": "Memahami kerja seluruh fungsi sehingga serah terima antarrekan berjalan mulus tanpa saling menyalahkan.",
+        "fastabiqul": "Proaktif menemukan hambatan pada titik serah terima dan mengusulkan perbaikannya."
       }
     },
     {
@@ -1219,6 +1255,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Matriks fungsi–jobdesk–kegiatan–dokumen–PIC–waktu–output",
+        "asabiyah": "Memastikan setiap kegiatan punya penanggung jawab sehingga tidak ada rekan yang menanggung beban sendirian.",
+        "fastabiqul": "Berinisiatif memetakan kegiatan lintas fungsi yang sering terlupakan."
       }
     },
     {
@@ -1354,6 +1395,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Workflow/swimlane, otorisasi, dan mekanisme pengendalian antarfungsi",
+        "asabiyah": "Merancang pengendalian sebagai pelindung amanah bersama, bukan alat untuk saling curiga.",
+        "fastabiqul": "Berlomba mendesain dan menerapkan workflow yang paling minim kesalahan (zero-mistake)."
       }
     },
     {
@@ -1489,6 +1535,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "SOP bernomor & berversi serta instruksi kerja",
+        "asabiyah": "Menulis SOP yang rapi dan mudah diikuti demi kemudahan tim pelanjut dan adik kelas.",
+        "fastabiqul": "Proaktif menguji dan memperbarui SOP sebelum kesalahan yang sama terulang."
       }
     },
     {
@@ -1624,6 +1675,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Daftar induk dan klasifikasi dokumen kegiatan bisnis",
+        "asabiyah": "Menata dokumen agar mudah ditemukan rekan sehingga kerja tim tidak terhambat.",
+        "fastabiqul": "Berlomba menyusun sistem klasifikasi dokumen yang paling tertib dan tertelusur."
       }
     },
     {
@@ -1759,6 +1815,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Dokumen penawaran, pesanan, kesepakatan, serah terima, tagihan, dan layanan pelanggan",
+        "asabiyah": "Melayani pelanggan dengan jujur; dokumen penjualan disusun transparan tanpa merugikan pihak mana pun.",
+        "fastabiqul": "Proaktif merespons permintaan pelanggan dengan dokumen yang cepat, lengkap, dan akurat."
       }
     },
     {
@@ -1894,6 +1955,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Dokumen permintaan pembelian, PO, penerimaan, kartu stok, dan perintah produksi",
+        "asabiyah": "Menjaga amanah barang bersama: jumlah yang dipesan, diterima, dan dipakai selalu konsisten.",
+        "fastabiqul": "Berlomba menekan pemborosan persediaan dan mencegah selisih stok."
       }
     },
     {
@@ -2029,6 +2095,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Dokumen kebutuhan SDM, kehadiran, agenda, register aset, dan serah terima peralatan",
+        "asabiyah": "Menjaga privasi data rekan dan merawat aset bersama seperti milik sendiri.",
+        "fastabiqul": "Proaktif mencatat dan merawat aset sebelum rusak atau hilang."
       }
     },
     {
@@ -2164,6 +2235,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Anggaran, rencana kas, permintaan dana, dan otorisasi pembayaran",
+        "asabiyah": "Menyusun anggaran yang adil bagi kebutuhan setiap fungsi dan mengutamakan kemaslahatan bersama.",
+        "fastabiqul": "Berinisiatif merencanakan kebutuhan dana lebih awal agar kegiatan tidak tertunda."
       }
     },
     {
@@ -2299,6 +2375,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Penomoran, register, pengarsipan, hak akses, ketertelusuran & versi dokumen",
+        "asabiyah": "Menjaga dokumen bersama tetap aman dan dapat dipertanggungjawabkan kepada seluruh pihak.",
+        "fastabiqul": "Berlomba membangun arsip yang paling cepat ditelusuri saat diperiksa."
       }
     },
     {
@@ -2434,6 +2515,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Buku laporan pertanggungjawaban kegiatan setiap fungsi berbasis bukti",
+        "asabiyah": "Melaporkan apa adanya, termasuk kendala, sebagai bentuk amanah kepada tim dan pemangku kepentingan.",
+        "fastabiqul": "Proaktif menyerahkan laporan tepat waktu tanpa menunggu ditagih."
       }
     },
     {
@@ -2569,6 +2655,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Indikator kinerja, status dan umur tindak lanjut, serta deviasi",
+        "asabiyah": "Memantau kinerja untuk saling membantu memperbaiki, bukan untuk mencari-cari kesalahan rekan.",
+        "fastabiqul": "Berlomba menutup tindak lanjut sebelum tenggat dan menjaga deviasi tetap kecil."
       }
     },
     {
@@ -2704,6 +2795,11 @@
         "Batas lingkup SIM": "Fokus tata kelola proses dan administrasi. Jurnal, buku besar, laporan keuangan dan perhitungan perpajakan dipelajari pada skema SIA/SIP; otomasi ERP/AI adalah skema selanjutnya.",
         "Rujukan bahan": "Grand Design; Diagram Mantaaba hlm. 6; Business Mapping",
         "Kedudukan standar": "Kerangka kompetensi internal Rumah Mantaaba. Belum diklaim setara atau patuh SKKNI/BNSP; perlu pemetaan dokumen standar resmi untuk klaim tersebut."
+      },
+      "character": {
+        "technical": "Uji satu siklus bisnis, temuan, tindakan korektif, dan perbaikan proses",
+        "asabiyah": "Mengevaluasi sistem bersama secara terbuka dan menerima kritik demi kebaikan organisasi.",
+        "fastabiqul": "Menjadi pelopor perbaikan berkelanjutan dengan menutup setiap temuan berdasarkan bukti."
       }
     }
   ],

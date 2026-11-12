@@ -2,6 +2,13 @@
 <div class="collapse" id="{{ $collapseId }}">
     <div class="border rounded p-4 mb-4 bg-light fs-7">
         @if ($unit->description)<p class="mb-4">{{ $unit->description }}</p>@endif
+        @if ($unit->character)
+            <div class="row g-3 mb-4">
+                @foreach (['technical' => 'Fokus teknis', 'asabiyah' => "'Asabiyah", 'fastabiqul' => 'Fastabiqul Khairat'] as $key => $label)
+                    @if (! empty($unit->character[$key]))<div class="col-md-4"><div class="bg-white rounded p-3 h-100"><div class="fw-bolder mb-1">{{ $label }}</div>{{ $unit->character[$key] }}</div></div>@endif
+                @endforeach
+            </div>
+        @endif
         @if ($unit->assessment)
             <div class="fw-bolder mb-2">Penilaian 4 dimensi</div>
             <div class="table-responsive mb-3">
