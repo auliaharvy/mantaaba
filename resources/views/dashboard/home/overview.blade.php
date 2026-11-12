@@ -103,13 +103,15 @@
                 if (typeof ApexCharts === 'undefined') return;
                 const charts = @json($charts);
                 const rp = (v) => v === null ? '-' : 'Rp ' + new Intl.NumberFormat('id-ID').format(v);
+                // data kosong membuat ApexCharts memberi sumbu Infinity; jangan tampilkan "∞"
+                const compact = (v) => Number.isFinite(v) ? new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) : '';
                 const brand = getComputedStyle(document.documentElement).getPropertyValue('--bs-primary').trim() || '#1E4D3A';
                 const draw = (id, options) => { const el = document.getElementById(id); if (el) new ApexCharts(el, Object.assign({ chart: { height: 280, toolbar: { show: false }, fontFamily: 'inherit' } }, options)).render(); };
                 if (charts.finance) draw('chart-finance', { chart: { type: 'bar', height: 280, toolbar: { show: false } }, series: [{ name: 'Penerimaan', data: charts.finance.revenue }, { name: 'Beban', data: charts.finance.expense }],
-                    xaxis: { categories: charts.finance.labels }, colors: ['#C9A04A', '#A84B24'], dataLabels: { enabled: false }, yaxis: { labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }, tooltip: { y: { formatter: rp } } });
+                    xaxis: { categories: charts.finance.labels }, colors: ['#C9A04A', '#A84B24'], dataLabels: { enabled: false }, yaxis: { labels: { formatter: compact } }, tooltip: { y: { formatter: rp } } });
                 if (charts.kitchen) draw('chart-kitchen', { chart: { type: 'line', height: 280, toolbar: { show: false } }, series: [{ name: 'Biaya hari itu', type: 'column', data: charts.kitchen.cost }, { name: 'Per orang', type: 'line', data: charts.kitchen.per_person }],
                     xaxis: { categories: charts.kitchen.labels, labels: { rotate: -45 } }, colors: [brand, '#C9A04A'], dataLabels: { enabled: false }, stroke: { width: [0, 3] }, tooltip: { y: { formatter: rp } },
-                    yaxis: [{ labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }, { opposite: true, labels: { formatter: (v) => new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(v) } }] });
+                    yaxis: [{ labels: { formatter: compact } }, { opposite: true, labels: { formatter: compact } }] });
                 if (charts.budget) draw('chart-budget', { chart: { type: 'bar', height: 280, toolbar: { show: false } }, series: [{ name: 'Serapan', data: charts.budget.percent }], plotOptions: { bar: { horizontal: true } },
                     xaxis: { categories: charts.budget.labels, max: Math.max(100, ...charts.budget.percent) }, colors: [brand], dataLabels: { enabled: true, formatter: (v) => v + '%' }, tooltip: { y: { formatter: (v) => v + '%' } } });
             })();

@@ -23,6 +23,11 @@ return [
 
     // PRD 13.1: email Super Admin awal (SuperAdminSeeder)
     'admin_email' => env('MANTAABA_ADMIN_EMAIL'),
+    // kosong = password acak dicetak sekali; isi hanya di .env (jangan di-commit)
+    'admin_password' => env('MANTAABA_ADMIN_PASSWORD'),
+
+    // false = tanpa data contoh: hanya data inti + berita & agenda awal (StarterContentSeeder)
+    'demo' => (bool) env('MANTAABA_DEMO', true),
 
     /*
     | PRD 5.3: modul => label, aksi standar ({modul}-{aksi}), aksi khusus (nama permission lengkap => label).

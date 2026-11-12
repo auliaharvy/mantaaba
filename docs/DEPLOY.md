@@ -23,12 +23,14 @@ composer install --no-dev --optimize-autoloader
 cp .env.example .env && php artisan key:generate
 # isi .env (bagian 4), lalu:
 php artisan migrate --force
-php artisan db:seed --force          # produksi: hanya data inti (COA, skema, gudang, menu, Super Admin)
+php artisan db:seed --force          # produksi: data inti (COA, skema, gudang, menu, Super Admin) + berita & agenda awal
 php artisan storage:link
 php artisan config:cache && php artisan route:cache && php artisan view:cache
 chmod -R ug+rwx storage bootstrap/cache
 ```
-Seeder demo (`DemoSeeder`, akun berpassword `password`) **tidak berjalan** bila `APP_ENV=production` — sengaja.
+Seeder demo (`DemoSeeder`, akun berpassword `password`) **tidak berjalan** bila `APP_ENV=production` atau `MANTAABA_DEMO=false` — sengaja.
+Sebagai gantinya `StarterContentSeeder` mengisi 7 berita & 6 agenda awal (contoh, tinjau sebelum diumumkan); anggota, keuangan, kebun & kolam tetap kosong.
+Super Admin dibuat dari `MANTAABA_ADMIN_EMAIL`; password dari `MANTAABA_ADMIN_PASSWORD` (beri tanda kutip bila memuat `#`) atau acak dan dicetak sekali.
 
 Setelah itu login sebagai Super Admin (email dari `SuperAdminSeeder`, segera ganti password), lalu:
 1. **Setting Situs**: identitas, kontak, rekening & QRIS donasi, penandatangan laporan, anggaran makan.
