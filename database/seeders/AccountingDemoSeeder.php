@@ -56,6 +56,15 @@ class AccountingDemoSeeder extends Seeder
         $make(['voucher_type' => 'CPV', 'date' => today()->toDateString(), 'description' => 'ATK kelas SIA'],
             [['coa_account_id' => $acc('52310000'), 'debit' => 85000, 'cost_center_id' => $cc('PND')], ['coa_account_id' => $acc('11110000'), 'credit' => 85000]], 'draft');
 
+        // titipan anggota (Utang Titipan Anggota 21500000 per pihak anggota): setor lalu ambil sebagian
+        $saver = \App\Models\Member::whereHas('user', fn ($q) => $q->where('email', 'anggota@mail.com'))->first()?->party;
+        if ($saver) {
+            $make(['voucher_type' => 'CRV', 'date' => today()->subDays(4)->toDateString(), 'description' => 'Setoran titipan uang saku', 'party_id' => $saver->id],
+                [['coa_account_id' => $acc('11110000'), 'debit' => 250000], ['coa_account_id' => $acc('21500000'), 'credit' => 250000, 'party_id' => $saver->id]], 'posted');
+            $make(['voucher_type' => 'CPV', 'date' => today()->subDays(1)->toDateString(), 'description' => 'Ambil titipan untuk ongkos pulang', 'party_id' => $saver->id],
+                [['coa_account_id' => $acc('21500000'), 'debit' => 50000, 'party_id' => $saver->id], ['coa_account_id' => $acc('11110000'), 'credit' => 50000]], 'posted');
+        }
+
         // M5b: anggaran tahun berjalan + konfirmasi donasi publik yang menunggu verifikasi
         foreach ([['52230000', 'ASR', 6000000], ['52310000', 'PND', 1200000]] as [$code, $center, $amount]) {
             \App\Models\Budget::create(['year' => today()->year, 'coa_account_id' => $acc($code), 'cost_center_id' => $cc($center), 'amount' => $amount]);

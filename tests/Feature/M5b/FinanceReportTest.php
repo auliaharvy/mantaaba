@@ -89,10 +89,10 @@ class FinanceReportTest extends TestCase
         $this->scenario();
         $to = today()->toDateString();
         $from = today()->startOfYear()->toDateString();
-        // demo: saldo awal 51 jt aset / 2 jt utang / 49 jt aset neto; CPV 412 rb; BRV donasi 2,5 jt (umum)
+        // demo: saldo awal 51 jt aset / 2 jt utang / 49 jt aset neto; CPV 412 rb; BRV donasi 2,5 jt; titipan anggota 250 rb − 50 rb (kas & utang titipan)
         $p = FinancialReports::position($to);
-        $this->assertSame(Money::cents(51000000 + 2500000 - 650000 + 3000000 + 300000 + 200000), $p['totals']['assets']);
-        $this->assertSame(Money::cents(2000000 + 300000), $p['totals']['liabilities']);
+        $this->assertSame(Money::cents(51000000 + 2500000 - 650000 + 3000000 + 300000 + 200000 + 200000), $p['totals']['assets']);
+        $this->assertSame(Money::cents(2000000 + 300000 + 200000), $p['totals']['liabilities']);
         $this->assertSame(Money::cents(49000000 + 2500000 - 650000 + 3000000 + 200000), $p['totals']['unrestricted'], 'saldo + donasi − listrik + donasi pendidikan + penjualan');
         $this->assertSame(0, $p['totals']['restricted'], 'COA Mantaaba: tidak ada akun dengan pembatasan');
 
@@ -102,14 +102,14 @@ class FinanceReportTest extends TestCase
 
         $flow = FinancialReports::cashFlow($from, $to);
         $this->assertSame(Money::cents(36000000), $flow['opening'], 'saldo awal pembukuan = kas awal');
-        $this->assertSame(Money::cents(-412000 + 2500000 - 650000 + 3000000), $flow['net']);
+        $this->assertSame(Money::cents(-412000 + 2500000 - 650000 + 3000000 + 250000 - 50000), $flow['net']);
 
         $centers = FinancialReports::byCostCenter($from, $to)->keyBy(fn ($r) => $r['center']->code);
         $this->assertSame(Money::cents(650000), $centers['ASR']['expense']);
         $this->assertSame(Money::cents(200000), $centers['KBN']['revenue']);
 
         $payables = FinancialReports::subLedger('utang', $to);
-        $this->assertSame(Money::cents(2300000), $payables->sum('balance'));
+        $this->assertSame(Money::cents(2300000 + 200000), $payables->sum('balance'), 'utang usaha + titipan anggota');
         $this->assertSame(Money::cents(200000), FinancialReports::subLedger('piutang', $to)->sum('balance'));
     }
 

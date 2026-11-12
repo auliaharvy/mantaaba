@@ -41,6 +41,9 @@ class DashboardData
         $open = fn () => Batch::whereIn('status', ['open', 'selection'])->latest('id')->first();
 
         return [
+            'saya' => [
+                [(bool) $user->member, fn () => ['Saldo titipan saya', $rp(MemberSavings::statement($user->member)['balance']), 'fa-piggy-bank', route('my-savings.index')]],
+            ],
             'website' => [
                 [$user->can('news-view'), fn () => ['Berita terbit', Blog::published()->count(), 'fa-newspaper', route('blog.index')]],
                 [$user->can('contact-message-view'), fn () => ['Pesan belum dibaca', ContactMessage::whereNull('read_at')->count(), 'fa-envelope', route('contact-message.index')]],

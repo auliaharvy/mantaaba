@@ -236,6 +236,8 @@ return [
         'setor_kas' => ['label' => 'Setor kas ke bank', 'type' => 'CPV', 'description' => 'Setor kas ke bank', 'lines' => [['11220000', 'debit', null], ['11110000', 'credit', null]]],
         'kasbon' => ['label' => 'Kasbon', 'type' => 'CPV', 'description' => 'Kasbon', 'lines' => [['11500000', 'debit', null], ['11110000', 'credit', null]]],
         'pelunasan_utang' => ['label' => 'Pelunasan utang', 'type' => 'BPV', 'description' => 'Pelunasan utang pemasok', 'lines' => [['21100000', 'debit', null], ['11220000', 'credit', null]]],
+        'setor_titipan' => ['label' => 'Setor titipan anggota', 'type' => 'CRV', 'description' => 'Setoran titipan anggota', 'lines' => [['11110000', 'debit', null], ['21500000', 'credit', null]]],
+        'ambil_titipan' => ['label' => 'Ambil titipan anggota', 'type' => 'CPV', 'description' => 'Pengambilan titipan anggota', 'lines' => [['21500000', 'debit', null], ['11110000', 'credit', null]]],
         'penjualan_panen' => ['label' => 'Penjualan panen', 'type' => 'CRV', 'description' => 'Penjualan hasil panen', 'lines' => [['11110000', 'debit', null], ['79000000', 'credit', 'KBN']]],
     ],
 
@@ -252,6 +254,7 @@ return [
         'vehicle' => ['expense' => '52210000', 'cash' => '11110000'], // BBM, servis, pajak kendaraan
         'maintenance' => ['expense' => '52290000', 'cash' => '11110000'], // perbaikan aset non-kendaraan
         'asset_disposal' => ['gain' => '79000000', 'loss' => '89000000'],
+        'member_savings' => ['account' => '21500000'], // Utang Titipan Anggota: tabungan/titipan per anggota (pihak)
     ],
 
     // Label aturan yang bisa diubah di Setting Akuntansi (kunci = posting_rules.{kunci})
@@ -267,6 +270,7 @@ return [
         'vehicle.expense' => 'BBM/servis/pajak kendaraan: akun beban', 'vehicle.cash' => 'BBM/servis kendaraan: akun kas',
         'maintenance.expense' => 'Perbaikan aset lain: akun beban', 'maintenance.cash' => 'Perbaikan aset lain: akun kas',
         'asset_disposal.gain' => 'Pelepasan aset: akun keuntungan', 'asset_disposal.loss' => 'Pelepasan aset: akun kerugian',
+        'member_savings.account' => 'Titipan/tabungan anggota (dilihat anggota di "Titipan Saya")',
     ],
 
     // PRD 9.17: kategori aset → [label, singkatan kode, akun aset, akun akumulasi, umur bulan (0 = tidak disusutkan), pusat biaya]
@@ -320,9 +324,10 @@ return [
             ['title' => 'Lihat Situs', 'route' => 'site.home', 'active' => 'site.*', 'icon' => 'fa-globe'],
         ],
         'modules' => [
-            'saya' => ['title' => 'Saya', 'icon' => 'fa-user-graduate', 'description' => 'Belajar, piket, sertifikat, agenda', 'items' => [
+            'saya' => ['title' => 'Saya', 'icon' => 'fa-user-graduate', 'description' => 'Belajar, piket, titipan, sertifikat, agenda', 'items' => [
                 ['title' => 'Belajar', 'route' => 'learn.index', 'active' => 'learn.*', 'member' => true, 'icon' => 'fa-book-reader'],
                 ['title' => 'Piket Saya', 'route' => 'my-duty.index', 'member' => true, 'icon' => 'fa-broom'],
+                ['title' => 'Titipan Saya', 'route' => 'my-savings.index', 'member' => true, 'icon' => 'fa-piggy-bank'],
                 ['title' => 'Sertifikat', 'route' => 'certificate.index', 'active' => 'certificate.index', 'icon' => 'fa-certificate'],
                 ['title' => 'Agenda Saya', 'route' => 'my-training.index', 'icon' => 'fa-ticket-alt'],
             ]],

@@ -28,7 +28,7 @@ class GoLiveTest extends TestCase
         $labels = fn (User $u) => array_column(DashboardData::cards($u), 0);
 
         $member = User::where('email', 'anggota@mail.com')->first();
-        $this->assertSame([], $labels($member), 'anggota tanpa permission pengurus tidak melihat kartu');
+        $this->assertSame(['Saldo titipan saya'], $labels($member), 'anggota hanya melihat kartu pribadinya, tanpa kartu pengurus');
         $this->assertSame([], DashboardData::charts($member));
         $this->actingAs($member)->get(route('overview.show', 'saya'))->assertOk()->assertSee('Progres belajar')->assertDontSee('Voucher menunggu persetujuan')->assertDontSee('chart-finance');
         $this->actingAs($member)->get(route('overview.show', 'keuangan'))->assertForbidden();

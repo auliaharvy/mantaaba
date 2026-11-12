@@ -236,6 +236,7 @@ Route::middleware(['auth', 'active', 'pact'])->prefix('dashboard')->group(functi
     Route::get('piket/{duty}/foto', [DutyController::class, 'photo'])->name('duty.photo');
     Route::resource('area-piket', DutyAreaController::class)->parameters(['area-piket' => 'duty_area'])->names('duty-area')->only(['index', 'store', 'update', 'destroy']);
     Route::get('piket-saya', [MyDutyController::class, 'index'])->name('my-duty.index');
+    Route::get('titipan-saya', [\App\Http\Controllers\MySavingsController::class, 'index'])->name('my-savings.index');
     Route::post('piket-saya/{duty}/selesai', [MyDutyController::class, 'complete'])->name('my-duty.complete');
 
     /*

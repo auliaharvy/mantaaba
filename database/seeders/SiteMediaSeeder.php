@@ -27,6 +27,11 @@ class SiteMediaSeeder extends Seeder
         'panen_ikan_4.webp' => 'Hasil panen kolam',
         'panen_ikan_1.webp' => 'Makan bersama hasil panen',
         'barista_1.webp' => 'Belajar meracik kopi',
+        'kebun_1.webp' => 'Tanaman tomat di kebun',
+        'kebun_4.webp' => 'Bedengan kebun di lingkungan Rumah Mantaaba',
+        'kebun_3.webp' => 'Kebun di bawah naungan pinus',
+        'kebun_5.webp' => 'Durian berbuah di kebun',
+        // kebun_2.jpg tidak dipakai: resolusi 141×176 px terlalu kecil untuk situs
     ];
 
     public function run(): void
@@ -38,15 +43,18 @@ class SiteMediaSeeder extends Seeder
             }
         }
 
-        if (! Gallery::where('slug', 'kehidupan-di-rumah-mantaaba')->exists()) {
-            $gallery = Gallery::create(['title' => 'Kehidupan di Rumah Mantaaba', 'slug' => 'kehidupan-di-rumah-mantaaba', 'published_at' => now(),
-                'description' => 'Belajar, beribadah, bekerja, dan panen bersama di Rumah Mantaaba Sigaling.', 'cover' => 'pages/blocks/bangunan_mantaaba_1.webp']);
-            foreach (array_keys(self::PHOTOS) as $i => $file) {
-                $gallery->photos()->create(['image' => "pages/blocks/{$file}", 'caption' => self::PHOTOS[$file], 'sort_order' => $i + 1]);
+        $gallery = Gallery::firstOrCreate(['slug' => 'kehidupan-di-rumah-mantaaba'], ['title' => 'Kehidupan di Rumah Mantaaba', 'published_at' => now(),
+            'description' => 'Belajar, beribadah, bekerja, dan panen bersama di Rumah Mantaaba Sigaling.', 'cover' => 'pages/blocks/bangunan_mantaaba_1.webp']);
+        // foto baru ditambahkan ke galeri yang sudah ada (mis. kebun); yang sudah ada tidak diduplikasi
+        $existing = $gallery->photos()->pluck('image')->all();
+        $order = (int) $gallery->photos()->max('sort_order');
+        foreach (self::PHOTOS as $file => $caption) {
+            if (! in_array("pages/blocks/{$file}", $existing, true)) {
+                $gallery->photos()->create(['image' => "pages/blocks/{$file}", 'caption' => $caption, 'sort_order' => ++$order]);
             }
         }
 
-        foreach (['Asrama' => 'bangunan_mantaaba_1.webp', 'Kolam Ikan' => 'panen_ikan_2.webp', 'Dapur' => 'panen_ikan_1.webp'] as $unit => $file) {
+        foreach (['Asrama' => 'bangunan_mantaaba_1.webp', 'Kebun' => 'kebun_1.webp', 'Kolam Ikan' => 'panen_ikan_2.webp', 'Dapur' => 'panen_ikan_1.webp'] as $unit => $file) {
             BusinessUnit::where('name', $unit)->whereNull('cover')->update(['cover' => "pages/blocks/{$file}"]);
         }
     }

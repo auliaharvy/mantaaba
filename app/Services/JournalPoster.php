@@ -251,13 +251,13 @@ class JournalPoster
         }
     }
 
-    /** Aturan 11: {TYPE}/{YYYY}/{MM}/{0001} per tipe per bulan, di dalam lock — tanpa loncatan. */
+    /** Aturan 11, format COA Rumah Mantaaba: {TYPE}-{DDMMYYYY}-{001} per tipe per tanggal voucher, di dalam lock — tanpa loncatan. */
     private function nextNumber(Journal $journal): string
     {
-        $prefix = sprintf('%s/%s/%s/', $journal->voucher_type, $journal->date->format('Y'), $journal->date->format('m'));
+        $prefix = $journal->voucher_type . '-' . $journal->date->format('dmY') . '-';
         $last = Journal::where('number', 'like', "{$prefix}%")->lockForUpdate()->max('number');
 
-        return $prefix . str_pad((string) ($last ? (int) substr($last, -4) + 1 : 1), 4, '0', STR_PAD_LEFT);
+        return $prefix . str_pad((string) ($last ? (int) substr($last, strlen($prefix)) + 1 : 1), 3, '0', STR_PAD_LEFT);
     }
 
     private function notifyDecision(Journal $journal, string $decision): void

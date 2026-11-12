@@ -34,6 +34,22 @@ class Member extends Model
     protected $casts = ['birth_date' => 'date', 'joined_at' => 'date', 'left_at' => 'date', 'integrity_pact_signed_at' => 'datetime',
         'show_on_site' => 'boolean', 'documents' => 'array'];
 
+    /** Setiap anggota otomatis punya Pihak (kode = nomor anggota) untuk sub-akun titipan/piutang, mis. 21500000-MTB-20260001. */
+    protected static function booted(): void
+    {
+        static::created(fn (Member $member) => Party::create(['code' => $member->member_number, 'name' => $member->name, 'type' => 'anggota', 'member_id' => $member->id]));
+        static::updated(function (Member $member) {
+            if ($member->wasChanged('name')) {
+                Party::where('member_id', $member->id)->update(['name' => $member->name]);
+            }
+        });
+    }
+
+    public function party()
+    {
+        return $this->hasOne(Party::class);
+    }
+
     /** Nomor MTB-{tahun}{urut 4 digit}; panggil di dalam transaksi. */
     public static function nextNumber(int $year): string
     {

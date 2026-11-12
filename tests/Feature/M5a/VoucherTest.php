@@ -73,8 +73,9 @@ class VoucherTest extends TestCase
         Storage::disk('local')->assertExists($journal->attachments[0]['path']);
         $this->actingAs($this->approver)->get(route('journal.queue'))->assertOk()->assertSee('Belanja bahan dapur');
 
-        $prefix = sprintf('CPV/%s/', today()->format('Y/m'));
-        $expected = $prefix . str_pad((string) (Journal::where('number', 'like', "{$prefix}%")->count() + 1), 4, '0', STR_PAD_LEFT);
+        // format COA Mantaaba: CPV-DDMMYYYY-001 per tipe per tanggal
+        $prefix = 'CPV-' . today()->format('dmY') . '-';
+        $expected = $prefix . str_pad((string) (Journal::where('number', 'like', "{$prefix}%")->count() + 1), 3, '0', STR_PAD_LEFT);
         $this->actingAs($this->approver)->post(route('journal.post', $journal))->assertSessionHas('success');
         $journal->refresh();
         $this->assertSame('terposting', $journal->status);
@@ -225,9 +226,8 @@ class VoucherTest extends TestCase
         $poster->post($c, $this->approver);
         $poster->post($a, $this->approver);
         $poster->post($d, $this->approver);
-        $prefix = 'CPV/' . today()->format('Y/m') . '/';
-        // seeder memposting 1 CPV bulan ini bila tanggalnya jatuh di bulan yang sama
-        $numbers = Journal::where('number', 'like', "{$prefix}%")->orderBy('number')->pluck('number')->map(fn ($n) => (int) substr($n, -4))->all();
+        $prefix = 'CPV-' . today()->format('dmY') . '-';
+        $numbers = Journal::where('number', 'like', "{$prefix}%")->orderBy('number')->pluck('number')->map(fn ($n) => (int) substr($n, -3))->all();
         $this->assertSame(range(1, count($numbers)), $numbers);
     }
 
