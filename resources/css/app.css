@@ -4,7 +4,7 @@
 
 @layer base {
     /* default PRD 7.1; layout menimpa dengan nilai Setting */
-    :root { --color-primary: 91 58 31; --color-primary-dark: 62 39 21; --color-secondary: 201 160 74; --color-accent: 138 45 30; --color-surface: 247 241 230; }
+    :root { --color-primary: 30 77 58; --color-primary-dark: 20 52 39; --color-secondary: 201 160 74; --color-accent: 168 75 36; --color-surface: 244 247 243; }
     body { @apply bg-brand-surface text-brand-text font-sans text-base leading-relaxed antialiased; }
     h1, h2, h3, h4 { @apply text-brand-heading font-bold leading-tight; }
     [x-cloak] { display: none !important; }

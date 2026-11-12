@@ -78,7 +78,7 @@ class CoaController extends Controller
             'cash_flow_group' => ['nullable', Rule::in(array_keys(CoaAccount::CASH_FLOW_GROUPS))],
             'statement_group' => 'nullable|string|max:50',
             'sort_order' => 'nullable|integer|min:0',
-        ], ['code.regex' => 'Format kode angka dipisah tanda minus, mis. 5-1700.']);
+        ], ['code.regex' => 'Kode akun berupa angka (8 digit), mis. 52190000.']);
         foreach (['is_header', 'is_cash', 'is_bank', 'is_receivable', 'is_payable', 'is_contra', 'is_active'] as $flag) {
             $data[$flag] = $request->boolean($flag);
         }

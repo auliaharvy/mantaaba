@@ -20,7 +20,7 @@ class StockLedgerTest extends TestCase
         $this->seed([\Database\Seeders\RolePermissionSeeder::class, \Database\Seeders\CoaSeeder::class, \Database\Seeders\CostCenterSeeder::class, \Database\Seeders\WarehouseSeeder::class]);
         $user = User::factory()->create();
         $item = Item::create(['code' => 'BHN-001', 'name' => 'Beras', 'category' => 'bahan_pangan', 'unit' => 'kg',
-            'inventory_account_id' => \App\Models\CoaAccount::byCode('1-1401')->id, 'expense_account_id' => \App\Models\CoaAccount::byCode('5-1200')->id]);
+            'inventory_account_id' => \App\Models\CoaAccount::byCode('11810000')->id, 'expense_account_id' => \App\Models\CoaAccount::byCode('52110000')->id]);
         [$a, $b] = [Warehouse::byCode('DPR'), Warehouse::byCode('UMM')];
         $ledger = app(StockLedger::class);
 

@@ -165,7 +165,7 @@ class SiteTest extends TestCase
         Storage::fake('public');
         $editor = $this->user('pengurus@mail.com');
         $this->actingAs($editor)->post(route('gallery.store'), ['title' => 'Seminar Pajak', 'published_at' => now()->toDateString()])->assertSessionHasNoErrors();
-        $gallery = Gallery::firstOrFail();
+        $gallery = Gallery::latest('id')->firstOrFail();
 
         $this->actingAs($editor)->post(route('gallery.photos.store', $gallery), [
             'photos' => [UploadedFile::fake()->image('1.jpg'), UploadedFile::fake()->image('2.jpg'), UploadedFile::fake()->image('3.jpg')],

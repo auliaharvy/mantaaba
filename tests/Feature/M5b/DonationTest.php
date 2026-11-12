@@ -34,7 +34,7 @@ class DonationTest extends TestCase
     {
         return $this->post(route('site.donation.send'), array_merge([
             'donor_name' => 'Pak Rahmat Hidayat', 'phone' => '081299990000', 'email' => 'rahmat@example.com', 'amount' => 750000,
-            'transferred_at' => today()->toDateString(), 'coa_bank_account_id' => CoaAccount::byCode('1-1202')->id, 'purpose' => 'pendidikan',
+            'transferred_at' => today()->toDateString(), 'coa_bank_account_id' => CoaAccount::byCode('11210000')->id, 'purpose' => 'pendidikan',
             'proof' => UploadedFile::fake()->image('transfer.jpg'), 'message' => 'Untuk adik-adik',
         ], $override));
     }
@@ -53,7 +53,7 @@ class DonationTest extends TestCase
         // validasi & honeypot
         $this->confirm(['proof' => null])->assertSessionHasErrors('proof');
         $this->confirm(['donor_name' => '', 'is_anonymous' => 0])->assertSessionHasErrors('donor_name');
-        $this->confirm(['coa_bank_account_id' => CoaAccount::byCode('1-1101')->id])->assertSessionHasErrors('coa_bank_account_id');
+        $this->confirm(['coa_bank_account_id' => CoaAccount::byCode('11110000')->id])->assertSessionHasErrors('coa_bank_account_id');
         $count = Donation::count();
         $this->confirm(['website' => 'http://spam'])->assertSessionHas('success');
         $this->assertSame($count, Donation::count());
@@ -77,7 +77,7 @@ class DonationTest extends TestCase
         $this->assertSame(['BRV', 'diajukan'], [$journal->voucher_type, $journal->status]);
         $this->assertMatchesRegularExpression('/^DON-\d{4}-0001$/', $donation->receipt_number);
         $this->assertSame('Pak Rahmat Hidayat', $donation->party->name);
-        $this->assertSame(['1-1202', '4-1200'], $journal->lines->map(fn ($l) => $l->account->code)->all());
+        $this->assertSame(['11210000', '43000000'], $journal->lines->map(fn ($l) => $l->account->code)->all());
 
         // pemverifikasi = pengaju → tidak boleh menyetujui; Bendahara lain memposting
         $this->actingAs($verifier)->post(route('journal.post', $journal))->assertForbidden();
@@ -107,16 +107,16 @@ class DonationTest extends TestCase
         $user = User::where('email', 'pengurus@mail.com')->first();
         $treasurer = User::factory()->create()->assignRole('pengurus')->givePackage('bendahara');
         $this->actingAs($user)->post(route('donation.store'), ['kind' => 'tunai', 'donor_name' => 'Haji Darmawan', 'amount' => 400000, 'transferred_at' => today()->toDateString(),
-            'coa_bank_account_id' => CoaAccount::byCode('1-1101')->id, 'purpose' => 'pangan', 'verify_now' => 1])->assertSessionHasNoErrors();
+            'coa_bank_account_id' => CoaAccount::byCode('11110000')->id, 'purpose' => 'pangan', 'verify_now' => 1])->assertSessionHasNoErrors();
         $this->actingAs($user)->post(route('donation.store'), ['kind' => 'barang', 'donor_name' => 'Toko Sejahtera Abadi', 'amount' => 900000, 'transferred_at' => today()->toDateString(),
-            'coa_bank_account_id' => CoaAccount::byCode('1-1401')->id, 'purpose' => 'umum', 'item_description' => 'Beras 60 kg', 'verify_now' => 1])->assertSessionHasNoErrors();
+            'coa_bank_account_id' => CoaAccount::byCode('11810000')->id, 'purpose' => 'umum', 'item_description' => 'Beras 60 kg', 'verify_now' => 1])->assertSessionHasNoErrors();
         $this->actingAs($user)->post(route('donation.store'), ['kind' => 'barang', 'donor_name' => 'X', 'amount' => 1, 'transferred_at' => today()->toDateString(),
-            'coa_bank_account_id' => CoaAccount::byCode('1-1101')->id, 'purpose' => 'umum'])->assertSessionHasErrors('item_description');
+            'coa_bank_account_id' => CoaAccount::byCode('11110000')->id, 'purpose' => 'umum'])->assertSessionHasErrors('item_description');
 
         $cash = Donation::where('donor_name', 'Haji Darmawan')->first();
         $goods = Donation::where('donor_name', 'Toko Sejahtera Abadi')->first();
         $this->assertSame(['CRV', 'MJV'], [$cash->journal->voucher_type, $goods->journal->voucher_type]);
-        $this->assertSame('4-1300', $goods->journal->lines->firstWhere('credit', '>', 0)->account->code);
+        $this->assertSame('49000000', $goods->journal->lines->firstWhere('credit', '>', 0)->account->code);
         foreach ([$cash, $goods] as $d) {
             app(JournalPoster::class)->post($d->journal, $treasurer);
         }

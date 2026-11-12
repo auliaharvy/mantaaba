@@ -19,16 +19,16 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    primary: token('primary'), // cokelat tua: tombol, header, judul
+                    primary: token('primary'), // hijau hutan: tombol, header, judul
                     'primary-hover': token('primary-dark'),
                     gold: token('secondary'), // emas: dekoratif saja, bukan teks di atas putih
-                    accent: token('accent'), // marun: tautan & CTA sekunder (kontras >= 4.5:1 di atas putih)
-                    'section-bg': token('surface'), // krem
-                    heading: '#2b1d12',
-                    text: '#2b1d12',
-                    muted: '#6e5b4b',
-                    'footer-border': '#4a3018',
-                    border: '#e8dccb',
+                    accent: token('accent'), // terakota: tautan & CTA sekunder (kontras >= 4.5:1 di atas putih)
+                    'section-bg': token('surface'), // putih kehijauan
+                    heading: '#14231C',
+                    text: '#1F2B25',
+                    muted: '#5A6B62',
+                    'footer-border': '#2C5A47',
+                    border: '#DFE7E1',
                     surface: '#ffffff',
                 },
             },

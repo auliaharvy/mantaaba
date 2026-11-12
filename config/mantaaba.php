@@ -230,28 +230,28 @@ return [
     | PRD 9.13.2: template cepat voucher. lines: [kode akun (null = pilih sendiri), sisi, kode pusat biaya].
     */
     'voucher_templates' => [
-        'belanja_tunai' => ['label' => 'Belanja tunai', 'type' => 'CPV', 'description' => 'Belanja bahan', 'lines' => [['1-1401', 'debit', 'DPR'], ['1-1102', 'credit', null]]],
-        'bayar_tagihan' => ['label' => 'Bayar tagihan (listrik/air)', 'type' => 'BPV', 'description' => 'Bayar tagihan listrik/air asrama', 'lines' => [['5-1300', 'debit', 'ASR'], ['1-1201', 'credit', null]]],
-        'terima_donasi' => ['label' => 'Terima donasi', 'type' => 'BRV', 'description' => 'Penerimaan donasi', 'lines' => [['1-1202', 'debit', null], ['4-1100', 'credit', 'UMUM']]],
-        'setor_kas' => ['label' => 'Setor kas ke bank', 'type' => 'CPV', 'description' => 'Setor kas ke bank', 'lines' => [['1-1201', 'debit', null], ['1-1101', 'credit', null]]],
-        'kasbon' => ['label' => 'Kasbon', 'type' => 'CPV', 'description' => 'Kasbon', 'lines' => [['1-1302', 'debit', null], ['1-1101', 'credit', null]]],
-        'pelunasan_utang' => ['label' => 'Pelunasan utang', 'type' => 'BPV', 'description' => 'Pelunasan utang pemasok', 'lines' => [['2-1100', 'debit', null], ['1-1201', 'credit', null]]],
-        'penjualan_panen' => ['label' => 'Penjualan panen', 'type' => 'CRV', 'description' => 'Penjualan hasil panen', 'lines' => [['1-1101', 'debit', null], ['4-2100', 'credit', 'KBN']]],
+        'belanja_tunai' => ['label' => 'Belanja tunai', 'type' => 'CPV', 'description' => 'Belanja bahan', 'lines' => [['11810000', 'debit', 'DPR'], ['11130000', 'credit', null]]],
+        'bayar_tagihan' => ['label' => 'Bayar tagihan (listrik/air)', 'type' => 'BPV', 'description' => 'Bayar tagihan listrik/air asrama', 'lines' => [['52230000', 'debit', 'ASR'], ['11220000', 'credit', null]]],
+        'terima_donasi' => ['label' => 'Terima donasi', 'type' => 'BRV', 'description' => 'Penerimaan donasi', 'lines' => [['11210000', 'debit', null], ['43000000', 'credit', 'UMUM']]],
+        'setor_kas' => ['label' => 'Setor kas ke bank', 'type' => 'CPV', 'description' => 'Setor kas ke bank', 'lines' => [['11220000', 'debit', null], ['11110000', 'credit', null]]],
+        'kasbon' => ['label' => 'Kasbon', 'type' => 'CPV', 'description' => 'Kasbon', 'lines' => [['11500000', 'debit', null], ['11110000', 'credit', null]]],
+        'pelunasan_utang' => ['label' => 'Pelunasan utang', 'type' => 'BPV', 'description' => 'Pelunasan utang pemasok', 'lines' => [['21100000', 'debit', null], ['11220000', 'credit', null]]],
+        'penjualan_panen' => ['label' => 'Penjualan panen', 'type' => 'CRV', 'description' => 'Penjualan hasil panen', 'lines' => [['11110000', 'debit', null], ['79000000', 'credit', 'KBN']]],
     ],
 
     // PRD 9.16: pemetaan akun default jurnal dari modul operasional (kode akun & pusat biaya)
     'posting_rules' => [
-        'health' => ['debit' => '5-1500', 'credit' => '1-1101', 'cost_center' => 'PND'],
+        'health' => ['debit' => '52900000', 'credit' => '11110000', 'cost_center' => 'PND'],
         // tutup buku: pendapatan/beban tanpa pembatasan → surplus; dengan pembatasan → dana terikat (Q10: rinci per peruntukan di v2)
-        'year_close' => ['unrestricted' => '3-1200', 'restricted' => '3-2100'],
-        'purchase' => ['cash' => '1-1102', 'bank' => '1-1201', 'payable' => '2-1100'],
-        'harvest_sale' => ['revenue' => '4-2100', 'cash' => '1-1101', 'bank' => '1-1201', 'receivable' => '1-1301'],
-        'stock_loss' => ['debit' => '5-3900'], // barang rusak / opname kurang (pusat biaya UMUM)
-        'stock_gain' => ['credit' => '4-3100'], // opname lebih
-        'asset_purchase' => ['cash' => '1-1101', 'bank' => '1-1201', 'payable' => '2-1100', 'grant' => '4-1400'],
-        'vehicle' => ['expense' => '5-2100', 'cash' => '1-1101'], // BBM, servis, pajak kendaraan
-        'maintenance' => ['expense' => '5-2200', 'cash' => '1-1101'], // perbaikan aset non-kendaraan
-        'asset_disposal' => ['gain' => '4-3100', 'loss' => '5-3900'],
+        'year_close' => ['unrestricted' => '33000000', 'restricted' => '33000000'], // COA tidak memisahkan dana terikat
+        'purchase' => ['cash' => '11130000', 'bank' => '11220000', 'payable' => '21100000'],
+        'harvest_sale' => ['revenue' => '79000000', 'cash' => '11110000', 'bank' => '11220000', 'receivable' => '11400000'],
+        'stock_loss' => ['debit' => '89000000'], // barang rusak / opname kurang (pusat biaya UMUM)
+        'stock_gain' => ['credit' => '79000000'], // opname lebih
+        'asset_purchase' => ['cash' => '11110000', 'bank' => '11220000', 'payable' => '21100000', 'grant' => '49000000'],
+        'vehicle' => ['expense' => '52210000', 'cash' => '11110000'], // BBM, servis, pajak kendaraan
+        'maintenance' => ['expense' => '52290000', 'cash' => '11110000'], // perbaikan aset non-kendaraan
+        'asset_disposal' => ['gain' => '79000000', 'loss' => '89000000'],
     ],
 
     // Label aturan yang bisa diubah di Setting Akuntansi (kunci = posting_rules.{kunci})
@@ -271,26 +271,30 @@ return [
 
     // PRD 9.17: kategori aset → [label, singkatan kode, akun aset, akun akumulasi, umur bulan (0 = tidak disusutkan), pusat biaya]
     'asset_categories' => [
-        'tanah' => ['Tanah', 'TNH', '1-2100', null, 0, 'UMUM'],
-        'bangunan' => ['Bangunan', 'BGN', '1-2200', '1-2902', 240, 'UMUM'],
-        'kendaraan' => ['Kendaraan', 'KND', '1-2300', '1-2903', 96, 'KND'],
-        'elektronik' => ['Elektronik', 'ELK', '1-2500', '1-2905', 48, 'UMUM'],
-        'peralatan_dapur' => ['Peralatan dapur', 'PDP', '1-2400', '1-2904', 48, 'DPR'],
-        'peralatan_kebun' => ['Peralatan kebun & kolam', 'PKB', '1-2400', '1-2904', 48, 'KBN'],
-        'mebel' => ['Mebel', 'MBL', '1-2400', '1-2904', 96, 'UMUM'],
-        'lainnya' => ['Lainnya', 'LNY', '1-2400', '1-2904', 48, 'UMUM'],
+        // mengikuti kelompok aktiva tetap COA Rumah Mantaaba (12xxxxxx)
+        'tanah' => ['Tanah', 'TNH', '12400000', null, 0, 'UMUM'],
+        'bangunan' => ['Bangunan', 'BGN', '12300000', '12310000', 240, 'UMUM'],
+        'kendaraan' => ['Kendaraan', 'KND', '12200000', '12210000', 96, 'KND'],
+        'pertukangan' => ['Peralatan & perlengkapan pertukangan', 'PTK', '12110000', '12111000', 48, 'UMUM'],
+        'peralatan_kebun' => ['Peralatan & perlengkapan perkebunan', 'PKB', '12120000', '12121000', 48, 'KBN'],
+        'perikanan' => ['Peralatan & perlengkapan peternakan & perikanan', 'PIK', '12130000', '12131000', 48, 'KLM'],
+        'perkantoran' => ['Peralatan & perlengkapan perkantoran', 'KTR', '12140000', '12141000', 48, 'UMUM'],
+        'kbm' => ['Peralatan & perlengkapan KBM', 'KBM', '12150000', '12151000', 48, 'PND'],
+        'tajug_asrama' => ['Peralatan & perlengkapan tajug & asrama', 'TJA', '12160000', '12161000', 96, 'ASR'],
+        'peralatan_dapur' => ['Peralatan & perlengkapan dapur & perkopian', 'PDP', '12170000', '12171000', 48, 'DPR'],
+        'lainnya' => ['Peralatan & perlengkapan lainnya', 'LNY', '12190000', '12191000', 48, 'UMUM'],
     ],
 
     // PRD 9.10: kategori barang → [label, akun persediaan, akun beban pemakaian]
     'item_categories' => [
-        'bahan_pangan' => ['Bahan pangan', '1-1401', '5-1200'],
-        'bibit_benih' => ['Bibit & benih', '1-1402', '5-1400'],
-        'pupuk' => ['Pupuk', '1-1402', '5-1400'],
-        'pakan' => ['Pakan', '1-1402', '5-1400'],
-        'obat_pertanian' => ['Obat pertanian', '1-1402', '5-1400'],
-        'habis_pakai' => ['Barang habis pakai', '1-1404', '5-1300'],
-        'hasil_panen' => ['Hasil panen', '1-1403', '5-1200'],
-        'lainnya' => ['Lainnya', '1-1404', '5-3900'],
+        'bahan_pangan' => ['Bahan pangan', '11810000', '52110000'],
+        'bibit_benih' => ['Bibit & benih', '11820000', '52250000'],
+        'pupuk' => ['Pupuk', '11820000', '52250000'],
+        'pakan' => ['Pakan', '11820000', '52240000'],
+        'obat_pertanian' => ['Obat pertanian', '11820000', '52250000'],
+        'habis_pakai' => ['Barang habis pakai', '11840000', '52140000'],
+        'hasil_panen' => ['Hasil panen', '11830000', '52110000'],
+        'lainnya' => ['Lainnya', '11840000', '89000000'],
     ],
 
     // PRD 9.16: generator jurnal otomatis bulanan saat tutup periode (key => kelas)

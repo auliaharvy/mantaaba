@@ -53,7 +53,7 @@ class EventController extends Controller
     public function calendar(Request $request)
     {
         $data = $request->validate(['start' => 'required|date', 'end' => 'required|date']);
-        $colors = ['kajian_tajug' => '#5B3A1F', 'sedulur_selawase' => '#8A2D1E', 'kelas' => '#2563eb', 'kegiatan_umum' => '#C9A04A', 'open_house' => '#16a34a', 'lainnya' => '#6b7280'];
+        $colors = ['kajian_tajug' => '#1E4D3A', 'sedulur_selawase' => '#A84B24', 'kelas' => '#2563eb', 'kegiatan_umum' => '#C9A04A', 'open_house' => '#16a34a', 'lainnya' => '#6b7280'];
 
         return Event::whereBetween('starts_at', [$data['start'], $data['end']])->get()->map(fn (Event $e) => [
             'id' => $e->id, 'title' => $e->title, 'start' => $e->starts_at->toIso8601String(), 'end' => $e->ends_at->toIso8601String(),

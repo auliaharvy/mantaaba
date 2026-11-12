@@ -57,16 +57,15 @@ class FinanceReportTest extends TestCase
         return $poster->post($journal, $this->approver);
     }
 
-    /** Transaksi beragam: penyusutan, utang, piutang, donasi terikat + pembebasan. */
+    /** Transaksi beragam: beban, donasi, utang, piutang (COA Mantaaba tidak memisahkan dana terikat). */
     private function scenario(): void
     {
         $date = today()->toDateString();
-        $this->posted('BPV', $date, [['coa_account_id' => $this->acc('5-1300'), 'debit' => 650000, 'cost_center_id' => $this->cc('ASR')], ['coa_account_id' => $this->acc('1-1201'), 'credit' => 650000]]);
-        $this->posted('BRV', $date, [['coa_account_id' => $this->acc('1-1202'), 'debit' => 3000000], ['coa_account_id' => $this->acc('4-1200'), 'credit' => 3000000, 'cost_center_id' => $this->cc('PND')]]);
-        $this->posted('MJV', $date, [['coa_account_id' => $this->acc('3-2100'), 'debit' => 1000000], ['coa_account_id' => $this->acc('4-9000'), 'credit' => 1000000, 'cost_center_id' => $this->cc('PND')]]);
+        $this->posted('BPV', $date, [['coa_account_id' => $this->acc('52230000'), 'debit' => 650000, 'cost_center_id' => $this->cc('ASR')], ['coa_account_id' => $this->acc('11220000'), 'credit' => 650000]]);
+        $this->posted('BRV', $date, [['coa_account_id' => $this->acc('11210000'), 'debit' => 3000000], ['coa_account_id' => $this->acc('43000000'), 'credit' => 3000000, 'cost_center_id' => $this->cc('PND')]]);
         $party = \App\Models\Party::first()->id;
-        $this->posted('PJV', $date, [['coa_account_id' => $this->acc('1-1401'), 'debit' => 300000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('2-1100'), 'credit' => 300000, 'party_id' => $party]]);
-        $this->posted('RJV', $date, [['coa_account_id' => $this->acc('1-1301'), 'debit' => 200000, 'party_id' => $party], ['coa_account_id' => $this->acc('4-2100'), 'credit' => 200000, 'cost_center_id' => $this->cc('KBN')]]);
+        $this->posted('PJV', $date, [['coa_account_id' => $this->acc('11810000'), 'debit' => 300000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('21100000'), 'credit' => 300000, 'party_id' => $party]]);
+        $this->posted('RJV', $date, [['coa_account_id' => $this->acc('11400000'), 'debit' => 200000, 'party_id' => $party], ['coa_account_id' => $this->acc('79000000'), 'credit' => 200000, 'cost_center_id' => $this->cc('KBN')]]);
     }
 
     public function test_position_balances_and_cash_flow_reconciles_on_every_date()
@@ -94,12 +93,12 @@ class FinanceReportTest extends TestCase
         $p = FinancialReports::position($to);
         $this->assertSame(Money::cents(51000000 + 2500000 - 650000 + 3000000 + 300000 + 200000), $p['totals']['assets']);
         $this->assertSame(Money::cents(2000000 + 300000), $p['totals']['liabilities']);
-        $this->assertSame(Money::cents(49000000 + 2500000 - 650000 + 1000000 + 200000), $p['totals']['unrestricted'], 'tanpa pembatasan: saldo + donasi umum − listrik + pembebasan + penjualan');
-        $this->assertSame(Money::cents(3000000 - 1000000), $p['totals']['restricted'], 'dengan pembatasan: donasi pendidikan − dibebaskan');
+        $this->assertSame(Money::cents(49000000 + 2500000 - 650000 + 3000000 + 200000), $p['totals']['unrestricted'], 'saldo + donasi − listrik + donasi pendidikan + penjualan');
+        $this->assertSame(0, $p['totals']['restricted'], 'COA Mantaaba: tidak ada akun dengan pembatasan');
 
         $a = FinancialReports::activities($from, $to);
-        $this->assertSame(Money::cents(2500000 + 1000000 + 200000 - 650000), $a['surplusTanpa']);
-        $this->assertSame(Money::cents(3000000 - 1000000), $a['surplusDengan']);
+        $this->assertSame(Money::cents(2500000 + 3000000 + 200000 - 650000), $a['surplusTanpa']);
+        $this->assertSame(0, $a['surplusDengan']);
 
         $flow = FinancialReports::cashFlow($from, $to);
         $this->assertSame(Money::cents(36000000), $flow['opening'], 'saldo awal pembukuan = kas awal');
@@ -127,15 +126,15 @@ class FinanceReportTest extends TestCase
         $this->actingAs(User::where('email', 'anggota@mail.com')->first())->get(route('report.show', 'posisi'))->assertForbidden();
         $this->actingAs($user)->get(route('report.show', 'tidak-ada'))->assertNotFound();
         // drill-down ke buku besar
-        $this->actingAs($user)->get(route('report.show', 'posisi'))->assertSee(route('ledger.index', ['account' => $this->acc('1-1101'), 'from' => today()->startOfYear()->toDateString(), 'to' => today()->toDateString()]));
+        $this->actingAs($user)->get(route('report.show', 'posisi'))->assertSee(route('ledger.index', ['account' => $this->acc('11110000'), 'from' => today()->startOfYear()->toDateString(), 'to' => today()->toDateString()]));
     }
 
     public function test_budget_is_a_soft_stop()
     {
-        Budget::updateOrCreate(['year' => today()->year, 'coa_account_id' => $this->acc('5-1300'), 'cost_center_id' => $this->cc('ASR')], ['amount' => 1000000]);
+        Budget::updateOrCreate(['year' => today()->year, 'coa_account_id' => $this->acc('52230000'), 'cost_center_id' => $this->cc('ASR')], ['amount' => 1000000]);
         $poster = app(JournalPoster::class);
         $journal = $poster->saveDraft(['voucher_type' => 'BPV', 'date' => today()->toDateString(), 'description' => 'Listrik'],
-            [['coa_account_id' => $this->acc('5-1300'), 'debit' => 1500000, 'cost_center_id' => $this->cc('ASR')], ['coa_account_id' => $this->acc('1-1201'), 'credit' => 1500000]], $this->maker);
+            [['coa_account_id' => $this->acc('52230000'), 'debit' => 1500000, 'cost_center_id' => $this->cc('ASR')], ['coa_account_id' => $this->acc('11220000'), 'credit' => 1500000]], $this->maker);
         $journal->forceFill(['attachments' => [['path' => 'journals/x.pdf', 'name' => 'x.pdf']]])->save();
 
         $this->actingAs($this->maker)->post(route('journal.submit', $journal))->assertSessionHasErrors('budget');
@@ -146,7 +145,7 @@ class FinanceReportTest extends TestCase
         $this->actingAs($this->approver)->get(route('journal.show', $journal))->assertSee('melebihi anggaran');
 
         $poster->post($journal->fresh(), $this->approver);
-        $row = FinancialReports::budgetRealization(today()->year)->first(fn ($r) => $r['budget']->coa_account_id === $this->acc('5-1300'));
+        $row = FinancialReports::budgetRealization(today()->year)->first(fn ($r) => $r['budget']->coa_account_id === $this->acc('52230000'));
         $this->assertSame(150.0, $row['percent']);
         $this->actingAs($this->approver)->get(route('budget.index'))->assertOk()->assertSee('150%');
     }
@@ -222,8 +221,8 @@ class FakeMonthlyJournal
     {
         $date = \Illuminate\Support\Carbon::create($period->year, $period->month)->endOfMonth()->toDateString();
         $journal = app(JournalPoster::class)->createSystem('AJV', $date, 'Penyesuaian uji', [
-            ['coa_account_id' => CoaAccount::byCode('5-1300')->id, 'debit' => 1000, 'cost_center_id' => CostCenter::byCode('ASR')->id],
-            ['coa_account_id' => CoaAccount::byCode('1-1500')->id, 'credit' => 1000],
+            ['coa_account_id' => CoaAccount::byCode('52230000')->id, 'debit' => 1000, 'cost_center_id' => CostCenter::byCode('ASR')->id],
+            ['coa_account_id' => CoaAccount::byCode('11900000')->id, 'credit' => 1000],
         ], $user, "monthly:uji", $period->id);
 
         return $journal;

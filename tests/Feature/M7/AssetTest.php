@@ -44,20 +44,20 @@ class AssetTest extends TestCase
     public function test_register_asset_creates_acquisition_voucher_and_private_documents()
     {
         $this->actingAs($this->staff)->post(route('asset.store'), [
-            'name' => 'Laptop admin', 'category' => 'elektronik', 'condition' => 'baik', 'source' => 'beli', 'acquired_at' => today()->toDateString(),
+            'name' => 'Laptop admin', 'category' => 'perkantoran', 'condition' => 'baik', 'source' => 'beli', 'acquired_at' => today()->toDateString(),
             'acquisition_value' => 7200000, 'recording' => 'tunai', 'documents' => [UploadedFile::fake()->create('nota.pdf', 20, 'application/pdf')],
         ])->assertSessionHasNoErrors();
         $asset = Asset::where('name', 'Laptop admin')->firstOrFail();
-        $this->assertSame('AST-ELK-001', $asset->code);
+        $this->assertSame('AST-KTR-001', $asset->code);
         $this->assertSame(48, $asset->useful_life_months, 'umur bawaan kategori');
         $this->assertSame(['CPV', 'diajukan'], [$asset->journal->voucher_type, $asset->journal->status]);
-        $this->assertSame(['1-2500', '1-1101'], $asset->journal->lines->map(fn ($l) => $l->account->code)->all());
+        $this->assertSame(['12140000', '11110000'], $asset->journal->lines->map(fn ($l) => $l->account->code)->all());
         $this->assertSame($asset->id, $asset->journal->lines->first()->asset_id);
         auth()->logout();
         $this->get(route('asset.document', [$asset, 0]))->assertRedirect('/login');
         $this->actingAs($this->staff)->get(route('asset.document', [$asset, 0]))->assertOk();
         $this->actingAs(User::where('email', 'anggota@mail.com')->first())->get(route('asset.show', $asset))->assertForbidden();
-        $this->actingAs($this->staff)->post(route('asset.store'), ['name' => 'X', 'category' => 'mebel', 'condition' => 'baik', 'source' => 'beli',
+        $this->actingAs($this->staff)->post(route('asset.store'), ['name' => 'X', 'category' => 'tajug_asrama', 'condition' => 'baik', 'source' => 'beli',
             'acquired_at' => today()->toDateString(), 'acquisition_value' => 1000, 'recording' => 'kredit'])->assertSessionHasErrors('party_id');
 
         // label QR banyak sekaligus
@@ -80,7 +80,7 @@ class AssetTest extends TestCase
         $usage->refresh();
         $this->assertSame(['kembali', 48], [$usage->status, $usage->distance()]);
         $this->assertSame(84080, $car->vehicle->fresh()->last_odometer);
-        $this->assertSame(['CPV', '5-2100', 'KND'], [$usage->journal->voucher_type, $usage->journal->lines[0]->account->code, $usage->journal->lines[0]->costCenter->code]);
+        $this->assertSame(['CPV', '52210000', 'KND'], [$usage->journal->voucher_type, $usage->journal->lines[0]->account->code, $usage->journal->lines[0]->costCenter->code]);
         $this->assertNotEmpty($usage->journal->attachments, 'struk menjadi lampiran voucher');
 
         $summary = AssetService::vehicleSummary($car->fresh());
@@ -117,9 +117,9 @@ class AssetTest extends TestCase
         $this->assertFalse(Journal::where('source_type', 'monthly:depreciation')->get()->flatMap->lines->contains('asset_id', $land->id), 'tanah tidak pernah dijurnal');
 
         // pelepasan: jual 250.000 → Dr akumulasi 900.000 + kas 250.000, Cr aset 1.000.000, untung 150.000
-        $journal = app(AssetService::class)->dispose($asset, today()->toDateString(), 'Dijual', 250000, \App\Models\CoaAccount::byCode('1-1101')->id, $this->staff);
+        $journal = app(AssetService::class)->dispose($asset, today()->toDateString(), 'Dijual', 250000, \App\Models\CoaAccount::byCode('11110000')->id, $this->staff);
         $this->assertSame('CRV', $journal->voucher_type);
-        $gain = $journal->lines->first(fn ($l) => $l->account->code === '4-3100');
+        $gain = $journal->lines->first(fn ($l) => $l->account->code === '79000000');
         $this->assertSame('150000.00', $gain->credit);
         $this->assertSame('dilepas', $asset->fresh()->condition);
     }
@@ -154,7 +154,7 @@ class AssetTest extends TestCase
         $this->assertSame([85000, 85000], [$vehicle->last_service_km, $vehicle->last_odometer]);
         $this->assertSame(90000, $vehicle->nextService()['km']);
         $record = $car->maintenances()->first();
-        $this->assertSame('5-2100', $record->journal->lines[0]->account->code);
+        $this->assertSame('52210000', $record->journal->lines[0]->account->code);
         $this->actingAs($this->staff)->post(route('asset.maintenance', $car), ['date' => today()->toDateString(), 'type' => 'pajak', 'description' => 'Pajak tahunan',
             'cost' => 2100000, 'next_due_at' => today()->addYear()->toDateString()])->assertSessionHasNoErrors();
         $this->assertTrue($car->vehicle->fresh()->tax_due_at->isSameDay(today()->addYear()));
@@ -163,9 +163,9 @@ class AssetTest extends TestCase
     public function test_opening_balance_wizard_is_prefilled_from_asset_register()
     {
         $suggested = \App\Http\Controllers\OpeningBalanceController::assetSuggestions();
-        $vehicleAccount = \App\Models\CoaAccount::byCode('1-2300')->id;
+        $vehicleAccount = \App\Models\CoaAccount::byCode('12200000')->id;
         $this->assertSame('180000000.00', $suggested[$vehicleAccount]);
-        $this->assertSame('27500000.00', $suggested[\App\Models\CoaAccount::byCode('1-2903')->id]);
+        $this->assertSame('27500000.00', $suggested[\App\Models\CoaAccount::byCode('12210000')->id]);
         // motor dibeli dengan voucher → tidak ikut saldo awal (nilai akun kendaraan hanya Avanza)
         Journal::where('source_type', 'opening_balance')->update(['status' => 'dibalik']);
         $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->get(route('opening.show'))->assertOk()->assertSee('180000000.00');

@@ -19,7 +19,7 @@ class Setting extends Model
     /** Template unduhan pendaftaran (disk public; dokumen kosong, bukan data pribadi). */
     public const TEMPLATES = ['parent_consent_template', 'integrity_pact_template'];
 
-    public const COLORS = ['color_primary' => '#5B3A1F', 'color_secondary' => '#C9A04A', 'color_accent' => '#8A2D1E', 'color_surface' => '#F7F1E6'];
+    public const COLORS = ['color_primary' => '#1E4D3A', 'color_secondary' => '#C9A04A', 'color_accent' => '#A84B24', 'color_surface' => '#F4F7F3'];
 
     public const DEFAULT_WEIGHTS = ['knowledge' => 20, 'skill' => 25, 'character' => 30, 'social' => 25];
 

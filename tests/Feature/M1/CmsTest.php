@@ -166,7 +166,7 @@ class CmsTest extends TestCase
 
     public function test_color_setting_changes_site_css_variables()
     {
-        $this->get('/')->assertSee('--color-primary:91 58 31', false);
+        $this->get('/')->assertSee('--color-primary:30 77 58', false);
         $this->actingAs($this->pengurus())->patch(route('setting.update'), self::settingPayload(['color_primary' => '#112233']))->assertSessionHasNoErrors();
         $this->get('/')->assertSee('--color-primary:17 34 51', false);
 

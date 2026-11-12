@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('og_image')->nullable();
             $table->string('meta_description', 300)->nullable();
             // Tampilan (PRD 7.1)
-            $table->string('color_primary', 7)->default('#5B3A1F');
+            $table->string('color_primary', 7)->default('#1E4D3A');
             $table->string('color_secondary', 7)->default('#C9A04A');
-            $table->string('color_accent', 7)->default('#8A2D1E');
-            $table->string('color_surface', 7)->default('#F7F1E6');
+            $table->string('color_accent', 7)->default('#A84B24');
+            $table->string('color_surface', 7)->default('#F4F7F3');
             // Kontak
             $table->string('address')->nullable();
             $table->string('village')->nullable();

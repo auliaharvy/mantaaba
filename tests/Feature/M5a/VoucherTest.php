@@ -51,8 +51,8 @@ class VoucherTest extends TestCase
         return array_merge([
             'voucher_type' => 'CPV', 'date' => today()->toDateString(), 'description' => 'Belanja bahan dapur',
             'lines' => $lines ?? [
-                ['coa_account_id' => $this->acc('1-1401'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
-                ['coa_account_id' => $this->acc('1-1101'), 'credit' => 100000],
+                ['coa_account_id' => $this->acc('11810000'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
+                ['coa_account_id' => $this->acc('11110000'), 'credit' => 100000],
             ],
             'attachments' => [UploadedFile::fake()->create('nota.pdf', 50, 'application/pdf')],
         ], $override);
@@ -85,15 +85,15 @@ class VoucherTest extends TestCase
     public function test_unbalanced_voucher_shows_difference_and_attachment_is_required()
     {
         $this->actingAs($this->maker)->post(route('journal.store'), $this->payload(['action' => 'submit'], [
-            ['coa_account_id' => $this->acc('1-1401'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
-            ['coa_account_id' => $this->acc('1-1101'), 'credit' => 90000],
+            ['coa_account_id' => $this->acc('11810000'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
+            ['coa_account_id' => $this->acc('11110000'), 'credit' => 90000],
         ]))->assertSessionHasErrors(['lines' => 'Total debit dan kredit tidak seimbang (selisih Rp 10.000).']);
 
         $this->actingAs($this->maker)->post(route('journal.store'), $this->payload(['action' => 'submit', 'attachments' => []]))->assertSessionHasErrors('attachments');
         $this->assertSame(2, Journal::where('description', 'Belanja bahan dapur')->where('status', 'draft')->count(), 'draf tetap tersimpan');
         $this->actingAs($this->maker)->postJson(route('journal.store'), $this->payload(['action' => 'submit'], [
-            ['coa_account_id' => $this->acc('1-1401'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
-            ['coa_account_id' => $this->acc('1-1101'), 'credit' => 90000],
+            ['coa_account_id' => $this->acc('11810000'), 'debit' => 100000, 'cost_center_id' => $this->cc('DPR')],
+            ['coa_account_id' => $this->acc('11110000'), 'credit' => 90000],
         ]))->assertStatus(422)->assertJsonFragment(['Total debit dan kredit tidak seimbang (selisih Rp 10.000).']);
     }
 
@@ -102,7 +102,7 @@ class VoucherTest extends TestCase
         $admin = User::where('email', 'superadmin@mail.com')->firstOrFail();
         $poster = app(JournalPoster::class);
         $journal = $poster->saveDraft(['voucher_type' => 'CPV', 'date' => today()->toDateString(), 'description' => 'SA'], [
-            ['coa_account_id' => $this->acc('5-3100'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]], $admin);
+            ['coa_account_id' => $this->acc('52310000'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]], $admin);
         $journal->forceFill(['attachments' => [['path' => 'x', 'name' => 'x']]])->save();
         $poster->submit($journal, $admin);
 
@@ -113,14 +113,14 @@ class VoucherTest extends TestCase
 
     public function test_closed_period_rejects_submit_and_post()
     {
-        $journal = $this->draft([['coa_account_id' => $this->acc('1-1401'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]]);
+        $journal = $this->draft([['coa_account_id' => $this->acc('11810000'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]]);
         $journal->save();
         app(JournalPoster::class)->submit($journal, $this->maker);
         FiscalPeriod::forDate(today())->update(['status' => 'closed']);
 
         $this->actingAs($this->approver)->post(route('journal.post', $journal))->assertSessionHasErrors('date');
         $this->assertSame('diajukan', $journal->fresh()->status);
-        $other = $this->draft([['coa_account_id' => $this->acc('1-1401'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]]);
+        $other = $this->draft([['coa_account_id' => $this->acc('11810000'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]]);
         $other->save();
         $this->expectException(ValidationException::class);
         app(JournalPoster::class)->submit($other, $this->maker);
@@ -129,18 +129,18 @@ class VoucherTest extends TestCase
     public function test_rules_for_each_of_eight_voucher_types()
     {
         $toko = Party::where('name', 'Toko Berkah')->firstOrFail();
-        $expense = ['coa_account_id' => $this->acc('5-3100'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')];
-        $income = ['coa_account_id' => $this->acc('4-3100'), 'credit' => 1000, 'cost_center_id' => $this->cc('UMUM')];
+        $expense = ['coa_account_id' => $this->acc('52310000'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')];
+        $income = ['coa_account_id' => $this->acc('79000000'), 'credit' => 1000, 'cost_center_id' => $this->cc('UMUM')];
         $cases = [
             // [tipe, baris tidak valid, baris valid]
-            'BPV' => [[$expense, ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('1-1201'), 'credit' => 1000]]],
-            'BRV' => [[['coa_account_id' => $this->acc('1-1101'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('1-1201'), 'debit' => 1000], $income]],
-            'CPV' => [[$expense, ['coa_account_id' => $this->acc('1-1201'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]]],
-            'CRV' => [[['coa_account_id' => $this->acc('1-1201'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('1-1101'), 'debit' => 1000], $income]],
-            'RJV' => [[['coa_account_id' => $this->acc('1-1101'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('1-1301'), 'debit' => 1000, 'party_id' => $toko->id], $income]],
-            'PJV' => [[$expense, ['coa_account_id' => $this->acc('1-1201'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('2-1100'), 'credit' => 1000, 'party_id' => $toko->id]]],
-            'MJV' => [[$expense, ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]]],
-            'AJV' => [[$expense, ['coa_account_id' => $this->acc('1-1201'), 'credit' => 1000]], [['coa_account_id' => $this->acc('5-2300'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $this->acc('1-2904'), 'credit' => 1000]]],
+            'BPV' => [[$expense, ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('11220000'), 'credit' => 1000]]],
+            'BRV' => [[['coa_account_id' => $this->acc('11110000'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('11220000'), 'debit' => 1000], $income]],
+            'CPV' => [[$expense, ['coa_account_id' => $this->acc('11220000'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]]],
+            'CRV' => [[['coa_account_id' => $this->acc('11220000'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('11110000'), 'debit' => 1000], $income]],
+            'RJV' => [[['coa_account_id' => $this->acc('11110000'), 'debit' => 1000], $income], [['coa_account_id' => $this->acc('11400000'), 'debit' => 1000, 'party_id' => $toko->id], $income]],
+            'PJV' => [[$expense, ['coa_account_id' => $this->acc('11220000'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('21100000'), 'credit' => 1000, 'party_id' => $toko->id]]],
+            'MJV' => [[$expense, ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]], [$expense, ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]]],
+            'AJV' => [[$expense, ['coa_account_id' => $this->acc('11220000'), 'credit' => 1000]], [['coa_account_id' => $this->acc('68000000'), 'debit' => 1000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $this->acc('12191000'), 'credit' => 1000]]],
         ];
         $poster = app(JournalPoster::class);
         foreach ($cases as $type => [$invalid, $valid]) {
@@ -168,10 +168,10 @@ class VoucherTest extends TestCase
     {
         $poster = app(JournalPoster::class);
         $cases = [
-            'header' => [['coa_account_id' => $this->acc('1-1100'), 'debit' => 1000], ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]],
-            'piutang tanpa pihak' => [['coa_account_id' => $this->acc('1-1302'), 'debit' => 1000], ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]],
-            'beban tanpa pusat biaya' => [['coa_account_id' => $this->acc('5-3100'), 'debit' => 1000], ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]],
-            'debit dan kredit di satu baris' => [['coa_account_id' => $this->acc('1-1401'), 'debit' => 1000, 'credit' => 1000], ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]],
+            'header' => [['coa_account_id' => $this->acc('11100000'), 'debit' => 1000], ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]],
+            'piutang tanpa pihak' => [['coa_account_id' => $this->acc('11500000'), 'debit' => 1000], ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]],
+            'beban tanpa pusat biaya' => [['coa_account_id' => $this->acc('52310000'), 'debit' => 1000], ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]],
+            'debit dan kredit di satu baris' => [['coa_account_id' => $this->acc('11810000'), 'debit' => 1000, 'credit' => 1000], ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]],
         ];
         foreach ($cases as $label => $lines) {
             try {
@@ -181,16 +181,16 @@ class VoucherTest extends TestCase
                 $this->addToAssertionCount(1);
             }
         }
-        CoaAccount::byCode('1-1404')->update(['is_active' => false]);
+        CoaAccount::byCode('11840000')->update(['is_active' => false]);
         $this->expectException(ValidationException::class);
-        $poster->validate($this->draftAs('MJV', [['coa_account_id' => $this->acc('1-1401'), 'debit' => 1000], ['coa_account_id' => $this->acc('1-1404'), 'credit' => 1000]]));
+        $poster->validate($this->draftAs('MJV', [['coa_account_id' => $this->acc('11810000'), 'debit' => 1000], ['coa_account_id' => $this->acc('11840000'), 'credit' => 1000]]));
     }
 
     public function test_posted_voucher_is_immutable_and_reversal_restores_balance()
     {
-        $kas = $this->acc('1-1101');
+        $kas = $this->acc('11110000');
         $before = Ledger::balanceCents($kas, today()->toDateString());
-        $journal = $this->draft([['coa_account_id' => $this->acc('5-3100'), 'debit' => 250000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $kas, 'credit' => 250000]]);
+        $journal = $this->draft([['coa_account_id' => $this->acc('52310000'), 'debit' => 250000, 'cost_center_id' => $this->cc('UMUM')], ['coa_account_id' => $kas, 'credit' => 250000]]);
         $journal->save();
         app(JournalPoster::class)->submit($journal, $this->maker);
         app(JournalPoster::class)->post($journal, $this->approver);
@@ -212,7 +212,7 @@ class VoucherTest extends TestCase
     public function test_numbers_have_no_gaps_when_drafts_are_rejected_or_deleted()
     {
         $poster = app(JournalPoster::class);
-        $lines = fn () => [['coa_account_id' => $this->acc('1-1401'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('1-1101'), 'credit' => 1000]];
+        $lines = fn () => [['coa_account_id' => $this->acc('11810000'), 'debit' => 1000, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $this->acc('11110000'), 'credit' => 1000]];
         $make = function () use ($poster, $lines) {
             $j = $this->draft($lines());
             $j->save();
@@ -233,9 +233,9 @@ class VoucherTest extends TestCase
 
     public function test_cash_cannot_go_negative()
     {
-        $kas = $this->acc('1-1102');
+        $kas = $this->acc('11130000');
         $balance = Ledger::balanceCents($kas, today()->toDateString()) / 100;
-        $journal = $this->draft([['coa_account_id' => $this->acc('5-1200'), 'debit' => $balance + 1, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $kas, 'credit' => $balance + 1]]);
+        $journal = $this->draft([['coa_account_id' => $this->acc('52110000'), 'debit' => $balance + 1, 'cost_center_id' => $this->cc('DPR')], ['coa_account_id' => $kas, 'credit' => $balance + 1]]);
         $journal->save();
         app(JournalPoster::class)->submit($journal, $this->maker);
         $this->actingAs($this->approver)->post(route('journal.post', $journal))->assertSessionHasErrors('lines');
@@ -245,7 +245,7 @@ class VoucherTest extends TestCase
     public function test_random_balanced_vouchers_keep_trial_balance_balanced()
     {
         $poster = app(JournalPoster::class);
-        $expenses = ['5-1100', '5-1200', '5-1300', '5-3100', '5-3200'];
+        $expenses = ['52390000', '52110000', '52230000', '52310000', '52270000'];
         mt_srand(2026);
         for ($i = 0; $i < 25; $i++) {
             $amount = mt_rand(1, 5000) * 100 + mt_rand(0, 99) / 100;
@@ -253,7 +253,7 @@ class VoucherTest extends TestCase
             $lines = [
                 ['coa_account_id' => $this->acc($expenses[array_rand($expenses)]), 'debit' => $split, 'cost_center_id' => $this->cc('UMUM')],
                 ['coa_account_id' => $this->acc($expenses[array_rand($expenses)]), 'debit' => round($amount - $split, 2), 'cost_center_id' => $this->cc('PND')],
-                ['coa_account_id' => $this->acc('1-1201'), 'credit' => $amount],
+                ['coa_account_id' => $this->acc('11220000'), 'credit' => $amount],
             ];
             $j = $this->draft(array_values(array_filter($lines, fn ($l) => ($l['debit'] ?? 1) > 0)), 'BPV');
             $j->save();
@@ -268,14 +268,14 @@ class VoucherTest extends TestCase
     {
         Journal::query()->delete();
         $admin = User::where('email', 'superadmin@mail.com')->firstOrFail();
-        $payload = ['date' => today()->startOfYear()->toDateString(), 'amounts' => [$this->acc('1-1101') => 1000000, $this->acc('3-1100') => 900000]];
+        $payload = ['date' => today()->startOfYear()->toDateString(), 'amounts' => [$this->acc('11110000') => 1000000, $this->acc('31000000') => 900000]];
         $this->actingAs($admin)->post(route('opening.store'), $payload)->assertSessionHasErrors('lines');
-        $payload['amounts'][$this->acc('3-1100')] = 800000;
-        $payload['party_rows'] = [['coa_account_id' => $this->acc('2-1100'), 'party_id' => Party::first()->id, 'amount' => 200000]];
+        $payload['amounts'][$this->acc('31000000')] = 800000;
+        $payload['party_rows'] = [['coa_account_id' => $this->acc('21100000'), 'party_id' => Party::first()->id, 'amount' => 200000]];
         $this->actingAs($admin)->post(route('opening.store'), $payload)->assertSessionHasNoErrors();
         $opening = Journal::where('source_type', 'opening_balance')->firstOrFail();
         $this->assertSame('terposting', $opening->status);
-        $this->assertSame(100000000, Ledger::balanceCents($this->acc('1-1101'), today()->toDateString()));
+        $this->assertSame(100000000, Ledger::balanceCents($this->acc('11110000'), today()->toDateString()));
         $this->actingAs($admin)->post(route('opening.store'), $payload)->assertStatus(422);
         $this->actingAs($this->maker)->get(route('opening.show'))->assertForbidden();
     }
@@ -287,12 +287,12 @@ class VoucherTest extends TestCase
         $this->actingAs($this->maker)->post(route('journal.from-health', $health))->assertRedirect();
         $journal = Journal::where('source_id', $health->id)->where('source_type', $health->getMorphClass())->firstOrFail();
         $this->assertSame(['CPV', 'draft'], [$journal->voucher_type, $journal->status]);
-        $this->assertEquals(75000, $journal->lines->firstWhere('coa_account_id', $this->acc('5-1500'))->debit);
+        $this->assertEquals(75000, $journal->lines->firstWhere('coa_account_id', $this->acc('52900000'))->debit);
         $this->actingAs($this->maker)->post(route('journal.from-health', $health))->assertSessionHas('warning');
 
         // akun yang sudah dipakai jurnal tidak bisa diubah tipenya
-        $kas = CoaAccount::byCode('1-1101');
-        $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->patch(route('coa.update', $kas), ['code' => '1-1101', 'name' => 'Kas', 'type' => 'beban'])->assertSessionHasErrors('type');
+        $kas = CoaAccount::byCode('11110000');
+        $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->patch(route('coa.update', $kas), ['code' => '11110000', 'name' => 'Kas', 'type' => 'beban'])->assertSessionHasErrors('type');
         $this->actingAs(User::where('email', 'superadmin@mail.com')->first())->delete(route('coa.destroy', $kas))->assertStatus(422);
 
         // buka ulang periode hanya Super Admin dengan alasan

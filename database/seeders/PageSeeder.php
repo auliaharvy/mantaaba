@@ -11,6 +11,9 @@ use Illuminate\Database\Seeder;
  */
 class PageSeeder extends Seeder
 {
+    /** Foto asli disalin SiteMediaSeeder dari database/seeders/media/mantaaba ke disk public. */
+    private const IMG = 'pages/blocks/';
+
     public function run(): void
     {
         foreach ($this->pages() as $slug => $page) {
@@ -32,14 +35,20 @@ class PageSeeder extends Seeder
                 'blocks' => [
                     $this->block('hero', ['title' => 'Wadah Pembinaan Berbasis Realitas Kehidupan',
                         'subtitle' => 'Program akselerasi karakter & vokasi bisnis terintegrasi selama 6 bulan bagi pemuda lulusan SMA/sederajat — berasrama dan gratis, menuju masyarakat Indonesia yang transparan pajak.',
-                        'overlay' => 55, 'button2_text' => 'Kenali Kami', 'button2_url' => '/tentang'] + $daftar),
+                        'overlay' => 55, 'image' => self::IMG . 'bangunan_mantaaba_2.webp', 'button2_text' => 'Kenali Kami', 'button2_url' => '/tentang'] + $daftar),
                     $this->block('stats', ['items' => [
                         ['value' => '6', 'label' => 'Bulan inkubasi'],
                         ['value' => '5', 'label' => 'Skema kompetensi'],
                         ['value' => '5–6', 'label' => 'Siswa per angkatan'],
                         ['value' => '100%', 'label' => 'Gratis: asrama, makan, kesehatan'],
                     ]]),
-                    $this->block('text', ['title' => 'Selamat Datang', 'body' => '<p>Rumah Mantaaba Sigaling hadir sebagai <strong>Wadah Pembinaan Berbasis Realitas Kehidupan</strong> sekaligus <strong>Program Akselerasi Karakter &amp; Vokasi Bisnis Terintegrasi</strong>. Peserta didik tidak dihadapkan pada simulasi fiktif, melainkan langsung menjalankan ekosistem kehidupan yang mandiri: asrama, kebun, kolam ikan, dan dapur yang dikelola layaknya sebuah perusahaan.</p><p>Kami membina pemuda menjadi <strong>pemimpin peradaban</strong>: hatinya terpaut pada Sang Pencipta, pemikirannya merancang sistem yang mutakhir, dan tangannya tak henti menebar kebermanfaatan.</p>']),
+                    $this->block('image_text', ['image' => self::IMG . 'kbm_1.jpg', 'position' => 'left', 'title' => 'Selamat Datang', 'body' => '<p>Rumah Mantaaba Sigaling hadir sebagai <strong>Wadah Pembinaan Berbasis Realitas Kehidupan</strong> sekaligus <strong>Program Akselerasi Karakter &amp; Vokasi Bisnis Terintegrasi</strong>. Peserta didik tidak dihadapkan pada simulasi fiktif, melainkan langsung menjalankan ekosistem kehidupan yang mandiri: asrama, kebun, kolam ikan, dan dapur yang dikelola layaknya sebuah perusahaan.</p><p>Kami membina pemuda menjadi <strong>pemimpin peradaban</strong>: hatinya terpaut pada Sang Pencipta, pemikirannya merancang sistem yang mutakhir, dan tangannya tak henti menebar kebermanfaatan.</p>']),
+                    $this->block('cards', ['title' => 'Keseharian di Rumah Mantaaba', 'intro' => 'Belajar, beribadah, bekerja, dan berbagi dalam satu ekosistem kehidupan.', 'columns' => '4', 'items' => [
+                        ['image' => self::IMG . 'kbm_3.webp', 'title' => 'Belajar', 'text' => 'Kelas skema kompetensi: komunikasi bisnis, sistem informasi, akuntansi, perpajakan, dan teknologi.'],
+                        ['image' => self::IMG . 'sholat_1.webp', 'title' => 'Beribadah', 'text' => 'Sholat berjamaah dan tadarus di tajug menjadi poros keseharian.'],
+                        ['image' => self::IMG . 'panen_ikan_3.webp', 'title' => 'Panen bersama', 'text' => 'Kolam dan kebun dikelola siswa dari tebar benih hingga panen.'],
+                        ['image' => self::IMG . 'barista_1.webp', 'title' => 'Berwirausaha', 'text' => 'Meracik kopi dan melayani tamu sebagai latihan unit usaha nyata.'],
+                    ]]),
                     $this->block('skemas', ['title' => 'Lima Skema Kompetensi', 'intro' => 'Keterampilan teknis berbasis SKKNI, disusun progresif selama 6 bulan.']),
                     $this->block('units', ['title' => 'Laboratorium Kehidupan', 'intro' => 'Asrama, kebun, kolam ikan, dan dapur adalah arena problem-solving tempat siswa mempraktikkan manajemen, akuntansi, dan komunikasi setiap hari.']),
                     $this->block('latest', ['title' => 'Kabar Terbaru', 'source' => 'berita', 'count' => 3]),
@@ -54,7 +63,7 @@ class PageSeeder extends Seeder
                 'title' => 'Tentang Kami',
                 'excerpt' => 'Wadah pembinaan berbasis realitas kehidupan sekaligus program akselerasi karakter & vokasi bisnis terintegrasi.',
                 'blocks' => [
-                    $this->block('text', ['title' => 'Rumah Mantaaba Sigaling', 'body' => <<<'HTML'
+                    $this->block('image_text', ['image' => self::IMG . 'tadarus_1.webp', 'position' => 'right', 'title' => 'Rumah Mantaaba Sigaling', 'body' => <<<'HTML'
 <p>Rumah Mantaaba Sigaling hadir sebagai antitesis dari model pendidikan konvensional yang sering kali memisahkan teori dari realitas. Peserta didik tidak dihadapkan pada simulasi fiktif atau studi kasus di atas kertas, melainkan langsung menjalankan sebuah ekosistem kehidupan yang mandiri: mengelola dinamika asrama, memastikan ketahanan pangan melalui kebun dan kolam ikan, mengatur anggaran dan gizi di dapur, hingga mengorkestrasi seluruhnya layaknya roda operasional sebuah perusahaan.</p>
 <p>Program ini memadukan <strong>standar kompetensi teknis profesional berbasis SKKNI</strong> — Komunikasi Bisnis, Sistem Informasi Manajemen, Akuntansi yang <em>audit-ready</em>, Perpajakan yang taat hukum, hingga ERP dan kecerdasan buatan — dengan <strong>cara pandang hidup Islami (<em>Tashawwur Islami</em>)</strong>.</p>
 <p>Ilmu bisnis di sini diasah bukan untuk kompetisi yang mematikan pesaing, melainkan sebagai instrumen untuk mengangkat derajat sesama, memberdayakan kaum yang lemah, dan membangun ketahanan ekonomi kolektif demi terwujudnya masyarakat Indonesia yang transparan pajak.</p>

@@ -72,7 +72,7 @@ class OperationsTest extends TestCase
         $this->buy([['item_id' => $beras->id, 'qty' => 10, 'unit_price' => 13000]])->assertSessionHasNoErrors();
         $journal = Journal::where('source_type', 'stock_purchase')->latest('id')->first();
         $this->assertSame(['CPV', 'diajukan'], [$journal->voucher_type, $journal->status]);
-        $this->assertSame(['1-1401', '1-1102'], $journal->lines->map(fn ($l) => $l->account->code)->all());
+        $this->assertSame(['11810000', '11130000'], $journal->lines->map(fn ($l) => $l->account->code)->all());
         $this->assertSame('130000.00', $journal->lines->first()->debit);
         $this->assertEqualsWithDelta($before + 10, StockLedger::balance($beras->id, $this->wh('DPR')->id), 0.0001);
         $this->buy([['item_id' => $beras->id, 'qty' => 1, 'unit_price' => 13000]], 'kredit')->assertSessionHasErrors('party_id');
@@ -143,7 +143,7 @@ class OperationsTest extends TestCase
             'party_id' => \App\Models\Party::first()->id])->assertSessionHasNoErrors();
         $harvest = Harvest::latest('id')->first();
         $this->assertSame(['RJV', 'diajukan'], [$harvest->journal->voucher_type, $harvest->journal->status]);
-        $this->assertSame(['1-1301', '4-2100'], $harvest->journal->lines->map(fn ($l) => $l->account->code)->all());
+        $this->assertSame(['11400000', '79000000'], $harvest->journal->lines->map(fn ($l) => $l->account->code)->all());
         $this->assertSame('KLM', $harvest->journal->lines[1]->costCenter->code);
         $this->assertEqualsWithDelta(0, StockLedger::balance($this->item('Lele')->id), 0.0001, 'panen dijual: masuk lalu keluar');
 
@@ -230,12 +230,12 @@ class OperationsTest extends TestCase
         $this->assertSame('AJV', $journal->voucher_type);
         $this->assertSame($journal->lines->sum(fn ($l) => Money::cents($l->debit)), $journal->lines->sum(fn ($l) => Money::cents($l->credit)));
         // pemakaian dapur → beban konsumsi (DPR); pemakaian kebun → beban produksi bertanda siklus
-        $consumption = $journal->lines->first(fn ($l) => $l->account->code === '5-1200');
+        $consumption = $journal->lines->first(fn ($l) => $l->account->code === '52110000');
         $this->assertSame('DPR', $consumption->costCenter->code);
         $kitchenCost = -StockMove::whereBetween('date', [today()->startOfMonth()->toDateString(), today()->endOfMonth()->toDateString()])
-            ->where('type', 'keluar_pakai')->whereHas('item', fn ($q) => $q->where('expense_account_id', CoaAccount::byCode('5-1200')->id))->get()->sum(fn ($m) => Money::cents($m->total_cost));
+            ->where('type', 'keluar_pakai')->whereHas('item', fn ($q) => $q->where('expense_account_id', CoaAccount::byCode('52110000')->id))->get()->sum(fn ($m) => Money::cents($m->total_cost));
         $this->assertSame($kitchenCost, Money::cents($consumption->debit));
-        $this->assertTrue($journal->lines->contains(fn ($l) => $l->account->code === '5-1400' && $l->farm_cycle_id));
+        $this->assertTrue($journal->lines->contains(fn ($l) => $l->account->code === '52250000' && $l->farm_cycle_id));
 
         // setelah rekap dibuat, mutasi baru di periode itu ditolak
         $this->actingAs($this->staff)->post(route('stock.move'), ['type' => 'keluar_pakai', 'date' => today()->toDateString(), 'item_id' => $this->item('Beras')->id,
@@ -264,7 +264,7 @@ class OperationsTest extends TestCase
 
         $journal = app(\App\Services\StockMonthlyJournal::class)->generate(FiscalPeriod::forDate(today()), $this->treasurer);
         $codes = $journal->lines->map(fn ($l) => $l->account->code);
-        $this->assertTrue($codes->contains('5-3900') && $codes->contains('4-3100'), 'opname kurang → beban lain-lain, lebih → pendapatan lain');
+        $this->assertTrue($codes->contains('89000000') && $codes->contains('79000000'), 'opname kurang → beban lain-lain, lebih → pendapatan lain');
     }
 
     public function test_posting_rules_can_be_changed_by_super_admin_only()
@@ -273,11 +273,11 @@ class OperationsTest extends TestCase
         $this->actingAs($this->staff)->get(route('posting-rule.edit'))->assertForbidden();
         $this->actingAs($admin)->get(route('posting-rule.edit'))->assertOk()->assertSee('Pembelian stok tunai');
         $rules = collect(config('mantaaba.posting_rule_labels'))->keys()->mapWithKeys(fn ($k) => [str_replace('.', '__', $k) => config("mantaaba.posting_rules.{$k}")])->all();
-        $rules['purchase__cash'] = '1-1101';
+        $rules['purchase__cash'] = '11110000';
         $this->actingAs($admin)->put(route('posting-rule.update'), ['rules' => $rules])->assertSessionHasNoErrors();
-        $this->assertSame(['purchase.cash' => '1-1101'], Setting::current()->posting_accounts);
+        $this->assertSame(['purchase.cash' => '11110000'], Setting::current()->posting_accounts);
         $this->buy([['item_id' => $this->item('Beras')->id, 'qty' => 1, 'unit_price' => 1000]]);
-        $this->assertSame('1-1101', Journal::where('source_type', 'stock_purchase')->latest('id')->first()->lines->last()->account->code);
+        $this->assertSame('11110000', Journal::where('source_type', 'stock_purchase')->latest('id')->first()->lines->last()->account->code);
     }
 
     public function test_pages_render()

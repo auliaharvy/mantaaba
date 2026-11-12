@@ -44,7 +44,7 @@ class DonationService
                     'transfer' => 'Pilih rekening bank penerima.', 'tunai' => 'Pilih akun kas penerima.', default => 'Pilih akun persediaan/aset untuk barang donasi.'}]);
             }
             $party = $donation->party ?? $this->partyFor($donation);
-            $revenue = $donation->kind === 'barang' ? '4-1300' : (Donation::PURPOSES[$donation->purpose][1] ?? '4-1100');
+            $revenue = $donation->kind === 'barang' ? '49000000' : (Donation::PURPOSES[$donation->purpose][1] ?? '43000000');
             $center = CostCenter::byCode($donation->purpose === 'pangan' ? 'DPR' : ($donation->purpose === 'umum' ? 'UMUM' : 'PND'))?->id;
             $year = $donation->transferred_at->year;
             $last = Donation::where('receipt_number', 'like', "DON-{$year}-%")->lockForUpdate()->max('receipt_number');

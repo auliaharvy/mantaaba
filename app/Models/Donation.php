@@ -17,11 +17,11 @@ class Donation extends Model
 
     /** Peruntukan → [label, akun pendapatan]. Umum = tanpa pembatasan [TBD Q10]. */
     public const PURPOSES = [
-        'umum' => ['Umum (operasional)', '4-1100'],
-        'pendidikan' => ['Pendidikan', '4-1200'],
-        'pangan' => ['Pangan', '4-1200'],
-        'pembangunan' => ['Pembangunan', '4-1200'],
-        'wakaf' => ['Wakaf', '4-1400'],
+        'umum' => ['Umum (operasional)', '43000000'],
+        'pendidikan' => ['Pendidikan', '43000000'],
+        'pangan' => ['Pangan', '43000000'],
+        'pembangunan' => ['Pembangunan', '43000000'],
+        'wakaf' => ['Wakaf', '49000000'],
     ];
 
     protected array $logExcept = ['phone', 'email', 'ip'];

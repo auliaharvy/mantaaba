@@ -57,17 +57,17 @@ class DemoVolumeSeeder extends Seeder
         Storage::disk('local')->put('journals/demo/bukti.pdf', "%PDF-1.4\n%demo\n");
         $start = today()->startOfMonth()->subMonth();
         $days = max(1, (int) $start->diffInDays(today()));
-        $expenses = [['5-1300', 'ASR', 'Listrik & air asrama', 450000], ['5-1100', 'PND', 'Modul & alat tulis kelas', 275000], ['5-3200', 'UMUM', 'Paket internet', 350000],
-            ['5-1600', 'PND', 'Konsumsi kajian tajug', 300000], ['5-1500', 'PND', 'Obat P3K', 125000]];
+        $expenses = [['52230000', 'ASR', 'Listrik & air asrama', 450000], ['52390000', 'PND', 'Modul & alat tulis kelas', 275000], ['52270000', 'UMUM', 'Paket internet', 350000],
+            ['69000000', 'PND', 'Konsumsi kajian tajug', 300000], ['52900000', 'PND', 'Obat P3K', 125000]];
         $posted = \App\Models\Journal::where('status', 'terposting')->count();
         for ($i = 0; $posted < 40; $i++) {
             $date = $start->copy()->addDays((int) floor($i * $days / 36))->min(today())->toDateString();
             [$header, $lines] = $i % 2 === 0
-                ? [['voucher_type' => 'BRV', 'date' => $date, 'description' => 'Donasi rutin donatur tetap'], [['coa_account_id' => $acc('1-1202'), 'debit' => 1500000], ['coa_account_id' => $acc($i % 4 ? '4-1100' : '4-1200'), 'credit' => 1500000, 'cost_center_id' => $cc('PND')]]]
+                ? [['voucher_type' => 'BRV', 'date' => $date, 'description' => 'Donasi rutin donatur tetap'], [['coa_account_id' => $acc('11210000'), 'debit' => 1500000], ['coa_account_id' => $acc($i % 4 ? '43000000' : '43000000'), 'credit' => 1500000, 'cost_center_id' => $cc('PND')]]]
                 : (function () use ($expenses, $i, $date, $acc, $cc) {
                     [$code, $center, $text, $amount] = $expenses[intdiv($i, 2) % count($expenses)];
 
-                    return [['voucher_type' => 'BPV', 'date' => $date, 'description' => $text], [['coa_account_id' => $acc($code), 'debit' => $amount, 'cost_center_id' => $cc($center)], ['coa_account_id' => $acc('1-1201'), 'credit' => $amount]]];
+                    return [['voucher_type' => 'BPV', 'date' => $date, 'description' => $text], [['coa_account_id' => $acc($code), 'debit' => $amount, 'cost_center_id' => $cc($center)], ['coa_account_id' => $acc('11220000'), 'credit' => $amount]]];
                 })();
             $journal = $poster->saveDraft($header, $lines, $maker);
             $journal->forceFill(['attachments' => [['path' => 'journals/demo/bukti.pdf', 'name' => 'bukti.pdf']]])->save();

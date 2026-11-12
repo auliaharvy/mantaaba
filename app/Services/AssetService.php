@@ -38,7 +38,7 @@ class AssetService
         return [
             'asset_account_id' => CoaAccount::byCode($asset)->id,
             'accumulated_account_id' => $accumulated ? CoaAccount::byCode($accumulated)->id : null,
-            'expense_account_id' => $accumulated ? CoaAccount::byCode('5-2300')->id : null,
+            'expense_account_id' => $accumulated ? CoaAccount::byCode('68000000')->id : null,
             'useful_life_months' => $life ?: null,
         ];
     }

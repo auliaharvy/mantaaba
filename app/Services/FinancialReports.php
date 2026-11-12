@@ -46,8 +46,8 @@ class FinancialReports
         $accounts = CoaAccount::where('is_header', false)->orderBy('code')->get();
         $row = fn (CoaAccount $a, int $sign) => ['account' => $a, 'amount' => $sign * ($net[$a->id] ?? 0)];
 
-        $current = $accounts->filter(fn ($a) => $a->type === 'aset' && str_starts_with($a->code, '1-1'))->map(fn ($a) => $row($a, 1))->values();
-        $nonCurrent = $accounts->filter(fn ($a) => $a->type === 'aset' && ! str_starts_with($a->code, '1-1'))->map(fn ($a) => $row($a, 1))->values();
+        $current = $accounts->filter(fn ($a) => $a->type === 'aset' && str_starts_with($a->code, '11'))->map(fn ($a) => $row($a, 1))->values();
+        $nonCurrent = $accounts->filter(fn ($a) => $a->type === 'aset' && ! str_starts_with($a->code, '11'))->map(fn ($a) => $row($a, 1))->values();
         $liabilities = $accounts->where('type', 'liabilitas')->map(fn ($a) => $row($a, -1))->values();
         $surplus = self::surplusByRestriction(null, $date);
         $unrestricted = $accounts->filter(fn ($a) => $a->type === 'aset_neto' && $a->restriction !== 'dengan_pembatasan')->map(fn ($a) => $row($a, -1))->values();
